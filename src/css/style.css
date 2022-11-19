@@ -1,0 +1,125 @@
+body{
+    background-image:url('../bkg_imgs/NeuroPAL_v4.5.jpg');
+    background-attachment:fixed;
+    background-position:center;
+    font-family: sans-serif;
+    color: white;
+}
+#main{
+padding:10px;
+border: 2px solid white;
+margin-right: 215px;
+}
+#full{
+border: 2px solid white;
+padding:10px;
+}
+h1{
+font-size:x-large;
+font-variant:small-caps;
+color: white;
+text-align: center;
+}
+h2{
+padding-bottom:0.5em;
+font-style: italic;
+border-bottom: 1px solid white;
+font-size:large;
+color: white;
+}
+h3{
+padding-bottom:0.5em;
+font-style: italic;
+border-bottom: 1px solid white;
+font-size:large;
+color: white;
+text-align: center;
+}
+p+p{
+text-indent:1.5em;
+}
+.float_image{
+float:left;
+border:2px solid white;
+margin-right: 0.5em;
+}
+.cap{
+font-weight:bold;
+font-size:large;
+}
+#sidebar{
+float:right;
+width:200px;
+border:2px solid white;
+margin:0 5px 0 5px;
+background:white;
+padding:2px;
+font-family:sans-serif;
+}
+.textinput{
+width:100px;
+float:right;
+margin-top:5px;
+}
+label{
+float:left;
+margin-top:5px;
+}
+button{
+border: 2px solid black;
+background-color:#FF9933;
+font-weight:bold;
+float:left;
+margin:10px 5px 0 5px;
+}
+#notice{
+color:red;
+clear:both;
+}
+
+table{
+width:95%;
+border: 1px solid white;
+font-family: sans-serif;
+background-color: rgba(20,20,20,0.7);
+}
+th{
+background-color: rgba(0,0,50,0.6);
+color:white;
+}
+tr td{
+text-align: center;
+padding:2px;
+background-color: rgba(20,20,20,0.6)
+}
+tr.alt td{
+background-color: rgba(32,32,32,0.6)
+}
+tr{
+border-top: 2px solid white;
+}
+strong{
+font-variant:small-caps;
+font-size:x-large;
+}
+a {
+    font-weight: bold;
+    color: cyan;
+}
+
+#login{
+float:center;
+width:300px;
+border:2px solid white;
+margin:0 5px 0 5px;
+background:white;
+padding:2px;
+font-family:sans-serif;
+font-size: x-large;
+color: black;
+}
+.textinput{
+width:100px;
+float:right;
+margin-top:5px;
+}

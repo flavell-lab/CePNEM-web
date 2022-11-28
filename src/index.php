@@ -1,6 +1,6 @@
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/style.css"> 
 <title>CePNEM Data Browser</title>
 </head>
 <body>
@@ -16,7 +16,7 @@
     <p><strong>Neurons</strong></p>
     <form action="load_neuron.php" method="get">
         Display data for the following neuron:
-        <select>
+        <select name="name">
             <?php
                 $matches = file_get_contents('data/matches.json');
                 $decoded_matches = json_decode($matches, true);
@@ -26,8 +26,7 @@
                     echo "<option value=$neuron>$neuron ($num_detections detections)</option>\"";
                 }
             ?>
-        </select>
-        <input type="submit" name="Load" value="Select">
+        </select>&nbsp;<button type="submit">Load</button>
     </form>
 </center>
 

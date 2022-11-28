@@ -7,7 +7,9 @@
 
     # load basic source data (type and redshift)
     $data = file_get_contents("data/$name.json");
-    $type = $data['dataset_type'];
+    $decoded_data = json_decode($data, true);
+
+    $type = $decoded_data['dataset_type'];
 ?>
 
 <html>

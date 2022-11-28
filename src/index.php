@@ -14,18 +14,21 @@
 
 <center>
     <p><strong>Neurons</strong></p>
-    Find all datasets containing the following neuron:
-    <select>
-        <?php
-            $matches = file_get_contents('data/matches.json');
-            $decoded_matches = json_decode($matches, true);
+    <form action="load_neuron.php" method="get">
+        Display data for the following neuron:
+        <select>
+            <?php
+                $matches = file_get_contents('data/matches.json');
+                $decoded_matches = json_decode($matches, true);
 
-            foreach ($decoded_matches as $neuron => $datasets) {
-                $num_detections = count($datasets);
-                echo "<option value=$neuron>$neuron ($num_detections detections)</option>\"";
-            }
-        ?>
-    </select>
+                foreach ($decoded_matches as $neuron => $datasets) {
+                    $num_detections = count($datasets);
+                    echo "<option value=$neuron>$neuron ($num_detections detections)</option>\"";
+                }
+            ?>
+        </select>
+        <input type="submit" name="Load" value="Select">
+    </form>
 </center>
 
 <center>

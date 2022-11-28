@@ -56,7 +56,7 @@
                     echo "<tr class='alt'>";
                 }
 
-                echo "<td> <a href=load_data.php?name=$dataset target = '_blank'> $dataset </a> </td>";
+                echo "<td> <a href=load_dataset.php?name=$dataset target = '_blank'> $dataset </a> </td>";
                 for ($i = 0; $i < count($fields); $i++) {
                     $display_data = $dataset_data[$fields[$i]];
                     echo "<td> $display_data </td>";

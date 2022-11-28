@@ -1,5 +1,5 @@
 <?php
-    $name = $_GET["name"];
+    $name = $_GET['name'];
 
     # Number of images that should be displayed on each row
     $imagesPerRow = 3;
@@ -20,6 +20,6 @@
 <body>
 <p CLASS="centeralign">
 <title> <?php echo "$name: $type";?> </title>
-<h1 style="white-space:nowrap;"> <?php echo "$name";?> </h1>
+<h1 style="white-space:nowrap;"> <?php echo "$name: $type";?> </h1>
 </p>
 

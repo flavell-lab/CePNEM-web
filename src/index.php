@@ -13,42 +13,56 @@
 </h3>
 
 <center>
-<p><strong>Datasets</strong></p>
-<table>
+    <p><strong>Neurons</strong></p>
+    Find all datasets containing the following neuron:
+    <select>
+        <?php
+            $matches = file_get_contents('data/matches.json');
+            foreach ($matches as $neuron => $datasets) {
+                $num_detections = count($datasets)
+                echo "<option value=$neuron ($num_detections detections)</option>";
+            }
+        ?>
+    </select>
+</center>
 
-<?php
-    $data = file_get_contents('data/summary.json');
+<center>
+    <p><strong>Datasets</strong></p>
+    <table>
 
-    $fields = ['dataset_type', 'num_neurons', 'num_labeled', 'max_t', 'num_encoding_changes'];
+        <?php
+            $data = file_get_contents('data/summary.json');
 
-    $decoded_data = json_decode($data, true);
+            $fields = ['dataset_type', 'num_neurons', 'num_labeled', 'max_t', 'num_encoding_changes'];
 
-    $count = 0;
+            $decoded_data = json_decode($data, true);
 
-    echo "<tr>";
-    echo "<th> Dataset </th>";
-    echo "<th> Dataset Type </th>";
-    echo "<th> # Neurons </th>";
-    echo "<th> # Labeled Neurons </th>";
-    echo "<th> Max timepoint </th>";
-    echo "<th> # Encoding Changes </th>";
+            $count = 0;
 
-    foreach($decoded_data as $dataset => $dataset_data) {
-        if ($count % 2 == 0) {
             echo "<tr>";
-        } else {
-            echo "<tr class='alt'>";
-        }
+            echo "<th> Dataset </th>";
+            echo "<th> Dataset Type </th>";
+            echo "<th> # Neurons </th>";
+            echo "<th> # Labeled Neurons </th>";
+            echo "<th> Max timepoint </th>";
+            echo "<th> # Encoding Changes </th>";
 
-        echo "<td> $dataset </td>";
-	for ($i = 0; $i < count($fields); $i++) {
-	    $display_data = $dataset_data[$fields[$i]];
-            echo "<td> $display_data </td>";
-        }
-        $count ++;
-        echo "</tr>";
-    }
-?>
-</table>
+            foreach ($decoded_data as $dataset => $dataset_data) {
+                if ($count % 2 == 0) {
+                    echo "<tr>";
+                } else {
+                    echo "<tr class='alt'>";
+                }
+
+                echo "<td> <a href=load_data.php?name=$dataset target = '_blank'> $dataset </a> </td>";
+                for ($i = 0; $i < count($fields); $i++) {
+                    $display_data = $dataset_data[$fields[$i]];
+                    echo "<td> $display_data </td>";
+                }
+                $count ++;
+                echo "</tr>";
+            }
+        ?>
+    </table>
 </center>
 

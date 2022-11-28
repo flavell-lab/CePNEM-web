@@ -19,8 +19,8 @@
         <?php
             $matches = file_get_contents('data/matches.json');
             foreach ($matches as $neuron => $datasets) {
-                $num_detections = count($datasets)
-                echo "<option value=$neuron ($num_detections detections)</option>";
+                $num_detections = count($datasets);
+                echo "<option value=$neuron>$neuron ($num_detections detections)</option>\"";
             }
         ?>
     </select>

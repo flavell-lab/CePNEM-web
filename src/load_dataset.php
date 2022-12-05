@@ -36,30 +36,42 @@
 </p>
 
 <p>
-
-
-
     <script src="script/lib/plotly-2.16.1.min.js"></script>
     <script src="script/plot.js"></script>
     <script type="text/javascript">
-	var trace_array = <?php echo json_encode($trace_array)?>;
-        var append = false;
+		const trace_array = <?php echo json_encode($trace_array)?>;
+		var append = false;
+		var append_behavior = false;
 
-	var velocity = <?php echo json_encode($velocity)?>;
-	var head_curve = <?php echo json_encode($head_curvature)?>;
-	var pumping = <?php echo json_encode($pumping)?>;
-	var angular_velocity = <?php echo json_encode($angular_velocity)?>;
-	var body_curvature = <?php echo json_encode($body_curvature)?>;
-	var time_range = <?php echo json_encode($time_range)?>;
+		const velocity_orig = <?php echo json_encode($velocity)?>;
+		const velocity = velocity_orig.map(x => x * 10);
+		const head_curve = <?php echo json_encode($head_curvature)?>;
+		const pumping = <?php echo json_encode($pumping)?>;
+		const angular_velocity = <?php echo json_encode($angular_velocity)?>;
+		const body_curvature = <?php echo json_encode($body_curvature)?>;
+		const time_range = <?php echo json_encode($time_range)?>;
 
+		const behaviors = new Array(velocity, head_curve, pumping, angular_velocity, body_curvature);
+		const behavior_units = ["0.1 mm/s", "rad", "pumps/sec", "rad/s", "rad"];
     </script>
 
     <form>
 	<label for="neuron_input">Plot neuron:</label>
 	<input type="text" id="neuron_input" name="neuron_input">
     </form>
-    <button onclick="plotNeuralTrace(time_range, trace_array, 'neuron_input', 'plot', append); append=true;">Plot neuron</button>
-    <div id="plot"></div>
+    <button onclick="plotNeuralTrace(time_range, trace_array, 'neuron_input', 'plot', append); append=true;">Plot neuron</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<form>
+	<label for="behavior_input">Plot behavior:</label>
+	<select name="behavior_input" id="behavior_input">
+		<option value="velocity">velocity</option>
+		<option value="head curvature">head curvature</option>
+		<option value="feeding">feeding</option>
+		<option value="angular velocity">angular velocity</option>
+		<option value="body curvature">body curvature</option>
+	</select>
+	</form>
+    <button onclick="plotBehavior(time_range, behaviors, behavior_units, 'behavior_input', 'plot', append_behavior); append=true;">Plot behavior</button>
+	<div id='plot'></div>
     <button onclick="Plotly.purge(document.getElementById('plot')); append=false;">Clear plot</button>
 </p>
 </body>

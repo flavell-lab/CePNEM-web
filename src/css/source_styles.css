@@ -60,6 +60,33 @@ button.accordion.active:after {
     color: #990000;
 }
 
+#plot {
+	height: 80vh;
+	width: 95vw;
+}
+
+form {
+	display: inline;
+}
+
+input {
+	background-color: #333;
+	color: #fff;
+}
+
+select {
+	background-color: #333;
+	color: #fff;
+}
+
+button {
+    background-color: #444;
+    color: #fff;
+	border: 1px solid white;
+	border-radius: 5px;
+}
+
+
 div.panel {
     padding: 0 18px;
     max-height: 0;

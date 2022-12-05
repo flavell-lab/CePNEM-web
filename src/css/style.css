@@ -1,33 +1,32 @@
 body{
-    background-color:"#222222";
+    background-color: "#222222";
     background-attachment:fixed;
     background-position:center;
     font-family: sans-serif;
     color: white;
 }
-
 h1{
-font-size:x-large;
-color: white;
-text-align: center;
+    font-size:x-large;
+    color: white;
+    text-align: center;
 }
 h2{
-padding-bottom:0.5em;
-font-style: italic;
-border-bottom: 1px solid white;
-font-size:large;
-color: white;
+    padding-bottom:0.5em;
+    font-style: italic;
+    border-bottom: 1px solid white;
+    font-size:large;
+    color: white;
 }
 h3{
-padding-bottom:0.5em;
-font-style: italic;
-border-bottom: 1px solid white;
-font-size:large;
-color: white;
-text-align: center;
+    padding-bottom:0.5em;
+    font-style: italic;
+    border-bottom: 1px solid white;
+    font-size:large;
+    color: white;
+    text-align: center;
 }
 p+p{
-text-indent:1.5em;
+    text-indent:1.5em;
 }
 /* .float_image{
 float:left;

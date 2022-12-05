@@ -26,8 +26,7 @@
 
 <html>
 <head>
-
-<link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 <p CLASS="centeralign">
@@ -55,24 +54,35 @@
 		const behavior_units = ["0.1 mm/s", "rad", "pumps/sec", "rad/s", "rad"];
     </script>
 
+
+    <table>
+        <tr>
+            <th scope="col" colspan=10>Velocity tuning</th>
+            <th scope="col" colspan=10>Head curvature tuning</th>
+            <th scope="col" colspan=10>Feeding tuning</th>
+            <th scope="col">EWMA</th>
+        </tr>
+    </table>
+
     <form>
-	<label for="neuron_input">Plot neuron:</label>
-	<input type="text" id="neuron_input" name="neuron_input">
+        <label for="neuron_input">Plot neuron:</label>
+        <input type="text" id="neuron_input" name="neuron_input">
     </form>
     <button onclick="plotNeuralTrace(time_range, trace_array, 'neuron_input', 'plot', append); append=true;">Plot neuron</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<form>
-	<label for="behavior_input">Plot behavior:</label>
-	<select name="behavior_input" id="behavior_input">
-		<option value="velocity">velocity</option>
-		<option value="head curvature">head curvature</option>
-		<option value="feeding">feeding</option>
-		<option value="angular velocity">angular velocity</option>
-		<option value="body curvature">body curvature</option>
-	</select>
+        <label for="behavior_input">Plot behavior:</label>
+        <select name="behavior_input" id="behavior_input">
+            <option value="velocity">velocity</option>
+            <option value="head curvature">head curvature</option>
+            <option value="feeding">feeding</option>
+            <option value="angular velocity">angular velocity</option>
+            <option value="body curvature">body curvature</option>
+        </select>
 	</form>
     <button onclick="plotBehavior(time_range, behaviors, behavior_units, 'behavior_input', 'plot', append_behavior); append=true;">Plot behavior</button>
 	<div id='plot'></div>
     <button onclick="Plotly.purge(document.getElementById('plot')); append=false;">Clear plot</button>
 </p>
+
 </body>
 </html>

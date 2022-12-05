@@ -1,5 +1,5 @@
 body{
-    background-color: "#222222";
+    background-color: #222222;
     background-attachment:fixed;
     background-position:center;
     font-family: sans-serif;
@@ -28,38 +28,6 @@ h3{
 p+p{
     text-indent:1.5em;
 }
-/* .float_image{
-float:left;
-border:2px solid white;
-margin-right: 0.5em;
-}
-.cap{
-font-weight:bold;
-font-size:large;
-} */
-/* #sidebar{
-float:right;
-width:200px;
-border:2px solid white;
-margin:0 5px 0 5px;
-background:white;
-padding:2px;
-font-family:sans-serif;
-}
-.textinput{
-width:100px;
-float:right;
-margin-top:5px;
-}
-label{
-float:left;
-margin-top:5px;
-}
-#notice{
-color:red;
-clear:both;
-} */
-
 table{
     width:95%;
     border: 1px solid white;
@@ -142,4 +110,35 @@ button.accordion:after {
 button.accordion.active:after {
     content: "\2212";
     color: #990000;
+} */
+/* .float_image{
+float:left;
+border:2px solid white;
+margin-right: 0.5em;
+}
+.cap{
+font-weight:bold;
+font-size:large;
+} */
+/* #sidebar{
+float:right;
+width:200px;
+border:2px solid white;
+margin:0 5px 0 5px;
+background:white;
+padding:2px;
+font-family:sans-serif;
+}
+.textinput{
+width:100px;
+float:right;
+margin-top:5px;
+}
+label{
+float:left;
+margin-top:5px;
+}
+#notice{
+color:red;
+clear:both;
 } */

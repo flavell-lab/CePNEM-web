@@ -5,7 +5,7 @@
 </head>
 <body>
 
-
+<script src="script/sort_table.js"></script>
 <div id="main" style="background-color:rgba(20,20,20,0.8)">
 <h1>CePNEM Data Browser</h1>
 <h3><a href="https://www.biorxiv.org/content/10.1101/2022.11.11.516186v1">Brain-wide representations of behavior spanning multiple timescales and states in <i>C. elegans</i></a>
@@ -31,7 +31,7 @@
 
 <center>
     <p><strong>Datasets</strong></p>
-    <table>
+    <table id="dataset_table">
 
         <?php
             $data = file_get_contents('data/summary.json');
@@ -43,13 +43,14 @@
             $count = 0;
 
             echo "<tr>";
-            echo "<th> Dataset </th>";
-            echo "<th> Dataset Type </th>";
-            echo "<th> # Neurons </th>";
-            echo "<th> # Labeled Neurons </th>";
-            echo "<th> Max timepoint </th>";
-            echo "<th> # Encoding Changes </th>";
+            echo "<th onclick='sortTable(0,\"dataset_table\");'> Dataset </th>";
+            echo "<th onclick='sortTable(1,\"dataset_table\");'> Dataset Type </th>";
+            echo "<th onclick='sortTable(2,\"dataset_table\");'> # Neurons </th>";
+            echo "<th onclick='sortTable(3,\"dataset_table\");'> # Labeled Neurons </th>";
+            echo "<th onclick='sortTable(4,\"dataset_table\");'> Max timepoint </th>";
+            echo "<th onclick='sortTable(5,\"dataset_table\");'> # Encoding Changes </th>";
             echo "<th> Download link </th>";
+			echo "</tr>";
             foreach ($decoded_data as $dataset => $dataset_data) {
                 if ($count % 2 == 0) {
                     echo "<tr>";
@@ -60,10 +61,10 @@
                 echo "<td> <a href=load_dataset.php?name=$dataset target = '_blank'> $dataset </a> </td>";
                 for ($i = 0; $i < count($fields); $i++) {
                     $display_data = $dataset_data[$fields[$i]];
-                    echo "<td> $display_data </td>";
+                    echo "<td>$display_data</td>";
                 }
-		echo "<td> <a href='data/$dataset.json' download>Download</a></td>";
-		$count ++;
+				echo "<td> <a href='data/$dataset.json' download>Download</a></td>";
+				$count ++;
                 echo "</tr>";
             }
         ?>

@@ -6,7 +6,6 @@
 <body>
 
 <script src="script/sort_table.js"></script>
-<div id="main" style="background-color:rgba(20,20,20,0.8)">
 <h1>CePNEM Data Browser</h1>
 <h3><a href="https://www.biorxiv.org/content/10.1101/2022.11.11.516186v1">Brain-wide representations of behavior spanning multiple timescales and states in <i>C. elegans</i></a>
 </h3>

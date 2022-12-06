@@ -28,6 +28,25 @@
     $subcats["v"] = ["fwd", "rev", "fwd_slope_pos", "fwd_slope_neg", "rev_slope_pos", "rev_slope_neg", "rect_pos", "rect_neg"];
     $subcats["θh"] = ["dorsal", "ventral", "fwd_dorsal", "fwd_ventral", "rev_dorsal", "rev_ventral", "rect_dorsal", "rect_ventral"];
     $subcats["P"] = ["act", "inh", "fwd_act", "fwd_inh", "rev_act", "rev_inh", "rect_act", "rect_inh"];
+
+    // Function to insert a comma between every character in a string
+    // Function created by chatGPT
+    function insert_comma($str) {
+        // Convert the string to an array of characters
+        $chars = str_split($str);
+
+        // Initialize the result string
+        $result = '';
+
+        // Loop through the array of characters
+        foreach ($chars as $char) {
+            // Append the current character to the result string, followed by a comma
+            $result .= $char . ',';
+        }
+
+        // Return the result string, without the trailing comma
+        return rtrim($result, ',');
+    }
 ?>
 
 <html>
@@ -64,12 +83,12 @@
     <div class='panel'>
     <table id="encoding_table">
         <tr>
-            <th scope="col" rowspan=2>Neuron</th>
+            <th scope="col" rowspan=2 onclick='sortTable(31,\"encoding_table\",2,"desc");' style="cursor: pointer;">Neuron</th>
             <th scope="col" colspan=10>Velocity tuning</th>
             <th scope="col" colspan=10>Head curvature tuning</th>
             <th scope="col" colspan=10>Feeding tuning</th>
-            <th scope="col" rowspan=2 onclick='sortTable(31,\"encoding_table\");' style="cursor: pointer;">EWMA</th>
-			<th scope="col" rowspan=2 onclick='sortTable(32,\"encoding_table\");' style="cursor: pointer;">Encoding change</th>
+            <th scope="col" rowspan=2 onclick='sortTable(31,\"encoding_table\",2,"desc");' style="cursor: pointer;">EWMA</th>
+			<th scope="col" rowspan=2 onclick='sortTable(32,\"encoding_table\",2,"desc");' style="cursor: pointer;">Encoding change</th>
         </tr>
         <tr>
             <th onclick='sortTable(1, "encoding_table",2,"desc");' style="cursor: pointer;">Encoding strength</th>
@@ -131,18 +150,19 @@
 					}
                     foreach ($subcats[$beh] as $subcat) {
                         $table_string = "";
-                        foreach ([1,2] as $rng) {
+                        foreach (array_reverse(range(1,count($decoded_data['ranges']))) as $rng) {
                             if (in_array($neuron, $categorization[$rng][$beh][$subcat])) {
                                 $table_string = $table_string . $rng;
                             }
                         }
-                        if ($table_string == "") {
+                        if (strlen($table_string) == count($decoded_data['ranges'])) {
+                            $table_string = insert_comma($table_string);
+                            $style = "style='background-color: #141';";
+                        } elseif ($table_string == "") {
                             $table_string = "-";
                             $style = "";
-                        } elseif ($table_string == "12") {
-                            $table_string = "1, 2";
-                            $style = "style='background-color: #141';";
                         } else {
+                            $table_string = insert_comma($table_string);
                             $style = "style='background-color: #420';";
                         }
                         echo "<td $style>$table_string</td>";

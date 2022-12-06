@@ -2,7 +2,7 @@
  * Adapted from the following:
  * https://www.w3schools.com/howto/howto_js_sort_table.asp
  */
-function sortTable(n,table_id) {
+function sortTable(n,table_id,start_row) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById(table_id);
   switching = true;
@@ -16,13 +16,13 @@ function sortTable(n,table_id) {
     rows = table.rows;
     /* Loop through all table rows (except the
     first, which contains table headers): */
-    for (i = 1; i < (rows.length - 1); i++) {
+    for (i = start_row; i < (rows.length - 1); i++) {
       // Start by saying there should be no switching:
       shouldSwitch = false;
       /* Get the two elements you want to compare,
       one from current row and one from the next: */
-      x = rows[i].getElementsByTagName("TD")[n].textContent;
-      y = rows[i + 1].getElementsByTagName("TD")[n].textContent;
+      x = rows[i].getElementsByTagName("TD")[n].innerHTML;
+      y = rows[i + 1].getElementsByTagName("TD")[n].innerHTML;
       /* Check the type of the two values,
       and compare them based on their type: */
       if (isNaN(x) || isNaN(y)) {

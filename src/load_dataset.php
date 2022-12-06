@@ -43,7 +43,6 @@
 <p>
     <script src="script/lib/plotly-2.16.1.min.js"></script>
     <script src="script/plot.js"></script>
-    <script src="script/button_move.js"></script>
     <script type="text/javascript">
 		const trace_array = <?php echo json_encode($trace_array)?>;
 		var append = false;
@@ -184,6 +183,7 @@
     <button onclick="plotBehavior(time_range, behaviors, behavior_units, 'behavior_input', 'plot', append_behavior); append=true;">Plot behavior</button>
 	<div id='plot'></div>
     <button onclick="Plotly.purge(document.getElementById('plot')); append=false;">Clear plot</button>
+    <script src="script/button_move.js"></script>
 </p>
 
 </body>

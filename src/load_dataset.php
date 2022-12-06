@@ -35,12 +35,11 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-<p CLASS="centeralign">
-<title> <?php echo "$name: $type";?> </title>
-<h1 style="white-space:nowrap;"> <?php echo "$name: $type";?> </h1>
-</p>
+	<p CLASS="centeralign">
+	<title> <?php echo "$name: $type";?> </title>
+	<h1 style="white-space:nowrap;"> <?php echo "$name: $type";?> </h1>
+	</p>
 
-<p>
     <script src="script/lib/plotly-2.16.1.min.js"></script>
     <script src="script/plot.js"></script>
     <script type="text/javascript">
@@ -59,7 +58,6 @@
 		const behaviors = new Array(velocity, head_curve, pumping, angular_velocity, body_curvature);
 		const behavior_units = ["0.1 mm/s", "rad", "pumps/sec", "rad/s", "rad"];
     </script>
-
 
     <button class='accordion'>CePNEM data table</button>
     <div class='panel'>
@@ -184,7 +182,5 @@
 	<div id='plot'></div>
     <button onclick="Plotly.purge(document.getElementById('plot')); append=false;">Clear plot</button>
     <script src="script/button_move.js"></script>
-</p>
-
 </body>
 </html>

@@ -42,12 +42,12 @@
             $count = 0;
 
             echo "<tr>";
-            echo "<th onclick='sortTable(0,\"dataset_table\");' style='cursor: pointer;'> Dataset </th>";
-            echo "<th onclick='sortTable(1,\"dataset_table\");' style='cursor: pointer;'> Dataset Type </th>";
-            echo "<th onclick='sortTable(2,\"dataset_table\");' style='cursor: pointer;'> # Neurons </th>";
-            echo "<th onclick='sortTable(3,\"dataset_table\");' style='cursor: pointer;'> # Labeled Neurons </th>";
-            echo "<th onclick='sortTable(4,\"dataset_table\");' style='cursor: pointer;'> Max timepoint </th>";
-            echo "<th onclick='sortTable(5,\"dataset_table\");' style='cursor: pointer;'> # Encoding Changes </th>";
+            echo "<th onclick='sortTable(0,\"dataset_table\",1);' style='cursor: pointer;'> Dataset </th>";
+            echo "<th onclick='sortTable(1,\"dataset_table\",1);' style='cursor: pointer;'> Dataset Type </th>";
+            echo "<th onclick='sortTable(2,\"dataset_table\",1);' style='cursor: pointer;'> # Neurons </th>";
+            echo "<th onclick='sortTable(3,\"dataset_table\",1);' style='cursor: pointer;'> # Labeled Neurons </th>";
+            echo "<th onclick='sortTable(4,\"dataset_table\",1);' style='cursor: pointer;'> Max timepoint </th>";
+            echo "<th onclick='sortTable(5,\"dataset_table\",1);' style='cursor: pointer;'> # Encoding Changes </th>";
             echo "<th> Download link </th>";
 			echo "</tr>";
             foreach ($decoded_data as $dataset => $dataset_data) {

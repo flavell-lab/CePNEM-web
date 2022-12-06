@@ -42,6 +42,7 @@
 
     <script src="script/lib/plotly-2.16.1.min.js"></script>
     <script src="script/plot.js"></script>
+    <script src="script/sort_table.js"></script>
     <script type="text/javascript">
 		const trace_array = <?php echo json_encode($trace_array)?>;
 		var append = false;
@@ -109,7 +110,7 @@
 
             foreach ($neurons as $neuron) {
                 echo "<tr>";
-                echo "<td style='cursor: pointer;' onclick='plotSpecificNeuralTrace(time_range, trace_array, $neuron, \'plot\', append); append=true;'>$neuron</td>";
+                echo "<td style='cursor: pointer;' onclick=\"plotSpecificNeuralTrace(time_range, trace_array, $neuron, 'plot', append); append=true;\">$neuron</td>";
 
                 foreach (["v", "θh", "P"] as $beh) {
 					if ($beh == "v") {

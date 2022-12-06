@@ -2,12 +2,11 @@
  * Adapted from the following:
  * https://www.w3schools.com/howto/howto_js_sort_table.asp
  */
-function sortTable(n,table_id,start_row) {
+function sortTable(n,table_id,start_row,dir) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById(table_id);
   switching = true;
-  // Set the sorting direction to ascending:
-  dir = "asc";
+
   /* Make a loop that will continue until
   no switching has been done: */
   while (switching) {

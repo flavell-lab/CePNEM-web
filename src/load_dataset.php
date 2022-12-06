@@ -15,7 +15,7 @@
     $multiplier = function($value) use ($timestep) {
         return $value * $timestep;
     };
-    $time_range = array_map($multiplier, range(0,1599));
+    $time_range = array_map($multiplier, range(0,$decoded_data['max_t']));
     $velocity = $decoded_data["velocity"];
     $head_curvature = $decoded_data["head_curvature"];
     $pumping = $decoded_data["pumping"];
@@ -67,7 +67,8 @@
             <th scope="col" colspan=10>Velocity tuning</th>
             <th scope="col" colspan=10>Head curvature tuning</th>
             <th scope="col" colspan=10>Feeding tuning</th>
-            <th scope="col">EWMA</th>
+            <th scope="col" rowspan=2>EWMA</th>
+			<th scope="col" rowspan=2>Enc change?</th>
         </tr>
         <tr>
             <th>Encoding strength</th>
@@ -104,34 +105,55 @@
             <th>More <b>I</b> during <b>F</b></th>
         </tr>
         <?php
-            $neurons = range(0,count($trace_array))
+            $neurons = range(1,count($trace_array));
 
             foreach ($neurons as $neuron) {
                 echo "<tr>";
                 echo "<td>$neuron</td>";
 
                 foreach (["v", "θh", "P"] as $beh) {
-                    echo "<td>0.0</td>";
-                    echo "<td>0.0</td>";
+					if ($beh == "v") {
+						$enc_str_v = round($decoded_data['rel_enc_str_v'][$neuron-1], 2);
+						echo "<td>$enc_str_v</td>";
+						$forwardness = round($decoded_data['forwardness'][$neuron-1], 2);
+	                    echo "<td>$forwardness</td>";
+				 	} elseif ($beh == "θh") {
+						$enc_str_hc = round($decoded_data['rel_enc_str_θh'][$neuron-1], 2);
+						echo "<td>$enc_str_hc</td>";
+						$dorsalness = round($decoded_data['dorsalness'][$neuron-1], 2);
+						echo "<td>$dorsalness</td>";
+					} else {
+						$enc_str_P = round($decoded_data['rel_enc_str_P'][$neuron-1], 2);
+						echo "<td>$enc_str_P</td>";
+						$feedingness = round($decoded_data['feedingness'][$neuron-1], 2);
+						echo "<td>$feedingness</td>";
+					}
                     foreach ($subcats[$beh] as $subcat) {
                         $table_string = "";
                         foreach ([1,2] as $rng) {
-                            if (in_array($neuron, $categorization[$rng]["v"]["fwd"])) {
+                            if (in_array($neuron, $categorization[$rng][$beh][$subcat])) {
                                 $table_string = $table_string . $rng;
                             }
                         }
                         if ($table_string == "") {
                             $table_string = "-";
-                            $style = "style='background-color:#400";
+                            $style = "";
                         } elseif ($table_string == "12") {
                             $table_string = "1, 2";
-                            $style = "style='background-color:#040";
+                            $style = "style='background-color: #141';";
                         } else {
-                            $style = "style='background-color:#330";
+                            $style = "style='background-color: #420';";
                         }
-                        echo "<td style=$style>$table_string</td>";
+                        echo "<td $style>$table_string</td>";
                     }
                 }
+				$ewma = round($decoded_data['tau_vals'][$neuron-1], 2);
+				echo "<td>$ewma</td>";
+				if (in_array($neuron, $decoded_data['encoding_changing_neurons'])) {
+					echo "<td style='background-color: #313';>yes</td>";
+				} else {
+					echo "<td>no</td>";
+				}
                 echo "</tr>";
             }
 

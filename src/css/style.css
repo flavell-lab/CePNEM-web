@@ -30,21 +30,22 @@ p+p{
 }
 table{
     width:95%;
-    border: 1px solid white;
     font-family: sans-serif;
     background-color: #333333;
+	border-collapse: collapse;
 }
 th{
     background-color: rgba(0,0,50,0.6);
     color:white;
+	border: 1px solid grey;
+	padding: 5px;
 }
 tr td{
     text-align: center;
     padding:2px;
-    background-color: #333333
-}
-tr{
-    border-top: 2px solid white;
+    background-color: #333333;
+	border: 1px solid grey;
+	padding: 5px;
 }
 a {
     color: cyan;

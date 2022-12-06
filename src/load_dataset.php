@@ -71,45 +71,45 @@
 			<th scope="col" rowspan=2 onclick='sortTable(32,\"encoding_table\");' style="cursor: pointer;">Encoding change</th>
         </tr>
         <tr>
-            <th onclick='sortTable(1,\"encoding_table\");' style="cursor: pointer;">Encoding strength</th>
-            <th onclick='sortTable(2,\"encoding_table\");' style="cursor: pointer;">Forwardness</th>
-            <th onclick='sortTable(3,\"encoding_table\");' style="cursor: pointer;"><b>F</b>wd</th>
-            <th onclick='sortTable(4,\"encoding_table\");' style="cursor: pointer;"><b>R</b>ev</th>
-            <th onclick='sortTable(5,\"encoding_table\");' style="cursor: pointer;"><b>F</b>wd slope +</th>
-            <th onclick='sortTable(6,\"encoding_table\");' style="cursor: pointer;"><b>F</b>wd slope -</th>
-            <th onclick='sortTable(7,\"encoding_table\");' style="cursor: pointer;"><b>R</b>ev slope +</th>
-            <th onclick='sortTable(8,\"encoding_table\");' style="cursor: pointer;"><b>R</b>ev slope -</th>
-            <th onclick='sortTable(9,\"encoding_table\");' style="cursor: pointer;"><b>F</b>wd slope > R</b>ev slope</th>
-            <th onclick='sortTable(10,\"encoding_table\");' style="cursor: pointer;"><b>F</b>wd slope < R</b>ev slope</th>
+            <th onclick='sortTable(1,"encoding_table");' style="cursor: pointer;">Encoding strength</th>
+            <th onclick='sortTable(2,"encoding_table");' style="cursor: pointer;">Forwardness</th>
+            <th onclick='sortTable(3,"encoding_table");' style="cursor: pointer;"><b>F</b>wd</th>
+            <th onclick='sortTable(4,"encoding_table");' style="cursor: pointer;"><b>R</b>ev</th>
+            <th onclick='sortTable(5,"encoding_table");' style="cursor: pointer;"><b>F</b>wd slope +</th>
+            <th onclick='sortTable(6,"encoding_table");' style="cursor: pointer;"><b>F</b>wd slope -</th>
+            <th onclick='sortTable(7,"encoding_table");' style="cursor: pointer;"><b>R</b>ev slope +</th>
+            <th onclick='sortTable(8,"encoding_table");' style="cursor: pointer;"><b>R</b>ev slope -</th>
+            <th onclick='sortTable(9,"encoding_table");' style="cursor: pointer;"><b>F</b>wd slope > R</b>ev slope</th>
+            <th onclick='sortTable(10,"encoding_table");' style="cursor: pointer;"><b>F</b>wd slope < R</b>ev slope</th>
 
-            <th onclick='sortTable(11,\"encoding_table\");' style="cursor: pointer;">Encoding strength</th>
-            <th onclick='sortTable(12,\"encoding_table\");' style="cursor: pointer;">Dorsalness</th>
-            <th onclick='sortTable(13,\"encoding_table\");' style="cursor: pointer;"><b>D</b>orsal</th>
-            <th onclick='sortTable(14,\"encoding_table\");' style="cursor: pointer;"><b>V</b>entral</th>
-            <th onclick='sortTable(15,\"encoding_table\");' style="cursor: pointer;"><b>D</b>orsal during <b>F</b></th>
-            <th onclick='sortTable(16,\"encoding_table\");' style="cursor: pointer;"><b>V</b>entral during <b>F</b></th>
-            <th onclick='sortTable(17,\"encoding_table\");' style="cursor: pointer;"><b>D</b>orsal during <b>R</b></th>
-            <th onclick='sortTable(18,\"encoding_table\");' style="cursor: pointer;"><b>V</b>entral during <b>R</b></th>
-            <th onclick='sortTable(19,\"encoding_table\");' style="cursor: pointer;">More <b>D</b> during <b>F</b></th>
-            <th onclick='sortTable(20,\"encoding_table\");' style="cursor: pointer;">More <b>V</b> during <b>F</b></th>
+            <th onclick='sortTable(11,"encoding_table");' style="cursor: pointer;">Encoding strength</th>
+            <th onclick='sortTable(12,"encoding_table");' style="cursor: pointer;">Dorsalness</th>
+            <th onclick='sortTable(13,"encoding_table");' style="cursor: pointer;"><b>D</b>orsal</th>
+            <th onclick='sortTable(14,"encoding_table");' style="cursor: pointer;"><b>V</b>entral</th>
+            <th onclick='sortTable(15,"encoding_table");' style="cursor: pointer;"><b>D</b>orsal during <b>F</b></th>
+            <th onclick='sortTable(16,"encoding_table");' style="cursor: pointer;"><b>V</b>entral during <b>F</b></th>
+            <th onclick='sortTable(17,"encoding_table");' style="cursor: pointer;"><b>D</b>orsal during <b>R</b></th>
+            <th onclick='sortTable(18,"encoding_table");' style="cursor: pointer;"><b>V</b>entral during <b>R</b></th>
+            <th onclick='sortTable(19,"encoding_table");' style="cursor: pointer;">More <b>D</b> during <b>F</b></th>
+            <th onclick='sortTable(20,"encoding_table");' style="cursor: pointer;">More <b>V</b> during <b>F</b></th>
 
-            <th onclick='sortTable(21,\"encoding_table\");' style="cursor: pointer;">Encoding strength</th>
-            <th onclick='sortTable(22,\"encoding_table\");' style="cursor: pointer;">Feedingness</th>
-            <th onclick='sortTable(23,\"encoding_table\");' style="cursor: pointer;"><b>A</b>ctivated</th>
-            <th onclick='sortTable(24,\"encoding_table\");' style="cursor: pointer;"><b>I</b>nhibited</th>
-            <th onclick='sortTable(25,\"encoding_table\");' style="cursor: pointer;"><b>A</b>ct during <b>F</b></th>
-            <th onclick='sortTable(26,\"encoding_table\");' style="cursor: pointer;"><b>I</b>nh during <b>F</b></th>
-            <th onclick='sortTable(27,\"encoding_table\");' style="cursor: pointer;"><b>A</b>ct during <b>R</b></th>
-            <th onclick='sortTable(28,\"encoding_table\");' style="cursor: pointer;"><b>I</b>nh during <b>R</b></th>
-            <th onclick='sortTable(29,\"encoding_table\");' style="cursor: pointer;">More <b>A</b> during <b>F</b></th>
-            <th onclick='sortTable(30,\"encoding_table\");' style="cursor: pointer;">More <b>I</b> during <b>F</b></th>
+            <th onclick='sortTable(21,"encoding_table");' style="cursor: pointer;">Encoding strength</th>
+            <th onclick='sortTable(22,"encoding_table");' style="cursor: pointer;">Feedingness</th>
+            <th onclick='sortTable(23,"encoding_table");' style="cursor: pointer;"><b>A</b>ctivated</th>
+            <th onclick='sortTable(24,"encoding_table");' style="cursor: pointer;"><b>I</b>nhibited</th>
+            <th onclick='sortTable(25,"encoding_table");' style="cursor: pointer;"><b>A</b>ct during <b>F</b></th>
+            <th onclick='sortTable(26,"encoding_table");' style="cursor: pointer;"><b>I</b>nh during <b>F</b></th>
+            <th onclick='sortTable(27,"encoding_table");' style="cursor: pointer;"><b>A</b>ct during <b>R</b></th>
+            <th onclick='sortTable(28,"encoding_table");' style="cursor: pointer;"><b>I</b>nh during <b>R</b></th>
+            <th onclick='sortTable(29,"encoding_table");' style="cursor: pointer;">More <b>A</b> during <b>F</b></th>
+            <th onclick='sortTable(30,"encoding_table");' style="cursor: pointer;">More <b>I</b> during <b>F</b></th>
         </tr>
         <?php
             $neurons = range(1,count($trace_array));
 
             foreach ($neurons as $neuron) {
                 echo "<tr>";
-                echo "<td style='cursor: pointer;' onclick='plotSpecificNeuralTrace(time_range, trace_array, $neuron, 'plot', append); append=true;'>$neuron</td>";
+                echo "<td style='cursor: pointer;' onclick='plotSpecificNeuralTrace(time_range, trace_array, $neuron, \'plot\', append); append=true;'>$neuron</td>";
 
                 foreach (["v", "θh", "P"] as $beh) {
 					if ($beh == "v") {

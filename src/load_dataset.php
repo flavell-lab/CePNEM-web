@@ -43,6 +43,7 @@
 <p>
     <script src="script/lib/plotly-2.16.1.min.js"></script>
     <script src="script/plot.js"></script>
+    <script src="script/button_move.js"></script>
     <script type="text/javascript">
 		const trace_array = <?php echo json_encode($trace_array)?>;
 		var append = false;
@@ -61,55 +62,57 @@
     </script>
 
 
+    <button class='accordion'>CePNEM data table</button>
+    <div class='panel'>
     <table>
         <tr>
             <th scope="col" rowspan=2>Neuron</th>
             <th scope="col" colspan=10>Velocity tuning</th>
             <th scope="col" colspan=10>Head curvature tuning</th>
             <th scope="col" colspan=10>Feeding tuning</th>
-            <th scope="col" rowspan=2>EWMA</th>
-			<th scope="col" rowspan=2>Enc change?</th>
+            <th scope="col" rowspan=2 onclick='sortTable(31,\"dataset_table\");' style="cursor: pointer;">EWMA</th>
+			<th scope="col" rowspan=2 onclick='sortTable(32,\"dataset_table\");' style="cursor: pointer;">Encoding change</th>
         </tr>
         <tr>
-            <th>Encoding strength</th>
-            <th>Forwardness</th>
-            <th><b>F</b>wd</th>
-            <th><b>R</b>ev</th>
-            <th><b>F</b>wd slope +</th>
-            <th><b>F</b>wd slope -</th>
-            <th><b>R</b>ev slope +</th>
-            <th><b>R</b>ev slope -</th>
-            <th><b>F</b>wd slope > R</b>ev slope</th>
-            <th><b>F</b>wd slope < R</b>ev slope</th>
+            <th onclick='sortTable(1,\"dataset_table\");' style="cursor: pointer;">Encoding strength</th>
+            <th onclick='sortTable(2,\"dataset_table\");' style="cursor: pointer;">Forwardness</th>
+            <th onclick='sortTable(3,\"dataset_table\");' style="cursor: pointer;"><b>F</b>wd</th>
+            <th onclick='sortTable(4,\"dataset_table\");' style="cursor: pointer;"><b>R</b>ev</th>
+            <th onclick='sortTable(5,\"dataset_table\");' style="cursor: pointer;"><b>F</b>wd slope +</th>
+            <th onclick='sortTable(6,\"dataset_table\");' style="cursor: pointer;"><b>F</b>wd slope -</th>
+            <th onclick='sortTable(7,\"dataset_table\");' style="cursor: pointer;"><b>R</b>ev slope +</th>
+            <th onclick='sortTable(8,\"dataset_table\");' style="cursor: pointer;"><b>R</b>ev slope -</th>
+            <th onclick='sortTable(9,\"dataset_table\");' style="cursor: pointer;"><b>F</b>wd slope > R</b>ev slope</th>
+            <th onclick='sortTable(10,\"dataset_table\");' style="cursor: pointer;"><b>F</b>wd slope < R</b>ev slope</th>
 
-            <th>Encoding strength</th>
-            <th>Dorsalness</th>
-            <th><b>D</b>orsal</th>
-            <th><b>V</b>entral</th>
-            <th><b>D</b>orsal during <b>F</b></th>
-            <th><b>V</b>entral during <b>F</b></th>
-            <th><b>D</b>orsal during <b>R</b></th>
-            <th><b>V</b>entral during <b>R</b></th>
-            <th>More <b>D</b> during <b>F</b></th>
-            <th>More <b>V</b> during <b>F</b></th>
+            <th onclick='sortTable(11,\"dataset_table\");' style="cursor: pointer;">Encoding strength</th>
+            <th onclick='sortTable(12,\"dataset_table\");' style="cursor: pointer;">Dorsalness</th>
+            <th onclick='sortTable(13,\"dataset_table\");' style="cursor: pointer;"><b>D</b>orsal</th>
+            <th onclick='sortTable(14,\"dataset_table\");' style="cursor: pointer;"><b>V</b>entral</th>
+            <th onclick='sortTable(15,\"dataset_table\");' style="cursor: pointer;"><b>D</b>orsal during <b>F</b></th>
+            <th onclick='sortTable(16,\"dataset_table\");' style="cursor: pointer;"><b>V</b>entral during <b>F</b></th>
+            <th onclick='sortTable(17,\"dataset_table\");' style="cursor: pointer;"><b>D</b>orsal during <b>R</b></th>
+            <th onclick='sortTable(18,\"dataset_table\");' style="cursor: pointer;"><b>V</b>entral during <b>R</b></th>
+            <th onclick='sortTable(19,\"dataset_table\");' style="cursor: pointer;">More <b>D</b> during <b>F</b></th>
+            <th onclick='sortTable(20,\"dataset_table\");' style="cursor: pointer;">More <b>V</b> during <b>F</b></th>
 
-            <th>Encoding strength</th>
-            <th>Feedingness</th>
-            <th><b>A</b>ctivated</th>
-            <th><b>I</b>nhibited</th>
-            <th><b>A</b>ct during <b>F</b></th>
-            <th><b>I</b>nh during <b>F</b></th>
-            <th><b>A</b>ct during <b>R</b></th>
-            <th><b>I</b>nh during <b>R</b></th>
-            <th>More <b>A</b> during <b>F</b></th>
-            <th>More <b>I</b> during <b>F</b></th>
+            <th onclick='sortTable(21,\"dataset_table\");' style="cursor: pointer;">Encoding strength</th>
+            <th onclick='sortTable(22,\"dataset_table\");' style="cursor: pointer;">Feedingness</th>
+            <th onclick='sortTable(23,\"dataset_table\");' style="cursor: pointer;"><b>A</b>ctivated</th>
+            <th onclick='sortTable(24,\"dataset_table\");' style="cursor: pointer;"><b>I</b>nhibited</th>
+            <th onclick='sortTable(25,\"dataset_table\");' style="cursor: pointer;"><b>A</b>ct during <b>F</b></th>
+            <th onclick='sortTable(26,\"dataset_table\");' style="cursor: pointer;"><b>I</b>nh during <b>F</b></th>
+            <th onclick='sortTable(27,\"dataset_table\");' style="cursor: pointer;"><b>A</b>ct during <b>R</b></th>
+            <th onclick='sortTable(28,\"dataset_table\");' style="cursor: pointer;"><b>I</b>nh during <b>R</b></th>
+            <th onclick='sortTable(29,\"dataset_table\");' style="cursor: pointer;">More <b>A</b> during <b>F</b></th>
+            <th onclick='sortTable(30,\"dataset_table\");' style="cursor: pointer;">More <b>I</b> during <b>F</b></th>
         </tr>
         <?php
             $neurons = range(1,count($trace_array));
 
             foreach ($neurons as $neuron) {
                 echo "<tr>";
-                echo "<td>$neuron</td>";
+                echo "<td style='cursor: pointer;' onclick='plotNeuralTrace(time_range, trace_array, $neuron, 'plot', append); append=true;'>$neuron</td>";
 
                 foreach (["v", "θh", "P"] as $beh) {
 					if ($beh == "v") {
@@ -161,6 +164,7 @@
         ?>
 
     </table>
+    </div>
 
     <form>
         <label for="neuron_input">Plot neuron:</label>

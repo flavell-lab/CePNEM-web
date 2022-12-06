@@ -40,7 +40,11 @@ function plotData(x,y,element,data_label,append,subplot) {
 }
 
 function plotNeuralTrace(time_range, trace_array, neuron_element, neuron_plot_element, append) {
-    var n = parseInt(document.getElementById(neuron_element).value);
+    if (isNaN(neuron_element)) {
+        var n = parseInt(document.getElementById(neuron_element).value);
+    } else {
+        var n = neuron_element;
+    }
     plotData(time_range, trace_array[n-1], neuron_plot_element, 'Neuron ' + n, append, '')
 }
 

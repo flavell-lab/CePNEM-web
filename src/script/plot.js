@@ -40,11 +40,11 @@ function plotData(x,y,element,data_label,append,subplot) {
 }
 
 function plotNeuralTrace(time_range, trace_array, neuron_element, neuron_plot_element, append) {
-    if (isNaN(neuron_element)) {
-        var n = parseInt(document.getElementById(neuron_element).value);
-    } else {
-        var n = neuron_element;
-    }
+    var n = parseInt(document.getElementById(neuron_element).value);
+    plotData(time_range, trace_array[n-1], neuron_plot_element, 'Neuron ' + n, append, '')
+}
+
+function plotSpecificNeuralTrace(time_range, trace_array, n, neuron_plot_element, append) {
     plotData(time_range, trace_array[n-1], neuron_plot_element, 'Neuron ' + n, append, '')
 }
 

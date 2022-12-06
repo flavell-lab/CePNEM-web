@@ -112,6 +112,14 @@ button.accordion.active:after {
     content: "\2212";
     color: #990000;
 }
+
+div.panel {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
 /* .float_image{
 float:left;
 border:2px solid white;

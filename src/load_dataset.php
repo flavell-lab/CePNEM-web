@@ -83,12 +83,12 @@
     <div class='panel'>
     <table id="encoding_table">
         <tr>
-            <th scope="col" rowspan=2 onclick='sortTable(31,\"encoding_table\",2,"desc");' style="cursor: pointer;">Neuron</th>
+            <th scope="col" rowspan=2 onclick='sortTable(0,"encoding_table",2,"asc");' style="cursor: pointer;">Neuron</th>
             <th scope="col" colspan=10>Velocity tuning</th>
             <th scope="col" colspan=10>Head curvature tuning</th>
             <th scope="col" colspan=10>Feeding tuning</th>
-            <th scope="col" rowspan=2 onclick='sortTable(31,\"encoding_table\",2,"desc");' style="cursor: pointer;">EWMA</th>
-			<th scope="col" rowspan=2 onclick='sortTable(32,\"encoding_table\",2,"desc");' style="cursor: pointer;">Encoding change</th>
+            <th scope="col" rowspan=2 onclick='sortTable(31,"encoding_table",2,"desc");' style="cursor: pointer;">EWMA</th>
+			<th scope="col" rowspan=2 onclick='sortTable(32,"encoding_table",2,"desc");' style="cursor: pointer;">Encoding change</th>
         </tr>
         <tr>
             <th onclick='sortTable(1, "encoding_table",2,"desc");' style="cursor: pointer;">Encoding strength</th>

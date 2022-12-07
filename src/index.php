@@ -29,9 +29,15 @@
 </center>
 
 <center>
+    <script>
+        const matches = <?php echo json_encode($decoded_matches)?>;
+    </script>
     <p><strong>Datasets</strong></p>
+    <h2>Filter datasets by neuron class</h2>
+    <p>Enter the values of the neurons:</p>
+    <input id="filter-input" type="text" value="">
+    <button id="filter-button">Filter</button>
     <table id="dataset_table">
-
         <?php
             $data = file_get_contents('data/summary.json');
 
@@ -68,5 +74,7 @@
             }
         ?>
     </table>
+
+    <script src="script/filter_table.js"></script>
 </center>
 

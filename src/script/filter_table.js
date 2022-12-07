@@ -12,8 +12,8 @@ filterButton.addEventListener("click", function() {
     // Get the filter values from the input element
     var filterValues = input.value.toUpperCase().split(",");
 
-    // Loop through all table rows
-    for (var i = 0; i < table.rows.length; i++) {
+    // Loop through all table rows except the header row.
+    for (var i = 1; i < table.rows.length; i++) {
         // Get the current row
         var row = table.rows[i];
 

@@ -57,8 +57,11 @@ filterButton.addEventListener("click", function() {
         // If there was a match, show the row, otherwise hide it
         if (match) {
             row.style.display = "";
-            matches_url_str = link_url_append.map((number) => `neurons[]=${encodeURIComponent(number)}`).join('&');
-            dataCells[0].setAttribute('href', "load_dataset.php?name=" + dataset + "&" + matches_url_str);
+            var links = dataCells[0].quareySelectorAll('a');
+            links.forEach((link) => {
+                matches_url_str = link_url_append.map((number) => `neurons[]=${encodeURIComponent(number)}`).join('&');
+                link.setAttribute('href', "load_dataset.php?name=" + dataset + "&" + matches_url_str);
+            });
         } else {
             row.style.display = "none";
         }

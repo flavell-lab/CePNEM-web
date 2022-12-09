@@ -7,9 +7,6 @@ var table = document.getElementById("dataset_table");
 var input = document.getElementById("filter-input");
 var filterButton = document.getElementById("filter-button");
 
-// Get a reference to the form and the table
-const form = document.getElementById('filter-form');
-
 // Add an event listener to the filter button
 filterButton.addEventListener("click", function() {
     // Get the filter values from the input element

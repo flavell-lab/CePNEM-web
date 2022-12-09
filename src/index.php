@@ -7,11 +7,11 @@
 
 <script src="script/sort_table.js"></script>
 <h1>CePNEM Data Browser</h1>
-<h3><a href="https://www.biorxiv.org/content/10.1101/2022.11.11.516186v1">Brain-wide representations of behavior spanning multiple timescales and states in <i>C. elegans</i></a>
-</h3>
+<p>Link to paper: <a href="https://www.biorxiv.org/content/10.1101/2022.11.11.516186v1">Brain-wide representations of behavior spanning multiple timescales and states in <i>C. elegans</i></a>
+</p>
 
-<center>
-    <p><strong>Neurons</strong></p>
+<p>
+    <h2>Link to neuron datasheets</h2>
     <form action="load_neuron.php" method="get">
         Display data for the following neuron:
         <select name="name">
@@ -26,17 +26,15 @@
             ?>
         </select>&nbsp;<button type="submit">Load</button>
     </form>
-</center>
 
-<center>
     <script>
         const matches = <?php echo json_encode($decoded_matches)?>;
     </script>
-    <p><strong>Datasets</strong></p>
     <h2>Filter datasets by neuron class</h2>
-    <p>Enter the values of the neurons:</p>
+    <p>Input neuron classes (separate with commas, enter nothing to reset):
     <input id="filter-input" type="text" value="">
-    <button id="filter-button">Filter</button>
+    <button id="filter-button">Filter datasets</button>
+	</p>
     <table id="dataset_table">
         <?php
             $data = file_get_contents('data/summary.json');
@@ -76,5 +74,5 @@
     </table>
 
     <script src="script/filter_table.js"></script>
-</center>
+</p>
 

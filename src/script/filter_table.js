@@ -12,6 +12,7 @@ filterButton.addEventListener("click", function() {
     // Get the filter values from the input element
     var filterValues = input.value.toUpperCase().split(",");
 
+	var notFound = [];
     // Loop through all table rows except the header row.
     for (var i = 1; i < table.rows.length; i++) {
         // Get the current row
@@ -21,13 +22,23 @@ filterButton.addEventListener("click", function() {
         var dataCells = row.getElementsByTagName("td");
 
         // Get the current dataset
-        var dataset = dataCells[0].innerHTML;
+        var dataset = dataCells[0].textContent.replace(/\s/g, "");
         var match = true;
-        for (var j = 0; j < filterValues.length; k++) {
-            value = filterValues[j].toUpperCase();
+        for (var j = 0; j < filterValues.length; j++) {
+            value = filterValues[j].replace(/\s/g, "").toUpperCase();
+			if (value == "") {
+				continue;
+			}
+			if (!Object.keys(matches).includes(value)) {
+				if (!notFound.includes(value)) {
+					notFound.push(value);
+				}
+				match = false;
+				continue;
+			}
             match_this = false;
-            for (var k = 0; k < length(matches[value]); k++) {
-                if (matches[value][0] == dataset) {
+            for (var k = 0; k < matches[value].length; k++) {
+                if (matches[value][k][0] == dataset) {
                     match_this = true;
                     break;
                 }
@@ -43,5 +54,8 @@ filterButton.addEventListener("click", function() {
         } else {
             row.style.display = "none";
         }
+    }
+	if (notFound.length > 0) {
+		alert("Warning: neurons " + notFound + " not detected.");
     }
 });

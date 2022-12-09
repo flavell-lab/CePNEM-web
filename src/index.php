@@ -31,11 +31,11 @@
         const matches = <?php echo json_encode($decoded_matches)?>;
     </script>
     <h2>Filter datasets by neuron class</h2>
-    <form id="filter-form">
+    <p>
         <label>Input neuron classes (separate with commas, enter nothing to reset):</label>
         <input id="filter-input" type="text" value="">
         <button id="filter-button">Filter datasets</button>
-	</form>
+	</p>
     <table id="dataset_table">
         <?php
             $data = file_get_contents('data/summary.json');

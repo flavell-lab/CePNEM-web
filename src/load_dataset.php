@@ -1,6 +1,12 @@
 <?php
     $name = $_GET['name'];
 
+    $neurons_init = $_GET['neurons'];
+
+    if (!isset($neurons_init)) {
+        $neurons_init = [];
+    }
+
     # Number of images that should be displayed on each row
     $imagesPerRow = 3;
 
@@ -66,6 +72,7 @@
 		const trace_array = <?php echo json_encode($trace_array)?>;
 		var append = false;
 		var append_behavior = false;
+        var neurons_init = <?php echo json_encode($neurons_init) ?>;
 
 		const velocity_orig = <?php echo json_encode($velocity)?>;
 		const velocity = velocity_orig.map(x => x * 10);
@@ -142,7 +149,7 @@
 						echo "<td>$enc_str_hc</td>";
 						$dorsalness = round($decoded_data['dorsalness'][$neuron-1], 2);
 						echo "<td>$dorsalness</td>";
-					} else {
+                } else {
 						$enc_str_P = round($decoded_data['rel_enc_str_P'][$neuron-1], 2);
 						echo "<td>$enc_str_P</td>";
 						$feedingness = round($decoded_data['feedingness'][$neuron-1], 2);
@@ -203,5 +210,11 @@
 	<div id='plot'></div>
     <button onclick="Plotly.purge(document.getElementById('plot')); append=false;">Clear plot</button>
     <script src="script/button_move.js"></script>
+    <script>
+        for (var neuron of neurons_init) {
+            plotSpecificNeuralTrace(time_range, trace_array, neuron, 'plot', append);
+            append = true;
+        }
+    </script>
 </body>
 </html>

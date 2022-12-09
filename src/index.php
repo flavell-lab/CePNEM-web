@@ -31,10 +31,11 @@
         const matches = <?php echo json_encode($decoded_matches)?>;
     </script>
     <h2>Filter datasets by neuron class</h2>
-    <p>Input neuron classes (separate with commas, enter nothing to reset):
-    <input id="filter-input" type="text" value="">
-    <button id="filter-button">Filter datasets</button>
-	</p>
+    <form id="filter-form">
+        <label>Input neuron classes (separate with commas, enter nothing to reset):</label>
+        <input id="filter-input" type="text" value="">
+        <button id="filter-button">Filter datasets</button>
+	</form>
     <table id="dataset_table">
         <?php
             $data = file_get_contents('data/summary.json');
@@ -61,7 +62,7 @@
                     echo "<tr class='alt'>";
                 }
 
-                echo "<td> <a href=load_dataset.php?name=$dataset target = '_blank'> $dataset </a> </td>";
+                echo "<td> <a href=load_dataset.php?name=$dataset target = '_blank' id=$dataset> $dataset </a> </td>";
                 for ($i = 0; $i < count($fields); $i++) {
                     $display_data = $dataset_data[$fields[$i]];
                     echo "<td>$display_data</td>";

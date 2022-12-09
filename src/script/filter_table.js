@@ -7,6 +7,9 @@ var table = document.getElementById("dataset_table");
 var input = document.getElementById("filter-input");
 var filterButton = document.getElementById("filter-button");
 
+// Get a reference to the form and the table
+const form = document.getElementById('filter-form');
+
 // Add an event listener to the filter button
 filterButton.addEventListener("click", function() {
     // Get the filter values from the input element
@@ -24,6 +27,8 @@ filterButton.addEventListener("click", function() {
         // Get the current dataset
         var dataset = dataCells[0].textContent.replace(/\s/g, "");
         var match = true;
+
+        link_url_append = [];
         for (var j = 0; j < filterValues.length; j++) {
             value = filterValues[j].replace(/\s/g, "").toUpperCase();
 			if (value == "") {
@@ -40,6 +45,7 @@ filterButton.addEventListener("click", function() {
             for (var k = 0; k < matches[value].length; k++) {
                 if (matches[value][k][0] == dataset) {
                     match_this = true;
+                    link_url_append.push(matches[value][k][1]);
                     break;
                 }
             }
@@ -51,6 +57,8 @@ filterButton.addEventListener("click", function() {
         // If there was a match, show the row, otherwise hide it
         if (match) {
             row.style.display = "";
+            matches_url_str = link_url_append.map((number) => `neurons[]=${encodeURIComponent(number)}`).join('&');
+            dataCells[0].setAttribute('href', "load_dataset.php?name=" + dataset + "&" + matches_url_str);
         } else {
             row.style.display = "none";
         }

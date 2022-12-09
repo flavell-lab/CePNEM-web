@@ -77,6 +77,7 @@
 		var append_behavior = false;
         var neurons_init = <?php echo json_encode($neurons_init) ?>;
 
+		const neuropal_labels = <?php echo json_encode($labels)?>;
 		const velocity_orig = <?php echo json_encode($velocity)?>;
 		const velocity = velocity_orig.map(x => x * 10);
 		const head_curve = <?php echo json_encode($head_curvature)?>;
@@ -91,7 +92,7 @@
 
     <button class='accordion'>CePNEM data table</button>
     <div class='panel'>
-    <table id="encoding_table">
+    <table id="encoding_table" style="font-size:small;">
         <tr>
             <?php
                 if ($num_labels > 0) {
@@ -149,13 +150,13 @@
                 echo "<tr>";
 
                 if ($num_labels > 0) {
-                    $neuron_id = "-";
-                    if (isset($labels[$neuron_id])) {
-                        $neuron_id = $labels[$neuron_id];
+                    $neuron_id = "~";
+                    if (isset($labels[$neuron])) {
+                        $neuron_id = $labels[$neuron]['label'];
                     }
-                    echo "<td style='cursor: pointer;' onclick=\"plotSpecificNeuralTrace(time_range, trace_array, $neuron, 'plot', append); append=true;\">$neuron_id</td>";
+                    echo "<td style='cursor: pointer;' onclick=\"plotSpecificNeuralTrace(time_range, trace_array, $neuron, 'plot', append, neuropal_labels); append=true;\">$neuron_id</td>";
                 }
-                echo "<td style='cursor: pointer;' onclick=\"plotSpecificNeuralTrace(time_range, trace_array, $neuron, 'plot', append); append=true;\">$neuron</td>";
+                echo "<td style='cursor: pointer;' onclick=\"plotSpecificNeuralTrace(time_range, trace_array, $neuron, 'plot', append, neuropal_labels); append=true;\">$neuron</td>";
 
                 foreach (["v", "θh", "P"] as $beh) {
 					if ($beh == "v") {
@@ -231,7 +232,7 @@
     <script src="script/button_move.js"></script>
     <script>
         for (var neuron of neurons_init) {
-            plotSpecificNeuralTrace(time_range, trace_array, neuron, 'plot', append);
+            plotSpecificNeuralTrace(time_range, trace_array, neuron, 'plot', append, neuropal_labels);
             append = true;
         }
     </script>

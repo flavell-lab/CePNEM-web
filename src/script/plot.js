@@ -44,8 +44,12 @@ function plotNeuralTrace(time_range, trace_array, neuron_element, neuron_plot_el
     plotData(time_range, trace_array[n-1], neuron_plot_element, 'Neuron ' + n, append, '')
 }
 
-function plotSpecificNeuralTrace(time_range, trace_array, n, neuron_plot_element, append) {
-    plotData(time_range, trace_array[n-1], neuron_plot_element, 'Neuron ' + n, append, '')
+function plotSpecificNeuralTrace(time_range, trace_array, n, neuron_plot_element, append, neuropal_labels) {
+	if (n in neuropal_labels) {
+	    plotData(time_range, trace_array[n-1], neuron_plot_element, neuropal_labels[n]['label'], append, '')
+	} else {
+	    plotData(time_range, trace_array[n-1], neuron_plot_element, 'Neuron ' + n, append, '')
+	}
 }
 
 function plotBehavior(time_range, behaviors, behavior_units, behavior_select_element, behavior_plot_element, append_behavior) {

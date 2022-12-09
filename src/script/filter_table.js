@@ -43,7 +43,6 @@ filterButton.addEventListener("click", function() {
                 if (matches[value][k][0] == dataset) {
                     match_this = true;
                     link_url_append.push(matches[value][k][1]);
-                    break;
                 }
             }
             if (!match_this) {

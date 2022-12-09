@@ -54,7 +54,7 @@ filterButton.addEventListener("click", function() {
         // If there was a match, show the row, otherwise hide it
         if (match) {
             row.style.display = "";
-            var links = dataCells[0].quareySelectorAll('a');
+            var links = dataCells[0].querySelectorAll('a');
             links.forEach((link) => {
                 matches_url_str = link_url_append.map((number) => `neurons[]=${encodeURIComponent(number)}`).join('&');
                 link.setAttribute('href', "load_dataset.php?name=" + dataset + "&" + matches_url_str);

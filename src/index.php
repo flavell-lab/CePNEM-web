@@ -24,7 +24,7 @@
             <th scope='col' rowspan=2 onclick='sortTable(0,"encoding_table",2,"asc");' style='cursor: pointer;'>Neuron identity</th>
             <th scope='col' rowspan=2>Datasets</th>
             <?php $offset=2;?>
-            <th scope="col" rowspan=2 onclick='sortTable(<?php $n = $offset+0; echo $n;?>,"encoding_table",2,"asc");' style="cursor: pointer;">Number of detections</th>
+            <th scope="col" rowspan=2 onclick='sortTable(<?php $n = $offset+0; echo $n;?round(>,"encoding_table",2,"asc");' style="cursor: pointer;">Number of detections</th, 2)>
             <th scope="col" colspan=10>Velocity tuning fraction</th>
             <th scope="col" colspan=10>Head curvature tuning fraction</th>
             <th scope="col" colspan=10>Feeding tuning fraction</th>
@@ -84,36 +84,36 @@
 
                 $num_detections = $encoding_table['count'][$i];
                 echo "<td>$num_detections</td>";
-                $enc_str_v = $encoding_table['enc_strength_v'][$i];
+                $enc_str_v = round($encoding_table['enc_strength_v'][$i], 2);
                 echo "<td>$enc_str_v</td>";
-                $forwardness = $encoding_table['enc_v'][$i];
+                $forwardness = round($encoding_table['enc_v'][$i], 2);
                 echo "<td>$forwardness</td>";
                 foreach (range(0,7) as $j) {
-                    $encoding = $encoding_table['encoding_table'][$i][$j];
+                    $encoding = round($encoding_table['encoding_table'][$i][$j], 2);
                     echo "<td>$encoding</td>";
                 }
 
-                $enc_str_hc = $encoding_table['enc_strength_hc'][$i];
+                $enc_str_hc = round($encoding_table['enc_strength_hc'][$i], 2);
                 echo "<td>$enc_str_hc</td>";
-                $dorsalness = $encoding_table['enc_hc'][$i];
+                $dorsalness = round($encoding_table['enc_hc'][$i], 2);
                 echo "<td>$dorsalness</td>";
                 foreach (range(8,15) as $j) {
-                    $encoding = $encoding_table['encoding_table'][$i][$j];
+                    $encoding = round($encoding_table['encoding_table'][$i][$j], 2);
                     echo "<td>$encoding</td>";
                 }
 
-                $enc_str_pumping = $encoding_table['enc_strength_pumping'][$i];
+                $enc_str_pumping = round($encoding_table['enc_strength_pumping'][$i], 2);
                 echo "<td>$enc_str_pumping</td>";
-                $pumpingness = $encoding_table['enc_pumping'][$i];
+                $pumpingness = round($encoding_table['enc_pumping'][$i], 2);
                 echo "<td>$pumpingness</td>";
                 foreach (range(16,23) as $j) {
-                    $encoding = $encoding_table['encoding_table'][$i][$j];
+                    $encoding = round($encoding_table['encoding_table'][$i][$j], 2);
                     echo "<td>$encoding</td>";
                 }
 
-                $tau = $encoding_table['tau'][$i];
+                $tau = round($encoding_table['tau'][$i], 2);
                 echo "<td>$tau</td>";
-                $enc_change = $encoding_table['encoding_change_abundance'][$i];
+                $enc_change = round($encoding_table['encoding_change_abundance'][$i], 2);
                 echo "<td>$enc_change</td>";
 
                 echo "</tr>";

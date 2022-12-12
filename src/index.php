@@ -18,13 +18,11 @@
 ?>
 
 <p>
-    <h2>Link to neuron datasheets</h2>
+    <!--<h2>Link to neuron datasheets</h2>
     <form action="load_neuron.php" method="get">
         Display data for the following neuron:
         <select name="name">
             <?php
-
-
                 foreach ($decoded_matches as $neuron => $datasets) {
                     $num_detections = count($datasets);
                     echo "<option value=$neuron>$neuron ($num_detections detections)</option>\"";
@@ -35,7 +33,7 @@
 
     <script>
         const matches = <?php echo json_encode($decoded_matches)?>;
-    </script>
+    </script>-->
 
     <button class='accordion'>CePNEM data table</button>
     <div class='panel'>
@@ -93,6 +91,7 @@
                 $neuron = $encoding_table['class'][$i];
                 echo "<td>$neuron</td>";
 
+                echo '<td>';
                 echo '<select onchange="location = this.value;">';
                 echo '<option value="">Dataset</option>';
                 foreach (range(0, count($decoded_matches[$neuron])) as $j) {
@@ -100,30 +99,41 @@
                     $n = $decoded_matches[$neuron][1];
                     echo "<option value='load_dataset.php?name=$dataset&neurons[]=$n'>$dataset</option>";
                 }
-                echo "</select>";
+                echo "</select></td>";
 
-                echo "<td>Datasets</td>";
-                echo "<td>$encoding_table['count'][$i]";
-                echo "<td>$encoding_table['enc_strength_v'][$i]";
-                echo "<td>$encoding_table['enc_v'][$i]";
+                $num_detections = $encoding_table['count'][$i];
+                echo "<td>$num_detections</td>";
+                $enc_str_v = $encoding_table['enc_strength_v'][$i];
+                echo "<td>$enc_str_v</td>";
+                $forwardness = $encoding_table['enc_v'][$i];
+                echo "<td>$forwardness</td>";
                 foreach (range(0,7) as $j) {
-                    echo "<td>$encoding_table['encoding_table'][$i][$j]";
+                    $encoding = $encoding_table['encoding_table'][$i][$j]
+                    echo "<td>$encoding</td>";
                 }
 
-                echo "<td>$encoding_table['enc_strength_hc'][$i]";
-                echo "<td>$encoding_table['enc_hc'][$i]";
+                $enc_str_hc = $encoding_table['enc_strength_hc'][$i];
+                echo "<td>$enc_str_hc</td>";
+                $dorsalness = $encoding_table['enc_hc'][$i];
+                echo "<td>$dorsalness</td>";
                 foreach (range(8,15) as $j) {
-                    echo "<td>$encoding_table['encoding_table'][$i][$j]";
+                    $encoding = $encoding_table['encoding_table'][$i][$j]
+                    echo "<td>$encoding</td>";
                 }
 
-                echo "<td>$encoding_table['enc_strength_pumping'][$i]";
-                echo "<td>$encoding_table['enc_pumping'][$i]";
+                $enc_str_pumping = $encoding_table['enc_strength_pumping'][$i];
+                echo "<td>$enc_str_pumping</td>";
+                $pumpingness = $encoding_table['enc_pumping'][$i];
+                echo "<td>$pumpingness</td>";
                 foreach (range(16,23) as $j) {
-                    echo "<td>$encoding_table['encoding_table'][$i][$j]";
+                    $encoding = $encoding_table['encoding_table'][$i][$j]
+                    echo "<td>$encoding</td>";
                 }
 
-                echo "<td>$encoding_table['tau'][$i]";
-                echo "<td>$encoding_table['encoding_change_abundance'][$i]";
+                $tau = $encoding_table['tau'][$i];
+                echo "<td>$tau</td>";
+                $enc_change = $encoding_table['encoding_change_abundance'][$i];
+                echo "<td>$enc_change</td>";
 
                 echo "</tr>";
             }

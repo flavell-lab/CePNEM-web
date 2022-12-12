@@ -10,14 +10,20 @@
 <p>Link to paper: <a href="https://www.biorxiv.org/content/10.1101/2022.11.11.516186v1">Brain-wide representations of behavior spanning multiple timescales and states in <i>C. elegans</i></a>
 </p>
 
+<?php
+    $matches = file_get_contents('data/matches.json');
+    $decoded_matches = json_decode($matches, true);
+    $encoding_data = file_get_contents("data/encoding_table.json");
+    $encoding_table = json_decode($encoding_data);
+?>
+
 <p>
     <h2>Link to neuron datasheets</h2>
     <form action="load_neuron.php" method="get">
         Display data for the following neuron:
         <select name="name">
             <?php
-                $matches = file_get_contents('data/matches.json');
-                $decoded_matches = json_decode($matches, true);
+
 
                 foreach ($decoded_matches as $neuron => $datasets) {
                     $num_detections = count($datasets);
@@ -30,7 +36,103 @@
     <script>
         const matches = <?php echo json_encode($decoded_matches)?>;
     </script>
-    <h2>Filter datasets by neuron class</h2>
+
+    <button class='accordion'>CePNEM data table</button>
+    <div class='panel'>
+    <table id="encoding_table">
+        <tr>
+            <th scope='col' rowspan=2 onclick='sortTable(0,"encoding_table",2,"asc");' style='cursor: pointer;'>Neuron identity</th>
+            <th scope='col' rowspan=2>Datasets</th>
+            <?php $offset=2;?>
+            <th scope="col" rowspan=2 onclick='sortTable(<?php $n = $offset+0; echo $n;?>,"encoding_table",2,"asc");' style="cursor: pointer;">Number of detections</th>
+            <th scope="col" colspan=10>Velocity tuning fraction</th>
+            <th scope="col" colspan=10>Head curvature tuning fraction</th>
+            <th scope="col" colspan=10>Feeding tuning fraction</th>
+            <th scope="col" rowspan=2 onclick='sortTable(<?php $n = $offset+31; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;">EWMA</th>
+			<th scope="col" rowspan=2 onclick='sortTable(<?php $n = $offset+32; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;">Encoding change fraction</th>
+        </tr>
+        <tr>
+            <th onclick='sortTable(<?php $n = $offset+1; echo $n;?>, "encoding_table",2,"desc");' style="cursor: pointer;">Encoding strength</th>
+            <th onclick='sortTable(<?php $n = $offset+2; echo $n;?>, "encoding_table",2,"desc");' style="cursor: pointer;">Forward-ness</th>
+            <th onclick='sortTable(<?php $n = $offset+3; echo $n;?>, "encoding_table",2,"desc");' style="cursor: pointer;"><b>F</b>wd</th>
+            <th onclick='sortTable(<?php $n = $offset+4; echo $n;?>, "encoding_table",2,"desc");' style="cursor: pointer;"><b>R</b>ev</th>
+            <th onclick='sortTable(<?php $n = $offset+5; echo $n;?>, "encoding_table",2,"desc");' style="cursor: pointer;"><b>F</b>wd slope +</th>
+            <th onclick='sortTable(<?php $n = $offset+6; echo $n;?>, "encoding_table",2,"desc");' style="cursor: pointer;"><b>F</b>wd slope -</th>
+            <th onclick='sortTable(<?php $n = $offset+7; echo $n;?>, "encoding_table",2,"desc");' style="cursor: pointer;"><b>R</b>ev slope +</th>
+            <th onclick='sortTable(<?php $n = $offset+8; echo $n;?>, "encoding_table",2,"desc");' style="cursor: pointer;"><b>R</b>ev slope -</th>
+            <th onclick='sortTable(<?php $n = $offset+9; echo $n;?>, "encoding_table",2,"desc");' style="cursor: pointer;"><b>F</b>wd slope > R</b>ev slope</th>
+            <th onclick='sortTable(<?php $n = $offset+10; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;"><b>F</b>wd slope < R</b>ev slope</th>
+
+            <th onclick='sortTable(<?php $n = $offset+11; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;">Encoding strength</th>
+            <th onclick='sortTable(<?php $n = $offset+12; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;">Dorsal-ness</th>
+            <th onclick='sortTable(<?php $n = $offset+13; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;"><b>D</b>orsal</th>
+            <th onclick='sortTable(<?php $n = $offset+14; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;"><b>V</b>entral</th>
+            <th onclick='sortTable(<?php $n = $offset+15; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;"><b>D</b>orsal during <b>F</b></th>
+            <th onclick='sortTable(<?php $n = $offset+16; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;"><b>V</b>entral during <b>F</b></th>
+            <th onclick='sortTable(<?php $n = $offset+17; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;"><b>D</b>orsal during <b>R</b></th>
+            <th onclick='sortTable(<?php $n = $offset+18; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;"><b>V</b>entral during <b>R</b></th>
+            <th onclick='sortTable(<?php $n = $offset+19; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;">More <b>D</b> during <b>F</b></th>
+            <th onclick='sortTable(<?php $n = $offset+20; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;">More <b>V</b> during <b>F</b></th>
+
+            <th onclick='sortTable(<?php $n = $offset+21; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;">Encoding strength</th>
+            <th onclick='sortTable(<?php $n = $offset+22; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;">Feeding-ness</th>
+            <th onclick='sortTable(<?php $n = $offset+23; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;"><b>A</b>ctivated</th>
+            <th onclick='sortTable(<?php $n = $offset+24; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;"><b>I</b>nhibited</th>
+            <th onclick='sortTable(<?php $n = $offset+25; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;"><b>A</b>ct during <b>F</b></th>
+            <th onclick='sortTable(<?php $n = $offset+26; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;"><b>I</b>nh during <b>F</b></th>
+            <th onclick='sortTable(<?php $n = $offset+27; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;"><b>A</b>ct during <b>R</b></th>
+            <th onclick='sortTable(<?php $n = $offset+28; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;"><b>I</b>nh during <b>R</b></th>
+            <th onclick='sortTable(<?php $n = $offset+29; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;">More <b>A</b> during <b>F</b></th>
+            <th onclick='sortTable(<?php $n = $offset+30; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;">More <b>I</b> during <b>F</b></th>
+        </tr>
+        <?php
+
+            foreach (range(0,count($encoding_table['class']-1)) as $i) {
+                echo "<tr>";
+
+                $neuron = $encoding_table['class'][$i];
+                echo "<td>$neuron</td>";
+
+                echo '<select onchange="location = this.value;">';
+                echo '<option value="">Dataset</option>';
+                foreach (range(0, count($decoded_matches[$neuron])) as $j) {
+                    $dataset = $decoded_matches[$neuron][0];
+                    $n = $decoded_matches[$neuron][1];
+                    echo "<option value='load_dataset.php?name=$dataset&neurons[]=$n'>$dataset</option>";
+                }
+                echo "</select>";
+
+                echo "<td>Datasets</td>";
+                echo "<td>$encoding_table['count'][$i]";
+                echo "<td>$encoding_table['enc_strength_v'][$i]";
+                echo "<td>$encoding_table['enc_v'][$i]";
+                foreach (range(0,7) as $j) {
+                    echo "<td>$encoding_table['encoding_table'][$i][$j]";
+                }
+
+                echo "<td>$encoding_table['enc_strength_hc'][$i]";
+                echo "<td>$encoding_table['enc_hc'][$i]";
+                foreach (range(8,15) as $j) {
+                    echo "<td>$encoding_table['encoding_table'][$i][$j]";
+                }
+
+                echo "<td>$encoding_table['enc_strength_pumping'][$i]";
+                echo "<td>$encoding_table['enc_pumping'][$i]";
+                foreach (range(16,23) as $j) {
+                    echo "<td>$encoding_table['encoding_table'][$i][$j]";
+                }
+
+                echo "<td>$encoding_table['tau'][$i]";
+                echo "<td>$encoding_table['encoding_change_abundance'][$i]";
+
+                echo "</tr>";
+            }
+        ?>
+    </table>
+    </div>
+
+    <button class='accordion'>Filter datasets by neuron class</button>
+    <div class='panel'>
     <p>
         <label>Input neuron classes (separate with commas, enter nothing to reset):</label>
         <input id="filter-input" type="text" value="">
@@ -73,7 +175,7 @@
             }
         ?>
     </table>
-
     <script src="script/filter_table.js"></script>
+    </div>
 </p>
 

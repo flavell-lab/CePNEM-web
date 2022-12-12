@@ -24,7 +24,7 @@
     $multiplier = function($value) use ($timestep) {
         return $value * $timestep;
     };
-    $time_range = array_map($multiplier, range(0,$decoded_data['max_t']));
+    $time_range = array_map($multiplier, range(0,$decoded_data['max_t']-1));
     $velocity = $decoded_data["velocity"];
     $head_curvature = $decoded_data["head_curvature"];
     $pumping = $decoded_data["pumping"];

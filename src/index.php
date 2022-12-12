@@ -24,7 +24,7 @@
             <th scope='col' rowspan=2 onclick='sortTable(0,"encoding_table",2,"asc");' style='cursor: pointer;'>Neuron identity</th>
             <th scope='col' rowspan=2>Datasets</th>
             <?php $offset=2;?>
-            <th scope="col" rowspan=2 onclick='sortTable(<?php $n = $offset+0; echo $n;?round(>,"encoding_table",2,"asc");' style="cursor: pointer;">Number of detections</th, 2)>
+            <th scope="col" rowspan=2 onclick='sortTable(<?php $n = $offset+0; echo $n;?>,"encoding_table",2,"asc");' style="cursor: pointer;">Number of detections</th>
             <th scope="col" colspan=10>Velocity tuning fraction</th>
             <th scope="col" colspan=10>Head curvature tuning fraction</th>
             <th scope="col" colspan=10>Feeding tuning fraction</th>

@@ -77,10 +77,19 @@
                 echo '<td>';
                 echo '<select onchange="window.open(this.value, \'_blank\');" style=\'font-size: small;\'>';
                 echo '<option value="">Plot in dataset</option>';
+
+                $neurons_str = "";
+                $dataset_prev = "";
                 foreach (range(0, count($decoded_matches[$neuron])-1) as $j) {
                     $dataset = $decoded_matches[$neuron][$j][0];
+                    if (($dataset != $dataset_prev) && ($dataset_prev != "") {
+                        echo "<option value='load_dataset.php?name=$dataset_prev$neurons_str'>$dataset</option>";
+                        $dataset_prev = $dataset;
+                        $neurons_str = "";
+                    }
+
                     $n = $decoded_matches[$neuron][$j][1];
-                    echo "<option value='load_dataset.php?name=$dataset&neurons[]=$n'>$dataset</option>";
+                    $neurons_str = $neurons_str . "&neurons[]=$n";
                 }
                 echo "</select></td>";
 

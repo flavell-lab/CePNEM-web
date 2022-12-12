@@ -14,26 +14,8 @@
     $matches = file_get_contents('data/matches.json');
     $decoded_matches = json_decode($matches, true);
     $encoding_data = file_get_contents("data/encoding_table.json");
-    $encoding_table = json_decode($encoding_data);
+    $encoding_table = json_decode($encoding_data, true);
 ?>
-
-<p>
-    <!--<h2>Link to neuron datasheets</h2>
-    <form action="load_neuron.php" method="get">
-        Display data for the following neuron:
-        <select name="name">
-            <?php
-                foreach ($decoded_matches as $neuron => $datasets) {
-                    $num_detections = count($datasets);
-                    echo "<option value=$neuron>$neuron ($num_detections detections)</option>\"";
-                }
-            ?>
-        </select>&nbsp;<button type="submit">Load</button>
-    </form>
-
-    <script>
-        const matches = <?php echo json_encode($decoded_matches)?>;
-    </script>-->
 
     <button class='accordion'>CePNEM data table</button>
     <div class='panel'>
@@ -84,19 +66,18 @@
             <th onclick='sortTable(<?php $n = $offset+30; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;">More <b>I</b> during <b>F</b></th>
         </tr>
         <?php
-
-            foreach (range(0,count($encoding_table['class']-1)) as $i) {
+            foreach (range(0,count($encoding_table['class'])-1) as $i) {
                 echo "<tr>";
 
                 $neuron = $encoding_table['class'][$i];
                 echo "<td>$neuron</td>";
 
                 echo '<td>';
-                echo '<select onchange="location = this.value;">';
+                echo '<select onchange="window.open(this.value, \'_blank\');">';
                 echo '<option value="">Dataset</option>';
                 foreach (range(0, count($decoded_matches[$neuron])) as $j) {
-                    $dataset = $decoded_matches[$neuron][0];
-                    $n = $decoded_matches[$neuron][1];
+                    $dataset = $decoded_matches[$neuron][$j][0];
+                    $n = $decoded_matches[$neuron][$j][1];
                     echo "<option value='load_dataset.php?name=$dataset&neurons[]=$n'>$dataset</option>";
                 }
                 echo "</select></td>";
@@ -187,5 +168,7 @@
     </table>
     <script src="script/filter_table.js"></script>
     </div>
-</p>
+	<script src="script/button_move.js"></script>
+</body>
+</html>
 

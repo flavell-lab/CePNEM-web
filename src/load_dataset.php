@@ -92,7 +92,7 @@
 
     <button class='accordion'>CePNEM data table</button>
     <div class='panel'>
-    <table id="encoding_table" style="font-size:small;">
+    <table id="encoding_table">
         <tr>
             <?php
                 if ($num_labels > 0) {

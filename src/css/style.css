@@ -26,6 +26,7 @@ p+p{
 table{
     width:95%;
     font-family: sans-serif;
+	font-size: small;
     background-color: #333333;
 	border-collapse: collapse;
 }

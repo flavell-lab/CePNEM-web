@@ -108,7 +108,7 @@
                 $forwardness = $encoding_table['enc_v'][$i];
                 echo "<td>$forwardness</td>";
                 foreach (range(0,7) as $j) {
-                    $encoding = $encoding_table['encoding_table'][$i][$j]
+                    $encoding = $encoding_table['encoding_table'][$i][$j];
                     echo "<td>$encoding</td>";
                 }
 
@@ -117,7 +117,7 @@
                 $dorsalness = $encoding_table['enc_hc'][$i];
                 echo "<td>$dorsalness</td>";
                 foreach (range(8,15) as $j) {
-                    $encoding = $encoding_table['encoding_table'][$i][$j]
+                    $encoding = $encoding_table['encoding_table'][$i][$j];
                     echo "<td>$encoding</td>";
                 }
 
@@ -126,7 +126,7 @@
                 $pumpingness = $encoding_table['enc_pumping'][$i];
                 echo "<td>$pumpingness</td>";
                 foreach (range(16,23) as $j) {
-                    $encoding = $encoding_table['encoding_table'][$i][$j]
+                    $encoding = $encoding_table['encoding_table'][$i][$j];
                     echo "<td>$encoding</td>";
                 }
 

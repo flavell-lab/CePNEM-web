@@ -22,7 +22,7 @@ filterButton.addEventListener("click", function() {
         var dataCells = row.getElementsByTagName("td");
 
         // Get the current dataset
-        var dataset = dataCells[0].textContent.replace(/\s/g, "");
+        var dataset = dataCells[0].id.replace(/\s/g, "");
         var match = true;
 
         link_url_append = [];

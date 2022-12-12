@@ -16,7 +16,9 @@
     $encoding_data = file_get_contents("data/encoding_table.json");
     $encoding_table = json_decode($encoding_data, true);
 ?>
-
+    <script>
+        const matches = <?php echo json_encode($decoded_matches)?>;
+    </script>
     <button class='accordion'>CePNEM data table</button>
     <div class='panel'>
     <table id="encoding_table">
@@ -28,8 +30,8 @@
             <th scope="col" colspan=10>Velocity tuning fraction</th>
             <th scope="col" colspan=10>Head curvature tuning fraction</th>
             <th scope="col" colspan=10>Feeding tuning fraction</th>
-            <th scope="col" rowspan=2 onclick='sortTable(<?php $n = $offset+31; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;">EWMA</th>
-			<th scope="col" rowspan=2 onclick='sortTable(<?php $n = $offset+32; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;">Encoding change fraction</th>
+            <th scope="col" rowspan=2 onclick='sortTable(<?php $n = $offset+31; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;">EWMA half-decay (s)</th>
+			<th scope="col" rowspan=2 onclick='sortTable(<?php $n = $offset+32; echo $n;?>,"encoding_table",2,"desc");' style="cursor: pointer;">Encoding change abundance</th>
         </tr>
         <tr>
             <th onclick='sortTable(<?php $n = $offset+1; echo $n;?>, "encoding_table",2,"desc");' style="cursor: pointer;">Encoding strength</th>
@@ -73,9 +75,9 @@
                 echo "<td>$neuron</td>";
 
                 echo '<td>';
-                echo '<select onchange="window.open(this.value, \'_blank\');">';
-                echo '<option value="">Dataset</option>';
-                foreach (range(0, count($decoded_matches[$neuron])) as $j) {
+                echo '<select onchange="window.open(this.value, \'_blank\');" style=\'font-size: small;\'>';
+                echo '<option value="">Plot in dataset</option>';
+                foreach (range(0, count($decoded_matches[$neuron])-1) as $j) {
                     $dataset = $decoded_matches[$neuron][$j][0];
                     $n = $decoded_matches[$neuron][$j][1];
                     echo "<option value='load_dataset.php?name=$dataset&neurons[]=$n'>$dataset</option>";
@@ -146,7 +148,7 @@
             echo "<th onclick='sortTable(3,\"dataset_table\",1,\"desc\");' style='cursor: pointer;'> # Labeled Neurons </th>";
             echo "<th onclick='sortTable(4,\"dataset_table\",1,\"desc\");' style='cursor: pointer;'> Max timepoint </th>";
             echo "<th onclick='sortTable(5,\"dataset_table\",1,\"desc\");' style='cursor: pointer;'> # Encoding Changes </th>";
-            echo "<th> Download link </th>";
+            echo "<th> Download JSON </th>";
 			echo "</tr>";
             foreach ($decoded_data as $dataset => $dataset_data) {
                 if ($count % 2 == 0) {
@@ -154,8 +156,9 @@
                 } else {
                     echo "<tr class='alt'>";
                 }
-
-                echo "<td> <a href=load_dataset.php?name=$dataset target = '_blank' id=$dataset> $dataset </a> </td>";
+				
+				$dataset_nobr = str_replace("-", "&#8209;", $dataset);
+                echo "<td id=$dataset> <a href=load_dataset.php?name=$dataset target = '_blank' id=$dataset> $dataset_nobr </a> </td>";
                 for ($i = 0; $i < count($fields); $i++) {
                     $display_data = $dataset_data[$fields[$i]];
                     echo "<td>$display_data</td>";

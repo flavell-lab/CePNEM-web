@@ -25,8 +25,8 @@ function getDatasetTypePill(datasettype) {
     return result;
 }
 
-
-var table_data = []
+// populate table
+var table_data = [];
 fetch("data/summary.json").
     then(response => response.json()).
     then(data => {
@@ -34,18 +34,21 @@ fetch("data/summary.json").
             let datasettype = value.dataset_type;
             let url_neuron = "plot_dataset.html?uid=" + key + "&list_neuron=1&list_behavior=v";
             let url_json = `data/${key}.json`
-            
-            table_data.push({
-                id: key,
-                type: getDatasetTypePill(datasettype),
-                num_neurons: value.num_neurons,
-                max_t: value.max_t,
-                num_labeled: value.num_labeled,
-                num_encoding_changes: value.num_encoding_changes,
-                action: `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button">Download</a>`
-                // `   ` + 
-                // `<a id="button_plot" class="btn btn-outline-dark btn-sm" href=${url_neuron} role="button">Plot neurons</a>`
-            })
+
+            if (datasettype == "NeuroPAL") {
+
+                table_data.push({
+                    id: key,
+                    type: getDatasetTypePill(datasettype),
+                    num_neurons: value.num_neurons,
+                    max_t: value.max_t,
+                    num_labeled: value.num_labeled,
+                    num_encoding_changes: value.num_encoding_changes,
+                    action: `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button">Download</a>`
+                    // `   ` + 
+                    // `<a id="button_plot" class="btn btn-outline-dark btn-sm" href=${url_neuron} role="button">Plot neurons</a>`
+                })
+            }
         }
 
         $('#dataset_table').bootstrapTable({
@@ -54,6 +57,7 @@ fetch("data/summary.json").
     }).
     catch(error => console.error(error));
 
+// populate select/picker and implement neuron finder
 fetch("data/matches.json").
     then(response => response.json()).
     then(data => {
@@ -66,54 +70,54 @@ fetch("data/matches.json").
             select.add(option);
         };
 
-        // // filter
-        // $("#select_neuron").selectpicker({
-        //     // Other options...
-        // }).on('change', function () {
-        //     // find neuron
-        //     var selectedOptions = $("#select_neuron").val();  
-        //     for (var i = 1; i < table.rows.length; i++) {
-        //         // Get the current row
-        //         var row = table.rows[i];
-        //         var dataCells = row.getElementsByTagName("td");
-        //         var dataset_id = dataCells[0].innerHTML // dataset uid
-                
-        //         // iterate over neurons selected
-        //         var match_all = true;
-        //         var list_idx_neuron = [];
-        //         for (var j = 0; j < selectedOptions.length; j++) {
-        //             let neuron_class = selectedOptions[j]
-        //             var neuron_list = data[neuron_class];
-        //             var list_match_uid = neuron_list.map(function(subarray) {
-        //                 if (subarray[0] == dataset_id) {
-        //                     list_idx_neuron.push(subarray[1])
-        //                 }
-        //                 return subarray[0];
-        //             });
-        //             let match_ = list_match_uid.includes(dataset_id)
-        //             match_all = match_all && match_
-        //         }
+        $(document).ready(function () {
+            $("#select_neuron").selectpicker('refresh');
+        });
 
-        //         if (match_all == true) {
-        //             row.style.display = "";
-        //             url_plot = `plot_dataset.html?uid=${dataset_id}&list_neuron=${list_idx_neuron}&list_behavior=v`
-        //             url_json = `data/${dataset_id}.json`
+        // filter
+        $("#select_neuron").selectpicker({
+            // Other options...
+        }).on('change', function () {
+            // find neuron
+            var selectedOptions = $("#select_neuron").val();
+            for (var i = 1; i < table.rows.length; i++) {
+                // Get the current row
+                var row = table.rows[i];
+                var dataCells = row.getElementsByTagName("td");
+                var dataset_id = dataCells[0].innerHTML // dataset uid
 
-        //             new_html = `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button">Download</a>` +
-        //             `   <a id="button_plot" class="btn btn-outline-dark btn-sm" href=${url_plot} role="button">Plot neurons</a>`
-        //             dataCells[6].innerHTML = new_html
-        //         } else {
-        //             row.style.display = "none";
-        //         }
-            // }
-        // });
-        
+                // iterate over neurons selected
+                var match_all = true;
+                var list_idx_neuron = [];
+                for (var j = 0; j < selectedOptions.length; j++) {
+                    let neuron_class = selectedOptions[j]
+                    var neuron_list = data[neuron_class];
+                    var list_match_uid = neuron_list.map(function (subarray) {
+                        if (subarray[0] == dataset_id) {
+                            list_idx_neuron.push(subarray[1])
+                        }
+                        return subarray[0];
+                    });
+                    let match_ = list_match_uid.includes(dataset_id)
+                    match_all = match_all && match_
+                }
+
+                if (match_all == true) {
+                    row.style.display = "";
+                    url_plot = `plot_dataset.html?uid=${dataset_id}&list_neuron=${list_idx_neuron}&list_behavior=v`
+                    url_json = `data/${dataset_id}.json`
+
+                    new_html = `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button">Download</a>` +
+                        `   <a id="button_plot" class="btn btn-outline-dark btn-sm" href=${url_plot} role="button">Plot neurons</a>`
+                    dataCells[6].innerHTML = new_html
+                } else {
+                    row.style.display = "none";
+                }
+            }
+        });
+
     }).
     catch(error => console.error(error))
-
-$(document).ready(function () {
-    $("#select_neuron").selectpicker('refresh');
-});
 
 function clearSelect() {
     $("#select_neuron").selectpicker('val', '');

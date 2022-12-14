@@ -66,47 +66,47 @@ fetch("data/matches.json").
             select.add(option);
         };
 
-        // filter
-        $("#select_neuron").selectpicker({
-            // Other options...
-        }).on('change', function () {
-            // find neuron
-            var selectedOptions = $("#select_neuron").val();  
-            for (var i = 1; i < table.rows.length; i++) {
-                // Get the current row
-                var row = table.rows[i];
-                var dataCells = row.getElementsByTagName("td");
-                var dataset_id = dataCells[0].innerHTML // dataset uid
+        // // filter
+        // $("#select_neuron").selectpicker({
+        //     // Other options...
+        // }).on('change', function () {
+        //     // find neuron
+        //     var selectedOptions = $("#select_neuron").val();  
+        //     for (var i = 1; i < table.rows.length; i++) {
+        //         // Get the current row
+        //         var row = table.rows[i];
+        //         var dataCells = row.getElementsByTagName("td");
+        //         var dataset_id = dataCells[0].innerHTML // dataset uid
                 
-                // iterate over neurons selected
-                var match_all = true;
-                var list_idx_neuron = [];
-                for (var j = 0; j < selectedOptions.length; j++) {
-                    let neuron_class = selectedOptions[j]
-                    var neuron_list = data[neuron_class];
-                    var list_match_uid = neuron_list.map(function(subarray) {
-                        if (subarray[0] == dataset_id) {
-                            list_idx_neuron.push(subarray[1])
-                        }
-                        return subarray[0];
-                    });
-                    let match_ = list_match_uid.includes(dataset_id)
-                    match_all = match_all && match_
-                }
+        //         // iterate over neurons selected
+        //         var match_all = true;
+        //         var list_idx_neuron = [];
+        //         for (var j = 0; j < selectedOptions.length; j++) {
+        //             let neuron_class = selectedOptions[j]
+        //             var neuron_list = data[neuron_class];
+        //             var list_match_uid = neuron_list.map(function(subarray) {
+        //                 if (subarray[0] == dataset_id) {
+        //                     list_idx_neuron.push(subarray[1])
+        //                 }
+        //                 return subarray[0];
+        //             });
+        //             let match_ = list_match_uid.includes(dataset_id)
+        //             match_all = match_all && match_
+        //         }
 
-                if (match_all == true) {
-                    row.style.display = "";
-                    url_plot = `plot_dataset.html?uid=${dataset_id}&list_neuron=${list_idx_neuron}&list_behavior=v`
-                    url_json = `data/${dataset_id}.json`
+        //         if (match_all == true) {
+        //             row.style.display = "";
+        //             url_plot = `plot_dataset.html?uid=${dataset_id}&list_neuron=${list_idx_neuron}&list_behavior=v`
+        //             url_json = `data/${dataset_id}.json`
 
-                    new_html = `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button">Download</a>` +
-                    `   <a id="button_plot" class="btn btn-outline-dark btn-sm" href=${url_plot} role="button">Plot neurons</a>`
-                    dataCells[6].innerHTML = new_html
-                } else {
-                    row.style.display = "none";
-                }
-            }
-        });
+        //             new_html = `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button">Download</a>` +
+        //             `   <a id="button_plot" class="btn btn-outline-dark btn-sm" href=${url_plot} role="button">Plot neurons</a>`
+        //             dataCells[6].innerHTML = new_html
+        //         } else {
+        //             row.style.display = "none";
+        //         }
+            // }
+        // });
         
     }).
     catch(error => console.error(error))

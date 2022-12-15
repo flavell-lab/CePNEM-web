@@ -149,6 +149,8 @@ fetch(`data/${dataset_uid}.json`).
             txt_cor_behavior += `<b>${neuron_txt}</b><br>`
             for (let j = 0; j < list_behavior.length; j++) {
                 let idx_behavior = list_behavior_str_short.indexOf(list_behavior[j])
+                console.log(j)
+                console.log(idx_behavior)
                 let cor_ = pearson(trace_array[idx_neuron], behaviors[idx_behavior]).toFixed(2)
                 txt_cor_behavior += `${neuron_txt}, ${list_behavior_str[idx_behavior]} = ${cor_}<br>`
             }

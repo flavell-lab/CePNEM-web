@@ -31,7 +31,18 @@
 
     <div class="container px-4 py-5" id="hanging-icons">
         <h3 class="fs-2">Encoding table - CePNEM Model</h3>
-        <p>Explore neuronal encodings of behaviors</p>
+        <p>Explore neuronal encodings of behaviors. Details about the methods can be found <a href="about.html">here</a>.</p>
+          
+        <p>
+          Encoding table legend:
+          <ul>
+          <li>Encoding strength for each of the three behaviors indicates an approximation of
+          the relative variance in neural activity explained by each behavioral variable.</li>
+          <li>Forwardness and Dorsalness capture the steepness of the tuning to velocity and head curvature, respectively.</li>
+          <li>Encoding timescale is the median exponentially weighted moving average (EWMA) half-decay time from the CePNEM model,
+            which indicates how the neuron's activity weighs past versus present behavior for the parameter(s) that it encodes.</li>
+          <li>For all other tunings, the number shows the fraction of neurons that significantly encoded that tuning/feature.</li>
+        </ul>
 
         <p>
           <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
@@ -360,8 +371,8 @@
         <table id="table_encoding" class="table-sm table_exsm">
           <thead>
             <tr>
-              <th rowspan=2 data-field="neuron" data-sortable="true">Neuron</p></th>
-              <th rowspan=2 data-field="count" data-sortable="true">N</th>
+              <th rowspan=2 data-field="neuron" data-sortable="true">Neuron</th>
+              <th rowspan=2 data-field="count" data-sortable="true">Count</th>
               <th colspan=10 data-sortable="false">Velocity tuning</th>
               <th colspan=10 data-sortable="false">Head curvature tuning</th>
               <th colspan=10 data-sortable="false">Feeding tuning</th>

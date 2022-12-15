@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.css">
-    <link rel="stylesheet" href="css/dataset.css">
+    <link rel="stylesheet" href="css/encoding.css">
 </head>
 <body>
     <div class="container">
@@ -23,7 +23,7 @@
             <li class="nav-item"><a href="find_neuron.html" class="nav-link">Neuron</a></li>
             <li class="nav-item"><a href="encoding.html" class="nav-link active" aria-current="page">Encoding</a></li>
             <li class="nav-item"><a href="dataset.html" class="nav-link">Dataset</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
           </ul>
         </header>
       </div>
@@ -40,17 +40,16 @@
     
         <row>
           <col class="col-md-3">
-          <div class="collapse hide" id="collapseExample" style="">
+          <div class="collapse hide" id="collapseExample">
             <div class="card card-body">
               <div class="d-flex gap-5 justify-content-left">
                 <div class="list-group mx-0 w-auto">
     
     
-                  <h4 class="fs-6">Velocity encoding</h4>
+                  <center><h4 class="fs-6">Velocity encoding</h4></center>
     
                   <div class="btn-group" role="group" aria-label="Basic example">
-                    <button id="button_v_all" onclick="toggleV()" type="button" class="btn btn-secondary">Select
-                      All</button>
+                    <button id="button_v_all" onclick="toggleV()" type="button" class="btn btn-secondary">Select All</button>
                   </div>
                   <br>
     
@@ -135,11 +134,10 @@
     
                 <!-- head curvature -->
                 <div class="list-group mx-0 w-auto">
-                  <h4 class="fs-6">Head curvature encoding</h4>
+                <center><h4 class="fs-6">Head curvature encoding</h4></center>
     
                   <div class="btn-group" role="group" aria-label="Basic example">
-                    <button id="button_hc_all" onclick="toggleHC()" type="button" class="btn btn-secondary">Select
-                      All</button>
+                    <button id="button_hc_all" onclick="toggleHC()" type="button" class="btn btn-secondary">Select All</button>
                   </div>
                   <br>
     
@@ -226,11 +224,10 @@
     
                 <!-- feeding -->
                 <div class="list-group mx-0 w-auto">
-                  <h4 class="fs-6">Feeding encoding</h4>
+                  <center><h4 class="fs-6">Feeding encoding</h4></center>
     
                   <div class="btn-group" role="group" aria-label="Basic example">
-                    <button id="button_f_all" type="button" onclick="toggleF()" class="btn btn-secondary">Select
-                      All</button>
+                    <button id="button_f_all" type="button" onclick="toggleF()" class="btn btn-secondary">Select All</button>
                   </div>
                   <br>
     
@@ -315,26 +312,16 @@
     
                 <!-- others -->
                 <div class="list-group mx-0 w-auto">
-                  <h4 class="fs-6">Feeding encoding</h4>
-    
+                  <center><h4 class="fs-6">Others</h4></center>
                   <div class="btn-group" role="group" aria-label="Basic example">
-                    <button id="button_o_all" type="button" onclick="toggleO()" class="btn btn-secondary">Select
-                      All</button>
+                    <button id="button_o_all" type="button" onclick="toggleO()" class="btn btn-secondary">Select All</button>
                   </div>
                   <br>
     
                   <label class="list-group-item d-flex gap-2">
-                    <input id="check_o_label" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
-                    <span>
-                      Label
-                      <small class="d-block text-muted">Neuron label (NeuroPAL only)</small>
-                    </span>
-                  </label>
-    
-                  <label class="list-group-item d-flex gap-2">
                     <input id="check_o_ewma" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
                     <span>
-                      EWMA
+                      Timescale
                       <small class="d-block text-muted">EWMA decay constant</small>
                     </span>
                   </label>
@@ -369,14 +356,16 @@
         </row>
     
         <br>
+      
         <table id="table_encoding" class="table-sm table_exsm">
           <thead>
             <tr>
-              <th rowspan=2 data-field="neuron" data-sortable="true">Neuron</th>
+              <th rowspan=2 data-field="neuron" data-sortable="true">Neuron</p></th>
+              <th rowspan=2 data-field="count" data-sortable="true">N</th>
               <th colspan=10 data-sortable="false">Velocity tuning</th>
               <th colspan=10 data-sortable="false">Head curvature tuning</th>
               <th colspan=10 data-sortable="false">Feeding tuning</th>
-              <th rowspan="2" data-field="ewma" data-sortable="true">EWMA</th>
+              <th rowspan="2" data-field="ewma" data-sortable="true">Timescale</th>
               <th rowspan="2" data-field="enc_change" data-sortable="true" data-visible="false">Enc. change</th>
             </tr>
             <tr>
@@ -408,8 +397,8 @@
     
               <th data-field="strength_feeding" data-sortable="true" data-visible="false"
                 data-title-tooltip="Feeding encoding strength">Strength</th>
-              <th data-field="feedingness" data-sortable="true" data-visible="false" data-title-tooltip="Dorsalness">
-                Dor-ness
+              <th data-field="feedingness" data-sortable="true" data-visible="false" data-title-tooltip="Feedingness">
+                Feedingness
               </th>
               <th data-field="act" data-sortable="true" data-visible="true">Act</th>
               <th data-field="inh" data-sortable="true" data-visible="true">Inh</th>
@@ -431,5 +420,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.js"></script>
+    <script src="js/encoding.js"></script>
 </body>
 </html>

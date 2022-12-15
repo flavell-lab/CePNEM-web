@@ -41,7 +41,7 @@
           </select>
           <select id="select_behavior" class="selectpicker" multiple title="Select behavior">
           </select>
-          <button class="btn btn-primary" onclick="plotSelect()">Plot</button>
+          <button class="btn btn-primary" onclick="plotSelect()">Update</button>
           <button class="btn btn-light" onclick="clearSelect()">Clear</button>
           <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Correlation</button>
         </div>
@@ -80,11 +80,11 @@
     <b>Empty cell</b>: the neuron does not encode the feature
     <br>
     <br>
-    <p>
+
       <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
         aria-expanded="true" aria-controls="collapseExample">Configure</button>
-    </p>
-
+<!-- <button type="button" class="btn btn-light" onclick="toggleTableRow()">All</button> -->        
+    <br>
     <row>
       <col class="col-md-3">
       <div class="collapse hide" id="collapseExample">
@@ -92,9 +92,7 @@
           <div class="d-flex gap-5 justify-content-left">
             <div class="list-group mx-0 w-auto">
 
-
             <center><h4 class="fs-6">Velocity encoding</h4></center>
-
               <div class="btn-group" role="group" aria-label="Basic example">
                 <button id="button_v_all" onclick="toggleV()" type="button" class="btn btn-secondary">Select All</button>
               </div>

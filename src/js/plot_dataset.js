@@ -46,7 +46,7 @@ fetch(`data/${dataset_uid}.json`).
     then(data => {
         // change dataset string
         const str_dataset = document.getElementById('str_dataset');
-        str_dataset.innerHTML = `Dataset ${dataset_uid}`;
+        str_dataset.innerHTML = `Dataset - ${dataset_uid}`;
 
         // load neuron list to the picker
         const list_neuron_idx = Array.from({ length: data["num_neurons"] - 1 }, (_, i) => i);
@@ -240,6 +240,8 @@ fetch(`data/${dataset_uid}.json`).
                 "enc_change": enc_change_
             })
         }
+
+
 
         $('#table_encoding').bootstrapTable({
             data: table_encoding_data
@@ -462,3 +464,14 @@ function toggleO() {
         check_o_enc_change.checked = false
     }
 }
+
+
+/* function toggleTableRow() {
+    for (var i = 1; i < table_encoding.rows.length; i++) {
+        // Get the current row
+        var row = table_encoding.rows[i];
+        var dataCells = row.getElementsByTagName("td");
+        
+        
+    }
+} */

@@ -132,3 +132,4 @@ function clearSelect() {
         dataCells[6].innerHTML = new_html
     }
 }
+  

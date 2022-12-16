@@ -490,7 +490,7 @@ function exportCSV() {
     link.href = "data:text/csv;charset=utf-8," + encodeURI(csvString);
 
     // Set the link's download attribute to the desired file name
-    link.download = "my-csv-file.csv";
+    link.download = "data.csv";
 
     // Append the link to the DOM
     document.body.appendChild(link);

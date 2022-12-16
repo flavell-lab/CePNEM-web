@@ -258,12 +258,13 @@ fetch(`data/${dataset_uid}.json`).
 
 function plotSelect() {
     var selectedNeurons = $("#select_neuron").val();
+    var selectedBehaviors = $("#select_behavior").val();
     const selectedNeurons1 = selectedNeurons.map(num => {
         // Convert the string to a number, add 1, and then convert it back to a string
         return (Number(num) + 1).toString();
       });
       
-    if (selectedNeurons.length > 0) {
+    if (selectedNeurons.length > 0 && selectedBehaviors.length > 0) {
         // Modify the URL as desired
         var currentUrl = window.location.href;
         var currentUrlStrRoot = currentUrl.split('?')[0]
@@ -274,7 +275,7 @@ function plotSelect() {
         // window.history.pushState({}, "", newUrl);        
         window.location.replace(newUrl);
     } else {
-        alert("Please select at least one neuron")
+        alert("Please select at least one neuron and one behavior")
     }
 }
 

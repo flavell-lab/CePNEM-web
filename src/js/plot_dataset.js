@@ -15,6 +15,8 @@ var select_neuron = document.getElementById("select_neuron");
 var select_behavior = document.getElementById("select_behavior");
 var table_encoding = document.getElementById("table_encoding");
 
+var data_export = [];
+
 const currentUrl = new URL(window.location.href);
 const urlParams = new URLSearchParams(currentUrl.search);
 
@@ -103,6 +105,8 @@ fetch(`data/${dataset_uid}.json`).
         for (var idx_neuron of list_neuron) {
             plotSpecificNeuralTrace(time_range, trace_array, idx_neuron, 'plot1', append, labeled)
             append = true
+            
+            data_export.push([idx_neuron in labeled ? labeled[idx_neuron]["label"] : idx_neuron, ...trace_array[idx_neuron]])
         }
         append_behavior = false;
         for (var b of list_behavior) {
@@ -110,6 +114,8 @@ fetch(`data/${dataset_uid}.json`).
             plotSpecificBehavior(time_range, behaviors[idx_], behavior_units[idx_],
                 list_behavior_str[idx_], "plot1", append_behavior)
             append_behavior=true
+
+            data_export.push([`${list_behavior_str[idx_]} (${behavior_units[idx_]})`, ...behaviors[idx_]])
         }
         // analysis modal
         const cor_txt = document.getElementById('cor_txt');
@@ -149,8 +155,6 @@ fetch(`data/${dataset_uid}.json`).
             txt_cor_behavior += `<b>${neuron_txt}</b><br>`
             for (let j = 0; j < list_behavior.length; j++) {
                 let idx_behavior = list_behavior_str_short.indexOf(list_behavior[j])
-                console.log(j)
-                console.log(idx_behavior)
                 let cor_ = pearson(trace_array[idx_neuron], behaviors[idx_behavior]).toFixed(2)
                 txt_cor_behavior += `${neuron_txt}, ${list_behavior_str[idx_behavior]} = ${cor_}<br>`
             }
@@ -475,4 +479,25 @@ function copyURL() {
     navigator.clipboard.writeText(currentUrl);
     alert("URL copied to clipboard");
 }
-  
+
+function exportCSV() {
+    var csvString = data_export.map(row => row.join(",")).join("\n");
+
+    // Create a link element
+    var link = document.createElement("a");
+
+    // Set the link's href to a data URI containing the CSV string
+    link.href = "data:text/csv;charset=utf-8," + encodeURI(csvString);
+
+    // Set the link's download attribute to the desired file name
+    link.download = "my-csv-file.csv";
+
+    // Append the link to the DOM
+    document.body.appendChild(link);
+
+    // Simulate a click on the link to trigger the download
+    link.click();
+
+    // Remove the link from the DOM
+    document.body.removeChild(link);
+}

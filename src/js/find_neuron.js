@@ -50,10 +50,15 @@ fetch("data/summary.json").
                 })
             }
         }
-
+            
         $('#dataset_table').bootstrapTable({
             data: table_data
         });
+        for (var i = 1; i < table.rows.length; i++) {
+            var row = table.rows[i];
+            row.style.display = "none";
+        }
+
     }).
     catch(error => console.error(error));
 
@@ -123,7 +128,7 @@ function clearSelect() {
     $("#select_neuron").selectpicker('val', '');
     for (var i = 1; i < table.rows.length; i++) {
         var row = table.rows[i];
-        row.style.display = "";
+        row.style.display = "none";
         var dataCells = row.getElementsByTagName("td");
         var dataset_id = dataCells[0].innerHTML // dataset uid
 

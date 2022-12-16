@@ -51,7 +51,7 @@ fetch(`data/${dataset_uid}.json`).
         str_dataset.innerHTML = `Dataset - ${dataset_uid}`;
 
         // load neuron list to the picker
-        const list_neuron_idx = Array.from({ length: data["num_neurons"] - 1 }, (_, i) => i);
+        const list_neuron_idx = Array.from({ length: data["num_neurons"] }, (_, i) => i);
         const labeled = data["labeled"];
         for (var i = 0; i < list_neuron_idx.length; i++) {
             var option = document.createElement("option");
@@ -106,7 +106,7 @@ fetch(`data/${dataset_uid}.json`).
             plotSpecificNeuralTrace(time_range, trace_array, idx_neuron, 'plot1', append, labeled)
             append = true
             
-            data_export.push([idx_neuron in labeled ? labeled[idx_neuron]["label"] : idx_neuron, ...trace_array[idx_neuron]])
+            data_export.push([idx_neuron in labeled ? labeled[idx_neuron]["label"] : idx_neuron, ...trace_array[idx_neuron-1]])
         }
         append_behavior = false;
         for (var b of list_behavior) {
@@ -124,8 +124,8 @@ fetch(`data/${dataset_uid}.json`).
             for (let i = 0; i < list_neuron.length; i++) {
                 for (let j = 0; j <= i; j++) {
                     if (i != j) {
-                        let idx_neuron1 = list_neuron[i]
-                        let idx_neuron2 = list_neuron[j]
+                        let idx_neuron1 = list_neuron[i] - 1
+                        let idx_neuron2 = list_neuron[j] - 1
                         let cor_ = pearson(trace_array[idx_neuron1], trace_array[idx_neuron2]).toFixed(2)
 
                         let neuron1_txt = idx_neuron1
@@ -147,7 +147,7 @@ fetch(`data/${dataset_uid}.json`).
         const cor_txt_behavior = document.getElementById('cor_txt_behavior');
         txt_cor_behavior =  ""
         for (let i = 0; i < list_neuron.length; i++) {
-            let idx_neuron = list_neuron[i]
+            let idx_neuron = list_neuron[i] - 1
             let neuron_txt = idx_neuron
             if ((idx_neuron) in labeled) {
                 neuron_txt = `${idx_neuron} (${labeled[idx_neuron]["label"]})`

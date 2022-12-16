@@ -6,8 +6,9 @@
     <title>Encoding</title>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="css/encoding.css">
 </head>
 <body>
@@ -377,6 +378,17 @@
           </col>
         </row>
           
+        <!--<button class="multi-sort btn btn-secondary" type="button" data-bs-toggle="modal" data-bs-target="#sortModal_table_encoding" title="Multiple Sort"><i class="bi bi-arrow-down-up"></i></button>-->
+<!--         <div class="row">
+          <div class="col-sm-5">
+            <div class="form-group">
+          <select id="select_neuron" class="selectpicker" multiple data-live-search="true" title="Select neuron class">
+          </select>
+          <button class="btn btn-light" onclick="clearSelect()">Clear</button>
+          <button class="btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#sortModal_table_encoding"><i class="bi-sort-down"></i></button>
+          </div>
+      </div>
+ -->
         <table id="table_encoding" class="table-sm table_exsm">
           <thead>
             <tr>
@@ -441,6 +453,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.21.2/dist/extensions/multiple-sort/bootstrap-table-multiple-sort.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
     <script src="js/encoding.js"></script>
 </body>
 </html>

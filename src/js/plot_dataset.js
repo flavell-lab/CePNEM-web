@@ -469,13 +469,9 @@ function toggleO() {
     }
 }
 
-
-/* function toggleTableRow() {
-    for (var i = 1; i < table_encoding.rows.length; i++) {
-        // Get the current row
-        var row = table_encoding.rows[i];
-        var dataCells = row.getElementsByTagName("td");
-        
-        
-    }
-} */
+function copyURL() {
+    const currentUrl = window.location.href;
+    navigator.clipboard.writeText(currentUrl);
+    alert("URL copied to clipboard");
+}
+  

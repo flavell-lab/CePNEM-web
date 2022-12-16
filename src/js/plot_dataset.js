@@ -132,10 +132,10 @@ fetch(`data/${dataset_uid}.json`).
                         let neuron2_txt = idx_neuron2
                         
                         if ((idx_neuron1) in labeled) {
-                            neuron1_txt = `${idx_neuron1} (${labeled[idx_neuron1]["label"]})`
+                            neuron1_txt = `${idx_neuron1 + 1} (${labeled[idx_neuron1]["label"]})`
                         }
                         if ((idx_neuron2) in labeled) {
-                            neuron2_txt = `${idx_neuron2} (${labeled[idx_neuron2]["label"]})`
+                            neuron2_txt = `${idx_neuron2 + 1} (${labeled[idx_neuron2]["label"]})`
                         }
                         txt_cor += `${neuron1_txt}, ${neuron2_txt} = ${cor_}<br>`
                     }
@@ -148,9 +148,9 @@ fetch(`data/${dataset_uid}.json`).
         txt_cor_behavior =  ""
         for (let i = 0; i < list_neuron.length; i++) {
             let idx_neuron = list_neuron[i] - 1
-            let neuron_txt = idx_neuron
+            let neuron_txt = idx_neuron + 1
             if ((idx_neuron) in labeled) {
-                neuron_txt = `${idx_neuron} (${labeled[idx_neuron]["label"]})`
+                neuron_txt = `${idx_neuron + 1} (${labeled[idx_neuron]["label"]})`
             }
             txt_cor_behavior += `<b>${neuron_txt}</b><br>`
             for (let j = 0; j < list_behavior.length; j++) {
@@ -158,6 +158,7 @@ fetch(`data/${dataset_uid}.json`).
                 let cor_ = pearson(trace_array[idx_neuron], behaviors[idx_behavior]).toFixed(2)
                 txt_cor_behavior += `${neuron_txt}, ${list_behavior_str[idx_behavior]} = ${cor_}<br>`
             }
+            txt_cor_behavior += "<br>"
         }
         cor_txt_behavior.innerHTML = txt_cor_behavior;
 

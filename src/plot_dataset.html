@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dataset plot</title>
+
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -42,13 +43,23 @@
           </select>
           <select id="select_behavior" class="selectpicker" multiple title="Select behavior">
           </select>
-          <button class="btn btn-primary" onclick="plotSelect()">Update</button>
-          <button class="btn btn-light" onclick="clearSelect()">Clear</button>
-          <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Correlation</button>
-          <button class="btn btn-light" onclick="exportCSV()"><i class="bi bi-download"></i></button>
+          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Update with the selected neuron(s)/behavior(s)">
+            <button class="btn btn-primary" onclick="plotSelect()">Update</button>
+          </span>
+          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Clear the selections">
+            <button class="btn btn-light" onclick="clearSelect()">Clear</button>
+          </span>
+          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compute Pearson cor among the neural trace(s) and behavior(s)">
+            <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Correlation</button>
+          </span>
+          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Download currently plotted neurons(s)/behavior(s) as a CSV file">
+            <button class="btn btn-light" onclick="exportCSV()"><i class="bi bi-download"></i></button>
+          </span>
+          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Copy a link to this plot to the clipboard">
           <button type="button" class="btn btn-light" onclick="copyURL()">
             <i class="bi bi-link-45deg"></i>
           </button>
+        </span>
           
         </div>
       </div>
@@ -82,9 +93,13 @@
     <p>
     <div class="btn-group" role="group" aria-label="Basic example">
       <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConfigure"
-        aria-expanded="true" aria-controls="collapseConfigure">Configure</button>
+        aria-expanded="true" aria-controls="collapseConfigure">
+        <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Configure the encoding table">Configure</span>
+      </button>
       <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseLegend"
-        aria-expanded="true" aria-controls="collapseLegend">Legend</button>
+        aria-expanded="true" aria-controls="collapseLegend">
+        <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Legend for the encoding table">Legend</span>
+      </button>
     </div>
     </p>
 
@@ -132,10 +147,7 @@
         <div class="card card-body">
           <div class="d-flex gap-5 justify-content-left">
             <div class="list-group mx-0 w-auto">
-
-              <center>
-                <h4 class="fs-6">Velocity encoding</h4>
-              </center>
+              <center><h4 class="fs-6">Velocity encoding</h4></center>
               <div class="btn-group" role="group" aria-label="Basic example">
                 <button id="button_v_all" onclick="toggleV()" type="button" class="btn btn-secondary">Select All</button>
               </div>
@@ -519,7 +531,6 @@
     crossorigin="anonymous"></script>
   <script src="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.js"></script>
   <script src="https://unpkg.com/bootstrap-table@1.21.2/dist/extensions/multiple-sort/bootstrap-table-multiple-sort.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
   <script src="js/plot.js"></script>

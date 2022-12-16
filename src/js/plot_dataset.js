@@ -501,3 +501,6 @@ function exportCSV() {
     // Remove the link from the DOM
     document.body.removeChild(link);
 }
+
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))

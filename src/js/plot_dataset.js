@@ -353,6 +353,8 @@ function selectDefault() {
     check_f_inh.checked = true
     check_o_label.checked = true
     check_o_ewma.checked = true
+
+    updateTableColumn()
 }
 
 function toggleV() {

@@ -43,7 +43,6 @@ then(data => {
         new_html = `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button">Download</a>` +
             `   <a id="button_plot" class="btn btn-outline-dark btn-sm" href=${url_plot} role="button">Plot neurons</a>`
       
-
         table_data.push({
             id: key,
             type: getDatasetTypePill(datasettype),
@@ -61,11 +60,3 @@ then(data => {
     });
 }).
 catch(error => console.error(error));
-
-$(function () {
-    $('#tableId').bootstrapTable() // init via javascript
-  
-    $(window).resize(function () {
-      $('#tableId').bootstrapTable('resetView')
-    })
-  })

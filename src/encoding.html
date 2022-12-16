@@ -29,29 +29,45 @@
       </div>
 
 
-    <div class="container px-4 py-5" id="hanging-icons">
+    <div class="container px-4 py-2" id="hanging-icons">
         <h3 class="fs-2">Encoding table - CePNEM Model</h3>
         <p>Explore neuronal encodings of behaviors. Details about the methods can be found <a href="about.html">here</a>.</p>
           
         <p>
-          Encoding table legend:
-          <ul>
-          <li>Encoding strength for each of the three behaviors indicates an approximation of
-          the relative variance in neural activity explained by each behavioral variable.</li>
-          <li>Forwardness and Dorsalness capture the steepness of the tuning to velocity and head curvature, respectively.</li>
-          <li>Encoding timescale is the median exponentially weighted moving average (EWMA) half-decay time from the CePNEM model,
-            which indicates how the neuron's activity weighs past versus present behavior for the parameter(s) that it encodes.</li>
-          <li>For all other tunings, the number shows the fraction of neurons that significantly encoded that tuning/feature.</li>
-        </ul>
-
-        <p>
-          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-            aria-expanded="true" aria-controls="collapseExample">Configure</button>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConfigure"
+            aria-expanded="true" aria-controls="collapseConfigure">Configure</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseLegend"
+            aria-expanded="true" aria-controls="collapseLegend">Legend</button>
+          </div>
         </p>
-    
+
         <row>
           <col class="col-md-3">
-          <div class="collapse hide" id="collapseExample">
+          <div class="collapse hide" id="collapseLegend">
+            <div class="card card-body">
+              <div class="d-flex gap-5 justify-content-left">
+                <div class="list-group mx-0 w-auto">
+                  <left><h4 class="fs-6">Encoding table legend</h4></left>
+                  <ul>
+                  <li>Encoding strength for each of the three behaviors indicates an approximation of
+                  the relative variance in neural activity explained by each behavioral variable.</li>
+                  <li>Forwardness and Dorsalness capture the steepness of the tuning to velocity and head curvature, respectively.</li>
+                  <li>Encoding timescale is the median exponentially weighted moving average (EWMA) half-decay time from the CePNEM model,
+                    which indicates how the neuron's activity weighs past versus present behavior for the parameter(s) that it encodes.</li>
+                  <li>For all other tunings, the number shows the fraction of neurons that significantly encoded that tuning/feature.</li>
+                </ul>        
+
+                </div>
+              </div>
+            </div>
+            </div>
+          </row>
+        
+
+        <row>
+          <col class="col-md-3">
+          <div class="collapse hide" id="collapseConfigure">
             <div class="card card-body">
               <div class="d-flex gap-5 justify-content-left">
                 <div class="list-group mx-0 w-auto">
@@ -332,7 +348,7 @@
                   <label class="list-group-item d-flex gap-2">
                     <input id="check_o_ewma" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
                     <span>
-                      Timescale
+                      Timescale (s)
                       <small class="d-block text-muted">EWMA decay constant</small>
                     </span>
                   </label>
@@ -344,30 +360,23 @@
                       <small class="d-block text-muted">Encoding change</small>
                     </span>
                   </label>
-    
-    
                 </div>
-    
               </div>
-    
-    
-    
+
               <br>
               <div class="btn-group">
                 <button type="button" onclick="updateTableColumn()" class="btn btn-primary button_update_table">Update
                   table</button>
     
                 <button type="button" onclick="selectDefault()"
-                  class="btn btn-secondary button_update_table">Default</button>
+                  class="btn btn-primary button_update_table">Default</button>
     
               </div>
             </div>
           </div>
           </col>
         </row>
-    
-        <br>
-      
+          
         <table id="table_encoding" class="table-sm table_exsm">
           <thead>
             <tr>
@@ -376,7 +385,7 @@
               <th colspan=10 data-sortable="false">Velocity tuning</th>
               <th colspan=10 data-sortable="false">Head curvature tuning</th>
               <th colspan=10 data-sortable="false">Feeding tuning</th>
-              <th rowspan="2" data-field="ewma" data-sortable="true">Timescale</th>
+              <th rowspan="2" data-field="ewma" data-sortable="true">Timescale (s)</th>
               <th rowspan="2" data-field="enc_change" data-sortable="true" data-visible="false">Enc. change</th>
             </tr>
             <tr>
@@ -425,6 +434,7 @@
         </table>
 
     </div>
+    <br>
 
 
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>

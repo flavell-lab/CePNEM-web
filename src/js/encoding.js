@@ -70,6 +70,8 @@ function selectDefault() {
     check_f_act.checked = true
     check_f_inh.checked = true
     check_o_ewma.checked = true
+
+    updateTableColumn()
 }
 
 function toggleV() {

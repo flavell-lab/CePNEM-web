@@ -31,7 +31,7 @@
     </header>
   </div>
 
-  <div class="container px-4 py-5">
+  <div class="container px-4 py-2">
     <h3 id="str_dataset" class="fs-2">Plot dataset</h3>
     <h4 class="fs-4">Plot - Neural trace & Behavior</h4>
     <div class="row">
@@ -50,7 +50,8 @@
     </div>
   </div>
 
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
@@ -66,38 +67,67 @@
       </div>
     </div>
   </div>
-  
+
   <div class="b-divider"></div>
 
   <div class="container-xl px-4 py-5">
     <h4 id="str_dataset" class="fs-4">Encoding Table</h4>
     <p>CePNEM encoding table for the neuron(s) and behavior(s)<br></p>
+    <p>
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConfigure"
+        aria-expanded="true" aria-controls="collapseConfigure">Configure</button>
+      <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseLegend"
+        aria-expanded="true" aria-controls="collapseLegend">Legend</button>
+    </div>
+    </p>
 
-    <h4 class="fs-5">Encoding Table Legend</h4>
-    <b>1</b>: the neuron encodes the feature in the first time segment<br>
-    <b>2</b>: the neuron encodes the feature in the second time segment<br>
-    <b>1,2</b>: the neuron encodes the feature in both time segments<br>
-    <b>Empty cell</b>: the neuron does not encode the feature
-    <br>
-    <br>
-
-      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-        aria-expanded="true" aria-controls="collapseExample">Configure</button>
-<!-- <button type="button" class="btn btn-light" onclick="toggleTableRow()">All</button> -->        
-    <br>
     <row>
       <col class="col-md-3">
-      <div class="collapse hide" id="collapseExample">
+      <div class="collapse hide" id="collapseLegend">
+        <div class="card card-body">
+          <div class="d-flex gap-5 justify-content-left">
+            <div class="list-group mx-0 w-auto">
+              <left>
+                <h4 class="fs-6">Encoding table legend</h4>
+              </left>
+              <ul>
+                <li>Encoding strength for each of the three behaviors indicates an approximation of
+                  the relative variance in neural activity explained by each behavioral variable.</li>
+                <li>Forwardness and Dorsalness capture the steepness of the tuning to velocity and head curvature,
+                  respectively.</li>
+                <li>Encoding timescale is the median exponentially weighted moving average (EWMA) half-decay time from
+                  the CePNEM model,
+                  which indicates how the neuron's activity weighs past versus present behavior for the parameter(s)
+                  that it encodes.</li>
+                <li>For all other tunings, the number shows the time segments that significantly encoded that
+                  tuning/feature:</li>
+
+                1: the neuron encodes the feature in the first time segment<br>
+                2: the neuron encodes the feature in the second time segment<br>
+                1,2: the neuron encodes the feature in both time segments<br>
+                Empty cell: the neuron does not encode the feature
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </row>
+
+    <row>
+      <col class="col-md-3">
+      <div class="collapse hide" id="collapseConfigure">
         <div class="card card-body">
           <div class="d-flex gap-5 justify-content-left">
             <div class="list-group mx-0 w-auto">
 
-            <center><h4 class="fs-6">Velocity encoding</h4></center>
+              <center>
+                <h4 class="fs-6">Velocity encoding</h4>
+              </center>
               <div class="btn-group" role="group" aria-label="Basic example">
                 <button id="button_v_all" onclick="toggleV()" type="button" class="btn btn-secondary">Select All</button>
               </div>
               <br>
-
 
               <label class="list-group-item d-flex gap-2">
                 <input id="check_v_s" class="form-check-input flex-shrink-0" type="checkbox" value="">
@@ -179,14 +209,14 @@
 
             <!-- head curvature -->
             <div class="list-group mx-0 w-auto">
-            <center><h4 class="fs-6">Head curvature encoding</h4></center>
+              <center>
+                <h4 class="fs-6">Head curvature encoding</h4>
+              </center>
 
               <div class="btn-group" role="group" aria-label="Basic example">
                 <button id="button_hc_all" onclick="toggleHC()" type="button" class="btn btn-secondary">Select All</button>
               </div>
               <br>
-
-
               <label class="list-group-item d-flex gap-2">
                 <input id="check_hc_s" class="form-check-input flex-shrink-0" type="checkbox" value="">
                 <span>
@@ -269,7 +299,9 @@
 
             <!-- feeding -->
             <div class="list-group mx-0 w-auto">
-              <center><h4 class="fs-6">Feeding encoding</h4></center>
+              <center>
+                <h4 class="fs-6">Feeding encoding</h4>
+              </center>
 
               <div class="btn-group" role="group" aria-label="Basic example">
                 <button id="button_f_all" type="button" onclick="toggleF()" class="btn btn-secondary">Select All</button>
@@ -357,7 +389,9 @@
 
             <!-- others -->
             <div class="list-group mx-0 w-auto">
-              <center><h4 class="fs-6">Others</h4></center>
+              <center>
+                <h4 class="fs-6">Others</h4>
+              </center>
 
               <div class="btn-group" role="group" aria-label="Basic example">
                 <button id="button_o_all" type="button" onclick="toggleO()" class="btn btn-secondary">Select All</button>
@@ -375,7 +409,7 @@
               <label class="list-group-item d-flex gap-2">
                 <input id="check_o_ewma" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
                 <span>
-                  EWMA
+                  Timescale (s)
                   <small class="d-block text-muted">EWMA decay constant</small>
                 </span>
               </label>
@@ -387,29 +421,21 @@
                   <small class="d-block text-muted">Encoding change</small>
                 </span>
               </label>
-
-
             </div>
-
           </div>
-
-
 
           <br>
           <div class="btn-group">
             <button type="button" onclick="updateTableColumn()" class="btn btn-primary button_update_table">Update
               table</button>
-
             <button type="button" onclick="selectDefault()"
-              class="btn btn-secondary button_update_table">Default</button>
-
+              class="btn btn-primary button_update_table">Default</button>
           </div>
         </div>
       </div>
       </col>
     </row>
 
-    <br>
     <table id="table_encoding" class="table-sm table_exsm">
       <thead>
         <tr>
@@ -418,7 +444,7 @@
           <th colspan=10 data-sortable="false">Velocity tuning</th>
           <th colspan=10 data-sortable="false">Head curvature tuning</th>
           <th colspan=10 data-sortable="false">Feeding tuning</th>
-          <th rowspan="2" data-field="ewma" data-sortable="true">EWMA</th>
+          <th rowspan="2" data-field="ewma" data-sortable="true">Timescale (s)</th>
           <th rowspan="2" data-field="enc_change" data-sortable="true" data-visible="false">Enc. change</th>
         </tr>
         <tr>

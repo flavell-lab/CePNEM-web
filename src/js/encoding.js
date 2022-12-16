@@ -190,7 +190,7 @@ fetch("data/encoding_table.json").
     then(response => response.json()).
     then(data => {
         // table
-        console.log(data)
+        // console.log(data)
         var table_encoding_data = []
 
         n_neuron_class = data["class"].length

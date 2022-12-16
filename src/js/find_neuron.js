@@ -54,11 +54,17 @@ fetch("data/summary.json").
         $('#dataset_table').bootstrapTable({
             data: table_data
         });
+
         for (var i = 1; i < table.rows.length; i++) {
             var row = table.rows[i];
             row.style.display = "none";
         }
 
+        var row_message = table.insertRow();
+        var cell = row_message.insertCell();
+        row_message.id = "row_message"
+        cell.colSpan = 7;
+        cell.innerHTML = "<center>Please select at least one neuron class</center>"
     }).
     catch(error => console.error(error));
 
@@ -85,6 +91,7 @@ fetch("data/matches.json").
         }).on('change', function () {
             // find neuron
             var selectedOptions = $("#select_neuron").val();
+            var list_match_dataset_id = [];
             for (var i = 1; i < table.rows.length; i++) {
                 // Get the current row
                 var row = table.rows[i];
@@ -115,9 +122,18 @@ fetch("data/matches.json").
                     new_html = `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button">Download</a>` +
                         `   <a id="button_plot" class="btn btn-outline-dark btn-sm" href=${url_plot} role="button">Plot neurons</a>`
                     dataCells[6].innerHTML = new_html
+
+                    list_match_dataset_id.push(dataset_id)
                 } else {
                     row.style.display = "none";
                 }
+            }
+
+            if (list_match_dataset_id.length == 0) {
+                row_message.cells[0].innerHTML = "<center>No match found</center>"
+                row_message.style.display = "";
+            } else {
+                row_message.style.display = "none";
             }
         });
 
@@ -128,13 +144,18 @@ function clearSelect() {
     $("#select_neuron").selectpicker('val', '');
     for (var i = 1; i < table.rows.length; i++) {
         var row = table.rows[i];
-        row.style.display = "none";
-        var dataCells = row.getElementsByTagName("td");
-        var dataset_id = dataCells[0].innerHTML // dataset uid
+        if (row.id != "row_message") {
+            row.style.display = "none";
+            var dataCells = row.getElementsByTagName("td");
+            var dataset_id = dataCells[0].innerHTML // dataset uid
 
-        url_json = `data/${dataset_id}.json`
-        new_html = `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button">Download</a>`
-        dataCells[6].innerHTML = new_html
+            url_json = `data/${dataset_id}.json`
+            new_html = `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button">Download</a>`
+            dataCells[6].innerHTML = new_html
+        } else {
+            row.getElementsByTagName("td")[0].innerHTML = "<center>Please select at least one neuron class</center>"
+            row.style.display = "";
+        }
     }
 }
   

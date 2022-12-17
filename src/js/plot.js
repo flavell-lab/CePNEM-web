@@ -20,7 +20,7 @@ function plotData(x,y,element,data_label,append,subplot) {
         yaxis: { title: "Neuron GCaMP (z-scored)", color: "#000000" },
 		yaxis2: { title: "Behavior (see legend for units)", color: "#000000" },
 		showlegend: true,
-		width: 1400,
+		width: 1350,
 		height: 800,	  
 		plot_bgcolor: "#FFF",
 		paper_bgcolor: "#FFF",

@@ -39,9 +39,11 @@
     <div class="row">
       <div class="col-sm-8">
         <div class="form-group">
-          <select id="select_neuron" class="selectpicker" multiple data-live-search="true" title="Select neuron">
+          <select id="select_neuron" class="selectpicker" multiple data-live-search="true" title="Select neuron"
+            data-selected-text-format="count > 2">
           </select>
-          <select id="select_behavior" class="selectpicker" multiple title="Select behavior">
+          <select id="select_behavior" class="selectpicker" multiple data-selected-text-format="count > 2"
+            title="Select behavior">
           </select>
           <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Update with the selected neuron(s)/behavior(s)">
             <button class="btn btn-primary" onclick="plotSelect()">Update</button>

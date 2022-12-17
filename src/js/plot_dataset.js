@@ -506,3 +506,17 @@ function exportCSV() {
 
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+function rowStyle(row, index) {
+    return {
+    //   css: {'font-size': "12px"},
+    classes: 'table_exsm'
+    }
+}
+function headerStyle(column) {
+    return {
+        // css: {'font-size': "12px", "font-weight": "bold"},
+      classes: 'table_exsm'
+    }
+  }
+

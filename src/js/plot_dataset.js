@@ -22,7 +22,7 @@ const urlParams = new URLSearchParams(currentUrl.search);
 
 const dataset_uid = urlParams.get('uid');
 const list_neuron_str = urlParams.get('list_neuron');
-const list_neuron = [...new Set(list_neuron_str.split`,`.map(x => +x))]
+const list_neuron = [...new Set(list_neuron_str.split`,`.map(x =>+x))]
 const list_behavior = urlParams.get('list_behavior').split(",");
 
 const list_behavior_str = ["Velocity", "Head Curve", "Pumping", "Angular Velocity", "Body Curvature"]

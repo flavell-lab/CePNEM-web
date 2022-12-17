@@ -27,6 +27,7 @@ function getDatasetTypePill(datasettype) {
 
 // populate table
 var table_data = [];
+var list_uid = [];
 fetch("data/summary.json").
     then(response => response.json()).
     then(data => {
@@ -45,26 +46,19 @@ fetch("data/summary.json").
                     num_labeled: value.num_labeled,
                     num_encoding_changes: value.num_encoding_changes,
                     action: `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button">Download</a>`
-                    // `   ` + 
-                    // `<a id="button_plot" class="btn btn-outline-dark btn-sm" href=${url_neuron} role="button">Plot neurons</a>`
                 })
             }
+            list_uid.push(key)
         }
             
         $('#dataset_table').bootstrapTable({
             data: table_data
         });
 
-        for (var i = 1; i < table.rows.length; i++) {
-            var row = table.rows[i];
-            row.style.display = "none";
+        for (var i = 1; i < list_uid.length; i++) {
+            var dataset_uid = list_uid[i];
+            $('#dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
         }
-
-        var row_message = table.insertRow();
-        var cell = row_message.insertCell();
-        row_message.id = "row_message"
-        cell.colSpan = 7;
-        cell.innerHTML = "<center>Please select at least one neuron class</center>"
     }).
     catch(error => console.error(error));
 
@@ -74,7 +68,6 @@ fetch("data/matches.json").
     then(data => {
         // load dataset list to thje picker
         for (const [key, value] of Object.entries(data)) {
-            // console.log(key)
             var option = document.createElement("option");
             option.value = key;
             option.text = key;
@@ -91,49 +84,50 @@ fetch("data/matches.json").
         }).on('change', function () {
             // find neuron
             var selectedOptions = $("#select_neuron").val();
-            var list_match_dataset_id = [];
-            for (var i = 1; i < table.rows.length; i++) {
-                // Get the current row
-                var row = table.rows[i];
-                var dataCells = row.getElementsByTagName("td");
-                var dataset_id = dataCells[0].innerHTML // dataset uid
+            
+            if (selectedOptions.length > 0) {
+                for (var i = 1; i < list_uid.length; i++) {
+                    var dataset_uid = list_uid[i];
+                    var row = $('#dataset_table').bootstrapTable('getRowByUniqueId', dataset_uid);
+                    // iterate over neurons selected
+                    var match_all = true;
+                    var list_idx_neuron = [];
+                    for (var j = 0; j < selectedOptions.length; j++) {
+                        let neuron_class = selectedOptions[j]
+                        var neuron_list = data[neuron_class];
+                        var list_match_uid = neuron_list.map(function (subarray) {
+                            if (subarray[0] == dataset_uid) {
+                                list_idx_neuron.push(subarray[1])
+                            }
+                            return subarray[0];
+                        });
+                        let match_ = list_match_uid.includes(dataset_uid)
+                        match_all = match_all && match_
+                    }
 
-                // iterate over neurons selected
-                var match_all = true;
-                var list_idx_neuron = [];
-                for (var j = 0; j < selectedOptions.length; j++) {
-                    let neuron_class = selectedOptions[j]
-                    var neuron_list = data[neuron_class];
-                    var list_match_uid = neuron_list.map(function (subarray) {
-                        if (subarray[0] == dataset_id) {
-                            list_idx_neuron.push(subarray[1])
-                        }
-                        return subarray[0];
-                    });
-                    let match_ = list_match_uid.includes(dataset_id)
-                    match_all = match_all && match_
+                    if (match_all == true) {
+
+                        url_plot = `plot_dataset.html?uid=${dataset_uid}&list_neuron=${list_idx_neuron}&list_behavior=v`
+                        url_json = `data/${dataset_uid}.json`
+
+                        new_html = `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button">Download</a>` +
+                            `   <a id="button_plot" class="btn btn-outline-dark btn-sm" href=${url_plot} role="button">Plot neurons</a>`
+                        $('#dataset_table').bootstrapTable('updateCellByUniqueId', {
+                            id: dataset_uid,
+                            field: "action",
+                            value: new_html,
+                            reinit: true
+                        });
+                        $('#dataset_table').bootstrapTable('showRow', {uniqueId: dataset_uid});
+                    } else {
+                        $('#dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
+                    }
                 }
-
-                if (match_all == true) {
-                    row.style.display = "";
-                    url_plot = `plot_dataset.html?uid=${dataset_id}&list_neuron=${list_idx_neuron}&list_behavior=v`
-                    url_json = `data/${dataset_id}.json`
-
-                    new_html = `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button">Download</a>` +
-                        `   <a id="button_plot" class="btn btn-outline-dark btn-sm" href=${url_plot} role="button">Plot neurons</a>`
-                    dataCells[6].innerHTML = new_html
-
-                    list_match_dataset_id.push(dataset_id)
-                } else {
-                    row.style.display = "none";
+            } else {// if (selectedOptions.length > 0)
+                for (var i = 1; i < list_uid.length; i++) {
+                    var dataset_uid = list_uid[i];
+                    $('#dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
                 }
-            }
-
-            if (list_match_dataset_id.length == 0) {
-                row_message.cells[0].innerHTML = "<center>No match found</center>"
-                row_message.style.display = "";
-            } else {
-                row_message.style.display = "none";
             }
         });
 
@@ -142,20 +136,10 @@ fetch("data/matches.json").
 
 function clearSelect() {
     $("#select_neuron").selectpicker('val', '');
-    for (var i = 1; i < table.rows.length; i++) {
-        var row = table.rows[i];
-        if (row.id != "row_message") {
-            row.style.display = "none";
-            var dataCells = row.getElementsByTagName("td");
-            var dataset_id = dataCells[0].innerHTML // dataset uid
 
-            url_json = `data/${dataset_id}.json`
-            new_html = `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button">Download</a>`
-            dataCells[6].innerHTML = new_html
-        } else {
-            row.getElementsByTagName("td")[0].innerHTML = "<center>Please select at least one neuron class</center>"
-            row.style.display = "";
-        }
+    for (var i = 1; i < list_uid.length; i++) {
+        var dataset_uid = list_uid[i];
+        $('#dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
     }
 }
   

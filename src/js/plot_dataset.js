@@ -189,7 +189,7 @@ list_url_behavior.forEach(function(behavior) {
 });
 
 fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data => {
-    console.log(data)
+    // console.log(data)
     n_neuron = data["num_neurons"];
     button_csv_export.disabled = true;
     button_cor.disabled = true;

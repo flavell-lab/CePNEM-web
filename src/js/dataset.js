@@ -11,7 +11,10 @@ then(data => {
         idx_neuron1 = getRandomNumber(value.num_neurons)
         idx_neuron2 = getRandomNumber(value.num_neurons)
         let list_idx_neuron = [idx_neuron1, idx_neuron2]
-        let url_plot = `plot_dataset.html?uid=${key}&list_neuron=${list_idx_neuron}&list_behavior=v`
+        let url_plot = new URL("plot_dataset.html", document.location);
+        url_plot.searchParams.set("uid", key);
+        url_plot.searchParams.set("list_neuron", list_idx_neuron);
+        url_plot.searchParams.set("list_behavior", "v");
         let url_json = `data/${key}.json`
       
         let html_buttons = `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button">Download</a>` +

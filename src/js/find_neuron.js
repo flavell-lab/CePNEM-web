@@ -83,7 +83,10 @@ fetch("data/matches.json").
                 }
 
                 if (match_all == true) {
-                    let url_plot = `plot_dataset.html?uid=${dataset_uid}&list_neuron=${list_idx_neuron}&list_behavior=v`
+                    let url_plot = new URL("plot_dataset.html", document.location);
+                    url_plot.searchParams.set("uid", dataset_uid);
+                    url_plot.searchParams.set("list_neuron", list_idx_neuron);
+                    url_plot.searchParams.set("list_behavior", "v");
                     let url_json = `data/${dataset_uid}.json`
                     let new_html = `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button">Download</a>` +
                         `   <a id="button_plot" class="btn btn-outline-dark btn-sm" href=${url_plot} role="button">Plot neurons</a>`

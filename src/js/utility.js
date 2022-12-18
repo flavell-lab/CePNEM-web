@@ -47,4 +47,4 @@ function getDatasetTypePill(datasettype) {
     result = '<span class="badge rounded-pill text-bg-' + color + ` dtype="${datasettype}">` +
         type_str + '</span>';
     return result;
-}   
+}

@@ -45,9 +45,6 @@
           <select id="select_behavior" class="selectpicker" multiple data-selected-text-format="count > 2"
             title="Select behavior">
           </select>
-          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Update with the selected neuron(s)/behavior(s)">
-            <button class="btn btn-primary" onclick="plotSelect()">Update</button>
-          </span>
           <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Clear the selections">
             <button class="btn btn-light" onclick="clearSelect()">Clear</button>
           </span>
@@ -55,7 +52,7 @@
             <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Correlation</button>
           </span>
           <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Download currently plotted neurons(s)/behavior(s) as a CSV file">
-            <button class="btn btn-light" onclick="exportCSV()"><i class="bi bi-download"></i></button>
+            <button id="csv_export" class="btn btn-light" onclick="exportCSV()"><i class="bi bi-download"></i></button>
           </span>
           <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Copy a link to this plot to the clipboard">
           <button type="button" class="btn btn-light" onclick="copyURL()">
@@ -65,7 +62,7 @@
           
         </div>
       </div>
-      <div id='plot1'></div>
+      <div id='plot_main'></div>
     </div>
   </div>
 
@@ -547,6 +544,7 @@
   <script src="lib/statistics.min.js" type="text/javascript"></script>
   <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
   <script src="js/plot.js"></script>
+  <script src="js/utility.js"></script>
   <script src="js/plot_dataset.js"></script>
 
 

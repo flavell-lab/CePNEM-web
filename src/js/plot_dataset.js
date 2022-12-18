@@ -44,8 +44,8 @@ function headerStyle(column) {
 }
 
 // init tooltips
-const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+// const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+// const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
 // UI elements
 var plot_main = document.getElementById('plot_main');
@@ -663,3 +663,7 @@ function exportCSV() {
         alert("Need at least 1 neuron and 1 behavior selected to export data.")
     }
 }
+
+// new bootstrap.Tooltip(document.body, {
+//     selector: '.has-tooltip'
+// });

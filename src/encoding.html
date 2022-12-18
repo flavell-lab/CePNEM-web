@@ -40,10 +40,14 @@
         <p>
           <div class="btn-group" role="group" aria-label="Basic example">
             <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConfigure"
-            aria-expanded="true" aria-controls="collapseConfigure">Configure</button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseLegend"
-            aria-expanded="true" aria-controls="collapseLegend">Legend</button>
-          </div>
+            aria-expanded="true" aria-controls="collapseConfigure">
+            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Configure the encoding table">Configure</span>
+          </button>
+          <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseLegend"
+            aria-expanded="true" aria-controls="collapseLegend">
+            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Legend for the encoding table">Legend</span>
+          </button>
+            </div>
         </p>
 
         <row>
@@ -385,17 +389,6 @@
           </col>
         </row>
           
-        <!--<button class="multi-sort btn btn-secondary" type="button" data-bs-toggle="modal" data-bs-target="#sortModal_table_encoding" title="Multiple Sort"><i class="bi bi-arrow-down-up"></i></button>-->
-<!--         <div class="row">
-          <div class="col-sm-5">
-            <div class="form-group">
-          <select id="select_neuron" class="selectpicker" multiple data-live-search="true" title="Select neuron class">
-          </select>
-          <button class="btn btn-light" onclick="clearSelect()">Clear</button>
-          <button class="btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#sortModal_table_encoding"><i class="bi-sort-down"></i></button>
-          </div>
-      </div>
- -->
         <table id="table_encoding" class="table-sm table_exsm"
         data-show-fullscreen="true"
         data-search="true"

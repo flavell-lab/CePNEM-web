@@ -184,7 +184,9 @@ function toggleO() {
     }
 }
 
-
+// init tooltips
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
 fetch("data/encoding_table.json").
     then(response => response.json()).
@@ -260,4 +262,4 @@ function table_buttons () {
           },
     
     }
-}    
+}

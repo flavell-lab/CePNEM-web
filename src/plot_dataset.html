@@ -49,10 +49,10 @@
             <button class="btn btn-light" onclick="clearSelect()">Clear</button>
           </span>
           <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compute Pearson cor among the neural trace(s) and behavior(s)">
-            <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Correlation</button>
+            <button id="button_cor" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Correlation</button>
           </span>
           <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Download currently plotted neurons(s)/behavior(s) as a CSV file">
-            <button id="csv_export" class="btn btn-light" onclick="exportCSV()"><i class="bi bi-download"></i></button>
+            <button id="button_csv_export" class="btn btn-light" onclick="exportCSV()"><i class="bi bi-download"></i></button>
           </span>
           <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Copy a link to this plot to the clipboard">
           <button type="button" class="btn btn-light" onclick="copyURL()">
@@ -89,18 +89,19 @@
 
   <div class="container-xl px-4 py-5">
     <h4 id="str_dataset" class="fs-4">Encoding Table</h4>
-    <p>CePNEM encoding table for the neuron(s) and behavior(s)<br></p>
+    <p>CePNEM encoding table for the neuron(s) and behavior(s)</p>
+    
     <p>
-    <div class="btn-group" role="group" aria-label="Basic example">
-      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConfigure"
-        aria-expanded="true" aria-controls="collapseConfigure">
-        <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Configure the encoding table">Configure</span>
-      </button>
-      <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseLegend"
-        aria-expanded="true" aria-controls="collapseLegend">
-        <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Legend for the encoding table">Legend</span>
-      </button>
-    </div>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConfigure"
+          aria-expanded="true" aria-controls="collapseConfigure">
+          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Configure the encoding table">Configure</span>
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseLegend"
+          aria-expanded="true" aria-controls="collapseLegend">
+          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Legend for the encoding table">Legend</span>
+        </button>
+      </div>
     </p>
 
     <row>
@@ -233,10 +234,7 @@
 
             <!-- head curvature -->
             <div class="list-group mx-0 w-auto">
-              <center>
-                <h4 class="fs-6">Head curvature encoding</h4>
-              </center>
-
+              <center><h4 class="fs-6">Head curvature encoding</h4></center>
               <div class="btn-group" role="group" aria-label="Basic example">
                 <button id="button_hc_all" onclick="toggleHC()" type="button" class="btn btn-secondary">Select All</button>
               </div>

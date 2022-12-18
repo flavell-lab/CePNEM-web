@@ -4,28 +4,6 @@ idx_neuron: javascript (0 based) index
 neuron: neuron number/id (1 based) index
 */
 
-function pearson(arr1, arr2) {
-    // Compute the means of each array
-    const mean1 = arr1.reduce((a, b) => a + b) / arr1.length;
-    const mean2 = arr2.reduce((a, b) => a + b) / arr2.length;
-
-    // Compute the standard deviations of each array
-    const std1 = Math.sqrt(arr1.map(x => Math.pow(x - mean1, 2)).reduce((a, b) => a + b) / arr1.length);
-    const std2 = Math.sqrt(arr2.map(x => Math.pow(x - mean2, 2)).reduce((a, b) => a + b) / arr2.length);
-
-    // Compute the Pearson correlation coefficient
-    return arr1.map((x, i) => (x - mean1) * (arr2[i] - mean2)).reduce((a, b) => a + b) / (arr1.length * std1 * std2);
-}
-
-function get_neuron_label(idx_neuron, neuropal_label) {
-    let neuron = idx_neuron + 1;
-    if (neuron in neuropal_label) {
-        return `${neuron} (${neuropal_label[neuron]['label']})`;
-    } else {
-        return `${neuron}`;
-    }
-}
-
 function checkTuning(neuron_cat, behavior, tuning, idx_neuron) {
     let list_idx_tune = []
     for (const [key, value] of Object.entries(neuron_cat)) {
@@ -50,31 +28,32 @@ function toggleColumns(check_id, column_name) {
     }
 }
 
-////
-//// encoding table style
-////
+// encoding table style
 function rowStyle(row, index) {
     return {
     //   css: {'font-size': "12px"},
     classes: 'table_exsm'
     }
 }
+
 function headerStyle(column) {
     return {
         // css: {'font-size': "12px", "font-weight": "bold"},
       classes: 'table_exsm'
     }
-  }
-
+}
 
 // init tooltips
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
+// UI elements
 var plot_main = document.getElementById('plot_main');
 var select_neuron = document.getElementById("select_neuron");
 var select_behavior = document.getElementById("select_behavior");
 var table_encoding = document.getElementById("table_encoding");
+var button_csv_export = document.getElementById("button_csv_export");
+var button_cor = document.getElementById("button_cor");
 
 const current_url = new URL(window.location.href);
 const url_params = new URLSearchParams(current_url.search);
@@ -87,8 +66,6 @@ const list_behavior_str_short = ["v", "hc", "f", "av", "bc"];
 const behavior_units = ["0.1 mm/s", "rad", "pumps/sec", "rad/s", "rad"];
 var n_neuron = 0;
 var data_export = {"neuron": [], "behavior": []};
-
-document.getElementById("csv_export").disabled = true;
 
 function update_data_export(data_export, trace_array, behaviors, list_neuron, list_behavior, neuropal_label) {
     data_export["neuron"] = [];
@@ -103,23 +80,23 @@ function update_data_export(data_export, trace_array, behaviors, list_neuron, li
         let idx_ = list_behavior_str_short.indexOf(behavior);
         data_export["behavior"].push([`${list_behavior_str[idx_]} (${behavior_units[idx_]})`, ...behaviors[idx_]])
     })
-
 }
-
 // check behavior url
 list_url_behavior.forEach(function(behavior) {
     if (!list_behavior_str_short.includes(behavior)) {
-        // send user to error.html
+        // console.error(`Behavior ${behavior} is not valid!`)
     }
 });
 
 fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data => {
     n_neuron = data["num_neurons"];
-    
+    button_csv_export.disabled = true;
+    button_cor.disabled = true;
+
     // check neuron url
     list_url_neuron.forEach(function(idx_neuron) {
         if (idx_neuron < 0 || n_neuron <= idx_neuron) {
-            // send user to error.html
+            // console.error(`Neuron ${idx_neuron} is not valid!`)
         }
     });
 
@@ -168,13 +145,11 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     const angular_velocity = data["angular_velocity"];
     const body_curvature = data["body_curvature"];
     const avg_timestep = data["avg_timestep"]
-    const list_t = Array.from({ length: data["max_t"] }, (_, i) => i);
-    const time_range = list_t.map(n => n * avg_timestep);
+    const list_idx_t = Array.from({ length: data["max_t"] }, (_, i) => i);
+    const list_t = list_idx_t.map(n => n * avg_timestep);
     const behaviors = new Array(velocity, head_curve, pumping, angular_velocity, body_curvature);
 
-    ////
-    //// plot data
-    ////
+    // plot data
     initPlot(plot_main);
 
     if (list_url_neuron.length > 0 && !isNaN(list_url_neuron[0]) &&
@@ -199,55 +174,63 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         updateCorrelationModel(trace_array, behaviors, list_url_neuron, list_url_behavior,
             list_behavior_str_short, neuropal_label)
 
+        // update data export
         update_data_export(data_export, trace_array, behaviors, list_url_neuron,
             list_url_behavior, neuropal_label)
-        document.getElementById("csv_export").disabled = false;
+        
+        // enable csv export button, correlation button
+        button_csv_export.disabled = false;
+        button_cor.disabled = false;
     }
 
     // neuron selector update
-    $("#select_neuron").selectpicker({
-        // Other options...
-    }).on('change', function () {
+    $('#select_neuron').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+        // console.log(`Neuron ${clickedIndex} is ${isSelected ? 'selected' : 'deselected'} previous value: ${previousValue}`);
+        let idx_neuron = clickedIndex;
+        let neuron = idx_neuron + 1;
+
+        // find the ploty trace id if exists
+        let trace_idx = -1; // -1 if not exists
+        for (var i=0; i < plot_main.data.length; i++) {
+            let trace_id = plot_main.data[i].trace_id;
+            if (trace_id.includes("neuron_")) {
+                let neuron_trace = parseInt(trace_id.split("_")[1]);
+                if (neuron_trace == neuron) {
+                    trace_idx = i;
+                    break;
+                }
+            }
+        }
+        
+        if (isSelected && trace_idx == -1) {
+            // plot neuron if selected
+            let neuron_label = "Neuron " + get_neuron_label(idx_neuron, neuropal_label);
+            let trace = trace_array[idx_neuron];
+            plotNeuron(list_t, trace, plot_main, neuron_label, `neuron_${neuron}`)
+        } else if (!isSelected && trace_idx == -1) {
+            // remove but trace does not exist. do nothing
+        } else {
+            // remove existing neuron if deselected
+            Plotly.deleteTraces(plot_main, i);
+        }
+
         let selected_idx_neuron_str = $(this).val();
         let selected_neuron_str = selected_idx_neuron_str.map(num => {
             // Convert the string to a number, add 1, and then convert it back to a string
             return (Number(num) + 1).toString();
         });
-        let selected_neuron = selected_neuron_str.map(str=>parseInt(str));
-        
-        // remove existing neuron if deselected
-        for(var i=0; i < plot_main.data.length; i++) {
-            let trace_id = plot_main.data[i].trace_id;
-            let neuron = parseInt(trace_id.split("_")[1]);
-            let idx_neuron_str = (neuron - 1).toString();
-            if (trace_id.includes("neuron_")) {
-                if (!selected_idx_neuron_str.includes(idx_neuron_str)) {
-                    Plotly.deleteTraces(plot_main, i);
-                }
-            }
-        }
-        // plot new neuron if new
-        for (var idx_neuron_str of selected_idx_neuron_str) {
-            let idx_neuron = parseInt(idx_neuron_str);
-            let neuron = idx_neuron + 1;
-            
-            // check if neuron is already plotted
-            let trace_id = `neuron_${neuron}`;
-            if (!plot_main.data.map(x => x.trace_id).includes(trace_id)) {
-                let neuron_label = "Neuron " + get_neuron_label(idx_neuron, neuropal_label);
-                let trace = trace_array[idx_neuron];
-                plotNeuron(list_t, trace, plot_main, neuron_label, `neuron_${neuron}`)
-            }
-        }            
+        let selected_neuron = selected_neuron_str.map(num => {return parseInt(num)});
 
+        // update cor modal
         let selected_behavior_str_short = $("#select_behavior").selectpicker('val');
         updateCorrelationModel(trace_array, behaviors, selected_neuron, selected_behavior_str_short,
             list_behavior_str_short, neuropal_label)
+        button_cor.disabled = false;
     
+        // update data export
         update_data_export(data_export, trace_array, behaviors, selected_neuron,
             selected_behavior_str_short, neuropal_label)    
-        
-        document.getElementById("csv_export").disabled = false;
+        button_csv_export.disabled = false;
 
         // update the current URL
         let url = new URL(window.location.href);
@@ -255,54 +238,61 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         window.history.pushState({}, "", url);
     });
 
-    // behavior selector update
-    $("#select_behavior").selectpicker({
-        // Other options...
-    }).on('change', function () {
-        let selected_behavior_str_short = $(this).val();
-        // remove existing behavior if deselected
-        for(var i=0; i < plot_main.data.length; i++) {
+    // neuron selector update
+    $('#select_behavior').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+        // console.log(`Behavior ${clickedIndex} is ${isSelected ? 'selected' : 'deselected'} previous value: ${previousValue}`);
+        let idx_behavior = clickedIndex;
+        let behavior = list_behavior_str_short[idx_behavior];
+
+        // find the ploty trace id if exists
+        let trace_idx = -1; // -1 if not exists
+        for (var i=0; i < plot_main.data.length; i++) {
             let trace_id = plot_main.data[i].trace_id;
-            let behavior = trace_id.split("_")[1];
             if (trace_id.includes("behavior_")) {
-                if (!selected_behavior_str_short.includes(behavior)) {
-                    Plotly.deleteTraces(plot_main, i);
+                let behavior_trace = trace_id.split("_")[1];
+                if (behavior_trace == behavior) {
+                    trace_idx = i;
+                    break;
                 }
             }
         }
-        // plot new behavior if new
-        for (var behavior of selected_behavior_str_short) {
-            // check if behavior is already plotted
-            let trace_id = `behavior_${behavior}`;
-            if (!plot_main.data.map(x => x.trace_id).includes(trace_id)) {
-                let idx_behavior = list_behavior_str_short.indexOf(behavior);
-                let label = `${list_behavior_str[idx_behavior]} (${behavior_units[idx_behavior]})`;
-                let behavior_data = behaviors[idx_behavior];
-                plotBehavior(list_t, behavior_data, plot_main, label, `behavior_${behavior}`)
-            }
+        
+        if (isSelected && trace_idx == -1) {
+            // plot behavior if selected
+            let label = `${list_behavior_str[idx_behavior]} (${behavior_units[idx_behavior]})`;
+            let behavior_data = behaviors[idx_behavior];
+            plotBehavior(list_t, behavior_data, plot_main, label, `behavior_${behavior}`)
+        } else if (!isSelected && trace_idx == -1) {
+            // remove but trace does not exist. do nothing
+        } else {
+            // remove existing behavior if deselected
+            Plotly.deleteTraces(plot_main, i);
         }
 
+        // update cor modal
         let selected_idx_neuron_str = $("#select_neuron").val();
         let selected_neuron_str = selected_idx_neuron_str.map(num => {
             // Convert the string to a number, add 1, and then convert it back to a string
             return (Number(num) + 1).toString();
         });
-        let selected_neuron = selected_neuron_str.map(str=>parseInt(str));
-        
+        let selected_neuron = selected_neuron_str.map(num => {return parseInt(num)});
+        let selected_behavior_str_short = $(this).selectpicker('val');
         updateCorrelationModel(trace_array, behaviors, selected_neuron,
             selected_behavior_str_short, list_behavior_str_short, neuropal_label)
-        
+        button_cor.disabled = false;
+
+        // update data export
         update_data_export(data_export, trace_array, behaviors, selected_neuron,
             selected_behavior_str_short, neuropal_label)
-        document.getElementById("csv_export").disabled = false;
+        button_csv_export.disabled = false;
+
         // update the current URL
         let url = new URL(window.location.href);
         url.searchParams.set("list_behavior", selected_behavior_str_short);
         window.history.pushState({}, "", url);
     });
-
-
-    ////// table
+    
+    // table
     const neuron_cat = data["neuron_categorization"]
     var table_encoding_data = []
     for (var idx_neuron = 0; idx_neuron < list_idx_neuron.length; idx_neuron++) {
@@ -392,8 +382,8 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
 
 function clearSelect() {
     // clear picker
-    $("#select_neuron").selectpicker('val','');
-    $('#select_behavior').selectpicker('val','');
+    $("#select_neuron").selectpicker("deselectAll");
+    $("#select_behavior").selectpicker("deselectAll");
 
     // clear plot
     while(plot_main.data.length>0)
@@ -406,8 +396,10 @@ function clearSelect() {
     cor_txt.innerHTML = "2 or more neurons need to be selected";
     const cor_txt_behavior = document.getElementById('cor_txt_behavior');
     cor_txt_behavior.innerHTML = "";
+    button_cor.disabled = true;
 
-    document.getElementById("csv_export").disabled = true;
+    // disable/reset export csv
+    button_csv_export.disabled = true;
     data_export["neuron"] = [];
     data_export["behavior"] = [];
 
@@ -418,9 +410,7 @@ function clearSelect() {
     window.history.pushState({}, "", url);
 }
 
-////
-//// table UI control
-////
+// table UI control
 function updateTableColumn() {
     toggleColumns("check_v_s", "strength_v")
     toggleColumns("check_v_fwdness", "fwdness")
@@ -640,14 +630,9 @@ function updateCorrelationModel(trace_array, behaviors, list_neuron, list_behavi
         cor_txt_behavior.innerHTML = txt_cor_behavior;
 }
 
-
-////
-//// CSV export
-////
+// CSV export
 function exportCSV() {
-    if (data_export["neuron"].length == 0) {
-        alert("No data to export")
-    } else {
+    if (data_export["neuron"].length > 0 || data_export["behavior"].length > 0) {
         var csvString = data_export["neuron"].map(row => row.join(",")).join("\n");
         csvString += "\n" + data_export["behavior"].map(row => row.join(",")).join("\n");
 
@@ -668,5 +653,7 @@ function exportCSV() {
 
         // Remove the link from the DOM
         document.body.removeChild(link);
+    } else {
+        alert("Need at least 1 neuron and 1 behavior selected to export data.")
     }
 }

@@ -4,6 +4,9 @@ idx_neuron: javascript (0 based) index
 neuron: neuron number/id (1 based) index
 */
 
+const color_rev = 'rgba(255, 0, 0, 0.15)'
+const event_style = {"heat": {"color": 'rgba(255,0,0,1)', "width": 2}};
+
 function checkTuning(neuron_cat, behavior, tuning, idx_neuron) {
     let list_idx_tune = []
     for (const [key, value] of Object.entries(neuron_cat)) {
@@ -43,6 +46,101 @@ function headerStyle(column) {
     }
 }
 
+function initRev(plot, reversal_events, avg_timestep, color_rev) {
+    // generate reversal events
+    // let shapes_rev = []
+    let shapes = plot.layout.shapes
+    //iterate over reversal events
+    for (var i = 0; i < reversal_events.length; i++) {
+        let [i_s, i_e] = reversal_events[i];
+        let t_s = (i_s - 1) * avg_timestep;
+        let t_e = (i_e - 1) * avg_timestep;
+
+        dict_ = {}
+        dict_["type"] = "rect"
+        dict_["x0"] = t_s
+        dict_["y0"] = -100
+        dict_["x1"] = t_e
+        dict_["y1"] = 100
+        dict_["name"] = `rev_${i}`
+        dict_["visible"] = true
+        dict_["line"] = {
+            "color": color_rev,
+            "width": 0
+        }
+        dict_["fillcolor"] = color_rev
+        
+        // add to the plot shape
+        shapes.push(dict_)
+    }
+}
+
+function initEvent(plot, events, avg_timestep, event_style) {
+    let shapes = plot.layout.shapes
+    for (let event_key in events) {
+        let event_array = events[event_key]
+        for (let i = 0; i < event_array.length; i++) {
+            let x_ = event_array[i] * avg_timestep
+
+            dict_ = {}
+            dict_["type"] = "line"
+            dict_["x0"] = x_
+            dict_["y0"] = -100
+            dict_["x1"] = x_
+            dict_["y1"] = 100
+            dict_["name"] = `event_${event_key}_${i}`
+            dict_["visible"] = true
+            dict_["line"] =  {
+                "color": event_style[event_key]["color"],
+                "width": event_style[event_key]["width"]
+            }
+
+            // add to the plot shape
+            shapes.push(dict_)
+        }
+    }
+}
+
+function toggleRev(q) {
+    let update_ = {}
+    for (var i = 0; i < plot_main.layout.shapes.length; i++) {
+        let shape = plot_main.layout.shapes[i]
+        if (shape.name.includes("rev")) {
+            update_[`shapes[${i}].visible`] = q
+        }
+    }
+    Plotly.relayout(plot_main, update_);
+}
+
+function toggleEvent(q) {
+    let update_ = {}
+    for (var i = 0; i < plot_main.layout.shapes.length; i++) {
+        let shape = plot_main.layout.shapes[i]
+        if (shape.name.includes("event")) {
+            update_[`shapes[${i}].visible`] = q
+        }
+    }
+    Plotly.relayout(plot_main, update_);
+}
+
+function resetYAxis(plot) {
+    let margin = 0.05
+    let data_ = plot.data
+    let y_max = -1000.
+    let y_min = 1000.
+
+    // iterate over data_
+    for (var trace of data_) {
+        if (trace.trace_id.includes("neuron")) {
+            y_ = trace.y
+            y_max = Math.max(y_max, maxArray(y_))
+            y_min = Math.min(y_min, minArray(y_))
+        }
+    }    
+    let update_ = {"yaxis.range": [y_min - margin * y_min, y_max + margin * y_max]}
+    Plotly.relayout(plot_main, update_);
+}
+
 // init tooltips
 // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 // const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
@@ -54,6 +152,8 @@ var select_behavior = document.getElementById("select_behavior");
 var table_encoding = document.getElementById("table_encoding");
 var button_csv_export = document.getElementById("button_csv_export");
 var button_cor = document.getElementById("button_cor");
+var switch_rev = document.getElementById('switch_plot_rev');
+var switch_event = document.getElementById('switch_plot_event');
 
 const current_url = new URL(window.location.href);
 const url_params = new URLSearchParams(current_url.search);
@@ -89,6 +189,7 @@ list_url_behavior.forEach(function(behavior) {
 });
 
 fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data => {
+    console.log(data)
     n_neuron = data["num_neurons"];
     button_csv_export.disabled = true;
     button_cor.disabled = true;
@@ -148,9 +249,23 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     const list_idx_t = Array.from({ length: data["max_t"] }, (_, i) => i);
     const list_t = list_idx_t.map(n => n * avg_timestep);
     const behaviors = new Array(velocity, head_curve, pumping, angular_velocity, body_curvature);
+    const reversal_events = data["reversal_events"]
 
     // plot data
-    initPlot(plot_main);
+    initPlot(plot_main)
+    initRev(plot_main, reversal_events, avg_timestep, color_rev)
+    toggleRev(false);
+
+    // check if data has key events
+    if ("events" in data) {
+        // plot events
+        initEvent(plot_main, data["events"], avg_timestep, event_style)
+        toggleEvent(true);
+
+        // enable and check event switch
+        switch_event.disabled = false;
+        switch_event.checked = true;
+    }
     
     q_plot_neuron = list_url_neuron.length > 0 && !isNaN(list_url_neuron[0])
     q_plot_behavior = list_url_behavior.length > 0 && list_url_behavior[0]
@@ -174,6 +289,9 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             plotBehavior(list_t, behavior_data, plot_main, label, `behavior_${behavior}`)
         }
     }
+
+    // configure y axis
+    resetYAxis(plot_main)
 
     if (q_plot_neuron && q_plot_behavior) {
         // update correlation modal
@@ -219,6 +337,9 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             // remove existing neuron if deselected
             Plotly.deleteTraces(plot_main, i);
         }
+
+        // update y
+        resetYAxis(plot_main)
 
         let selected_idx_neuron_str = $(this).val();
         let selected_neuron_str = selected_idx_neuron_str.map(num => {
@@ -664,6 +785,12 @@ function exportCSV() {
     }
 }
 
-// new bootstrap.Tooltip(document.body, {
-//     selector: '.has-tooltip'
-// });
+function switchRev() {
+    toggleRev(switch_rev.checked)
+    resetYAxis(plot_main)
+}
+
+function switchEvent() {
+    toggleEvent(switch_event.checked)
+    resetYAxis(plot_main)
+}

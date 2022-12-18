@@ -2,6 +2,14 @@ function getRandomNumber(x) {
     return Math.floor(Math.random() * x);
 }
 
+function minArray(x) {
+    return x.reduce((accumulator, currentValue) => Math.min(accumulator, currentValue))
+}
+
+function maxArray(x) {
+    return x.reduce((accumulator, currentValue) => Math.max(accumulator, currentValue))
+}
+
 function pearson(arr1, arr2) {
     // Compute the means of each array
     const mean1 = arr1.reduce((a, b) => a + b) / arr1.length;

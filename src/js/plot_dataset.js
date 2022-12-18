@@ -151,9 +151,11 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
 
     // plot data
     initPlot(plot_main);
+    
+    q_plot_neuron = list_url_neuron.length > 0 && !isNaN(list_url_neuron[0])
+    q_plot_behavior = list_url_behavior.length > 0 && list_url_behavior[0]
 
-    if (list_url_neuron.length > 0 && !isNaN(list_url_neuron[0]) &&
-        list_url_behavior.length > 0 && list_url_behavior[0]) {
+    if (q_plot_neuron) {
         // plot neuron
         for (var neuron of list_url_neuron) {
             let idx_neuron = neuron - 1;
@@ -161,15 +163,19 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             let trace = trace_array[idx_neuron];
             plotNeuron(list_t, trace, plot_main, neuron_label, `neuron_${neuron}`)
         }
+    }
 
-        // plot behavior
+    // plot behavior
+    if (q_plot_behavior) {
         for (var behavior of list_url_behavior) {
             let idx_behavior = list_behavior_str_short.indexOf(behavior);
             let label = `${list_behavior_str[idx_behavior]} (${behavior_units[idx_behavior]})`;
             let behavior_data = behaviors[idx_behavior];
             plotBehavior(list_t, behavior_data, plot_main, label, `behavior_${behavior}`)
         }
+    }
 
+    if (q_plot_neuron && q_plot_behavior) {
         // update correlation modal
         updateCorrelationModel(trace_array, behaviors, list_url_neuron, list_url_behavior,
             list_behavior_str_short, neuropal_label)

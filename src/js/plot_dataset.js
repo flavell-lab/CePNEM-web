@@ -774,20 +774,25 @@ function updateCorrelationModel(trace_array, behaviors, list_neuron, list_behavi
             let neuron_txt = get_neuron_label(idx_neuron, neuropal_label)
             txt_cor_other_neurons += `<b>${neuron_txt}</b><br>`
             let cor_array = []
-            for (let i = 0; i < trace_array.length; i++) {
-                if (i != idx_neuron) {
-                    let cor_ = pearson(trace_array[idx_neuron], trace_array[i]).toFixed(2)
-                    cor_array.push([i, cor_])
+            
+            for (let j = 0; j < trace_array.length; j++) {
+                if (j != idx_neuron) {
+                    let cor_ = pearson(trace_array[idx_neuron], trace_array[j]).toFixed(2)
+                    cor_array.push([j, cor_])
                 }
             }
-            cor_array.sort(function(a, b) {
-                return Math.abs(b[1] - a[1]);
+            let cor_array_sorted = cor_array.sort(function(a, b) {
+                return Math.abs(b[1]) - Math.abs(a[1]);
             });
-            for (let i = 0; i < 3; i++) {
-                let neuron_txt = get_neuron_label(cor_array[i][0], neuropal_label)
-                txt_cor_other_neurons += `${neuron_txt} = ${cor_array[i][1]}<br>`
+
+            for (let j = 0; j < 3; j++) {
+                let neuron_txt_ = get_neuron_label(cor_array_sorted[j][0], neuropal_label)
+                txt_cor_other_neurons += `${neuron_txt_} = ${cor_array_sorted[j][1]}<br>`
             }
+            txt_cor_other_neurons += "<br>"
         }
+    } else {
+        txt_cor_other_neurons = "1 or more neurons need to be selected";
     }
 
     cor_txt.innerHTML = txt_cor;

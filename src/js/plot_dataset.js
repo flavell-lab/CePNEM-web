@@ -347,7 +347,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             return (Number(num) + 1).toString();
         });
         let selected_neuron = selected_neuron_str.map(num => {return parseInt(num)});
-
+        
         // update cor modal
         let selected_behavior_str_short = $("#select_behavior").selectpicker('val');
         updateCorrelationModel(trace_array, behaviors, selected_neuron, selected_behavior_str_short,
@@ -739,6 +739,8 @@ function updateCorrelationModel(trace_array, behaviors, list_neuron, list_behavi
                 }
             }
             cor_txt.innerHTML = txt_cor;
+        } else {
+            cor_txt.innerHTML = "2 or more neurons need to be selected";
         }
 
         const cor_txt_behavior = document.getElementById('cor_txt_behavior');

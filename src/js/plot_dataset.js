@@ -719,49 +719,54 @@ function copyURL() {
 
 function updateCorrelationModel(trace_array, behaviors, list_neuron, list_behavior,
     list_behavior_str_short, neuropal_label) {
-        // analysis modal
-        const cor_txt = document.getElementById('cor_txt');
-        const cor_txt_behavior = document.getElementById('cor_txt_behavior');
-        if (list_neuron.length > 1) {
-            txt_cor = ""
-            txt_cor_behavior =  ""
-            
-            // neuron txt
-            for (let i = 0; i < list_neuron.length; i++) {
-                for (let j = 0; j <= i; j++) {
-                    if (i != j) {
-                        let neuron1 = list_neuron[j]
-                        let neuron2 = list_neuron[i]
-                        let idx_neuron1 = neuron1 - 1
-                        let idx_neuron2 = neuron2 - 1
-                        let cor_ = pearson(trace_array[idx_neuron1], trace_array[idx_neuron2]).toFixed(2)
+    // analysis modal
+    const cor_txt = document.getElementById('cor_txt');
+    const cor_txt_behavior = document.getElementById('cor_txt_behavior');
+    let txt_cor = ""
+    let txt_cor_behavior =  ""
 
-                        let neuron1_txt = get_neuron_label(idx_neuron1, neuropal_label)
-                        let neuron2_txt = get_neuron_label(idx_neuron2, neuropal_label)
-                        txt_cor += `${neuron1_txt}, ${neuron2_txt} = ${cor_}<br>`
-                    }
+    // neuron txt
+    if (list_neuron.length > 1) {
+        for (let i = 0; i < list_neuron.length; i++) {
+            for (let j = 0; j <= i; j++) {
+                if (i != j) {
+                    let neuron1 = list_neuron[j]
+                    let neuron2 = list_neuron[i]
+                    let idx_neuron1 = neuron1 - 1
+                    let idx_neuron2 = neuron2 - 1
+                    let cor_ = pearson(trace_array[idx_neuron1], trace_array[idx_neuron2]).toFixed(2)
+
+                    let neuron1_txt = get_neuron_label(idx_neuron1, neuropal_label)
+                    let neuron2_txt = get_neuron_label(idx_neuron2, neuropal_label)
+                    txt_cor += `${neuron1_txt}, ${neuron2_txt} = ${cor_}<br>`
                 }
             }
-
-            // behavior txt
-            for (let i = 0; i < list_neuron.length; i++) {
-                let idx_neuron = list_neuron[i] - 1
-                let neuron_txt = get_neuron_label(idx_neuron, neuropal_label)
-                txt_cor_behavior += `<b>${neuron_txt}</b><br>`
-                for (let j = 0; j < list_behavior.length; j++) {
-                    let idx_behavior = list_behavior_str_short.indexOf(list_behavior[j])
-                    let cor_ = pearson(trace_array[idx_neuron], behaviors[idx_behavior]).toFixed(2)
-                    txt_cor_behavior += `${neuron_txt}, ${list_behavior_str[idx_behavior]} = ${cor_}<br>`
-                }
-                txt_cor_behavior += "<br>"
-            }
-    
-            cor_txt.innerHTML = txt_cor;
-            cor_txt_behavior.innerHTML = txt_cor_behavior;
-        } else {
-            cor_txt.innerHTML = "2 or more neurons need to be selected";
-            cor_txt_behavior.innerHTML = "";
         }
+    } else {
+        txt_cor = "2 or more neurons need to be selected";
+    }
+
+    // behavior txt
+    if (list_neuron.length > 0 && list_behavior.length > 0) {
+        for (let i = 0; i < list_neuron.length; i++) {
+            let idx_neuron = list_neuron[i] - 1
+            let neuron_txt = get_neuron_label(idx_neuron, neuropal_label)
+            txt_cor_behavior += `<b>${neuron_txt}</b><br>`
+            for (let j = 0; j < list_behavior.length; j++) {
+                let idx_behavior = list_behavior_str_short.indexOf(list_behavior[j])
+                let cor_ = pearson(trace_array[idx_neuron], behaviors[idx_behavior]).toFixed(2)
+                txt_cor_behavior += `${neuron_txt}, ${list_behavior_str[idx_behavior]} = ${cor_}<br>`
+            }
+            txt_cor_behavior += "<br>"
+        }
+    } else if (list_behavior.length == 0) {
+        txt_cor_behavior = "1 or more behaviors need to be selected";
+    } else {
+        txt_cor_behavior = "1 or more neurons need to be selected";
+    }
+
+    cor_txt.innerHTML = txt_cor;
+    cor_txt_behavior.innerHTML = txt_cor_behavior;
 }
 
 // CSV export

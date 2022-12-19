@@ -164,6 +164,11 @@ const list_url_behavior = url_params.get('list_behavior').split(",").sort();
 const list_behavior_str = ["Velocity", "Head Curve", "Pumping", "Angular Velocity", "Body Curvature"];
 const list_behavior_str_short = ["v", "hc", "f", "av", "bc"];
 const behavior_units = ["0.1 mm/s", "rad", "pumps/sec", "rad/s", "rad"];
+
+const cor_txt = document.getElementById('cor_txt');
+const cor_txt_behavior = document.getElementById('cor_txt_behavior');
+const cor_txt_other_neuron = document.getElementById('cor_txt_other_neuron');
+
 var n_neuron = 0;
 var data_export = {"neuron": [], "behavior": []};
 
@@ -519,9 +524,7 @@ function clearSelect() {
     }
     
     // clear correlation text
-    const cor_txt = document.getElementById('cor_txt');
     cor_txt.innerHTML = "2 or more neurons need to be selected";
-    const cor_txt_behavior = document.getElementById('cor_txt_behavior');
     cor_txt_behavior.innerHTML = "";
     button_cor.disabled = true;
 
@@ -720,10 +723,9 @@ function copyURL() {
 function updateCorrelationModel(trace_array, behaviors, list_neuron, list_behavior,
     list_behavior_str_short, neuropal_label) {
     // analysis modal
-    const cor_txt = document.getElementById('cor_txt');
-    const cor_txt_behavior = document.getElementById('cor_txt_behavior');
     let txt_cor = ""
     let txt_cor_behavior =  ""
+    let txt_cor_other_neurons = ""
 
     // neuron txt
     if (list_neuron.length > 1) {
@@ -765,8 +767,32 @@ function updateCorrelationModel(trace_array, behaviors, list_neuron, list_behavi
         txt_cor_behavior = "1 or more neurons need to be selected";
     }
 
+    // correlation with other neurons: top 3 neurons
+    if (list_neuron.length > 0) {
+        for (let i = 0; i < list_neuron.length; i++) {
+            let idx_neuron = list_neuron[i] - 1
+            let neuron_txt = get_neuron_label(idx_neuron, neuropal_label)
+            txt_cor_other_neurons += `<b>${neuron_txt}</b><br>`
+            let cor_array = []
+            for (let i = 0; i < trace_array.length; i++) {
+                if (i != idx_neuron) {
+                    let cor_ = pearson(trace_array[idx_neuron], trace_array[i]).toFixed(2)
+                    cor_array.push([i, cor_])
+                }
+            }
+            cor_array.sort(function(a, b) {
+                return Math.abs(b[1] - a[1]);
+            });
+            for (let i = 0; i < 3; i++) {
+                let neuron_txt = get_neuron_label(cor_array[i][0], neuropal_label)
+                txt_cor_other_neurons += `${neuron_txt} = ${cor_array[i][1]}<br>`
+            }
+        }
+    }
+
     cor_txt.innerHTML = txt_cor;
     cor_txt_behavior.innerHTML = txt_cor_behavior;
+    cor_txt_other_neuron.innerHTML = txt_cor_other_neurons;
 }
 
 // CSV export

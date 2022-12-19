@@ -7,11 +7,16 @@
   <title>Dataset plot</title>
 
   <!-- CSS only -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.21.2/dist/bootstrap-table.min.css" integrity="sha256-Je9PmdF7VB3AY6oHw5Eit82SumgIt9XpISdDMBy7sPQ=" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.21.2/dist/bootstrap-table.min.css"
+    integrity="sha256-Je9PmdF7VB3AY6oHw5Eit82SumgIt9XpISdDMBy7sPQ=" crossorigin="anonymous">
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.21.2/dist/extensions/sticky-header/bootstrap-table-sticky-header.min.css" integrity="sha256-wIfR5GEQ1IqM8Z7q9S42wOJghuhQX2+aoxdTl6ggz8w=" crossorigin="anonymous"> -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css" integrity="sha256-cwDJdubMsvIJcAYY5EXUZAuQLxSlELxFYQlxvsxdYs8=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha256-4RctOgogjPAdwGbwq+rxfwAmSpZhWaafcZR9btzUk18=" crossorigin="anonymous">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css"
+    integrity="sha256-cwDJdubMsvIJcAYY5EXUZAuQLxSlELxFYQlxvsxdYs8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+    integrity="sha256-4RctOgogjPAdwGbwq+rxfwAmSpZhWaafcZR9btzUk18=" crossorigin="anonymous">
   <link rel="stylesheet" href="css/plot_dataset.css">
 </head>
 
@@ -33,536 +38,571 @@
     </header>
   </div>
 
-  <div class="container px-4 py-2">
+  <div class="container px-4">
     <h3 id="str_dataset" class="fs-2">Plot dataset</h3>
     <h4 class="fs-4">Plot - Neural trace & Behavior</h4>
-    <div class="row">
-      <div class="col-sm-8">
-        <div class="form-group">
-          <select id="select_neuron" class="selectpicker" multiple data-live-search="true" title="Select neuron"
-            data-selected-text-format="count > 2">
-          </select>
-          <select id="select_behavior" class="selectpicker" multiple data-selected-text-format="count > 2"
-            title="Select behavior">
-          </select>
-          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Clear the selections">
-            <button class="btn btn-light" onclick="clearSelect()">Clear</button>
-          </span>
-          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compute Pearson cor among the neural trace(s) and behavior(s)">
-            <button id="button_cor" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Correlation</button>
-          </span>
-          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plot configurations">
-          <button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlotConfig"
-            aria-expanded="false" aria-controls="collapsePlotConfig"><i class="bi bi-gear-wide-connected"></i></button>
-        </span>
-          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Download currently plotted neurons(s)/behavior(s) as a CSV file">
-            <button id="button_csv_export" class="btn btn-light" onclick="exportCSV()"><i class="bi bi-download"></i></button>
-          </span>
-          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Copy a link to this plot to the clipboard">
-            <button type="button" class="btn btn-light" onclick="copyURL()"><i class="bi bi-link-45deg"></i></button>
-          </span>
-        </div>
-      </div>
 
-      <div class="collapse" id="collapsePlotConfig">
-        <br>
-        <div class="card card-body">
-          <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="switch_plot_rev" onchange="switchRev()" unchecked>
-            <label class="form-check-label" for="switch_plot_rev">Reversal</label>
-          </div>
-          <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="switch_plot_event" onchange="switchEvent()" disabled>
-            <label class="form-check-label" for="switch_plot_event">Event (e.g. heat stim)</label>
-          </div>
-          
-        </div>
-      </div>
-    
+    <!-- plot control -->
+    <div class="form-group">
+      <select id="select_neuron" class="selectpicker" multiple data-live-search="true" title="Select neuron"
+        data-selected-text-format="count > 2">
+      </select>
+      <select id="select_behavior" class="selectpicker" multiple data-selected-text-format="count > 2"
+        title="Select behavior">
+      </select>
+      <div class="btn-group">
+        <!-- <a href="#" class="btn btn-success" role="button" data-toggle="tooltip" data-placement="top" title="Edit">E</a> -->
 
-      <div id='plot_main'></div>
+        <a class="btn btn-light" onclick="clearSelect()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Clear the selections">Clear</a>
+        <a class="btn btn-light" class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlotConfig" aria-expanded="false" aria-controls="collapsePlotConfig"><i class="bi bi-gear-wide-connected" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plot configurations"></i></a>
+        <a id="button_cor" class="btn btn-light" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modalCor"><i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compute Pearson cor among the neural trace(s) and behavior(s)" class="bi bi-calculator"></i></a>
+        <a id="button_cor" class="btn btn-light" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modalInfo"><i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Additional information" class="bi bi-info-circle"></i></a>
+        <a id="button_csv_export" class="btn btn-light" onclick="exportCSV()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Download currently plotted neurons(s)/behavior(s) as a CSV file"><i class="bi bi-download"></i></a>
+        <a class="btn btn-light" onclick="copyURL()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Copy a link to this plot to the clipboard"><i class="bi bi-link-45deg"></i></a>
 
-    </div>
-  </div>  
-
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Correlation</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <h5>Neural correlation</h5>
-          <p id="cor_txt">2 or more neurons need to be selected</p>
-          <br>
-          <h5>Behavior correlation</h5>
-          <p id="cor_txt_behavior"></p>
-        </div>
       </div>
     </div>
-  </div>
-
-  <div class="b-divider"></div>
-
-  <div class="container-xl px-4 py-5">
-    <h4 id="str_dataset" class="fs-4">Encoding Table</h4>
-    <p>CePNEM encoding table for the neuron(s) and behavior(s)</p>
     
-    <p>
+    <!-- plot config collapse -->
+    <div class="collapse" id="collapsePlotConfig">
+      <br>
+      <div class="card card-body">
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" role="switch" id="switch_plot_rev" onchange="switchRev()" unchecked>
+          <label class="form-check-label" for="switch_plot_rev">Reversal</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" role="switch" id="switch_plot_event" onchange="switchEvent()" disabled>
+          <label class="form-check-label" for="switch_plot_event">Event (e.g. heat stim)</label>
+        </div>
+        
+      </div>
+    </div>
+
+    <!-- plot -->
+    <div id='plot_main'></div>
+
+    <!-- modal correlation -->
+    <div class="modal fade" id="modalCor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="modalCorLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalCorLabel">Correlation</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h5>Neural correlation</h5>
+            <p id="cor_txt">2 or more neurons need to be selected</p>
+            <br>
+            <h5>Behavior correlation</h5>
+            <p id="cor_txt_behavior"></p>
+          </div>
+        </div>
+      </div>
+    </div> 
+    <!-- END modal -->
+
+    <!-- modal label info -->
+    <div class="modal fade" id="modalInfo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="modalInfoLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalInfoLabel">Information</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h5>NeuroPAL label</h5>
+            <h6>What does ? in the neuron labels?</h6>
+                <p>For neuron class with Dorsal/Ventral (D/V) and/or Left/Right (L/R) differentiation, ? notes that
+                  it was not possible to determine that attribute.</p>
+            <h6>Example</h6>
+                <p>Example: for RMD class, RMD?L (was not possible to determine D/V). RMD?? (was not possible to
+                  determine both L/R and D/V).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END modal -->
+
+
+    </div> <!-- END container -->
+
+    <div class="b-divider"></div>
+
+    <div class="container px-4 py-5">
+      <h4 id="str_dataset" class="fs-4">Encoding Table</h4>
+      <p>CePNEM encoding table for the neuron(s) and behavior(s)</p>
+
+      <p>
       <div class="btn-group" role="group" aria-label="Basic example">
         <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConfigure"
           aria-expanded="true" aria-controls="collapseConfigure">
-          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Configure the encoding table">Configure</span>
+          <span data-bs-toggle="tooltip" data-bs-placement="top"
+            data-bs-title="Configure the encoding table">Configure</span>
         </button>
         <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseLegend"
           aria-expanded="true" aria-controls="collapseLegend">
-          <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Legend for the encoding table">Legend</span>
+          <span data-bs-toggle="tooltip" data-bs-placement="top"
+            data-bs-title="Legend for the encoding table">Legend</span>
         </button>
       </div>
-    </p>
+      </p>
 
-    <row>
-      <col class="col-md-3">
-      <div class="collapse hide" id="collapseLegend">
-        <div class="card card-body">
-          <div class="d-flex gap-5 justify-content-left">
-            <div class="list-group mx-0 w-auto">
-              <left>
-                <h4 class="fs-6">Encoding table legend</h4>
-              </left>
-              <ul>
-                <li>Encoding strength for each of the three behaviors indicates an approximation of
-                  the relative variance in neural activity explained by each behavioral variable.</li>
-                <li>Forwardness and Dorsalness capture the steepness of the tuning to velocity and head curvature,
-                  respectively.</li>
-                <li>Encoding timescale is the median exponentially weighted moving average (EWMA) half-decay time from
-                  the CePNEM model,
-                  which indicates how the neuron's activity weighs past versus present behavior for the parameter(s)
-                  that it encodes.</li>
-                <li>For all other tunings, the number shows the time segments that significantly encoded that
-                  tuning/feature:</li>
+      <row>
+        <col class="col-md-3">
+        <div class="collapse hide" id="collapseLegend">
+          <div class="card card-body">
+            <div class="d-flex gap-5 justify-content-left">
+              <div class="list-group mx-0 w-auto">
+                <left>
+                  <h4 class="fs-6">Encoding table legend</h4>
+                </left>
+                <ul>
+                  <li>Encoding strength for each of the three behaviors indicates an approximation of
+                    the relative variance in neural activity explained by each behavioral variable.</li>
+                  <li>Forwardness and Dorsalness capture the steepness of the tuning to velocity and head curvature,
+                    respectively.</li>
+                  <li>Encoding timescale is the median exponentially weighted moving average (EWMA) half-decay time from
+                    the CePNEM model,
+                    which indicates how the neuron's activity weighs past versus present behavior for the parameter(s)
+                    that it encodes.</li>
+                  <li>For all other tunings, the number shows the time segments that significantly encoded that
+                    tuning/feature:</li>
 
-                1: the neuron encodes the feature in the first time segment<br>
-                2: the neuron encodes the feature in the second time segment<br>
-                1,2: the neuron encodes the feature in both time segments<br>
-                Empty cell: the neuron does not encode the feature
-              </ul>
+                  1: the neuron encodes the feature in the first time segment<br>
+                  2: the neuron encodes the feature in the second time segment<br>
+                  1,2: the neuron encodes the feature in both time segments<br>
+                  Empty cell: the neuron does not encode the feature
+                </ul>
 
-              <left><h4 class="fs-6">Neuron label legend</h4></left>
-              <ul>
-              <li>For neuron class with Dorsal/Ventral (D/V) and/or Left/Right (L/R) differentiation, ? notes that it was not possible to determine that attribute.</li>
-              <li>Example: for RMD class, RMD?L (was not possible to determine D/V). RMD?? (was not possible to determine both L/R and D/V).</li>
-            </ul>
+                <left>
+                  <h4 class="fs-6">Neuron label legend</h4>
+                </left>
+                <ul>
+                  <li>For neuron class with Dorsal/Ventral (D/V) and/or Left/Right (L/R) differentiation, ? notes that
+                    it was not possible to determine that attribute.</li>
+                  <li>Example: for RMD class, RMD?L (was not possible to determine D/V). RMD?? (was not possible to
+                    determine both L/R and D/V).</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </row>
+      </row>
 
-    <row>
-      <col class="col-md-3">
-      <div class="collapse hide" id="collapseConfigure">
-        <div class="card card-body">
-          <div class="d-flex gap-5 justify-content-left">
-            <div class="list-group mx-0 w-auto">
-              <center><h4 class="fs-6">Velocity encoding</h4></center>
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <button id="button_v_all" onclick="toggleV()" type="button" class="btn btn-secondary">Select All</button>
+      <row>
+        <col class="col-md-3">
+        <div class="collapse hide" id="collapseConfigure">
+          <div class="card card-body">
+            <div class="d-flex gap-5 justify-content-left">
+              <div class="list-group mx-0 w-auto">
+                <center>
+                  <h4 class="fs-6">Velocity encoding</h4>
+                </center>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button id="button_v_all" onclick="toggleV()" type="button" class="btn btn-secondary">Select
+                    All</button>
+                </div>
+                <br>
+
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_v_s" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Strength
+                    <small class="d-block text-muted">Velocity encoding strength</small>
+                  </span>
+                </label>
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_v_fwdness" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Forwardness
+                    <small class="d-block text-muted">Forwardness</small>
+                  </span>
+                </label>
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_v_fwd" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
+                  <span>
+                    Forward
+                    <small class="d-block text-muted">Forward tuning</small>
+                  </span>
+                </label>
+
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_v_rev" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
+                  <span>
+                    Reverse
+                    <small class="d-block text-muted">Reverse tuning</small>
+                  </span>
+                </label>
+
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_fwd_slope_p" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Fwd slope +
+                    <small class="d-block text-muted">Positive slope during forward</small>
+                  </span>
+                </label>
+
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_fwd_slope_n" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Fwd slope -
+                    <small class="d-block text-muted">Negative slope during Forward</small>
+                  </span>
+                </label>
+
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_rev_slope_p" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Rev slope +
+                    <small class="d-block text-muted">Positive slope during reverse</small>
+                  </span>
+                </label>
+
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_rev_slope_n" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Rev slope -
+                    <small class="d-block text-muted">Negative slope during reverse</small>
+                  </span>
+                </label>
+
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_slope_1" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Fwd slope > Rev slope
+                    <small class="d-block text-muted">Tuning curve slope greater during forward</small>
+                  </span>
+                </label>
+
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_slope_2" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Fwd slope < Rev slope <small class="d-block text-muted">Tuning curve slope greater during
+                      reverse</small>
+                  </span>
+                </label>
               </div>
-              <br>
 
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_v_s" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Strength
-                  <small class="d-block text-muted">Velocity encoding strength</small>
-                </span>
-              </label>
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_v_fwdness" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Forwardness
-                  <small class="d-block text-muted">Forwardness</small>
-                </span>
-              </label>
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_v_fwd" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
-                <span>
-                  Forward
-                  <small class="d-block text-muted">Forward tuning</small>
-                </span>
-              </label>
+              <!-- head curvature -->
+              <div class="list-group mx-0 w-auto">
+                <center>
+                  <h4 class="fs-6">Head curvature encoding</h4>
+                </center>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button id="button_hc_all" onclick="toggleHC()" type="button" class="btn btn-secondary">Select
+                    All</button>
+                </div>
+                <br>
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_hc_s" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Strength
+                    <small class="d-block text-muted">Head curvature encoding strength</small>
+                  </span>
+                </label>
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_hc_dorsalness" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Dorsalness
+                    <small class="d-block text-muted">Dorsalness</small>
+                  </span>
+                </label>
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_hc_dorsal" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
+                  <span>
+                    Dorsal
+                    <small class="d-block text-muted">Dorsal tuning</small>
+                  </span>
+                </label>
 
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_v_rev" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
-                <span>
-                  Reverse
-                  <small class="d-block text-muted">Reverse tuning</small>
-                </span>
-              </label>
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_hc_ventral" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
+                  <span>
+                    Ventral
+                    <small class="d-block text-muted">Ventral tuning</small>
+                  </span>
+                </label>
 
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_fwd_slope_p" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Fwd slope +
-                  <small class="d-block text-muted">Positive slope during forward</small>
-                </span>
-              </label>
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_hc_fd" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Dorsal during F
+                    <small class="d-block text-muted">Dorsal during forward</small>
+                  </span>
+                </label>
 
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_fwd_slope_n" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Fwd slope -
-                  <small class="d-block text-muted">Negative slope during Forward</small>
-                </span>
-              </label>
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_hc_fv" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Ventral during F
+                    <small class="d-block text-muted">Ventral during forward</small>
+                  </span>
+                </label>
 
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_rev_slope_p" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Rev slope +
-                  <small class="d-block text-muted">Positive slope during reverse</small>
-                </span>
-              </label>
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_hc_rd" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Dorsal during R
+                    <small class="d-block text-muted">Dorsal during reverse</small>
+                  </span>
+                </label>
 
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_rev_slope_n" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Rev slope -
-                  <small class="d-block text-muted">Negative slope during reverse</small>
-                </span>
-              </label>
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_hc_rv" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Ventral during R
+                    <small class="d-block text-muted">Ventral during reverse</small>
+                  </span>
+                </label>
 
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_slope_1" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Fwd slope > Rev slope
-                  <small class="d-block text-muted">Tuning curve slope greater during forward</small>
-                </span>
-              </label>
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_hc_mdf" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    More D during F
+                    <small class="d-block text-muted">More dorsal during forward</small>
+                  </span>
+                </label>
 
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_slope_2" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Fwd slope < Rev slope <small class="d-block text-muted">Tuning curve slope greater during reverse</small>
-                </span>
-              </label>
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_hc_mvf" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    More V during F
+                    <small class="d-block text-muted">More ventral during forward</small>
+                  </span>
+                </label>
+              </div>
+
+
+              <!-- feeding -->
+              <div class="list-group mx-0 w-auto">
+                <center>
+                  <h4 class="fs-6">Feeding encoding</h4>
+                </center>
+
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button id="button_f_all" type="button" onclick="toggleF()" class="btn btn-secondary">Select
+                    All</button>
+                </div>
+                <br>
+
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_f_strength" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Strength
+                    <small class="d-block text-muted">Feeding encoding strength</small>
+                  </span>
+                </label>
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_feedness" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Feedingness
+                    <small class="d-block text-muted">Feedingness</small>
+                  </span>
+                </label>
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_f_act" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
+                  <span>
+                    Activated
+                    <small class="d-block text-muted">Feeding activated</small>
+                  </span>
+                </label>
+
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_f_inh" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
+                  <span>
+                    Inhibited
+                    <small class="d-block text-muted">Feeding inhibited</small>
+                  </span>
+                </label>
+
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_f_fa" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Act during F
+                    <small class="d-block text-muted">Activated during forward</small>
+                  </span>
+                </label>
+
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_f_fi" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Inh during F
+                    <small class="d-block text-muted">Inhibited during forward</small>
+                  </span>
+                </label>
+
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_f_ra" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Act during R
+                    <small class="d-block text-muted">Activated during reverse</small>
+                  </span>
+                </label>
+
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_f_ri" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Inh during R
+                    <small class="d-block text-muted">Inhibited during reverse</small>
+                  </span>
+                </label>
+
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_f_maf" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    More A during F
+                    <small class="d-block text-muted">More activated during forward</small>
+                  </span>
+                </label>
+
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_f_mif" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    More I during F
+                    <small class="d-block text-muted">More inhibited during forward</small>
+                  </span>
+                </label>
+              </div>
+
+              <!-- others -->
+              <div class="list-group mx-0 w-auto">
+                <center>
+                  <h4 class="fs-6">Others</h4>
+                </center>
+
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button id="button_o_all" type="button" onclick="toggleO()" class="btn btn-secondary">Select
+                    All</button>
+                </div>
+                <br>
+
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_o_label" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
+                  <span>
+                    Label
+                    <small class="d-block text-muted">Neuron label (NeuroPAL only)</small>
+                  </span>
+                </label>
+
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_o_ewma" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
+                  <span>
+                    Timescale (s)
+                    <small class="d-block text-muted">EWMA decay constant</small>
+                  </span>
+                </label>
+
+                <label class="list-group-item d-flex gap-2">
+                  <input id="check_o_enc_change" class="form-check-input flex-shrink-0" type="checkbox" value="">
+                  <span>
+                    Enc. change
+                    <small class="d-block text-muted">Encoding change</small>
+                  </span>
+                </label>
+              </div>
             </div>
 
-            <!-- head curvature -->
-            <div class="list-group mx-0 w-auto">
-              <center><h4 class="fs-6">Head curvature encoding</h4></center>
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <button id="button_hc_all" onclick="toggleHC()" type="button" class="btn btn-secondary">Select All</button>
-              </div>
-              <br>
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_hc_s" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Strength
-                  <small class="d-block text-muted">Head curvature encoding strength</small>
-                </span>
-              </label>
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_hc_dorsalness" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Dorsalness
-                  <small class="d-block text-muted">Dorsalness</small>
-                </span>
-              </label>
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_hc_dorsal" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
-                <span>
-                  Dorsal
-                  <small class="d-block text-muted">Dorsal tuning</small>
-                </span>
-              </label>
-
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_hc_ventral" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
-                <span>
-                  Ventral
-                  <small class="d-block text-muted">Ventral tuning</small>
-                </span>
-              </label>
-
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_hc_fd" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Dorsal during F
-                  <small class="d-block text-muted">Dorsal during forward</small>
-                </span>
-              </label>
-
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_hc_fv" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Ventral during F
-                  <small class="d-block text-muted">Ventral during forward</small>
-                </span>
-              </label>
-
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_hc_rd" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Dorsal during R
-                  <small class="d-block text-muted">Dorsal during reverse</small>
-                </span>
-              </label>
-
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_hc_rv" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Ventral during R
-                  <small class="d-block text-muted">Ventral during reverse</small>
-                </span>
-              </label>
-
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_hc_mdf" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  More D during F
-                  <small class="d-block text-muted">More dorsal during forward</small>
-                </span>
-              </label>
-
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_hc_mvf" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  More V during F
-                  <small class="d-block text-muted">More ventral during forward</small>
-                </span>
-              </label>
+            <br>
+            <div class="btn-group">
+              <button type="button" onclick="updateTableColumn()" class="btn btn-primary button_update_table">Update
+                table</button>
+              <button type="button" onclick="selectDefault()"
+                class="btn btn-primary button_update_table">Default</button>
             </div>
-
-
-            <!-- feeding -->
-            <div class="list-group mx-0 w-auto">
-              <center>
-                <h4 class="fs-6">Feeding encoding</h4>
-              </center>
-
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <button id="button_f_all" type="button" onclick="toggleF()" class="btn btn-secondary">Select All</button>
-              </div>
-              <br>
-
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_f_strength" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Strength
-                  <small class="d-block text-muted">Feeding encoding strength</small>
-                </span>
-              </label>
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_feedness" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Feedingness
-                  <small class="d-block text-muted">Feedingness</small>
-                </span>
-              </label>
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_f_act" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
-                <span>
-                  Activated
-                  <small class="d-block text-muted">Feeding activated</small>
-                </span>
-              </label>
-
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_f_inh" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
-                <span>
-                  Inhibited
-                  <small class="d-block text-muted">Feeding inhibited</small>
-                </span>
-              </label>
-
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_f_fa" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Act during F
-                  <small class="d-block text-muted">Activated during forward</small>
-                </span>
-              </label>
-
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_f_fi" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Inh during F
-                  <small class="d-block text-muted">Inhibited during forward</small>
-                </span>
-              </label>
-
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_f_ra" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Act during R
-                  <small class="d-block text-muted">Activated during reverse</small>
-                </span>
-              </label>
-
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_f_ri" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Inh during R
-                  <small class="d-block text-muted">Inhibited during reverse</small>
-                </span>
-              </label>
-
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_f_maf" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  More A during F
-                  <small class="d-block text-muted">More activated during forward</small>
-                </span>
-              </label>
-
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_f_mif" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  More I during F
-                  <small class="d-block text-muted">More inhibited during forward</small>
-                </span>
-              </label>
-            </div>
-
-            <!-- others -->
-            <div class="list-group mx-0 w-auto">
-              <center>
-                <h4 class="fs-6">Others</h4>
-              </center>
-
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <button id="button_o_all" type="button" onclick="toggleO()" class="btn btn-secondary">Select All</button>
-              </div>
-              <br>
-
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_o_label" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
-                <span>
-                  Label
-                  <small class="d-block text-muted">Neuron label (NeuroPAL only)</small>
-                </span>
-              </label>
-
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_o_ewma" class="form-check-input flex-shrink-0" type="checkbox" value="" checked>
-                <span>
-                  Timescale (s)
-                  <small class="d-block text-muted">EWMA decay constant</small>
-                </span>
-              </label>
-
-              <label class="list-group-item d-flex gap-2">
-                <input id="check_o_enc_change" class="form-check-input flex-shrink-0" type="checkbox" value="">
-                <span>
-                  Enc. change
-                  <small class="d-block text-muted">Encoding change</small>
-                </span>
-              </label>
-            </div>
-          </div>
-
-          <br>
-          <div class="btn-group">
-            <button type="button" onclick="updateTableColumn()" class="btn btn-primary button_update_table">Update
-              table</button>
-            <button type="button" onclick="selectDefault()"
-              class="btn btn-primary button_update_table">Default</button>
           </div>
         </div>
-      </div>
-      </col>
-    </row>
+        </col>
+      </row>
 
-    <br>
+      <br>
 
-    <table id="table_encoding" class="table-sm"
-    data-show-fullscreen="true"
-    data-search="true"
-    data-show-multi-sort="true"
-    data-header-style="headerStyle"
-    data-row-style="rowStyle"
-    data-height="600"
-    data-buttons-align="left"
-    data-search-align="left">
-      <thead>
-        <tr>
-          <th rowspan=2 data-field="label" data-sortable="true">Label</th>
-          <th rowspan=2 data-field="neuron" data-sortable="true">Neuron</th>
-          <th colspan=10 data-sortable="false">Velocity tuning</th>
-          <th colspan=10 data-sortable="false">Head curvature tuning</th>
-          <th colspan=10 data-sortable="false">Feeding tuning</th>
-          <th rowspan="2" data-field="ewma" data-sortable="true">Timescale (s)</th>
-          <th rowspan="2" data-field="enc_change" data-sortable="true" data-visible="false" data-sort-order="desc">Enc. change</th>
-        </tr>
-        <tr>
-          <th data-field="strength_v" data-sortable="true" data-visible="false"
-            data-title-tooltip="Velocity encoding strength">Strength</th>
-          <th data-field="fwdness" data-sortable="true" data-visible="false" data-title-tooltip="Forwardness">Fwd-ness
-          </th>
-          <th data-field="fwd" data-sortable="true" data-visible="true">Fwd</th>
-          <th data-field="rev" data-sortable="true" data-visible="true">Rev</th>
-          <th data-field="fwd_slope_p" data-sortable="true" data-visible="false">Fwd slope +</th>
-          <th data-field="fwd_slope_n" data-sortable="true" data-visible="false">Fwd slope -</th>
-          <th data-field="rev_slope_p" data-sortable="true" data-visible="false">Rev slope +</th>
-          <th data-field="rev_slope_n" data-sortable="true" data-visible="false">Rev slope -</th>
-          <th data-field="slope_1" data-sortable="true" data-visible="false">Fwd slope > Rev slope</th>
-          <th data-field="slope_2" data-sortable="true" data-visible="false">Fwd slope < Rev slope</th>
+      <table id="table_encoding" class="table-sm" data-show-fullscreen="true" data-search="true"
+        data-show-multi-sort="true" data-header-style="headerStyle" data-row-style="rowStyle" data-height="600"
+        data-buttons-align="left" data-search-align="left">
+        <thead>
+          <tr>
+            <th rowspan=2 data-field="label" data-sortable="true">Label</th>
+            <th rowspan=2 data-field="neuron" data-sortable="true">Neuron</th>
+            <th colspan=10 data-sortable="false">Velocity tuning</th>
+            <th colspan=10 data-sortable="false">Head curvature tuning</th>
+            <th colspan=10 data-sortable="false">Feeding tuning</th>
+            <th rowspan="2" data-field="ewma" data-sortable="true">Timescale (s)</th>
+            <th rowspan="2" data-field="enc_change" data-sortable="true" data-visible="false" data-sort-order="desc">
+              Enc. change</th>
+          </tr>
+          <tr>
+            <th data-field="strength_v" data-sortable="true" data-visible="false"
+              data-title-tooltip="Velocity encoding strength">Strength</th>
+            <th data-field="fwdness" data-sortable="true" data-visible="false" data-title-tooltip="Forwardness">Fwd-ness
+            </th>
+            <th data-field="fwd" data-sortable="true" data-visible="true">Fwd</th>
+            <th data-field="rev" data-sortable="true" data-visible="true">Rev</th>
+            <th data-field="fwd_slope_p" data-sortable="true" data-visible="false">Fwd slope +</th>
+            <th data-field="fwd_slope_n" data-sortable="true" data-visible="false">Fwd slope -</th>
+            <th data-field="rev_slope_p" data-sortable="true" data-visible="false">Rev slope +</th>
+            <th data-field="rev_slope_n" data-sortable="true" data-visible="false">Rev slope -</th>
+            <th data-field="slope_1" data-sortable="true" data-visible="false">Fwd slope > Rev slope</th>
+            <th data-field="slope_2" data-sortable="true" data-visible="false">Fwd slope < Rev slope</th>
 
-          <th data-field="strength_hc" data-sortable="true" data-visible="false"
-            data-title-tooltip="Head curvature encoding strength">Strength</th>
-          <th data-field="dorsalness" data-sortable="true" data-visible="false" data-title-tooltip="Dorsalness">Dor-ness
-          </th>
-          <th data-field="dorsal" data-sortable="true" data-visible="true">Dorsal</th>
-          <th data-field="ventral" data-sortable="true" data-visible="true">Ventral</th>
-          <th data-field="fd" data-sortable="true" data-visible="false">Dorsal during F</th>
-          <th data-field="fv" data-sortable="true" data-visible="false">Ventral during F</th>
-          <th data-field="rd" data-sortable="true" data-visible="false">Dorsal during R</th>
-          <th data-field="rv" data-sortable="true" data-visible="false">Ventral during R</th>
-          <th data-field="mdf" data-sortable="true" data-visible="false">More D during F</th>
-          <th data-field="mvf" data-sortable="true" data-visible="false">More V during F</th>
+            <th data-field="strength_hc" data-sortable="true" data-visible="false"
+              data-title-tooltip="Head curvature encoding strength">Strength</th>
+            <th data-field="dorsalness" data-sortable="true" data-visible="false" data-title-tooltip="Dorsalness">
+              Dor-ness
+            </th>
+            <th data-field="dorsal" data-sortable="true" data-visible="true">Dorsal</th>
+            <th data-field="ventral" data-sortable="true" data-visible="true">Ventral</th>
+            <th data-field="fd" data-sortable="true" data-visible="false">Dorsal during F</th>
+            <th data-field="fv" data-sortable="true" data-visible="false">Ventral during F</th>
+            <th data-field="rd" data-sortable="true" data-visible="false">Dorsal during R</th>
+            <th data-field="rv" data-sortable="true" data-visible="false">Ventral during R</th>
+            <th data-field="mdf" data-sortable="true" data-visible="false">More D during F</th>
+            <th data-field="mvf" data-sortable="true" data-visible="false">More V during F</th>
 
-          <th data-field="strength_feeding" data-sortable="true" data-visible="false"
-            data-title-tooltip="Feeding encoding strength">Strength</th>
-          <th data-field="feedingness" data-sortable="true" data-visible="false" data-title-tooltip="Dorsalness">
-            Dor-ness
-          </th>
-          <th data-field="act" data-sortable="true" data-visible="true">Act</th>
-          <th data-field="inh" data-sortable="true" data-visible="true">Inh</th>
-          <th data-field="fa" data-sortable="true" data-visible="false">Act during F</th>
-          <th data-field="fi" data-sortable="true" data-visible="false">Inh during F</th>
-          <th data-field="ra" data-sortable="true" data-visible="false">Act during R</th>
-          <th data-field="ri" data-sortable="true" data-visible="false">Inh during R</th>
-          <th data-field="maf" data-sortable="true" data-visible="false">More A during F</th>
-          <th data-field="mif" data-sortable="true" data-visible="false">More I during F</th>
+            <th data-field="strength_feeding" data-sortable="true" data-visible="false"
+              data-title-tooltip="Feeding encoding strength">Strength</th>
+            <th data-field="feedingness" data-sortable="true" data-visible="false" data-title-tooltip="Dorsalness">
+              Dor-ness
+            </th>
+            <th data-field="act" data-sortable="true" data-visible="true">Act</th>
+            <th data-field="inh" data-sortable="true" data-visible="true">Inh</th>
+            <th data-field="fa" data-sortable="true" data-visible="false">Act during F</th>
+            <th data-field="fi" data-sortable="true" data-visible="false">Inh during F</th>
+            <th data-field="ra" data-sortable="true" data-visible="false">Act during R</th>
+            <th data-field="ri" data-sortable="true" data-visible="false">Inh during R</th>
+            <th data-field="maf" data-sortable="true" data-visible="false">More A during F</th>
+            <th data-field="mif" data-sortable="true" data-visible="false">More I during F</th>
 
-        </tr>
-      </thead>
-    </table>
+          </tr>
+        </thead>
+      </table>
 
-  </div>
+    </div>
 
 
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js"
-    integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-    integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.21.2/dist/bootstrap-table.min.js"
-    integrity="sha256-SFw+RlzTCSKJPJcMvfBTolMFPIeGwpOkN0jXxWwXlQ8=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.21.2/dist/extensions/multiple-sort/bootstrap-table-multiple-sort.min.js"
-    integrity="sha256-hOB1qpYLZZ1FjIE0F5Qi+pAsqimqyYAhqzRyLqVL3fw=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js" integrity="sha256-obLPuLg5xxN2MC2szEaXLaN8tEKYgeCMn+TSPMxqOfE=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js"
+      integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+      integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.21.2/dist/bootstrap-table.min.js"
+      integrity="sha256-SFw+RlzTCSKJPJcMvfBTolMFPIeGwpOkN0jXxWwXlQ8=" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.21.2/dist/extensions/multiple-sort/bootstrap-table-multiple-sort.min.js"
+      integrity="sha256-hOB1qpYLZZ1FjIE0F5Qi+pAsqimqyYAhqzRyLqVL3fw=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"
+      integrity="sha256-obLPuLg5xxN2MC2szEaXLaN8tEKYgeCMn+TSPMxqOfE=" crossorigin="anonymous"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.21.2/dist/extensions/sticky-header/bootstrap-table-sticky-header.min.js" integrity="sha256-XFOypvCnyozH24YYx+qFvIQMuGGFEYNGdaon9qt85Vw=" crossorigin="anonymous"></script> -->
-  <script src="lib/statistics.min.js" type="text/javascript"></script>
-  <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
-  <script src="js/plot.js"></script>
-  <script src="js/utility.js"></script>
-  <script src="js/plot_dataset.js"></script>
+    <script src="lib/statistics.min.js" type="text/javascript"></script>
+    <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+    <script src="js/plot.js"></script>
+    <script src="js/utility.js"></script>
+    <script src="js/plot_dataset.js"></script>
 
 
 </body>

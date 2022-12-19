@@ -76,7 +76,7 @@ function selectDefault() {
 
 function toggleV() {
     var button_v_all = document.getElementById("button_v_all")
-    if (button_v_all.innerHTML == "Select All") {
+    if (button_v_all.innerHTML.replace(/\s+/g, '') == "SelectAll") {
         button_v_all.innerHTML = "Deselect All"
 
         check_v_fwdness.checked = true
@@ -115,7 +115,7 @@ function toggleV() {
 function toggleHC() {
     button_hc_all = document.getElementById("button_hc_all")
 
-    if (button_hc_all.innerHTML == "Select All") {
+    if (button_hc_all.innerHTML.replace(/\s+/g, '') == "SelectAll") {
         button_hc_all.innerHTML = "Deselect All"
         check_hc_s.checked = true
         check_hc_dorsalness.checked = true
@@ -144,7 +144,7 @@ function toggleHC() {
 
 function toggleF() {
     button_f_all = document.getElementById("button_f_all")
-    if (button_f_all.innerHTML == "Select All") {
+    if (button_f_all.innerHTML.replace(/\s+/g, '') == "SelectAll") {
         button_f_all.innerHTML = "Deselect All"
         check_f_strength.checked = true
         check_feedness.checked = true
@@ -173,7 +173,7 @@ function toggleF() {
 
 function toggleO() {
     button_o_all = document.getElementById("button_o_all")
-    if (button_o_all.innerHTML == "Select All") {
+    if (button_o_all.innerHTML.replace(/\s+/g, '') == "SelectAll") {
         button_o_all.innerHTML = "Deselect All"
         check_o_ewma.checked = true
         check_o_enc_change.checked = true

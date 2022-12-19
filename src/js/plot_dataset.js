@@ -525,7 +525,9 @@ function clearSelect() {
     
     // clear correlation text
     cor_txt.innerHTML = "2 or more neurons need to be selected";
-    cor_txt_behavior.innerHTML = "";
+    cor_txt_behavior.innerHTML = "1 or more neurons need to be selected";
+    cor_txt_other_neuron.innerHTML = "1 or more neurons need to be selected";
+
     button_cor.disabled = true;
 
     // disable/reset export csv

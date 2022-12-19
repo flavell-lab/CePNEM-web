@@ -721,8 +721,12 @@ function updateCorrelationModel(trace_array, behaviors, list_neuron, list_behavi
     list_behavior_str_short, neuropal_label) {
         // analysis modal
         const cor_txt = document.getElementById('cor_txt');
+        const cor_txt_behavior = document.getElementById('cor_txt_behavior');
         if (list_neuron.length > 1) {
             txt_cor = ""
+            txt_cor_behavior =  ""
+            
+            // neuron txt
             for (let i = 0; i < list_neuron.length; i++) {
                 for (let j = 0; j <= i; j++) {
                     if (i != j) {
@@ -738,25 +742,26 @@ function updateCorrelationModel(trace_array, behaviors, list_neuron, list_behavi
                     }
                 }
             }
+
+            // behavior txt
+            for (let i = 0; i < list_neuron.length; i++) {
+                let idx_neuron = list_neuron[i] - 1
+                let neuron_txt = get_neuron_label(idx_neuron, neuropal_label)
+                txt_cor_behavior += `<b>${neuron_txt}</b><br>`
+                for (let j = 0; j < list_behavior.length; j++) {
+                    let idx_behavior = list_behavior_str_short.indexOf(list_behavior[j])
+                    let cor_ = pearson(trace_array[idx_neuron], behaviors[idx_behavior]).toFixed(2)
+                    txt_cor_behavior += `${neuron_txt}, ${list_behavior_str[idx_behavior]} = ${cor_}<br>`
+                }
+                txt_cor_behavior += "<br>"
+            }
+    
             cor_txt.innerHTML = txt_cor;
+            cor_txt_behavior.innerHTML = txt_cor_behavior;
         } else {
             cor_txt.innerHTML = "2 or more neurons need to be selected";
+            cor_txt_behavior.innerHTML = "";
         }
-
-        const cor_txt_behavior = document.getElementById('cor_txt_behavior');
-        txt_cor_behavior =  ""
-        for (let i = 0; i < list_neuron.length; i++) {
-            let idx_neuron = list_neuron[i] - 1
-            let neuron_txt = get_neuron_label(idx_neuron, neuropal_label)
-            txt_cor_behavior += `<b>${neuron_txt}</b><br>`
-            for (let j = 0; j < list_behavior.length; j++) {
-                let idx_behavior = list_behavior_str_short.indexOf(list_behavior[j])
-                let cor_ = pearson(trace_array[idx_neuron], behaviors[idx_behavior]).toFixed(2)
-                txt_cor_behavior += `${neuron_txt}, ${list_behavior_str[idx_behavior]} = ${cor_}<br>`
-            }
-            txt_cor_behavior += "<br>"
-        }
-        cor_txt_behavior.innerHTML = txt_cor_behavior;
 }
 
 // CSV export

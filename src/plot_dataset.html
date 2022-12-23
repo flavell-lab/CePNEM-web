@@ -136,20 +136,18 @@
       <h4 id="str_dataset" class="fs-4">Encoding Table</h4>
       <p>CePNEM encoding table for the neuron(s) and behavior(s)</p>
 
-      <p>
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConfigure"
+      <div id="table_enc_tool" class="btn-group" role="group" aria-label="Table toolbar">
+        <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConfigure"
           aria-expanded="true" aria-controls="collapseConfigure">
           <span data-bs-toggle="tooltip" data-bs-placement="top"
             data-bs-title="Configure the encoding table">Configure</span>
         </button>
-        <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseLegend"
+        <button type="button" class="btn btn-secondary" data-bs-toggle="collapse" data-bs-target="#collapseLegend"
           aria-expanded="true" aria-controls="collapseLegend">
           <span data-bs-toggle="tooltip" data-bs-placement="top"
             data-bs-title="Legend for the encoding table">Legend</span>
         </button>
       </div>
-      </p>
 
       <row>
         <col class="col-md-3">
@@ -203,7 +201,7 @@
                   <h4 class="fs-6">Velocity encoding</h4>
                 </center>
                 <div class="btn-group" role="group" aria-label="Basic example">
-                  <button id="button_v_all" onclick="toggleV()" type="button" class="btn btn-secondary">Select
+                  <button id="button_v_all" onclick='toggleV("collapseConfigure")' type="button" class="btn btn-secondary">Select
                     All</button>
                 </div>
                 <br>
@@ -293,7 +291,7 @@
                   <h4 class="fs-6">Head curvature encoding</h4>
                 </center>
                 <div class="btn-group" role="group" aria-label="Basic example">
-                  <button id="button_hc_all" onclick="toggleHC()" type="button" class="btn btn-secondary">Select
+                  <button id="button_hc_all" onclick='toggleHC("collapseConfigure")' type="button" class="btn btn-secondary">Select
                     All</button>
                 </div>
                 <br>
@@ -384,7 +382,7 @@
                 </center>
 
                 <div class="btn-group" role="group" aria-label="Basic example">
-                  <button id="button_f_all" type="button" onclick="toggleF()" class="btn btn-secondary">Select
+                  <button id="button_f_all" type="button" onclick='toggleF("collapseConfigure")' class="btn btn-secondary">Select
                     All</button>
                 </div>
                 <br>
@@ -475,7 +473,7 @@
                 </center>
 
                 <div class="btn-group" role="group" aria-label="Basic example">
-                  <button id="button_o_all" type="button" onclick="toggleO()" class="btn btn-secondary">Select
+                  <button id="button_o_all" type="button" onclick='toggleO("collapseConfigure")' class="btn btn-secondary">Select
                     All</button>
                 </div>
                 <br>
@@ -508,9 +506,9 @@
 
             <br>
             <div class="btn-group">
-              <button type="button" onclick="updateTableColumn()" class="btn btn-primary button_update_table">Update
+              <button type="button" onclick='updateTableColumn("#table_encoding", "collapseConfigure")' class="btn btn-primary button_update_table">Update
                 table</button>
-              <button type="button" onclick="selectDefault()"
+              <button type="button" onclick='selectDefault("#table_encoding", "collapseConfigure")'
                 class="btn btn-primary button_update_table">Default</button>
             </div>
           </div>
@@ -518,11 +516,12 @@
         </col>
       </row>
 
-      <br>
 
       <table id="table_encoding" class="table-sm" data-show-fullscreen="true" data-search="true"
         data-show-multi-sort="true" data-header-style="headerStyle" data-row-style="rowStyle" data-height="600"
-        data-buttons-align="left" data-search-align="left">
+        data-buttons-align="right" data-search-align="right"
+        data-toolbar="#table_enc_tool"
+        data-toolbar-align="left">
         <thead>
           <tr>
             <th rowspan=2 data-field="label" data-sortable="true">Label</th>

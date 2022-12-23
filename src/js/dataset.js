@@ -17,8 +17,8 @@ then(data => {
         url_plot.searchParams.set("list_behavior", "v");
         let url_json = `data/${key}.json`
       
-        let html_buttons = `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button">Download</a>` +
-            `   <a id="button_plot" class="btn btn-outline-dark btn-sm" href=${url_plot} role="button">Plot neurons</a>`
+        let html_buttons = `<a class="btn btn-outline-dark btn-sm py-0" href=${url_json} role="button">Download</a>` +
+            `   <a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
         let html_dtype = ""
         for (let i = 0; i < list_dtype.length; i++) {
             let dtype_ = list_dtype[i];

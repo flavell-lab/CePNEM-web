@@ -7,27 +7,20 @@ neuron: neuron number/id (1 based) index
 const color_rev = 'rgba(255, 0, 0, 0.15)'
 const event_style = {"heat": {"color": 'rgba(255,0,0,1)', "width": 2}};
 
-function checkTuning(neuron_cat, behavior, tuning, idx_neuron) {
-    let list_idx_tune = []
-    for (const [key, value] of Object.entries(neuron_cat)) {
-        if (value[behavior][tuning].includes(idx_neuron+1)) {
-            list_idx_tune.push(key)
-        }
-      }
-
-    if (list_idx_tune.length > 0) {
-        return list_idx_tune.join(",")
+function toggleColumns(table, parent, check_id, column_name) {
+    var control = document.getElementById(parent)
+    var check = control.querySelector("#" + check_id)
+    if (check.checked) {
+        $(table).bootstrapTable('showColumn', column_name);
     } else {
-        return ""
+        $(table).bootstrapTable('hideColumn', column_name);
     }
 }
 
-function toggleColumns(check_id, column_name) {
-    check = document.getElementById(check_id)
-    if (check.checked) {
-        $('#table_encoding').bootstrapTable('showColumn', column_name);
-    } else {
-        $('#table_encoding').bootstrapTable('hideColumn', column_name);
+function toggleChecks(parent, list_check_id, check) {
+    var control = document.getElementById(parent)
+    for (var i = 0; i < list_check_id.length; i++) {
+        control.querySelector("#" + list_check_id[i]).checked = check
     }
 }
 
@@ -425,88 +418,8 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     });
     
     // table
-    const neuron_cat = data["neuron_categorization"]
-    var table_encoding_data = []
-    for (var idx_neuron = 0; idx_neuron < list_idx_neuron.length; idx_neuron++) {
-        let neuron = idx_neuron + 1;
-        let label_ = ""
-        if (neuron in neuropal_label) {
-            label_ = neuropal_label[neuron]["label"]
-        }
-        
-        let enc_change_ = "No"
-        if (data["encoding_changing_neurons"].includes(neuron)) {
-            enc_change_ = "Yes"
-        }
+    var table_encoding_data = getEncodingTable(data)
 
-        let tune_v_fwd = checkTuning(neuron_cat, "v", "fwd", neuron)
-        let tune_v_rev = checkTuning(neuron_cat, "v", "rev", neuron)
-        let tune_fwd_slope_p = checkTuning(neuron_cat, "v", "fwd_slope_pos", neuron)
-        let tune_fwd_slope_n = checkTuning(neuron_cat, "v", "fwd_slope_neg", neuron)
-        let tune_rev_slope_p = checkTuning(neuron_cat, "v", "rev_slope_pos", neuron)
-        let tune_rev_slope_n = checkTuning(neuron_cat, "v", "rev_slope_neg", neuron)
-        let tune_slope1 = checkTuning(neuron_cat, "v", "rect_pos", neuron)
-        let tune_slope2 = checkTuning(neuron_cat, "v", "rect_neg", neuron)
-
-        let tune_dorsal = checkTuning(neuron_cat, "θh", "dorsal", neuron)
-        let tune_ventral = checkTuning(neuron_cat, "θh", "ventral", neuron)
-        let tune_fd = checkTuning(neuron_cat, "θh", "fwd_dorsal", neuron)
-        let tune_fv = checkTuning(neuron_cat, "θh", "fwd_ventral", neuron)
-        let tune_rd = checkTuning(neuron_cat, "θh", "rev_dorsal", neuron)
-        let tune_rv = checkTuning(neuron_cat, "θh", "rev_ventral", neuron)
-        let tune_mdf = checkTuning(neuron_cat, "θh", "rect_dorsal", neuron)
-        let tune_mvf = checkTuning(neuron_cat, "θh", "rect_ventral", neuron)
-
-        let tune_act = checkTuning(neuron_cat, "P", "act", neuron)
-        let tune_inh = checkTuning(neuron_cat, "P", "inh", neuron)
-        let tune_fa = checkTuning(neuron_cat, "P", "fwd_act", neuron)
-        let tune_fi = checkTuning(neuron_cat, "P", "fwd_inh", neuron)
-        let tune_ra = checkTuning(neuron_cat, "P", "rev_act", neuron)
-        let tune_ri = checkTuning(neuron_cat, "P", "rev_inh", neuron)
-        let tune_maf = checkTuning(neuron_cat, "P", "rect_act", neuron)
-        let tune_mif = checkTuning(neuron_cat, "P", "rect_inh", neuron)
-
-        table_encoding_data.push({
-            "neuron": neuron,
-            "label": label_,
-
-            "strength_v": data["rel_enc_str_v"][idx_neuron].toFixed(3),
-            "fwdness": data["forwardness"][idx_neuron].toFixed(2),
-            "fwd": tune_v_fwd,
-            "rev": tune_v_rev,
-            "fwd_slope_p": tune_fwd_slope_p,
-            "fwd_slope_n": tune_fwd_slope_n,
-            "rev_slope_p": tune_rev_slope_p,
-            "rev_slope_n": tune_rev_slope_n,
-            "slope_1": tune_slope1,
-            "slope_2": tune_slope2,
-
-            "strength_hc": data["rel_enc_str_θh"][idx_neuron].toFixed(3),
-            "dorsalness": data["dorsalness"][idx_neuron].toFixed(2),
-            "dorsal": tune_dorsal,
-            "ventral": tune_ventral,
-            "fd": tune_fd,
-            "fv": tune_fv,
-            "rd": tune_rd,
-            "rv": tune_rv,
-            "mdf": tune_mdf,
-            "mvf": tune_mvf,
-
-            "strength_feeding": data["rel_enc_str_P"][idx_neuron].toFixed(3),
-            "feedingness": data["feedingness"][idx_neuron].toFixed(2),
-            "act": tune_act,
-            "inh": tune_inh,
-            "fa": tune_fa,
-            "fi": tune_fi,
-            "ra": tune_ra,
-            "ri": tune_ri,
-            "maf": tune_maf,
-            "mif": tune_mif,
-
-            "ewma": data["tau_vals"][idx_neuron].toFixed(1),
-            "enc_change": enc_change_
-        })
-    }
     $('#table_encoding').bootstrapTable({
         data: table_encoding_data
     });    
@@ -543,176 +456,123 @@ function clearSelect() {
 }
 
 // table UI control
-function updateTableColumn() {
-    toggleColumns("check_v_s", "strength_v")
-    toggleColumns("check_v_fwdness", "fwdness")
-    toggleColumns("check_v_fwd", "fwd")
-    toggleColumns("check_v_rev", "rev")
-    toggleColumns("check_fwd_slope_p", "fwd_slope_p")
-    toggleColumns("check_fwd_slope_n", "fwd_slope_n")
-    toggleColumns("check_rev_slope_p", "rev_slope_p")
-    toggleColumns("check_rev_slope_n", "rev_slope_n")
-    toggleColumns("check_slope_1", "slope_1")
-    toggleColumns("check_slope_2", "slope_2")
+function updateTableColumn(table, parent) {
+    // v
+    toggleColumns(table, parent, "check_v_s", "strength_v")
+    toggleColumns(table, parent, "check_v_fwdness", "fwdness")
+    toggleColumns(table, parent, "check_v_fwd", "fwd")
+    toggleColumns(table, parent, "check_v_rev", "rev")
+    toggleColumns(table, parent, "check_fwd_slope_p", "fwd_slope_p")
+    toggleColumns(table, parent, "check_fwd_slope_n", "fwd_slope_n")
+    toggleColumns(table, parent, "check_rev_slope_p", "rev_slope_p")
+    toggleColumns(table, parent, "check_rev_slope_n", "rev_slope_n")
+    toggleColumns(table, parent, "check_slope_1", "slope_1")
+    toggleColumns(table, parent, "check_slope_2", "slope_2")
 
-    // head curvature columns
-    toggleColumns("check_hc_s", "strength_hc")
-    toggleColumns("check_hc_dorsalness", "dorsalness")
-    toggleColumns("check_hc_dorsal", "dorsal")
-    toggleColumns("check_hc_ventral", "ventral")
-    toggleColumns("check_hc_fd", "fd")
-    toggleColumns("check_hc_fv", "fv")
-    toggleColumns("check_hc_rd", "rd")
-    toggleColumns("check_hc_rv", "rv")
-    toggleColumns("check_hc_mdf", "mdf")
-    toggleColumns("check_hc_mvf", "mvf")
+    // hc
+    toggleColumns(table, parent, "check_hc_s", "strength_hc")
+    toggleColumns(table, parent, "check_hc_dorsalness", "dorsalness")
+    toggleColumns(table, parent, "check_hc_dorsal", "dorsal")
+    toggleColumns(table, parent, "check_hc_ventral", "ventral")
+    toggleColumns(table, parent, "check_hc_fd", "fd")
+    toggleColumns(table, parent, "check_hc_fv", "fv")
+    toggleColumns(table, parent, "check_hc_rd", "rd")
+    toggleColumns(table, parent, "check_hc_rv", "rv")
+    toggleColumns(table, parent, "check_hc_mdf", "mdf")
+    toggleColumns(table, parent, "check_hc_mvf", "mvf")
 
-    // feeding columns
-    toggleColumns("check_f_strength", "strength_feeding")
-    toggleColumns("check_feedness", "feedingness")
-    toggleColumns("check_f_act", "act")
-    toggleColumns("check_f_inh", "inh")
-    toggleColumns("check_f_fa", "fa")
-    toggleColumns("check_f_fi", "fi")
-    toggleColumns("check_f_ra", "ra")
-    toggleColumns("check_f_ri", "ri")
-    toggleColumns("check_f_maf", "maf")
-    toggleColumns("check_f_mif", "mif")
-
-    // others
-    toggleColumns("check_o_ewma", "ewma")
-    toggleColumns("check_o_label", "label")
-    toggleColumns("check_o_enc_change", "enc_change")
+    // feeding
+    toggleColumns(table, parent, "check_f_strength", "strength_feeding")
+    toggleColumns(table, parent, "check_feedness", "feedingness")
+    toggleColumns(table, parent, "check_f_act", "act")
+    toggleColumns(table, parent, "check_f_inh", "inh")
+    toggleColumns(table, parent, "check_f_fa", "fa")
+    toggleColumns(table, parent, "check_f_fi", "fi")
+    toggleColumns(table, parent, "check_f_ra", "ra")
+    toggleColumns(table, parent, "check_f_ri", "ri")
+    toggleColumns(table, parent, "check_f_maf", "maf")
+    toggleColumns(table, parent, "check_f_mif", "mif")
+    
+    // other
+    toggleColumns(table, parent, "check_o_ewma", "ewma")
+    toggleColumns(table, parent, "check_o_enc_change", "enc_change")
 }
 
-
-function selectDefault() {
-    all_checks = document.getElementsByClassName("form-check-input")
+function selectDefault(table, parent) {
+    var control = document.getElementById(parent)
+    all_checks = control.getElementsByClassName("form-check-input")
     for (var i = 0; i < all_checks.length; i++) {
         all_checks[i].checked = false
     }
-    
-    check_v_fwd.checked = true
-    check_v_rev.checked = true
-    check_hc_dorsal.checked = true
-    check_hc_ventral.checked = true
-    check_f_act.checked = true
-    check_f_inh.checked = true
-    check_o_label.checked = true
-    check_o_ewma.checked = true
 
-    updateTableColumn()
+    let list_check_id = ["check_v_fwd", "check_v_rev", "check_hc_dorsal", "check_hc_ventral",
+        "check_f_act", "check_f_inh", "check_o_ewma"]
+    toggleChecks(parent, list_check_id, true)
+
+    updateTableColumn(table, parent)
 }
 
-function toggleV() {
-    var button_v_all = document.getElementById("button_v_all")
+function toggleV(parent) {
+    var control = document.getElementById(parent)
+    var button_v_all = control.querySelector("#button_v_all")
+
+    let list_check_id = ["check_v_fwdness", "check_v_fwd", "check_v_rev", "check_v_s",
+        "check_fwd_slope_p", "check_fwd_slope_n", "check_rev_slope_p", "check_rev_slope_n", "check_slope_1", "check_slope_2"]
+
+
     if (button_v_all.innerHTML.replace(/\s+/g, '') == "SelectAll") {
         button_v_all.innerHTML = "Deselect All"
-
-        check_v_fwdness.checked = true
-        check_v_fwd.checked = true
-        check_v_rev.checked = true
-        check_v_s.checked = true
-        check_v_fwdness.checked = true
-        check_v_fwd.checked = true
-        check_v_rev.checked = true
-        check_fwd_slope_p.checked = true
-        check_fwd_slope_n.checked = true
-        check_rev_slope_p.checked = true
-        check_rev_slope_n.checked = true
-        check_slope_1.checked = true
-        check_slope_2.checked = true
-
+        toggleChecks(parent, list_check_id, true)
     } else {
         button_v_all.innerHTML = "Select All"
-
-        check_v_fwdness.checked = false
-        check_v_fwd.checked = false
-        check_v_rev.checked = false
-        check_v_s.checked = false   
-        check_v_fwdness.checked = false
-        check_v_fwd.checked = false
-        check_v_rev.checked = false
-        check_fwd_slope_p.checked = false
-        check_fwd_slope_n.checked = false
-        check_rev_slope_p.checked = false
-        check_rev_slope_n.checked = false
-        check_slope_1.checked = false
-        check_slope_2.checked = false
+        toggleChecks(parent, list_check_id, false)
     }
 }
 
-function toggleHC(){
-    button_hc_all = document.getElementById("button_hc_all")
-    
-    if (button_hc_all.innerHTML.replace(/\s+/g, '') == "SelectAll"){
+function toggleHC(parent) {
+    var control = document.getElementById(parent)
+    var button_hc_all = control.querySelector("#button_hc_all")
+
+    let list_check_id = ["check_hc_s", "check_hc_dorsalness", "check_hc_dorsal", "check_hc_ventral",
+        "check_hc_fd", "check_hc_fv", "check_hc_rd", "check_hc_rv", "check_hc_mdf", "check_hc_mvf"]
+
+    if (button_hc_all.innerHTML.replace(/\s+/g, '') == "SelectAll") {
         button_hc_all.innerHTML = "Deselect All"
-        check_hc_s.checked = true
-        check_hc_dorsalness.checked = true
-        check_hc_dorsal.checked = true
-        check_hc_ventral.checked = true
-        check_hc_fd.checked = true
-        check_hc_fv.checked = true
-        check_hc_rd.checked = true
-        check_hc_rv.checked = true
-        check_hc_mdf.checked = true
-        check_hc_mvf.checked = true
+        toggleChecks(parent, list_check_id, true)
     } else {
         button_hc_all.innerHTML = "Select All"
-        check_hc_s.checked = false
-        check_hc_dorsalness.checked = false
-        check_hc_dorsal.checked = false
-        check_hc_ventral.checked = false
-        check_hc_fd.checked = false
-        check_hc_fv.checked = false
-        check_hc_rd.checked = false
-        check_hc_rv.checked = false
-        check_hc_mdf.checked = false
-        check_hc_mvf.checked = false
+        toggleChecks(parent, list_check_id, false)   
     }
 }
 
-function toggleF() {
-    button_f_all = document.getElementById("button_f_all")
+function toggleF(parent) {
+    var control = document.getElementById(parent)
+    var button_f_all = control.querySelector("#button_f_all")
+
+    let list_check_id = ["check_f_strength", "check_feedness", "check_f_act", "check_f_inh",
+        "check_f_fa", "check_f_fi", "check_f_ra", "check_f_ri", "check_f_maf", "check_f_mif"]
+
     if (button_f_all.innerHTML.replace(/\s+/g, '') == "SelectAll") {
         button_f_all.innerHTML = "Deselect All"
-        check_f_strength.checked = true
-        check_feedness.checked = true
-        check_f_act.checked = true
-        check_f_inh.checked = true
-        check_f_fa.checked = true
-        check_f_fi.checked = true
-        check_f_ra.checked = true
-        check_f_ri.checked = true
-        check_f_maf.checked = true
-        check_f_mif.checked = true
-    }   else {
+        toggleChecks(parent, list_check_id, true)
+    } else {
         button_f_all.innerHTML = "Select All"
-        check_f_strength.checked = false
-        check_feedness.checked = false
-        check_f_act.checked = false
-        check_f_inh.checked = false
-        check_f_fa.checked = false
-        check_f_fi.checked = false
-        check_f_ra.checked = false
-        check_f_ri.checked = false
-        check_f_maf.checked = false
-        check_f_mif.checked = false
+        toggleChecks(parent, list_check_id, false)
     }
 }
 
-function toggleO() {
-    button_o_all = document.getElementById("button_o_all")
+function toggleO(parent) {
+    var control = document.getElementById(parent)
+    var button_o_all = control.querySelector("#button_o_all")
+
+    let list_check_id = ["check_o_ewma", "check_o_enc_change"]
+
     if (button_o_all.innerHTML.replace(/\s+/g, '') == "SelectAll") {
         button_o_all.innerHTML = "Deselect All"
-        check_o_ewma.checked = true
-        check_o_label.checked = true
-        check_o_enc_change.checked = true
+        toggleChecks(parent, list_check_id, true)
     } else {
         button_o_all.innerHTML = "Select All"
-        check_o_ewma.checked = false
-        check_o_label.checked = false
-        check_o_enc_change.checked = false
+        toggleChecks(parent, list_check_id, false)
     }
 }
 

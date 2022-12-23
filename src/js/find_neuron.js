@@ -88,8 +88,8 @@ fetch("data/matches.json").
                     url_plot.searchParams.set("list_neuron", list_idx_neuron);
                     url_plot.searchParams.set("list_behavior", "v");
                     let url_json = `data/${dataset_uid}.json`
-                    let new_html = `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button">Download</a>` +
-                        `   <a id="button_plot" class="btn btn-outline-dark btn-sm" href=${url_plot} role="button">Plot neurons</a>`
+                    let new_html = `<a class="btn btn-outline-dark btn-sm py-0" href=${url_json} role="button">Download</a>` +
+                        `   <a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
                     $('#dataset_table').bootstrapTable('updateCellByUniqueId', {
                         id: dataset_uid,
                         field: "action",

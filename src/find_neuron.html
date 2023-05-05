@@ -39,7 +39,7 @@
         <div class="row">
             <div class="col-sm-5">
               <div class="form-group">
-            <select id="select_neuron" class="selectpicker" multiple data-live-search="true" title="Select neuron class"
+            <select id="select_neuron" class="selectpicker" multiple data-live-search="true" title="Select neuron class(es)"
                 data-selected-text-format="count > 3">
             </select>
             <button class="btn btn-light" onclick="clearSelect()">Clear</button>
@@ -54,9 +54,9 @@
                 <tr>
                     <th data-field="id" data-sortable="true">Dataset</th>
                     <th data-field="type" data-sortable="true">Type</th>
-                    <th data-field="num_neurons" data-sortable="true">Neurons</th>
-                    <th data-field="num_labeled" data-sortable="true">Neurons labeled</th>
-                    <th data-field="max_t" data-sortable="true">Length (timepoints)</th>
+                    <th data-field="num_neurons" data-sortable="true">Neuron count</th>
+                    <th data-field="num_labeled" data-sortable="true">NeuroPAL ID count</th>
+                    <!-- <th data-field="max_t" data-sortable="true">Length (timepoints)</th> -->
                     <!-- <th data-field="num_encoding_changes" data-sortable="true">Encoding changes</th> -->
                     <th data-field="action" data-sortable="false">Action</th>
                 </tr>

@@ -237,7 +237,7 @@ fetch("data/summary.json").then(response => response.json()).then(data => {
     let table_encoding_data = [];    
     
     Promise.all(list_uid_neuropal.map(function (uid) {
-        return fetch(`data/${uid}.json`)
+        return fetch(`data/${uid}_no_data.json`)
     })).then(function (responses) {
         return Promise.all(responses.map(function (response) {
             return response.json();

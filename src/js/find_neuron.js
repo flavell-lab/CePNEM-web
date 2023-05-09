@@ -23,7 +23,7 @@ fetch("data/summary.json").then(response => response.json()).then(data => {
                 max_t: value.max_t,
                 num_labeled: value.num_labeled,
                 num_encoding_changes: value.num_encoding_changes,
-                action: `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button">Download</a>`
+                action: `<a class="btn btn-outline-dark btn-sm" href=${url_json} role="button" download=${key}.json>Download</a>`
             })
         }
         list_uid.push(key)
@@ -88,7 +88,7 @@ fetch("data/matches.json").
                     url_plot.searchParams.set("list_neuron", list_idx_neuron);
                     url_plot.searchParams.set("list_behavior", "v");
                     let url_json = `data/${dataset_uid}.json`
-                    let new_html = `<a class="btn btn-outline-dark btn-sm py-0" href=${url_json} role="button">Download</a>` +
+                    let new_html = `<a class="btn btn-outline-dark btn-sm py-0" href=${url_json} role="button" download=${dataset_uid}.json>Download</a>` +
                         `   <a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
                     $('#dataset_table').bootstrapTable('updateCellByUniqueId', {
                         id: dataset_uid,

@@ -14,6 +14,8 @@
 
 </head>
 <body>
+  
+
     <div class="container">
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
           <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
@@ -32,49 +34,80 @@
       </div>
     
 
-      <div class="container px-4 py-2" id="hanging-icons">
-        <h2 class="pb-2 border-bottom">Explore</h2>
-        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-          <div class="col d-flex align-items-start">
-            <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
-                <i class="bi bi-activity"></i>
-            </div>
-            <div>
-              <h3 class="fs-2">Neuron</h3>
-              <p>Explore specific neuron class (e.g. find datasets with AVA & NSM)</p>
-              <a href="find_neuron.html" class="btn btn-primary">
-                Find neuron
-              </a>
-            </div>
+      <div class="px-4 py-5 my-5 text-center">
+        <!-- <img class="d-block mx-auto mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+        <h1 class="display-5 fw-bold text-body-emphasis">WormWideWeb</h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4">Browse freely moving whole-brain calcium imaging datasets</p>
+          <p>We've collected dozens of freely behaving <i>C. elegans</i> whole-brain datasets. On this website, you can easily find the neural (GCaMP) traces of specific recorded/identified neuron classes, along with the information on how those neurons encode behavioral information—identified by the CePNEM model</p>
+          <!-- <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Primary button</button>
+            <button type="button" class="btn btn-outline-secondary btn-lg px-4">Secondary</button>
+          </div> -->
+        </div>
+      </div>
+
+      <div class="b-divider"></div>
+
+      <div class="container col-xxl-8 px-4 py-5">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+          <div class="col-10 col-sm-8 col-lg-6">
+            <img src="img/example_index_neuron.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
           </div>
-          <div class="col d-flex align-items-start">
-            <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
-                <i class="bi bi-table"></i>
-            </div>
-            <div>
-              <h3 class="fs-2">Encoding</h3>
-              <p>Find neurons by encoding (e.g. find all forward neurons)</p>
-              <a href="encoding.html" class="btn btn-primary">
-                Explore encoding
-              </a>
-            </div>
-          </div>
-          <div class="col d-flex align-items-start">
-            <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
-                <i class="bi bi-database"></i>
-            </div>
-            <div>
-              <h3 class="fs-2">Dataset</h3>
-              <p>Explore by different datasets and experiments (browse/download)</p>
-              <a href="dataset.html" class="btn btn-primary">
-                Browse dataset
-              </a>
+          <div class="col-lg-6">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Explore specific neuron class</h1>
+            <p class="lead">Explore specific neuron class (e.g. find datasets with AVA & NSM). Find all datasets with specific neuron class(es) and plot the neural traces along the behavioral variables.</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+              <a href="find_neuron.html" class="btn btn-primary btn-lg px-4 me-sm-3">Find Neuron</a>
             </div>
           </div>
         </div>
       </div>
-            <div class="container px-4 py-2" id="hanging-icons">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/RpTUQg4kXjo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    
+      <div class="b-divider"></div>
+
+      
+
+      <div class="px-4 pt-5 my-5 text-center border-bottom">
+        <h1 class="display-4 fw-bold text-body-emphasis">Encoding Dictionary</h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4">Explore how each neuron class encodes various behaviors</p>
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+            <a href="encoding.html" class="btn btn-primary btn-lg px-4 me-sm-3">Explore Encoding</a>
+          </div>
+        </div>
+        <div class="overflow-hidden" style="max-height: 30vh;">
+          <div class="container px-5">
+            <img src="img/example_index_encoding_table.jpg" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" width="700" height="600" loading="lazy">
+          </div>
+        </div>
+      </div>
+    
+      <div class="b-divider"></div>
+
+      <div class="container col-xxl-8 px-4 py-5">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+          <div class="col-10 col-sm-8 col-lg-6">
+            <img src="img/example_index_dataset.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+          </div>
+          <div class="col-lg-6">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Dataset</h1>
+            <p class="lead">Explore by different datasets and experiments (browse/download)</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+              <a href="dataset.html" class="btn btn-primary btn-lg px-4 me-sm-3">Explore Datasets</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="b-divider"></div>
+      <div class="px-4 py-5 my-5 text-center">
+        <!-- <img class="d-block mx-auto mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+        <h1 class="display-5 fw-bold text-body-emphasis">Tutorial</h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4">A quick video tutorial of the website</p>
+          <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/RpTUQg4kXjo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
       </div>
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"

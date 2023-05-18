@@ -64,7 +64,7 @@ function updateTableColumn(table, parent) {
     
     // other
     toggleColumns(table, parent, "check_o_ewma", "ewma")
-    toggleColumns(table, parent, "check_o_enc_change", "enc_change")
+    toggleColumns(table, parent, "check_o_enc_var", "enc_var")
 }
 
 
@@ -142,7 +142,7 @@ function toggleO(parent) {
     var control = document.getElementById(parent)
     var button_o_all = control.querySelector("#button_o_all")
 
-    let list_check_id = ["check_o_ewma", "check_o_enc_change"]
+    let list_check_id = ["check_o_ewma", "check_o_enc_var"]
 
     if (button_o_all.innerHTML.replace(/\s+/g, '') == "SelectAll") {
         button_o_all.innerHTML = "Deselect All"
@@ -159,7 +159,7 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
 
 var select = document.getElementById("select_neuron");
 
-test = fetch("data/encoding_table.json").then(response => response.json()).then(data => {
+fetch("data/encoding_table.json").then(response => response.json()).then(data => {
     // table
     var table_encoding_data = []
 
@@ -183,7 +183,7 @@ test = fetch("data/encoding_table.json").then(response => response.json()).then(
                 "dorsalness": roundNull(data["enc_hc"][i], 2),
                 "feedingness": roundNull(data["enc_pumping"][i], 2),
                 "ewma": roundNull(data["tau"][i], 2),
-                "enc_change": roundNull(data["encoding_change_abundance"][i], 2),
+                "enc_var": roundNull(data["encoding_variability"][i], 2),
 
                 "fwd": data["encoding_table"][i][0].toFixed(2),
                 "rev": data["encoding_table"][i][1].toFixed(2),

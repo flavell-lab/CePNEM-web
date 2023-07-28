@@ -123,7 +123,7 @@ function clearSelect() {
 function downloadSelected(){
     var idsToDownload = $("#dataset_table").bootstrapTable("getSelections")
 
-    for(let i = 1; i < idsToDownload.length; i++){
+    for(let i = 0; i < idsToDownload.length; i++){
         downloadJson(JSON.parse(JSON.stringify(idsToDownload[i])).id)
     }
 

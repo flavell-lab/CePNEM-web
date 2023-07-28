@@ -119,6 +119,21 @@ function clearSelect() {
         $('#dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
     }
 }
+
+function downloadSelected(){
+    var idsToDownload = $("#dataset_table").bootstrapTable("getSelections")
+
+    alert(idsToDownload[0])
+
+}
+
+function download(content, fileName, contentType) {
+    const a = document.createElement("a");
+    const file = new Blob([content], { type: contentType });
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+  }
   
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))

@@ -123,7 +123,7 @@ function clearSelect() {
 function downloadSelected(){
     var idsToDownload = $("#dataset_table").bootstrapTable("getSelections")
 
-    for(let i = 1; i < idsToDownload; i++){
+    for(let i = 1; i < idsToDownload.length; i++){
         downloadJson(JSON.parse(JSON.stringify(idsToDownload[i])).id)
     }
 
@@ -137,7 +137,7 @@ function downloadJson(jsonUID) {
         .then(response => response.json())
         .then(data => {
 
-            alert(data)
+            //alert(data)
             // Create a blob from the JSON data
             const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
 

@@ -89,7 +89,7 @@ fetch("data/matches.json").
                     url_plot.searchParams.set("list_behavior", "v");
                     let url_json = `data/${dataset_uid}.json`
                     let new_html = `<a class="btn btn-outline-dark btn-sm py-0" href=${url_json} role="button" download=${dataset_uid}.json>Download</a>` +
-                        `   <a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>` + `<input type="checkbox" id="select" name="selectButton" value=${dataset_uid}>`
+                        `   <a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
                     $('#dataset_table').bootstrapTable('updateCellByUniqueId', {
                         id: dataset_uid,
                         field: "action",

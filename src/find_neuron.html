@@ -50,6 +50,9 @@
                 <div class="btn-group">
                     <button class="btn btn-light" onclick="clearSelect()">Clear</button>
                     <button class="btn btn-light" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modalInfo"><i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Additional information" class="bi bi-info-circle"></i></button>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-light" onclick="downloadSelected()">Download Selected</button>
                 </div>  
             </div>
         </div>
@@ -67,6 +70,7 @@
                     <!-- <th data-field="max_t" data-sortable="true">Length (timepoints)</th> -->
                     <!-- <th data-field="num_encoding_changes" data-sortable="true">Encoding changes</th> -->
                     <th data-field="action" data-sortable="false">Action</th>
+                    <th data-field="selected" data-checkbox="true"></th>
                 </tr>
             </thead>
         </table>

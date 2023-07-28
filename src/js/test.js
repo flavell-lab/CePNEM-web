@@ -88,8 +88,7 @@ fetch("data/matches.json").
                     url_plot.searchParams.set("list_neuron", list_idx_neuron);
                     url_plot.searchParams.set("list_behavior", "v");
                     let url_json = `data/${dataset_uid}.json`
-                    let new_html = `<a class="btn btn-outline-dark btn-sm py-0" href=${url_json} role="button" download=${dataset_uid}.json>Download</a>` +
-                        `   <a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
+                    let new_html = `<a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
                     $('#dataset_table').bootstrapTable('updateCellByUniqueId', {
                         id: dataset_uid,
                         field: "action",
@@ -121,8 +120,10 @@ function clearSelect() {
 }
 
 function downloadSelected(){
+    // Get a list of the selected rows
     var idsToDownload = $("#dataset_table").bootstrapTable("getSelections")
 
+    // Loop through selections and download each using the IDs
     for(let i = 0; i < idsToDownload.length; i++){
         downloadJson(JSON.parse(JSON.stringify(idsToDownload[i])).id)
     }
@@ -130,7 +131,7 @@ function downloadSelected(){
 }
 
 function downloadJson(jsonUID) {
-    const jsonUrl = `data/${jsonUID}.json`; // replace with your JSON file URL
+    const jsonUrl = `data/${jsonUID}.json`; // JSON file URL
 
     // Fetch JSON data
     fetch(jsonUrl)
@@ -147,7 +148,7 @@ function downloadJson(jsonUID) {
             // Create a link element
             const link = document.createElement('a');
             link.href = url;
-            link.download = `${jsonUID}.json`; // replace with your desired file name
+            link.download = `${jsonUID}.json`; // specify downloaded file name
 
             // Append the link element to the body
             document.body.appendChild(link);

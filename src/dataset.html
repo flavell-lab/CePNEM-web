@@ -28,7 +28,6 @@
                 <li class="nav-item"><a href="encoding.html" class="nav-link">Encoding</a></li>
                 <li class="nav-item"><a href="dataset.html" class="nav-link active" aria-current="page">Dataset</a></li>
                 <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="test.html" class="nav-link">Test</a></li>
             </ul>
         </header>
     </div>
@@ -90,6 +89,7 @@
                 data-selected-text-format="count > 3">
             </select>
             <button class="btn btn-light" onclick="clearSelect()">Clear</button>
+            <button class="btn btn-light" onclick="downloadSelected()">Download Selected</button>
         </div>
         <br>
 
@@ -103,6 +103,7 @@
                     <!-- <th data-field="num_encoding_changes" data-sortable="true">Encoding<br>changes</th> -->
                     <th data-field="type" data-sortable="true">Type</th>
                     <th data-field="action" data-sortable="false">Action</th>
+                    <th data-field="selected" data-checkbox="true"></th>
                 </tr>
             </thead>
         </table>

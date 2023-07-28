@@ -17,8 +17,7 @@ then(data => {
         url_plot.searchParams.set("list_behavior", "v");
         let url_json = `data/${key}.json`
       
-        let html_buttons = `<a class="btn btn-outline-dark btn-sm py-0" href=${url_json} role="button" download=${key}.json>Download</a>` +
-            `   <a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
+        let html_buttons = `<a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
         let html_dtype = ""
         for (let i = 0; i < list_dtype.length; i++) {
             let dtype_ = list_dtype[i];
@@ -75,3 +74,46 @@ function clearSelect() {
         }
     })
 };
+
+function downloadSelected(){
+    // Get a list of the selected rows
+    var idsToDownload = $("#dataset_table").bootstrapTable("getSelections")
+
+    // Loop through selections and download each using the IDs
+    for(let i = 0; i < idsToDownload.length; i++){
+        downloadJson(JSON.parse(JSON.stringify(idsToDownload[i])).id)
+    }
+
+}
+
+function downloadJson(jsonUID) {
+    const jsonUrl = `data/${jsonUID}.json`; // JSON file URL
+
+    // Fetch JSON data
+    fetch(jsonUrl)
+        .then(response => response.json())
+        .then(data => {
+
+            //alert(data)
+            // Create a blob from the JSON data
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+
+            // Create an object URL for the blob
+            const url = URL.createObjectURL(blob);
+
+            // Create a link element
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `${jsonUID}.json`; // specify downloaded file name
+
+            // Append the link element to the body
+            document.body.appendChild(link);
+
+            // Simulate a click on the link
+            link.click();
+
+            // Cleanup - remove the link element from the body
+            document.body.removeChild(link);
+        })
+        .catch(error => console.error('An error occurred:', error));
+}

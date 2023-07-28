@@ -88,8 +88,7 @@ fetch("data/matches.json").
                     url_plot.searchParams.set("list_neuron", list_idx_neuron);
                     url_plot.searchParams.set("list_behavior", "v");
                     let url_json = `data/${dataset_uid}.json`
-                    let new_html = `<a class="btn btn-outline-dark btn-sm py-0" href=${url_json} role="button" download=${dataset_uid}.json>Download</a>` +
-                        `   <a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
+                    let new_html = `<a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
                     $('#dataset_table').bootstrapTable('updateCellByUniqueId', {
                         id: dataset_uid,
                         field: "action",
@@ -118,6 +117,49 @@ function clearSelect() {
         let dataset_uid = list_uid[i];
         $('#dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
     }
+}
+
+function downloadSelected(){
+    // Get a list of the selected rows
+    var idsToDownload = $("#dataset_table").bootstrapTable("getSelections")
+
+    // Loop through selections and download each using the IDs
+    for(let i = 0; i < idsToDownload.length; i++){
+        downloadJson(JSON.parse(JSON.stringify(idsToDownload[i])).id)
+    }
+
+}
+
+function downloadJson(jsonUID) {
+    const jsonUrl = `data/${jsonUID}.json`; // JSON file URL
+
+    // Fetch JSON data
+    fetch(jsonUrl)
+        .then(response => response.json())
+        .then(data => {
+
+            //alert(data)
+            // Create a blob from the JSON data
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+
+            // Create an object URL for the blob
+            const url = URL.createObjectURL(blob);
+
+            // Create a link element
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `${jsonUID}.json`; // specify downloaded file name
+
+            // Append the link element to the body
+            document.body.appendChild(link);
+
+            // Simulate a click on the link
+            link.click();
+
+            // Cleanup - remove the link element from the body
+            document.body.removeChild(link);
+        })
+        .catch(error => console.error('An error occurred:', error));
 }
   
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')

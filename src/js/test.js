@@ -136,6 +136,8 @@ function downloadJson(jsonUID) {
     fetch(jsonUrl)
         .then(response => response.json())
         .then(data => {
+
+            alert(data)
             // Create a blob from the JSON data
             const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
 

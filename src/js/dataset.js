@@ -79,14 +79,14 @@ function downloadSelected(){
     // Get a list of the selected rows
     var idsToDownload = $("#dataset_table").bootstrapTable("getSelections")
 
-    alert("Hello!")
+    // alert("Hello!")
 
     // alert(JSON.parse(JSON.stringify(idsToDownload[i])).id)
 
-    // // Loop through selections and download each using the IDs
-    // for(let i = 0; i < idsToDownload.length; i++){
-    //     downloadJson(JSON.parse(JSON.stringify(idsToDownload[i])).id)
-    // }
+    // Loop through selections and download each using the IDs
+    for(let i = 0; i < idsToDownload.length; i++){
+        downloadJson(JSON.parse(JSON.stringify(idsToDownload[i])).id)
+    }
 
 }
 

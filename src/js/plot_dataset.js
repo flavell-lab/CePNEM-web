@@ -472,7 +472,7 @@ function update_side_table(selected_idx_neuron_str){
             select.add(option);
         };
 
-        alert(select)
+        alert(select.val())
 
     }).catch(error => console.error(error))
 }

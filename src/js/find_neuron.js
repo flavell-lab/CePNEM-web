@@ -100,7 +100,7 @@ fetch("data/matches.json").
                     $('#dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
                 }
             }
-        } else {// if (selectedOptions.length > 0)
+        } else {// if (selectedOptions.length < 0)
             for (let i = 1; i < list_uid.length; i++) {
                 let dataset_uid = list_uid[i];
                 $('#dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});

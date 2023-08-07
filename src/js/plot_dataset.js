@@ -433,10 +433,6 @@ function update_side_table(selected_idx_neuron_str){
     var select = document.getElementById("select_neuron");
     var table = document.getElementById("small_dataset_table");
 
-    // let selectedOptions = $("#select_neuron").val();
-            
-    // alert(selected_idx_neuron_str);
-
     // populate table
     var table_data = [];
     var list_uid = [];
@@ -458,10 +454,10 @@ function update_side_table(selected_idx_neuron_str){
             data: table_data
         });
 
-        // for (var i = 1; i < list_uid.length; i++) {
-        //     var dataset_uid = list_uid[i];
-        //     $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
-        // }
+        for (var i = 1; i < list_uid.length; i++) {
+            var dataset_uid = list_uid[i];
+            $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
+        }
     }).catch(error => console.error(error));
 
     // populate select/picker and implement neuron finder
@@ -476,7 +472,9 @@ function update_side_table(selected_idx_neuron_str){
             select.add(option);
         };
 
-        
+        let selectedOptions = $("#select_neuron").val();
+
+        alert(selectedOptions);
 
     }).catch(error => console.error(error))
 }

@@ -32,7 +32,7 @@ function get_neuron_label(idx_neuron, neuropal_label) {
     }
 }
 
-function get_neuron_class(idx_neuron) {
+function get_neuron_class(idx_neuron, neuropal_label) {
     let neuron = idx_neuron + 1;
     if (neuron in neuropal_label) {
         return `${neuron} (${neuropal_label[neuron]['neuron_class']})`;

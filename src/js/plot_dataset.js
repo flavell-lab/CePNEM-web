@@ -435,30 +435,22 @@ function update_side_table(selected_idx_neuron_str){
 
     // let selectedOptions = $("#select_neuron").val();
             
-    alert(selected_idx_neuron_str);
+    // alert(selected_idx_neuron_str);
 
     // populate table
     var table_data = [];
     var list_uid = [];
     fetch("data/summary.json").then(response => response.json()).then(data => {
+        alert(data)
+
         for (const [key, value] of Object.entries(data)) {
             let list_dtype = value.dataset_type;
             let url_neuron = "plot_dataset.html?uid=" + key + "&list_neuron=1&list_behavior=v";
             let url_json = `data/${key}.json`
 
             if (list_dtype.includes("neuropal")) {
-                let html_dtype = "";
-                for (let i = 0; i < list_dtype.length; i++) {
-                    let dtype_ = list_dtype[i];
-                    html_dtype += getDatasetTypePill(dtype_) + " "
-                }
                 table_data.push({
-                    id: key,
-                    type: html_dtype,
-                    num_neurons: value.num_neurons,
-                    max_t: value.max_t,
-                    num_labeled: value.num_labeled,
-                    num_encoding_changes: value.num_encoding_changes
+                    id: key
                 })
             }
             list_uid.push(key)
@@ -485,10 +477,6 @@ function update_side_table(selected_idx_neuron_str){
             option.text = key;
             select.add(option);
         };
-
-        $(document).ready(function () {
-            $("#select_neuron").selectpicker('refresh');
-        });
 
         
 

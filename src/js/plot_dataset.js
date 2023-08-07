@@ -455,7 +455,7 @@ function update_side_table(selected_idx_neuron_str){
 
         let selectedOptions = $("#select_neuron").val();
 
-        alert(selectedOptions)
+        alert(neuropal_label)
 
         for(var neuron of selectedOptions){
             if(neuron in neuropal_label){

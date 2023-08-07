@@ -18,18 +18,22 @@
     max-width: 140px;
 }
 
-.column {
-    float: left;
-  }
-  
-.left {
-    width: 75%;
+* {
+    box-sizing: border-box;
 }
 
-.right {
-    width: 25%;
+.columns {
+    display: flex;
+    flex-direction: row;
 }
-
+.plot-column {
+    flex: 1;
+    padding: 10px;
+}
+.table-column {
+    flex: 1;
+    padding: 10px;
+}
 /* Clear floats after the columns */
 .row:after {
     content: "";

@@ -425,6 +425,43 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     });    
 }).catch(error => { console.error(error) });
 
+// populate table
+var table_data = [];
+var list_uid = [];
+fetch("data/summary.json").then(response => response.json()).then(data => {
+    for (const [key, value] of Object.entries(data)) {
+        let list_dtype = value.dataset_type;
+        let url_neuron = "plot_dataset.html?uid=" + key + "&list_neuron=1&list_behavior=v";
+        let url_json = `data/${key}.json`
+
+        if (list_dtype.includes("neuropal")) {
+            let html_dtype = "";
+            for (let i = 0; i < list_dtype.length; i++) {
+                let dtype_ = list_dtype[i];
+                html_dtype += getDatasetTypePill(dtype_) + " "
+            }
+            table_data.push({
+                id: key,
+                type: html_dtype,
+                num_neurons: value.num_neurons,
+                max_t: value.max_t,
+                num_labeled: value.num_labeled,
+                num_encoding_changes: value.num_encoding_changes
+            })
+        }
+        list_uid.push(key)
+    }
+
+    $('#small_dataset_table').bootstrapTable({
+        data: table_data
+    });
+
+    for (var i = 1; i < list_uid.length; i++) {
+        var dataset_uid = list_uid[i];
+        $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
+    }
+}).catch(error => console.error(error));
+
 function clearSelect() {
     // clear picker
     $("#select_neuron").selectpicker("deselectAll");

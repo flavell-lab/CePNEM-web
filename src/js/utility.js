@@ -32,6 +32,16 @@ function get_neuron_label(idx_neuron, neuropal_label) {
     }
 }
 
+function get_neuron_class(idx_neuron) {
+    let neuron = idx_neuron + 1;
+    if (neuron in neuropal_label) {
+        return `${neuron} (${neuropal_label[neuron]['neuron_class']})`;
+    } else {
+        return `${neuron}`;
+    }
+}
+
+
 function getDatsetFullStr(datasettype) {
     switch (datasettype) {
         case "baseline":

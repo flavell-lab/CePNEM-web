@@ -37,106 +37,121 @@
       </ul>
     </header>
   </div>
+  <div class="row">
+    <div class="column">
+      <div class="container px-4">
+        <h3 id="str_dataset" class="fs-2">Plot dataset</h3>
+        <h4 class="fs-4">Plot - Neural trace & Behavior</h4>
 
-  <div class="container px-4">
-    <h3 id="str_dataset" class="fs-2">Plot dataset</h3>
-    <h4 class="fs-4">Plot - Neural trace & Behavior</h4>
+        <!-- plot control -->
+        <div class="form-group">
+          <select id="select_neuron" class="selectpicker" multiple data-live-search="true" title="Select neuron"
+            data-selected-text-format="count > 2">
+          </select>
+          <select id="select_behavior" class="selectpicker" multiple data-selected-text-format="count > 2"
+            title="Select behavior">
+          </select>
+          <div class="btn-group">
+            <!-- <a href="#" class="btn btn-success" role="button" data-toggle="tooltip" data-placement="top" title="Edit">E</a> -->
 
-    <!-- plot control -->
-    <div class="form-group">
-      <select id="select_neuron" class="selectpicker" multiple data-live-search="true" title="Select neuron"
-        data-selected-text-format="count > 2">
-      </select>
-      <select id="select_behavior" class="selectpicker" multiple data-selected-text-format="count > 2"
-        title="Select behavior">
-      </select>
-      <div class="btn-group">
-        <!-- <a href="#" class="btn btn-success" role="button" data-toggle="tooltip" data-placement="top" title="Edit">E</a> -->
+            <button class="btn btn-light" onclick="clearSelect()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Clear the selections">Clear</button>
+            <button class="btn btn-light" class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlotConfig" aria-expanded="false" aria-controls="collapsePlotConfig"><i class="bi bi-gear-wide-connected" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plot configurations"></i></button>
+            <button id="button_cor" class="btn btn-light" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modalCor"><i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compute Pearson cor among the neural trace(s) and behavior(s)" class="bi bi-calculator"></i></button>
+            <button class="btn btn-light" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modalInfo"><i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Additional information" class="bi bi-info-circle"></i></button>
+            <button id="button_csv_export" class="btn btn-light" onclick="exportCSV()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Download currently plotted neurons(s)/behavior(s) as a CSV file"><i class="bi bi-download"></i></button>
+            <button class="btn btn-light" onclick="copyURL()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Copy a link to this plot to the clipboard"><i class="bi bi-link-45deg"></i></button>
+          </div>
 
-        <button class="btn btn-light" onclick="clearSelect()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Clear the selections">Clear</button>
-        <button class="btn btn-light" class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlotConfig" aria-expanded="false" aria-controls="collapsePlotConfig"><i class="bi bi-gear-wide-connected" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plot configurations"></i></button>
-        <button id="button_cor" class="btn btn-light" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modalCor"><i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compute Pearson cor among the neural trace(s) and behavior(s)" class="bi bi-calculator"></i></button>
-        <button class="btn btn-light" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modalInfo"><i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Additional information" class="bi bi-info-circle"></i></button>
-        <button id="button_csv_export" class="btn btn-light" onclick="exportCSV()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Download currently plotted neurons(s)/behavior(s) as a CSV file"><i class="bi bi-download"></i></button>
-        <button class="btn btn-light" onclick="copyURL()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Copy a link to this plot to the clipboard"><i class="bi bi-link-45deg"></i></button>
-      </div>
-
-      <div class="btn-group" style="float:right">
-        <button class="btn btn-light" onclick="">Previous</button>
-        <button class="btn btn-light" onclick="">Next</button>
-      </div>
-      
-    </div>
-    
-    <!-- plot config collapse -->
-    <div class="collapse" id="collapsePlotConfig">
-      <br>
-      <div class="card card-body">
-        <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" role="switch" id="switch_plot_rev" onchange="switchRev()" unchecked>
-          <label class="form-check-label" for="switch_plot_rev">Reversal</label>
-        </div>
-        <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" role="switch" id="switch_plot_event" onchange="switchEvent()" disabled>
-          <label class="form-check-label" for="switch_plot_event">Event (e.g. heat stim)</label>
+          <div class="btn-group" style="float:right">
+            <button class="btn btn-light" onclick="">Previous</button>
+            <button class="btn btn-light" onclick="">Next</button>
+          </div>
+          
         </div>
         
-      </div>
-    </div>
-
-    <!-- plot -->
-    <div id='plot_main'></div>
-
-    
-
-    <!-- modal correlation -->
-    <div class="modal fade" id="modalCor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-      aria-labelledby="modalCorLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="modalCorLabel">Correlation</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <h5>Neural correlation</h5>
-            <p id="cor_txt">2 or more neurons need to be selected</p>
-            <br>
-            <h5>Behavior correlation</h5>
-            <p id="cor_txt_behavior"></p>
-            <h5>Other neurons that are highly correlated (top 3)</h5>
-            <p id="cor_txt_other_neuron">1 or more neurons need to be selected</p>
+        <!-- plot config collapse -->
+        <div class="collapse" id="collapsePlotConfig">
+          <br>
+          <div class="card card-body">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="switch_plot_rev" onchange="switchRev()" unchecked>
+              <label class="form-check-label" for="switch_plot_rev">Reversal</label>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="switch_plot_event" onchange="switchEvent()" disabled>
+              <label class="form-check-label" for="switch_plot_event">Event (e.g. heat stim)</label>
+            </div>
+            
           </div>
         </div>
-      </div>
-    </div> 
-    <!-- END modal -->
 
-    <!-- modal label info -->
-    <div class="modal fade" id="modalInfo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-      aria-labelledby="modalInfoLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="modalInfoLabel">Information</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- plot -->
+        <div id='plot_main'></div>
+
+        
+
+        <!-- modal correlation -->
+        <div class="modal fade" id="modalCor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+          aria-labelledby="modalCorLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalCorLabel">Correlation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h5>Neural correlation</h5>
+                <p id="cor_txt">2 or more neurons need to be selected</p>
+                <br>
+                <h5>Behavior correlation</h5>
+                <p id="cor_txt_behavior"></p>
+                <h5>Other neurons that are highly correlated (top 3)</h5>
+                <p id="cor_txt_other_neuron">1 or more neurons need to be selected</p>
+              </div>
+            </div>
           </div>
-          <div class="modal-body">
-            <h5>NeuroPAL label</h5>
-            <h6>What does ? mean in the neuron labels?</h6>
-                <p>For neuron class with Dorsal/Ventral (D/V) and/or Left/Right (L/R) differentiation, ? notes that
-                  it was not possible to determine that attribute.</p>
-            <h6>Example</h6>
-                <p>Example: for RMD class, RMD?L (was not possible to determine D/V). RMD?? (was not possible to
-                  determine both L/R and D/V).</p>
+        </div> 
+        <!-- END modal -->
+
+        <!-- modal label info -->
+        <div class="modal fade" id="modalInfo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+          aria-labelledby="modalInfoLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalInfoLabel">Information</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h5>NeuroPAL label</h5>
+                <h6>What does ? mean in the neuron labels?</h6>
+                    <p>For neuron class with Dorsal/Ventral (D/V) and/or Left/Right (L/R) differentiation, ? notes that
+                      it was not possible to determine that attribute.</p>
+                <h6>Example</h6>
+                    <p>Example: for RMD class, RMD?L (was not possible to determine D/V). RMD?? (was not possible to
+                      determine both L/R and D/V).</p>
+              </div>
+            </div>
           </div>
         </div>
+        <!-- END modal -->
+
+
+        </div> <!-- END container -->
+      </div> <!-- End column -->
+
+      <div class = "column">
+        <div class="container px-4">
+          <table id="small_dataset_table" class="table-sm" data-unique-id="id">
+            <thead>
+                <tr>
+                    <th data-field="id" data-sortable="true">Dataset</th>
+                </tr>
+            </thead>
+        </table>
+        </div>
       </div>
-    </div>
-    <!-- END modal -->
-
-
-    </div> <!-- END container -->
+    </div> <!-- END Row -->
 
     <div class="b-divider"></div>
 

@@ -491,7 +491,7 @@ fetch("data/matches.json").
         if (selectedOptions.length > 0) {
             for (var i = 1; i < list_uid.length; i++) {
                 let dataset_uid = list_uid[i];
-                let row = $('#dataset_table').bootstrapTable('getRowByUniqueId', dataset_uid);
+                let row = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', dataset_uid);
                 // iterate over neurons selected
                 let match_all = true;
                 let list_idx_neuron = [];
@@ -515,21 +515,21 @@ fetch("data/matches.json").
                     url_plot.searchParams.set("list_behavior", "v");
                     let url_json = `data/${dataset_uid}.json`
                     let new_html = `<a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
-                    $('#dataset_table').bootstrapTable('updateCellByUniqueId', {
+                    $('#small_dataset_table').bootstrapTable('updateCellByUniqueId', {
                         id: dataset_uid,
                         field: "action",
                         value: new_html,
                         reinit: true
                     });
-                    $('#dataset_table').bootstrapTable('showRow', {uniqueId: dataset_uid});
+                    $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: dataset_uid});
                 } else {
-                    $('#dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
+                    $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
                 }
             }
         } else {// if (selectedOptions.length > 0)
             for (let i = 1; i < list_uid.length; i++) {
                 let dataset_uid = list_uid[i];
-                $('#dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
+                $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
             }
         }
     });

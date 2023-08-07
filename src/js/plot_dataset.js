@@ -450,20 +450,26 @@ function update_side_table(selected_idx_neuron_str){
             list_uid.push(key)
         }
 
-        const neuropal_label = data["labeled"]
-        var labels = []
+        fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data => {
+            const neuropal_label = data["labeled"]
+            var labels = []
 
-        let selectedOptions = $("#select_neuron").val();
+            let selectedOptions = $("#select_neuron").val();
 
-        alert(neuropal_label)
+            alert(neuropal_label)
 
-        for(var neuron of selectedOptions){
-            if(neuron in neuropal_label){
-                labels.push(get_neuron_label(neuropal_label[neuron]['label']))
+            for(var neuron of selectedOptions){
+                if(neuron in neuropal_label){
+                    labels.push(get_neuron_label(neuropal_label[neuron]['label']))
+                }
             }
-        }
+            
+            alert(labels);
+        }).catch(error => { console.error(error) });
 
-        alert(labels);
+        
+
+        
 
         $('#small_dataset_table').bootstrapTable({
             data: table_data

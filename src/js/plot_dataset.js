@@ -458,7 +458,9 @@ function update_side_table(selected_idx_neuron_str){
         alert(selectedOptions)
 
         for(var neuron of selectedOptions){
-            labels.push(get_neuron_label(Number(neuron), neuropal_label))
+            if(neuron in neuropal_label){
+                labels.push(get_neuron_label(neuropal_label[neuron]['label']))
+            }
         }
 
         alert(labels);

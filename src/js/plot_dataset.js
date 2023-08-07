@@ -450,28 +450,6 @@ function update_side_table(selected_idx_neuron_str){
             list_uid.push(key)
         }
 
-        $('#small_dataset_table').bootstrapTable({
-            data: table_data
-        });
-
-        for (var i = 1; i < list_uid.length; i++) {
-            var dataset_uid = list_uid[i];
-            $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
-        }
-    }).catch(error => console.error(error));
-
-    // populate select/picker and implement neuron finder
-    fetch("data/matches.json").
-        then(response => response.json()).
-        then(data => {
-        // load dataset list to the picker
-        for (const [key, value] of Object.entries(data)) {
-            var option = document.createElement("option");
-            option.value = key;
-            option.text = key;
-            select.add(option);
-        };
-
         const neuropal_label = data["labeled"]
         var labels = []
 
@@ -483,7 +461,31 @@ function update_side_table(selected_idx_neuron_str){
 
         alert(labels);
 
-    }).catch(error => console.error(error))
+        $('#small_dataset_table').bootstrapTable({
+            data: table_data
+        });
+
+        for (var i = 1; i < list_uid.length; i++) {
+            var dataset_uid = list_uid[i];
+            $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
+        }
+    }).catch(error => console.error(error));
+
+    // // populate select/picker and implement neuron finder
+    // fetch("data/matches.json").
+    //     then(response => response.json()).
+    //     then(data => {
+    //     // load dataset list to the picker
+    //     for (const [key, value] of Object.entries(data)) {
+    //         var option = document.createElement("option");
+    //         option.value = key;
+    //         option.text = key;
+    //         select.add(option);
+    //     };
+
+        
+
+    // }).catch(error => console.error(error))
 }
 
 function clearSelect() {

@@ -508,7 +508,7 @@ function update_side_table(selected_idx_neuron_str){
                     let url_json = `data/${dataset_uid}.json`
                     let new_html = `<a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
                     $('#small_dataset_table').bootstrapTable('updateCellByUniqueId', {
-                        id: dataset_uid,
+                        id: dataset_uid
                     });
                     $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: dataset_uid});
                 } else {

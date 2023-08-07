@@ -472,9 +472,9 @@ function update_side_table(selected_idx_neuron_str){
         //     select.add(option);
         // };
 
-        $(document).ready(function () {
-            $("#select_neuron").selectpicker('refresh');
-        });
+        // $(document).ready(function () {
+        //     $("#select_neuron").selectpicker('refresh');
+        // });
 
         let selectedOptions = $("#select_neuron").val();
 

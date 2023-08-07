@@ -478,7 +478,7 @@ function update_side_table(selected_idx_neuron_str){
 
         let selectedOptions = $("#select_neuron").val();
 
-        // alert(selectedOptions)
+        alert(selectedOptions.length)
 
         if (selectedOptions.length > 0) {
             for (var i = 1; i < list_uid.length; i++) {

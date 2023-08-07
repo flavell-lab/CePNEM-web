@@ -433,6 +433,10 @@ function update_side_table(){
     var select = document.getElementById("select_neuron");
     var table = document.getElementById("small_dataset_table");
 
+    let selectedOptions = $("#select_neuron").val();
+            
+    alert(selectedOptions);
+
     // populate table
     var table_data = [];
     var list_uid = [];
@@ -472,29 +476,21 @@ function update_side_table(){
 
     // populate select/picker and implement neuron finder
     fetch("data/matches.json").
-    then(response => response.json()).
-    then(data => {
-    // load dataset list to the picker
-    for (const [key, value] of Object.entries(data)) {
-        var option = document.createElement("option");
-        option.value = key;
-        option.text = key;
-        select.add(option);
-    };
+        then(response => response.json()).
+        then(data => {
+        // load dataset list to the picker
+        for (const [key, value] of Object.entries(data)) {
+            var option = document.createElement("option");
+            option.value = key;
+            option.text = key;
+            select.add(option);
+        };
 
-    $(document).ready(function () {
-        $("#select_neuron").selectpicker('refresh');
-    });
+        $(document).ready(function () {
+            $("#select_neuron").selectpicker('refresh');
+        });
 
-    // filter
-    $("#select_neuron").selectpicker({
-        // Other options...
-    }).on('change', function () {
-        // find neuron
-        let selectedOptions = $("#select_neuron").val();
         
-        alert(selectedOptions)
-    });
 
     }).catch(error => console.error(error))
 }

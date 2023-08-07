@@ -465,12 +465,12 @@ function update_side_table(selected_idx_neuron_str){
         then(response => response.json()).
         then(data => {
         // load dataset list to the picker
-        for (const [key, value] of Object.entries(data)) {
-            var option = document.createElement("option");
-            option.value = key;
-            option.text = key;
-            select.add(option);
-        };
+        // for (const [key, value] of Object.entries(data)) {
+        //     var option = document.createElement("option");
+        //     option.value = key;
+        //     option.text = key;
+        //     select.add(option);
+        // };
 
         $(document).ready(function () {
             $("#select_neuron").selectpicker('refresh');

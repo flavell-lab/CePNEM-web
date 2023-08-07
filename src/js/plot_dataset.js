@@ -450,7 +450,7 @@ function update_side_table(selected_idx_neuron_str){
             list_uid.push(key)
         }
 
-        fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data => {
+        fetch(`data/${key}.json`).then(response => response.json()).then(data => {
             const neuropal_label = data["labeled"]
             var labels = []
 
@@ -463,7 +463,7 @@ function update_side_table(selected_idx_neuron_str){
                     labels.push(get_neuron_label(neuropal_label[neuron]['label']))
                 }
             }
-            
+
             alert(labels);
         }).catch(error => { console.error(error) });
 

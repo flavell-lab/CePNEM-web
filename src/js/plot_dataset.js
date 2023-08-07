@@ -466,6 +466,34 @@ function update_side_table(){
             $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
         }
     }).catch(error => console.error(error));
+
+    // populate select/picker and implement neuron finder
+    fetch("data/matches.json").
+    then(response => response.json()).
+    then(data => {
+    // load dataset list to the picker
+    for (const [key, value] of Object.entries(data)) {
+        var option = document.createElement("option");
+        option.value = key;
+        option.text = key;
+        select.add(option);
+    };
+
+    $(document).ready(function () {
+        $("#select_neuron").selectpicker('refresh');
+    });
+
+    // filter
+    $("#select_neuron").selectpicker({
+        // Other options...
+    }).on('change', function () {
+        // find neuron
+        let selectedOptions = $("#select_neuron").val();
+        
+        alert(selectedOptions)
+    });
+
+    }).catch(error => console.error(error))
 }
 
 function clearSelect() {

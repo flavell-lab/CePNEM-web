@@ -441,9 +441,8 @@ function update_side_table(selected_idx_neuron_str){
     var table_data = [];
     var list_uid = [];
     fetch("data/summary.json").then(response => response.json()).then(data => {
-        alert(data)
-
         for (const [key, value] of Object.entries(data)) {
+            alert(`${key}, ${value}`)
             let list_dtype = value.dataset_type;
             let url_neuron = "plot_dataset.html?uid=" + key + "&list_neuron=1&list_behavior=v";
             let url_json = `data/${key}.json`

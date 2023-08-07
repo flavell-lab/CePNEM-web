@@ -4,6 +4,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+  </style>
   <title>WormWideWeb-Plot</title>
 
   <!-- CSS only -->
@@ -39,7 +44,7 @@
   </div>
   <div class="row">
     <div class="column left">
-      <!-- <div class="container px-4"> -->
+      <div class="container px-4">
         <h3 id="str_dataset" class="fs-2">Plot dataset</h3>
         <h4 class="fs-4">Plot - Neural trace & Behavior</h4>
 
@@ -137,17 +142,19 @@
         <!-- END modal -->
 
 
-        <!-- </div> END container -->
+      </div> <!-- END container -->
     </div> <!-- End column -->
     <div class = "column right">
+      <div class="container px-4">
         <table id="small_dataset_table" class="table-sm" data-unique-id="id">
           <h2>Datasets</h2>
           <thead>
-              <tr>
-                  <th data-field="id" data-sortable="true">Dataset</th>
-              </tr>
+            <tr>
+              <th data-field="id" data-sortable="true">Dataset</th>
+            </tr>
           </thead>
-      </table>
+        </table>
+      </div>
     </div>
   </div> <!-- END Row -->
 

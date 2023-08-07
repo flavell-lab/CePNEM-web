@@ -357,6 +357,9 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             selected_behavior_str_short, neuropal_label)    
         button_csv_export.disabled = false;
 
+        // update list of datasets that fit selections
+        update_side_table(selected_idx_neuron_str)
+
         // update the current URL
         let url = new URL(window.location.href);
         url.searchParams.set("list_neuron", selected_neuron_str);
@@ -411,9 +414,6 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             selected_behavior_str_short, neuropal_label)
         button_csv_export.disabled = false;
 
-        // update list of datasets that fit selections
-        update_side_table()
-
         // update the current URL
         let url = new URL(window.location.href);
         url.searchParams.set("list_behavior", selected_behavior_str_short);
@@ -429,13 +429,13 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
 }).catch(error => { console.error(error) });
 
 
-function update_side_table(){
+function update_side_table(selected_idx_neuron_str){
     var select = document.getElementById("select_neuron");
     var table = document.getElementById("small_dataset_table");
 
-    let selectedOptions = $("#select_neuron").val();
+    // let selectedOptions = $("#select_neuron").val();
             
-    alert(selectedOptions);
+    alert(selected_idx_neuron_str);
 
     // populate table
     var table_data = [];

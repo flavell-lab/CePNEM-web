@@ -411,6 +411,9 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             selected_behavior_str_short, neuropal_label)
         button_csv_export.disabled = false;
 
+        // update list of datasets that fit selections
+        update_side_table()
+
         // update the current URL
         let url = new URL(window.location.href);
         url.searchParams.set("list_behavior", selected_behavior_str_short);

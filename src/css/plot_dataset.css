@@ -17,3 +17,22 @@
     min-width: 140px;
     max-width: 140px;
 }
+
+.column {
+    float: left;
+  }
+  
+.left {
+    width: 75%;
+}
+
+.right {
+    width: 25%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

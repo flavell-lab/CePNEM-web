@@ -472,9 +472,9 @@ function find_matches(neuropal_label){
         then(response => response.json()).
         then(data => {
 
-        $(document).ready(function () {
-            $("#select_neuron").selectpicker('refresh');
-        });
+        // $(document).ready(function () {
+        //     $("#select_neuron").selectpicker('refresh');
+        // });
         
         // filter
         $("#select_neuron").selectpicker({
@@ -515,10 +515,7 @@ function find_matches(neuropal_label){
                         let url_plot = new URL("plot_dataset.html", document.location);
                         url_plot.searchParams.set("uid", curr_dataset_uid);
                         url_plot.searchParams.set("list_neuron", list_idx_neuron);
-                        url_plot.searchParams.set("list_behavior", "v");
-                        // alert(url_plot)
-                        let url_json = `data/${curr_dataset_uid}.json`
-                        let new_html = `<a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
+                        url_plot.searchParams.set("list_behavior", list_url_behavior);
                         $('#small_dataset_table').bootstrapTable('updateCellByUniqueId', {
                             id: curr_dataset_uid,
                             field: "url",

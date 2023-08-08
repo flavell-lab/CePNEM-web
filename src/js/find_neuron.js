@@ -61,6 +61,7 @@ fetch("data/matches.json").
     }).on('change', function () {
         // find neuron
         let selectedOptions = $("#select_neuron").val();
+        alert(selectedOptions)
         
         if (selectedOptions.length > 0) {
             for (var i = 1; i < list_uid.length; i++) {

@@ -29,10 +29,12 @@
 }
 .plot-column {
     flex: 2;
+    flex-grow: 3;
     padding: 10px;
 }
 .table-column {
     flex: 1;
+    flex-grow: 1;
     padding: 10px;
 }
 /* Clear floats after the columns */

@@ -486,7 +486,7 @@ function find_matches(neuropal_label){
             let selectedOptions = [];
             
             $("#select_neuron").val().forEach(function(neuron) {
-                let idx_neuron = neuron - 1;
+                let idx_neuron = neuron + 1;
                 if(idx_neuron in neuropal_label){
                     selectedOptions.push(neuropal_label[idx_neuron]["neuron_class"])
                 }

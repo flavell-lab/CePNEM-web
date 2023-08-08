@@ -28,7 +28,7 @@
     flex-direction: row;
 }
 .plot-column {
-    flex: 1;
+    flex: 2;
     padding: 10px;
 }
 .table-column {

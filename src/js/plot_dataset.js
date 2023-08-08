@@ -466,7 +466,7 @@ function populate_side_table(){
                 if(row.id === dataset_uid){
                     // alert(`${row.id}, ${dataset_uid}`)
                     return{
-                        css: { 'background-color': `#6c757d`}
+                        css: { 'background-color': '#6c757d'}
                     };
                 }
                 return{};

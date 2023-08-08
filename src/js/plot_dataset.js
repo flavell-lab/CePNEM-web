@@ -476,9 +476,18 @@ function update_side_table(selected_idx_neuron_str){
         //     $("#select_neuron").selectpicker('refresh');
         // });
 
-        let selectedOptions = $("#select_neuron").val();
+        let selectedOptions = []
+        let list_neuron = $("#select_neuron").val();
 
-        alert(selectedOptions.length)
+        list_neuron.forEach(function(neuron) {
+            let idx_neuron = neuron - 1;
+            if(neuron in neuropal_label){
+                selectedOptions.push(neuropal_label[neuron]["label"])
+            }
+        }) // LOOK AT THIS CODE
+        
+
+        alert(selectedOptions)
 
         if (selectedOptions.length > 0) {
             for (var i = 1; i < list_uid.length; i++) {

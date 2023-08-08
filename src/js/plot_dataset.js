@@ -542,10 +542,17 @@ function find_matches(neuropal_label){
 
 function rowStyle(row, index){
     // alert(`${row.uniqueId}, ${dataset_uid}`)
+    var classes =[
+        'bg-gray',
+        'bg-white'
+    ]
     if(index % 2 === 0){
         return{
-            classes: 'bg-gray'
+            classes: classes[0]
         }
+    }
+    return{
+        classes: classes[1]
     }
 }
 

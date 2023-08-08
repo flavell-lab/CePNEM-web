@@ -506,7 +506,7 @@ function update_side_table(){
                     let match_all = true;
                     let list_idx_neuron = [];
                     neuropal_label = data['labeled']
-                    alert(neuropal_label)
+                    alert(data)
                     for (let j = 0; j < selectedOptions.length; j++) {
                         if(selectedOptions[j] in neuropal_label){
                             let neuron_label = neuropal_label[selectedOptions[j]]['label']

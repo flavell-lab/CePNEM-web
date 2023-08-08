@@ -464,7 +464,7 @@ function populate_side_table(){
             rowStyle: function(row, index){
                 // alert(`${row.id}, ${dataset_uid}`)
                 if(row.id === dataset_uid){
-                    alert(`${row.id}, ${dataset_uid}`)
+                    // alert(`${row.id}, ${dataset_uid}`)
                     return{
                         css: { 'background-color': '#6c757d'}
                     };
@@ -534,8 +534,7 @@ function find_matches(neuropal_label){
                             id: curr_dataset_uid,
                             field: "url",
                             value: url_plot,
-                            reinit: true,
-                            css: { 'background-color': '#6c757d'}
+                            reinit: true
                         });
                         $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: curr_dataset_uid});
                     } else {

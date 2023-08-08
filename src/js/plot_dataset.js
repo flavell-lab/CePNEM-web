@@ -420,7 +420,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     });
 
     // update list of datasets that fit selections
-    update_side_table(selected_idx_neuron_str)
+    update_side_table($("#select_neuron").val());
     
     // table
     var table_encoding_data = getEncodingTable(data)

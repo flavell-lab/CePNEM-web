@@ -515,6 +515,7 @@ function find_matches(neuropal_label){
                         url_plot.searchParams.set("uid", curr_dataset_uid);
                         url_plot.searchParams.set("list_neuron", list_idx_neuron);
                         url_plot.searchParams.set("list_behavior", "v");
+                        alert(url_plot)
                         let url_json = `data/${curr_dataset_uid}.json`
                         let new_html = `<a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
                         $('#small_dataset_table').bootstrapTable('updateCellByUniqueId', {

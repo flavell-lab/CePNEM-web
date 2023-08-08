@@ -433,6 +433,8 @@ function update_side_table(selected_idx_neuron_str){
     var select = document.getElementById("select_neuron");
     var table = document.getElementById("small_dataset_table");
 
+    alert("Update Side Table")
+
     // populate table
     var table_data = [];
     var list_uid = [];

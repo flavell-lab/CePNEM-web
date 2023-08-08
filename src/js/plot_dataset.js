@@ -420,7 +420,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     });
 
     // update list of datasets that fit selections
-    update_side_table($("#select_neuron").val());
+    update_side_table();
     
     // table
     var table_encoding_data = getEncodingTable(data)
@@ -431,11 +431,9 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
 }).catch(error => { console.error(error) });
 
 
-function update_side_table(selected_idx_neuron_str){
+function update_side_table(){
     var select = document.getElementById("select_neuron");
     var table = document.getElementById("small_dataset_table");
-
-    alert("Update Side Table")
 
     // populate table
     var table_data = [];
@@ -500,8 +498,6 @@ function update_side_table(selected_idx_neuron_str){
             // find neuron
             let selectedOptions = $("#select_neuron").val();
 
-            alert(selectedOptions)
-
             if (selectedOptions.length > 0) {
                 for (var i = 1; i < list_uid.length; i++) {
                     let dataset_uid = list_uid[i];
@@ -510,6 +506,7 @@ function update_side_table(selected_idx_neuron_str){
                     let match_all = true;
                     let list_idx_neuron = [];
                     neuropal_label = data['label']
+                    alert(neuropal_label)
                     for (let j = 0; j < selectedOptions.length; j++) {
                         if(selectedOptions[j] in neuropal_label){
                             let neuron_label = neuropal_label[selectedOptions[j]]['label']

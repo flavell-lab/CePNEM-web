@@ -444,7 +444,8 @@ function populate_side_table(){
 
             if (list_dtype.includes("neuropal")) {
                 table_data.push({
-                    id: key
+                    id: key,
+                    url: url_neuron
                 })
             }
             list_uid.push(key)
@@ -521,7 +522,7 @@ function find_matches(neuropal_label){
                         let new_html = `<a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
                         $('#small_dataset_table').bootstrapTable('updateCellByUniqueId', {
                             id: curr_dataset_uid,
-                            url: url_plot,
+                            url: url_plot
                         });
                         $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: curr_dataset_uid});
                     } else {

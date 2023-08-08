@@ -498,7 +498,7 @@ function find_matches(neuropal_label){
                 }
             }
 
-            alert(selectedOptions);
+            // alert(selectedOptions);
 
             if (selectedOptions.length > 0) {
                 for (var i = 1; i < list_uid.length; i++) {

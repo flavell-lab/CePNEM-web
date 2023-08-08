@@ -484,6 +484,8 @@ function find_matches(neuropal_label){
             }).on('change', function () {
             // find neuron
             let selectedOptions = [];
+
+            alert($("#select_neuron").val());
             
             $("#select_neuron").val().forEach(function(neuron) {
                 let idx_neuron = neuron + 1;
@@ -492,7 +494,7 @@ function find_matches(neuropal_label){
                 }
             })
 
-            alert(selectedOptions);
+            // alert(selectedOptions);
 
             if (selectedOptions.length > 0) {
                 for (var i = 1; i < list_uid.length; i++) {

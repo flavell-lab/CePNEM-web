@@ -541,8 +541,8 @@ function find_matches(neuropal_label){
 }
 
 function rowStyle(row, index){
-    alert(`${row.id}, ${dataset_uid}`)
-    if(row.id.includes(dataset_uid)){
+    alert(`${row.uniqueId}, ${dataset_uid}`)
+    if(row.uniqueId.includes(dataset_uid)){
         return{
             classes: 'bg-gray'
         }

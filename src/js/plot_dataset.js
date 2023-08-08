@@ -147,6 +147,7 @@ var button_csv_export = document.getElementById("button_csv_export");
 var button_cor = document.getElementById("button_cor");
 var switch_rev = document.getElementById('switch_plot_rev');
 var switch_event = document.getElementById('switch_plot_event');
+var list_uid = []
 
 const current_url = new URL(window.location.href);
 const url_params = new URLSearchParams(current_url.search);
@@ -434,7 +435,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
 function populate_side_table(){
     // populate table
     var table_data = [];
-    var list_uid = [];
+    list_uid = [];
     fetch("data/summary.json").then(response => response.json()).then(data => {
         for (const [key, value] of Object.entries(data)) {
             let list_dtype = value.dataset_type;

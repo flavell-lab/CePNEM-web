@@ -486,6 +486,7 @@ function find_matches(neuropal_label){
         let selectedOptions = [];
 
         let neuron_indices = $("#select_neuron").val()
+        alert(`Current Indices ${neuron_indices}`)
         
         neuron_indices.forEach(function(neuron) {
             let idx_neuron = neuron + 1;

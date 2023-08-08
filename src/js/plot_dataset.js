@@ -357,8 +357,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             selected_behavior_str_short, neuropal_label)    
         button_csv_export.disabled = false;
 
-        // update list of datasets that fit selections
-        update_side_table(selected_idx_neuron_str)
+        
 
         // update the current URL
         let url = new URL(window.location.href);
@@ -419,6 +418,9 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         url.searchParams.set("list_behavior", selected_behavior_str_short);
         window.history.pushState({}, "", url);
     });
+
+    // update list of datasets that fit selections
+    update_side_table(selected_idx_neuron_str)
     
     // table
     var table_encoding_data = getEncodingTable(data)
@@ -507,17 +509,20 @@ function update_side_table(selected_idx_neuron_str){
                     // iterate over neurons selected
                     let match_all = true;
                     let list_idx_neuron = [];
+                    neuropal_label = data['label']
                     for (let j = 0; j < selectedOptions.length; j++) {
-                        let neuron_class = selectedOptions[j]
-                        let neuron_list = data[neuron_class];
-                        let list_match_uid = neuron_list.map(function (subarray) {
-                            if (subarray[0] == dataset_uid) {
-                                list_idx_neuron.push(subarray[1])
-                            }
-                            return subarray[0];
-                        });
-                        let match_ = list_match_uid.includes(dataset_uid)
-                        match_all = match_all && match_
+                        if(selectedOptions[j] in neuropal_label){
+                            let neuron_label = neuropal_label[selectedOptions[j]]['label']
+                            let neuron_list = data[neuron_label];
+                            let list_match_uid = neuron_list.map(function (subarray) {
+                                if (subarray[0] == dataset_uid) {
+                                    list_idx_neuron.push(subarray[1])
+                                }
+                                return subarray[0];
+                            });
+                            let match_ = list_match_uid.includes(dataset_uid)
+                            match_all = match_all && match_
+                        }
                     }
 
                     if (match_all == true) {

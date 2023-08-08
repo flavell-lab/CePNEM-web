@@ -456,6 +456,14 @@ function populate_side_table(){
             data: table_data,
             onClickRow: function(row, element, field) {
                 window.location.href = row.url; // Navigates to the specified URL in the 'url' field of the clicked row
+            },
+            rowStyle(row, index){
+                if(row.id === dataset_uid){
+                    return{
+                        css: { 'background-color': `#f2f2f2`}
+                    }
+                }
+                return{}
             }
         });
 
@@ -538,22 +546,6 @@ function find_matches(neuropal_label){
         $("#select_neuron").trigger('change');
 
     }).catch(error => console.error(error))
-}
-
-function rowStyle(row, index){
-    // alert(`${row.uniqueId}, ${dataset_uid}`)
-    var classes =[
-        'bg-blue',
-        'bg-green'
-    ]
-    if(index % 2 === 0){
-        return{
-            classes: classes[0]
-        }
-    }
-    return{
-        classes: classes[1]
-    }
 }
 
 function clearSelect() {

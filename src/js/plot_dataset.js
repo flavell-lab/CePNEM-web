@@ -453,7 +453,7 @@ function populate_side_table(){
         $('#small_dataset_table').bootstrapTable({
             data: table_data,
             onClickRow: function(row, element, field) {
-                alert(`Row: ${row}, Element ${element}, Field ${field}`)
+                alert(`Row URL: ${row.url}`)
                 // window.location.href = row.url; // Navigates to the specified URL in the 'url' field of the clicked row
             }
         });

@@ -522,7 +522,9 @@ function find_matches(neuropal_label){
                         let new_html = `<a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
                         $('#small_dataset_table').bootstrapTable('updateCellByUniqueId', {
                             id: curr_dataset_uid,
-                            url: url_plot
+                            field: "url",
+                            value: url_plot,
+                            reinit: true
                         });
                         $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: curr_dataset_uid});
                     } else {

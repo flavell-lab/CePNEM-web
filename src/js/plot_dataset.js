@@ -540,6 +540,13 @@ function find_matches(neuropal_label){
     }).catch(error => console.error(error))
 }
 
+function rowStyle(row, index){
+    if(row.id == dataset_uid){
+        return{
+            classes: 'bg-gray'
+        }
+    }
+}
 
 function clearSelect() {
     // clear picker

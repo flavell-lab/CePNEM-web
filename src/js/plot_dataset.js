@@ -452,7 +452,10 @@ function populate_side_table(){
 
         $('#small_dataset_table').bootstrapTable({
             data: table_data,
-
+            onClickRow: function(row, element, field) {
+                alert(`Row: ${row}, Element ${element}, Field ${field}`)
+                // window.location.href = row.url; // Navigates to the specified URL in the 'url' field of the clicked row
+            }
         });
 
         for (var i = 1; i < list_uid.length; i++) {
@@ -519,9 +522,6 @@ function find_matches(neuropal_label){
                         $('#small_dataset_table').bootstrapTable('updateCellByUniqueId', {
                             id: curr_dataset_uid,
                             url: url_plot,
-                            onClickRow: function(row, element, field) {
-                                window.location.href = row.url; // Navigates to the specified URL in the 'url' field of the clicked row
-                            }
                         });
                         $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: curr_dataset_uid});
                     } else {

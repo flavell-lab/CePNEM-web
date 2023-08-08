@@ -423,7 +423,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     // update list of datasets that fit selections
     populate_side_table();
     find_matches(neuropal_label)
-    $("#select_neuron").trigger('change');
+    
     
     // table
     var table_encoding_data = getEncodingTable(data)
@@ -534,6 +534,8 @@ function find_matches(neuropal_label){
                 }
             }
         });
+
+        $("#select_neuron").trigger('change');
 
     }).catch(error => console.error(error))
 }

@@ -421,6 +421,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
 
     // update list of datasets that fit selections
     populate_side_table();
+    find_matches(neuropal_label)
     
     // table
     var table_encoding_data = getEncodingTable(data)
@@ -487,7 +488,7 @@ function find_matches(neuropal_label){
             $("#select_neuron").val().forEach(function(neuron) {
                 let idx_neuron = neuron - 1;
                 if(idx_neuron in neuropal_label){
-                    selectedOptions.push(neuropal_label[idx_neuron]["label"])
+                    selectedOptions.push(neuropal_label[idx_neuron]["neuron_class"])
                 }
             })
 

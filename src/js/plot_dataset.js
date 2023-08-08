@@ -498,6 +498,7 @@ function update_side_table(){
             // find neuron
             let selectedOptions = $("#select_neuron").val();
 
+
             if (selectedOptions.length > 0) {
                 for (var i = 1; i < list_uid.length; i++) {
                     let dataset_uid = list_uid[i];

@@ -500,6 +500,7 @@ function update_side_table(){
             
 
             fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(dataset => {
+                alert(dataset_uid)
                 neuropal_label = dataset["labeled"];
                 alert("Neuropal_label:", neuropal_label);
                 $("#select_neuron").val().forEach(function(neuron) {

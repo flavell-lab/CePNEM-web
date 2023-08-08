@@ -458,8 +458,9 @@ function populate_side_table(){
                 window.location.href = row.url; // Navigates to the specified URL in the 'url' field of the clicked row
             },
             rowStyle(row, index){
+                alert(`${row.id}, ${dataset_uid}`)
                 if(row.id === dataset_uid){
-                    alert(`${row.id}, ${dataset_uid}`)
+                    
                     return{
                         css: { 'background-color': `#6c757d`}
                     };

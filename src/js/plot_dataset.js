@@ -459,11 +459,12 @@ function populate_side_table(){
             },
             rowStyle(row, index){
                 if(row.id === dataset_uid){
+                    alert(`${row.id}, ${dataset_uid}`)
                     return{
-                        css: { 'background-color': `#f2f2f2`}
-                    }
+                        css: { 'background-color': `#6c757d`}
+                    };
                 }
-                return{}
+                return{};
             }
         });
 

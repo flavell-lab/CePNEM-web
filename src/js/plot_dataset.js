@@ -423,6 +423,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     // update list of datasets that fit selections
     populate_side_table();
     find_matches(neuropal_label)
+    $("#select_neuron").trigger('change');
     
     // table
     var table_encoding_data = getEncodingTable(data)
@@ -470,8 +471,6 @@ function find_matches(neuropal_label){
     fetch("data/matches.json").
         then(response => response.json()).
         then(data => {
-
-        
         
         // filter
         $("#select_neuron").selectpicker({
@@ -534,10 +533,6 @@ function find_matches(neuropal_label){
                     $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: curr_dataset_uid});
                 }
             }
-        });
-
-        $(document).ready(function () {
-            $("#select_neuron").selectpicker('refresh');
         });
 
     }).catch(error => console.error(error))

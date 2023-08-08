@@ -61,7 +61,6 @@ fetch("data/matches.json").
     }).on('change', function () {
         // find neuron
         let selectedOptions = $("#select_neuron").val();
-        alert(selectedOptions)
         
         if (selectedOptions.length > 0) {
             for (var i = 1; i < list_uid.length; i++) {
@@ -73,6 +72,7 @@ fetch("data/matches.json").
                 for (let j = 0; j < selectedOptions.length; j++) {
                     let neuron_class = selectedOptions[j]
                     let neuron_list = data[neuron_class];
+                    alert(neuron_list)
                     let list_match_uid = neuron_list.map(function (subarray) {
                         if (subarray[0] == dataset_uid) {
                             list_idx_neuron.push(subarray[1])

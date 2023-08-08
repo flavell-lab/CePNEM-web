@@ -505,21 +505,17 @@ function update_side_table(){
                     // iterate over neurons selected
                     let match_all = true;
                     let list_idx_neuron = [];
-                    neuropal_label = data['labeled']
-                    alert(data)
                     for (let j = 0; j < selectedOptions.length; j++) {
-                        if(selectedOptions[j] in neuropal_label){
-                            let neuron_label = neuropal_label[selectedOptions[j]]['label']
-                            let neuron_list = data[neuron_label];
-                            let list_match_uid = neuron_list.map(function (subarray) {
-                                if (subarray[0] == dataset_uid) {
-                                    list_idx_neuron.push(subarray[1])
-                                }
-                                return subarray[0];
-                            });
-                            let match_ = list_match_uid.includes(dataset_uid)
-                            match_all = match_all && match_
-                        }
+                        let neuron_label = selectedOptions[j]
+                        let neuron_list = data[neuron_label];
+                        let list_match_uid = neuron_list.map(function (subarray) {
+                            if (subarray[0] == dataset_uid) {
+                                list_idx_neuron.push(subarray[1])
+                            }
+                            return subarray[0];
+                        });
+                        let match_ = list_match_uid.includes(dataset_uid)
+                        match_all = match_all && match_
                     }
 
                     if (match_all == true) {

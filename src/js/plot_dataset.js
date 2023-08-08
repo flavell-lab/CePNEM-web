@@ -485,11 +485,12 @@ function find_matches(neuropal_label){
             // find neuron
             let selectedOptions = [];
 
-            alert($("#select_neuron").val());
+            let neuron_indices = $("#select_neuron").val()
             
-            $("#select_neuron").val().forEach(function(neuron) {
+            neuron_indices.forEach(function(neuron) {
                 let idx_neuron = neuron + 1;
                 if(idx_neuron in neuropal_label){
+                    alert(`${idx_neuron} found in dataset as ${neuropal_label[idx_neuron]["neuron_class"]}`);
                     selectedOptions.push(neuropal_label[idx_neuron]["neuron_class"])
                 }
             })

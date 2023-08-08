@@ -490,6 +490,7 @@ function find_matches(neuropal_label){
         
         for(let i = 0; i < neuron_indices.length; i++){
             let idx_neuron = neuron_indices[i] + 1;
+            alert(`Current Index: ${idx_neuron}`)
             if(idx_neuron in neuropal_label){
                 alert(`${idx_neuron} found in dataset as ${neuropal_label[idx_neuron]["neuron_class"]}`);
                 selectedOptions.push(neuropal_label[idx_neuron]["neuron_class"])

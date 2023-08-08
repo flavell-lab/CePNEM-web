@@ -534,7 +534,8 @@ function find_matches(neuropal_label){
                             id: curr_dataset_uid,
                             field: "url",
                             value: url_plot,
-                            reinit: true
+                            reinit: true,
+                            css: { 'background-color': '#6c757d'}
                         });
                         $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: curr_dataset_uid});
                     } else {

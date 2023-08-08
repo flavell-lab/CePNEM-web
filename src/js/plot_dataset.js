@@ -496,8 +496,20 @@ function update_side_table(){
             // Other options...
             }).on('change', function () {
             // find neuron
-            let selectedOptions = $("#select_neuron").val();
+            let selectedOptions = [];
+            
 
+            fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(dataset => {
+                neuropal_label = dataset['labeled']
+                $("#select_neuron").val().forEach(function(neuron) {
+                    let idx_neuron = neuron - 1;
+                    if(idx_neuron in neuropal_label){
+                        selectedOptions.push(neuropal_label[idx_neuron]["label"])
+                    }
+                })
+            });
+
+            alert(selectedOptions)
 
             if (selectedOptions.length > 0) {
                 for (var i = 1; i < list_uid.length; i++) {

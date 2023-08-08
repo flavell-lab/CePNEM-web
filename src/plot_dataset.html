@@ -61,12 +61,6 @@
             <button id="button_csv_export" class="btn btn-light" onclick="exportCSV()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Download currently plotted neurons(s)/behavior(s) as a CSV file"><i class="bi bi-download"></i></button>
             <button class="btn btn-light" onclick="copyURL()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Copy a link to this plot to the clipboard"><i class="bi bi-link-45deg"></i></button>
           </div>
-
-          <div class="btn-group" style="float:right">
-            <button class="btn btn-light" onclick="">Previous</button>
-            <button class="btn btn-light" onclick="">Next</button>
-          </div>
-          
         </div>
         
         <!-- plot config collapse -->
@@ -141,17 +135,15 @@
     </div> <!-- End column -->
     <div class = "table-column">
       <div class="container px-4">
-        <table id="small_dataset_table" class="table-sm" data-unique-id="id">
-          <h2>Datasets</h2>
-
+        <h2>Datasets</h2>
+          <h3>Compare- Neuron classes in other datasets</h3>
         <div class="form-group">
           <div class="btn-group" style="float:right">
             <button class="btn btn-light" onclick="">Previous</button>
             <button class="btn btn-light" onclick="">Next</button>
           </div>
-          
         </div>
-
+        <table id="small_dataset_table" class="table-sm" data-unique-id="id">
           <thead>
             <tr>
               <th data-field="id" data-sortable="true">Dataset</th>

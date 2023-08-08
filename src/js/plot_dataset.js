@@ -451,7 +451,10 @@ function populate_side_table(){
         }        
 
         $('#small_dataset_table').bootstrapTable({
-            data: table_data
+            data: table_data,
+            onClickRow: function(row, element, field) {
+                window.location.href = row.url; // Navigates to the specified URL in the 'url' field of the clicked row
+            }
         });
 
         for (var i = 1; i < list_uid.length; i++) {
@@ -515,7 +518,8 @@ function find_matches(neuropal_label){
                         let url_json = `data/${curr_dataset_uid}.json`
                         let new_html = `<a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
                         $('#small_dataset_table').bootstrapTable('updateCellByUniqueId', {
-                            id: curr_dataset_uid
+                            id: curr_dataset_uid,
+                            url: url_plot
                         });
                         $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: curr_dataset_uid});
                     } else {
@@ -533,132 +537,6 @@ function find_matches(neuropal_label){
     }).catch(error => console.error(error))
 }
 
-function update_side_table(){
-    var select = document.getElementById("select_neuron");
-    var table = document.getElementById("small_dataset_table");
-
-    // populate table
-    var table_data = [];
-    var list_uid = [];
-    fetch("data/summary.json").then(response => response.json()).then(data => {
-        for (const [key, value] of Object.entries(data)) {
-            let list_dtype = value.dataset_type;
-            let url_neuron = "plot_dataset.html?uid=" + key + "&list_neuron=1&list_behavior=v";
-            let url_json = `data/${key}.json`
-
-            if (list_dtype.includes("neuropal")) {
-                table_data.push({
-                    id: key
-                })
-            }
-            list_uid.push(key)
-        }        
-
-        $('#small_dataset_table').bootstrapTable({
-            data: table_data
-        });
-
-        for (var i = 1; i < list_uid.length; i++) {
-            var dataset_uid = list_uid[i];
-            $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
-        }
-    }).catch(error => console.error(error));
-
-    // populate select/picker and implement neuron finder
-    fetch("data/matches.json").
-        then(response => response.json()).
-        then(data => {
-        // load dataset list to the picker
-        for (const [key, value] of Object.entries(data)) {
-            var option = document.createElement("option");
-            option.value = key;
-            option.text = key;
-            select.add(option);
-        };
-
-        $(document).ready(function () {
-            $("#select_neuron").selectpicker('refresh');
-        });
-
-        // let selectedOptions = []
-        // let list_neuron = $("#select_neuron").val();
-
-        // neuropal_label = data["labeled"]
-
-        // list_neuron.forEach(function(neuron) {
-        //     let idx_neuron = neuron - 1;
-        //     if(neuron in neuropal_label){
-        //         selectedOptions.push(neuropal_label[neuron]["label"])
-        //     }
-        // }) // LOOK AT THIS CODE
-        
-
-        // filter
-        $("#select_neuron").selectpicker({
-            // Other options...
-            }).on('change', function () {
-            // find neuron
-            let selectedOptions = [];
-            
-
-            fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(dataset => {
-                neuropal_label = dataset["labeled"];
-                
-                $("#select_neuron").val().forEach(function(neuron) {
-                    let idx_neuron = neuron - 1;
-                    if(idx_neuron in neuropal_label){
-                        selectedOptions.push(neuropal_label[idx_neuron]["label"])
-                    }
-                })
-            });
-
-            // alert(selectedOptions)
-
-            if (selectedOptions.length > 0) {
-                for (var i = 1; i < list_uid.length; i++) {
-                    let curr_dataset_uid = list_uid[i];
-                    let row = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', curr_dataset_uid);
-                    // iterate over neurons selected
-                    let match_all = true;
-                    let list_idx_neuron = [];
-                    for (let j = 0; j < selectedOptions.length; j++) {
-                        let neuron_label = selectedOptions[j]
-                        let neuron_list = data[neuron_label];
-                        let list_match_uid = neuron_list.map(function (subarray) {
-                            if (subarray[0] == curr_dataset_uid) {
-                                list_idx_neuron.push(subarray[1])
-                            }
-                            return subarray[0];
-                        });
-                        let match_ = list_match_uid.includes(curr_dataset_uid)
-                        match_all = match_all && match_
-                    }
-
-                    if (match_all == true) {
-                        let url_plot = new URL("plot_dataset.html", document.location);
-                        url_plot.searchParams.set("uid", curr_dataset_uid);
-                        url_plot.searchParams.set("list_neuron", list_idx_neuron);
-                        url_plot.searchParams.set("list_behavior", "v");
-                        let url_json = `data/${curr_dataset_uid}.json`
-                        let new_html = `<a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
-                        $('#small_dataset_table').bootstrapTable('updateCellByUniqueId', {
-                            id: curr_dataset_uid
-                        });
-                        $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: curr_dataset_uid});
-                    } else {
-                        $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: curr_dataset_uid});
-                    }
-                }
-            } else {// if (selectedOptions.length < 0)
-                for (let i = 1; i < list_uid.length; i++) {
-                    let curr_dataset_uid = list_uid[i];
-                    $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: curr_dataset_uid});
-                }
-            }
-        });
-
-    }).catch(error => console.error(error))
-}
 
 function clearSelect() {
     // clear picker

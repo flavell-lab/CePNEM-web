@@ -511,11 +511,15 @@ function find_matches(neuropal_label){
                         match_all = match_all && match_
                     }
 
+                    curr_url = new URL(window.location.href);
+                    url_param_list = new URLSearchParams(curr_url.search);
+                    curr_list_url_behavior = url_param_list.get('list_behavior').split(",").sort();
+
                     if (match_all == true) {
                         let url_plot = new URL("plot_dataset.html", document.location);
                         url_plot.searchParams.set("uid", curr_dataset_uid);
                         url_plot.searchParams.set("list_neuron", list_idx_neuron);
-                        url_plot.searchParams.set("list_behavior", list_url_behavior);
+                        url_plot.searchParams.set("list_behavior", curr_list_url_behavior);
                         $('#small_dataset_table').bootstrapTable('updateCellByUniqueId', {
                             id: curr_dataset_uid,
                             field: "url",

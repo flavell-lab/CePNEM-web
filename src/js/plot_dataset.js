@@ -452,6 +452,10 @@ function populate_side_table(){
             list_uid.push(key)
         }        
 
+        curr_url = new URL(window.location.href);
+        url_param_list = new URLSearchParams(curr_url.search);
+        dataset_uid = url_param_list.get('uid')
+
         $('#small_dataset_table').bootstrapTable({
             data: table_data,
             onClickRow: function(row, element, field) {

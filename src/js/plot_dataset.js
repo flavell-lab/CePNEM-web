@@ -486,18 +486,18 @@ function find_matches(neuropal_label){
         let selectedOptions = [];
 
         let neuron_indices = $("#select_neuron").val()
-        alert(`Current Indices ${neuron_indices}`)
+        // alert(`Current Indices ${neuron_indices}`)
         
         for(let i = 0; i < neuron_indices.length; i++){
             let idx_neuron = Number(neuron_indices[i]) + 1;
-            alert(`Current Index: ${idx_neuron}`)
+            // alert(`Current Index: ${idx_neuron}`)
             if(idx_neuron in neuropal_label){
-                alert(`${idx_neuron} found in dataset as ${neuropal_label[idx_neuron]["neuron_class"]}`);
+                // alert(`${idx_neuron} found in dataset as ${neuropal_label[idx_neuron]["neuron_class"]}`);
                 selectedOptions.push(neuropal_label[idx_neuron]["neuron_class"])
             }
         }
 
-        // alert(selectedOptions);
+        alert(selectedOptions);
 
         if (selectedOptions.length > 0) {
             for (var i = 1; i < list_uid.length; i++) {

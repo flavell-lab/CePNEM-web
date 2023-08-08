@@ -481,6 +481,8 @@ function update_side_table(selected_idx_neuron_str){
         let selectedOptions = []
         let list_neuron = $("#select_neuron").val();
 
+        neuropal_label = data["labeled"]
+
         list_neuron.forEach(function(neuron) {
             let idx_neuron = neuron - 1;
             if(neuron in neuropal_label){

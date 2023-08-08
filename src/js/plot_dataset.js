@@ -466,15 +466,12 @@ function populate_side_table(){
 }
 
 function find_matches(neuropal_label){
-    var select = document.getElementById("select_neuron");
     // populate select/picker and implement neuron finder
     fetch("data/matches.json").
         then(response => response.json()).
         then(data => {
 
-        // $(document).ready(function () {
-        //     $("#select_neuron").selectpicker('refresh');
-        // });
+        
         
         // filter
         $("#select_neuron").selectpicker({
@@ -537,6 +534,10 @@ function find_matches(neuropal_label){
                     $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: curr_dataset_uid});
                 }
             }
+        });
+
+        $(document).ready(function () {
+            $("#select_neuron").selectpicker('refresh');
         });
 
     }).catch(error => console.error(error))

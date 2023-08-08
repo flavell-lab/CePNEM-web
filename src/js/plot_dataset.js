@@ -467,38 +467,25 @@ function find_matches(neuropal_label){
     fetch("data/matches.json").
         then(response => response.json()).
         then(data => {
-        // load dataset list to the picker
-        // for (const [key, value] of Object.entries(data)) {
-        //     var option = document.createElement("option");
-        //     option.value = key;
-        //     option.text = key;
-        //     select.add(option);
-        // };
 
-        // $(document).ready(function () {
-        //     $("#select_neuron").selectpicker('refresh');
-        // });
+        $(document).ready(function () {
+            $("#select_neuron").selectpicker('refresh');
+        });
         
         // filter
         $("#select_neuron").selectpicker({
             // Other options...
             }).on('change', function () {
-        //     // find neuron
             let selectedOptions = [];
 
             let neuron_indices = $("#select_neuron").val()
-            // alert(`Current Indices ${neuron_indices}`)
             
             for(let i = 0; i < neuron_indices.length; i++){
                 let idx_neuron = Number(neuron_indices[i]) + 1;
-                // alert(`Current Index: ${idx_neuron}`)
                 if(idx_neuron in neuropal_label){
-                    // alert(`${idx_neuron} found in dataset as ${neuropal_label[idx_neuron]["neuron_class"]}`);
                     selectedOptions.push(neuropal_label[idx_neuron]["neuron_class"])
                 }
             }
-
-            // alert(selectedOptions);
 
             if (selectedOptions.length > 0) {
                 for (var i = 1; i < list_uid.length; i++) {

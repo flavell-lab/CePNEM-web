@@ -488,13 +488,13 @@ function find_matches(neuropal_label){
         let neuron_indices = $("#select_neuron").val()
         alert(`Current Indices ${neuron_indices}`)
         
-        neuron_indices.forEach(function(neuron) {
-            let idx_neuron = neuron + 1;
+        for(let i = 0; i < neuron_indices.length; i++){
+            let idx_neuron = neuron_indices[i] + 1;
             if(idx_neuron in neuropal_label){
                 alert(`${idx_neuron} found in dataset as ${neuropal_label[idx_neuron]["neuron_class"]}`);
                 selectedOptions.push(neuropal_label[idx_neuron]["neuron_class"])
             }
-        })
+        }
 
         // alert(selectedOptions);
 

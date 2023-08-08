@@ -206,6 +206,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     // load neuron list to the picker
     const list_idx_neuron = Array.from({ length: n_neuron }, (_, i) => i);
     const neuropal_label = data["labeled"];
+    alert("Neuropal_label:", neuropal_label);
     for (var idx_neuron = 0; idx_neuron < n_neuron; idx_neuron++) {
         var option = document.createElement("option");
         option.text = get_neuron_label(idx_neuron, neuropal_label);
@@ -500,9 +501,8 @@ function update_side_table(){
             
 
             fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(dataset => {
-                alert(dataset_uid)
                 neuropal_label = dataset["labeled"];
-                alert("Neuropal_label:", neuropal_label);
+                
                 $("#select_neuron").val().forEach(function(neuron) {
                     let idx_neuron = neuron - 1;
                     if(idx_neuron in neuropal_label){

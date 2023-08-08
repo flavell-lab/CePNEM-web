@@ -543,8 +543,8 @@ function find_matches(neuropal_label){
 function rowStyle(row, index){
     // alert(`${row.uniqueId}, ${dataset_uid}`)
     var classes =[
-        'bg-gray',
-        'bg-white'
+        'bg-blue',
+        'bg-green'
     ]
     if(index % 2 === 0){
         return{

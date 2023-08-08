@@ -452,9 +452,7 @@ function populate_side_table(){
 
         $('#small_dataset_table').bootstrapTable({
             data: table_data,
-            onClickRow: function(row, element, field) {
-                window.location.href = row.url; // Navigates to the specified URL in the 'url' field of the clicked row
-            }
+
         });
 
         for (var i = 1; i < list_uid.length; i++) {
@@ -520,7 +518,10 @@ function find_matches(neuropal_label){
                         let new_html = `<a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
                         $('#small_dataset_table').bootstrapTable('updateCellByUniqueId', {
                             id: curr_dataset_uid,
-                            url: url_plot
+                            url: url_plot,
+                            onClickRow: function(row, element, field) {
+                                window.location.href = row.url; // Navigates to the specified URL in the 'url' field of the clicked row
+                            }
                         });
                         $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: curr_dataset_uid});
                     } else {

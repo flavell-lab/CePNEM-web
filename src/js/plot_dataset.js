@@ -488,6 +488,10 @@ function rowStyle(row, index){
     return{};
 }
 
+var lastVisitedDataset;
+var previousDatasetURL;
+var nextDatasetURL;
+
 function find_matches(neuropal_label){
     // populate select/picker and implement neuron finder
     fetch("data/matches.json").
@@ -544,13 +548,20 @@ function find_matches(neuropal_label){
                             value: url_plot,
                             reinit: true
                         });
+
+                        
+                        
                         
                         $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: curr_dataset_uid});
                         
+                        if(lastVisitedDataset === dataset_uid){
+                            nextDatasetURL = url_plot;
+                        }
                         if(curr_dataset_uid === dataset_uid){
-                            alert(dataset_uid)
+                            previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueID', lastVisitedDatasetURL).url;
                             $('#small_dataset_table').bootstrapTable('checkBy', {field: 'id', values: [curr_dataset_uid]} );
                         }
+                        lastVisitedDataset = curr_dataset_uid;
                     } else {
                         $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: curr_dataset_uid});
                     }
@@ -566,6 +577,14 @@ function find_matches(neuropal_label){
         $("#select_neuron").trigger('change');
 
     }).catch(error => console.error(error))
+}
+
+function nextDataset(){
+    window.location.href = nextDatasetURL;
+}
+
+function previousDataset(){
+    window.location.href = previousDatasetURL;
 }
 
 function clearSelect() {

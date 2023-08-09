@@ -502,14 +502,14 @@ function init_find_matches(neuropal_label){
         $("#select_neuron").selectpicker({
             // Other options...
             }).on('change', function () {
-            find_matches(neuropal_label);
+            find_matches(neuropal_label, data);
         });
 
         // filter
         $("#select_behavior").selectpicker({
             // Other options...
             }).on('change', function () {
-            find_matches(neuropal_label);
+            find_matches(neuropal_label, data);
         });
 
         $("#select_neuron").trigger('change');
@@ -518,7 +518,7 @@ function init_find_matches(neuropal_label){
     }).catch(error => console.error(error))
 }
 
-function find_matches(neuropal_label){
+function find_matches(neuropal_label, data){
     let selectedOptions = [];
 
     let neuron_indices = $("#select_neuron").val()
@@ -566,8 +566,6 @@ function find_matches(neuropal_label){
                     reinit: true
                 });
 
-
-                
                 $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: curr_dataset_uid});
                 
                 if(lastVisitedDataset === dataset_uid){

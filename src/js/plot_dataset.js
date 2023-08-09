@@ -533,9 +533,9 @@ function find_matches(neuropal_label){
                         match_all = match_all && match_
                     }
 
-                    curr_url = new URL(window.location.href);
-                    url_param_list = new URLSearchParams(curr_url.search);
-                    curr_list_url_behavior = url_param_list.get('list_behavior').split(",").sort();
+                    var curr_url = new URL(window.location.href);
+                    var url_param_list = new URLSearchParams(curr_url.search);
+                    var curr_list_url_behavior = url_param_list.get('list_behavior').split(",").sort();
 
                     if (match_all == true) {
                         let url_plot = new URL("plot_dataset.html", document.location);
@@ -548,6 +548,8 @@ function find_matches(neuropal_label){
                             value: url_plot,
                             reinit: true
                         });
+
+
                         
                         $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: curr_dataset_uid});
                         

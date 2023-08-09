@@ -492,7 +492,7 @@ var lastVisitedDataset;
 var previousDatasetURL;
 var nextDatasetURL;
 
-function find_matches(neuropal_label){
+function init_find_matches(neuropal_label){
     // populate select/picker and implement neuron finder
     fetch("data/matches.json").
         then(response => response.json()).
@@ -502,80 +502,92 @@ function find_matches(neuropal_label){
         $("#select_neuron").selectpicker({
             // Other options...
             }).on('change', function () {
-            let selectedOptions = [];
+            find_matches(neuropal_label);
+        });
 
-            let neuron_indices = $("#select_neuron").val()
-            
-            for(let i = 0; i < neuron_indices.length; i++){
-                let idx_neuron = Number(neuron_indices[i]) + 1;
-                if(idx_neuron in neuropal_label){
-                    selectedOptions.push(neuropal_label[idx_neuron]["neuron_class"])
-                }
-            }
-
-            if (selectedOptions.length > 0) {
-                for (var i = 1; i < list_uid.length; i++) {
-                    let curr_dataset_uid = list_uid[i];
-                    let row = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', curr_dataset_uid);
-                    // iterate over neurons selected
-                    let match_all = true;
-                    let list_idx_neuron = [];
-                    for (let j = 0; j < selectedOptions.length; j++) {
-                        let neuron_class = selectedOptions[j]
-                        let neuron_list = data[neuron_class];
-                        let list_match_uid = neuron_list.map(function (subarray) {
-                            if (subarray[0] == curr_dataset_uid) {
-                                list_idx_neuron.push(subarray[1])
-                            }
-                            return subarray[0];
-                        });
-                        let match_ = list_match_uid.includes(curr_dataset_uid)
-                        match_all = match_all && match_
-                    }
-
-                    var curr_url = new URL(window.location.href);
-                    var url_param_list = new URLSearchParams(curr_url.search);
-                    var curr_list_url_behavior = url_param_list.get('list_behavior').split(",").sort();
-
-                    if (match_all == true) {
-                        let url_plot = new URL("plot_dataset.html", document.location);
-                        url_plot.searchParams.set("uid", curr_dataset_uid);
-                        url_plot.searchParams.set("list_neuron", list_idx_neuron);
-                        url_plot.searchParams.set("list_behavior", curr_list_url_behavior);
-                        $('#small_dataset_table').bootstrapTable('updateCellByUniqueId', {
-                            id: curr_dataset_uid,
-                            field: "url",
-                            value: url_plot,
-                            reinit: true
-                        });
-
-
-                        
-                        $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: curr_dataset_uid});
-                        
-                        if(lastVisitedDataset === dataset_uid){
-                            nextDatasetURL = url_plot;
-                        }
-                        if(curr_dataset_uid === dataset_uid && lastVisitedDataset != null){
-                            previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', lastVisitedDataset).url;
-                            $('#small_dataset_table').bootstrapTable('checkBy', {field: 'id', values: [curr_dataset_uid]} );
-                        }
-                        lastVisitedDataset = curr_dataset_uid;
-                    } else {
-                        $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: curr_dataset_uid});
-                    }
-                }
-            } else {// if (selectedOptions.length <= 0)
-                for (let i = 1; i < list_uid.length; i++) {
-                    let curr_dataset_uid = list_uid[i];
-                    $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: curr_dataset_uid});
-                }
-            }
+        // filter
+        $("#select_behavior").selectpicker({
+            // Other options...
+            }).on('change', function () {
+            find_matches(neuropal_label);
         });
 
         $("#select_neuron").trigger('change');
+        $("#select_behavior").trigger('change');
 
     }).catch(error => console.error(error))
+}
+
+function find_matches(neuropal_label){
+    let selectedOptions = [];
+
+    let neuron_indices = $("#select_neuron").val()
+    
+    for(let i = 0; i < neuron_indices.length; i++){
+        let idx_neuron = Number(neuron_indices[i]) + 1;
+        if(idx_neuron in neuropal_label){
+            selectedOptions.push(neuropal_label[idx_neuron]["neuron_class"])
+        }
+    }
+
+    if (selectedOptions.length > 0) {
+        for (var i = 1; i < list_uid.length; i++) {
+            let curr_dataset_uid = list_uid[i];
+            let row = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', curr_dataset_uid);
+            // iterate over neurons selected
+            let match_all = true;
+            let list_idx_neuron = [];
+            for (let j = 0; j < selectedOptions.length; j++) {
+                let neuron_class = selectedOptions[j]
+                let neuron_list = data[neuron_class];
+                let list_match_uid = neuron_list.map(function (subarray) {
+                    if (subarray[0] == curr_dataset_uid) {
+                        list_idx_neuron.push(subarray[1])
+                    }
+                    return subarray[0];
+                });
+                let match_ = list_match_uid.includes(curr_dataset_uid)
+                match_all = match_all && match_
+            }
+
+            var curr_url = new URL(window.location.href);
+            var url_param_list = new URLSearchParams(curr_url.search);
+            var curr_list_url_behavior = url_param_list.get('list_behavior').split(",").sort();
+
+            if (match_all == true) {
+                let url_plot = new URL("plot_dataset.html", document.location);
+                url_plot.searchParams.set("uid", curr_dataset_uid);
+                url_plot.searchParams.set("list_neuron", list_idx_neuron);
+                url_plot.searchParams.set("list_behavior", curr_list_url_behavior);
+                $('#small_dataset_table').bootstrapTable('updateCellByUniqueId', {
+                    id: curr_dataset_uid,
+                    field: "url",
+                    value: url_plot,
+                    reinit: true
+                });
+
+
+                
+                $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: curr_dataset_uid});
+                
+                if(lastVisitedDataset === dataset_uid){
+                    nextDatasetURL = url_plot;
+                }
+                if(curr_dataset_uid === dataset_uid && lastVisitedDataset != null){
+                    previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', lastVisitedDataset).url;
+                    $('#small_dataset_table').bootstrapTable('checkBy', {field: 'id', values: [curr_dataset_uid]} );
+                }
+                lastVisitedDataset = curr_dataset_uid;
+            } else {
+                $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: curr_dataset_uid});
+            }
+        }
+    } else {// if (selectedOptions.length <= 0)
+        for (let i = 1; i < list_uid.length; i++) {
+            let curr_dataset_uid = list_uid[i];
+            $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: curr_dataset_uid});
+        }
+    }
 }
 
 function nextDataset(){

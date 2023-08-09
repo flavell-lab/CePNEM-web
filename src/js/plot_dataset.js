@@ -422,7 +422,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
 
     // update list of datasets that fit selections
     populate_side_table();
-    find_matches(neuropal_label)
+    init_find_matches(neuropal_label)
     
     
     // table

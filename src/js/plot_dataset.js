@@ -456,11 +456,11 @@ function populate_side_table(){
                 })
             }
             list_uid.push(key)
-        }        
+        }
 
         curr_url = new URL(window.location.href);
         url_param_list = new URLSearchParams(curr_url.search);
-        dataset_uid = url_param_list.get('uid')
+        dataset_uid = url_param_list.get('uid');
 
         $('#small_dataset_table').bootstrapTable({
             data: table_data,
@@ -544,7 +544,11 @@ function find_matches(neuropal_label){
                             value: url_plot,
                             reinit: true
                         });
+                        
                         $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: curr_dataset_uid});
+                        if(curr_dataset_uid == dataset_uid){
+                            $('#small_dataset_table').bootstrapTable('check', {uniqueId: curr_dataset_uid});
+                        }
                     } else {
                         $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: curr_dataset_uid});
                     }

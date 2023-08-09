@@ -461,16 +461,7 @@ function populate_side_table(){
             onClickRow: function(row, element, field) {
                 window.location.href = row.url; // Navigates to the specified URL in the 'url' field of the clicked row
             },
-            rowStyle: function(row, index){
-                // alert(`${row.id}, ${dataset_uid}`)
-                if(row.id === dataset_uid){
-                    // alert(`${row.id}, ${dataset_uid}`)
-                    return{
-                        css: { 'background-color': '#6c757d'}
-                    };
-                }
-                return{};
-            }
+            
         });
 
         for (var i = 1; i < list_uid.length; i++) {
@@ -478,6 +469,17 @@ function populate_side_table(){
             $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
         }
     }).catch(error => console.error(error));
+}
+
+function rowStyle(row, index){
+    // alert(`${row.id}, ${dataset_uid}`)
+    if(row.id === dataset_uid){
+        // alert(`${row.id}, ${dataset_uid}`)
+        return{
+            css: { 'background-color': '#6c757d'}
+        };
+    }
+    return{};
 }
 
 function find_matches(neuropal_label){

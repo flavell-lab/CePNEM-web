@@ -444,8 +444,14 @@ function populate_side_table(){
             let url_json = `data/${key}.json`
 
             if (list_dtype.includes("neuropal")) {
+                let html_dtype = "";
+                for (let i = 0; i < list_dtype.length; i++) {
+                    let dtype_ = list_dtype[i];
+                    html_dtype += getDatasetTypePill(dtype_) + " "
+                }
                 table_data.push({
                     id: key,
+                    type: html_dtype,
                     url: url_neuron
                 })
             }

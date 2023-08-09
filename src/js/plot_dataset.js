@@ -835,7 +835,7 @@ function updateCorrelationModel(trace_array, behaviors, list_neuron, list_behavi
 
 // CSV export
 function exportCSV() {
-    if (data_export["neuron"].length > 0 || data_export["behavior"].length > 0) {
+    if (data_export["neuron"].length > 0 && data_export["behavior"].length > 0) {
         var csvString = data_export["neuron"].map(row => row.join(",")).join("\n");
         csvString += "\n" + data_export["behavior"].map(row => row.join(",")).join("\n");
 

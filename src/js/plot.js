@@ -21,7 +21,9 @@ function initPlot(plot_element) {
 		shapes: []
 	};
 
-	Plotly.newPlot(plot_element, [], layout);
+	var config = {responsive: true};
+
+	Plotly.newPlot(plot_element, [], layout, config);
 }
 
 function plotData(x,y,plot_element,data_label,subplot,trace_id) {

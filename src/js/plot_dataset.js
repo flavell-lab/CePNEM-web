@@ -548,9 +548,6 @@ function find_matches(neuropal_label){
                             value: url_plot,
                             reinit: true
                         });
-
-                        
-                        
                         
                         $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: curr_dataset_uid});
                         
@@ -558,6 +555,7 @@ function find_matches(neuropal_label){
                             nextDatasetURL = url_plot;
                         }
                         if(curr_dataset_uid === dataset_uid){
+                            alert( $('#small_dataset_table').bootstrapTable('getRowByUniqueId', lastVisitedDataset));
                             previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', lastVisitedDataset).url;
                             $('#small_dataset_table').bootstrapTable('checkBy', {field: 'id', values: [curr_dataset_uid]} );
                         }

@@ -549,7 +549,7 @@ function find_matches(neuropal_label){
                         
                         if(curr_dataset_uid === dataset_uid){
                             alert(dataset_uid)
-                            $('#small_dataset_table').bootstrapTable('check', i);
+                            $('#small_dataset_table').bootstrapTable('checkBy', {field: 'id', values: [curr_dataset_uid]} );
                         }
                     } else {
                         $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: curr_dataset_uid});

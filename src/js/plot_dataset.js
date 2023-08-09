@@ -546,6 +546,7 @@ function find_matches(neuropal_label){
                         });
                         
                         $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: curr_dataset_uid});
+                        alert(curr_dataset_uid)
                         if(curr_dataset_uid === dataset_uid){
                             $('#small_dataset_table').bootstrapTable('check', 0);
                         }

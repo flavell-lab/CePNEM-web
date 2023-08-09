@@ -555,7 +555,6 @@ function find_matches(neuropal_label){
                             nextDatasetURL = url_plot;
                         }
                         if(curr_dataset_uid === dataset_uid && lastVisitedDataset != null){
-                            alert($('#small_dataset_table').bootstrapTable('getRowByUniqueId', {uniqueId: lastVisitedDataset}));
                             previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', lastVisitedDataset).url;
                             $('#small_dataset_table').bootstrapTable('checkBy', {field: 'id', values: [curr_dataset_uid]} );
                         }

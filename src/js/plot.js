@@ -90,9 +90,74 @@ function addTracesToPlot(){
 }
 
 function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label) {
-    plotData(list_t, trace, plot_element, label, '', trace_id, neuropal_label)
+    // neuron_idx = Number(trace_id.substring(trace_id.indexOf('_')+1, trace_id.length));
+	// console.log(data_label + ": " + neuropal_label[neuron_idx]);
+	// Create a new trace for the plot
+    var trace = {
+        x: x,
+        y: y,
+        type: 'line',
+        mode: 'line',
+		name: data_label,
+		class: neuropal_label[neuron_idx]['neuron_class'],
+		xaxis: 'x',
+		yaxis: 'y',
+		trace_id: trace_id
+    };
+
+	if(neuronTraces.length > 0){
+		for(var i = 0; i < neuronTraces.length; i++){
+			if(neuronTraces[i].class > trace.class){
+				var newClass = {
+					class: trace.class,
+					traces: [trace]
+				};
+				neuronTraces.splice(i, 0, newClass);
+			}
+			else if(neuronTraces[i].class === trace.class){
+				for(var j = 0; j < neuronTraces[i].traces.length; j++){
+					if(neuronTraces[i].traces[j].name.substring(
+						neuronTraces[i].traces[j].name.indexOf('('), neuronTraces[i].traces[j].name.length-1) >
+						trace.name.substring(trace.name.indexOf('('), trace.name.length-1)){
+							neuronTraces[i].traces.splice(j, 0, trace);
+						}
+				}
+			}
+		}
+	} else{
+		var newClass = {
+			class: trace.class,
+			traces: [trace]
+		};
+		neuronTraces.push(newClass);
+	}
+
+	var outputStr = "";
+
+	for(var i = 0; i < neuronTraces.length; i++){
+		for(var j = 0; j < neuronTraces[i].traces.length; j++){
+			outputStr += neuronTraces[i].traces[j].data_label + ", ";
+		}
+	}
+
+	console.log(outputStr)
+
+
+    Plotly.addTraces(plot_element, [trace,]);
 }
 
 function plotBehavior(list_t, behavior, plot_element, label, trace_id) {
-	plotData(list_t, behavior, plot_element, label, '2', trace_id, null)
+    var trace = {
+        x: x,
+        y: y,
+        type: 'line',
+        mode: 'line',
+		name: data_label,
+		// class: neuropal_label != null ? neuropal_label[neuron_idx]['neuron_class'] : null,
+		xaxis: 'x',
+		yaxis: 'y2',
+		trace_id: trace_id
+    };
+
+	Plotly.addTraces(plot_element, [trace,]);
 }

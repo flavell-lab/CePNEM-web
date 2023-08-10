@@ -106,32 +106,33 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		trace_id: trace_id
     };
 
-	// if(neuronTraces.length > 0){
-	// 	for(var i = 0; i < neuronTraces.length; i++){
-	// 		if(neuronTraces[i].class > trace.class){
-	// 			var newClass = {
-	// 				class: trace.class,
-	// 				traces: [trace]
-	// 			};
-	// 			neuronTraces.splice(i, 0, newClass);
-	// 		}
-	// 		else if(neuronTraces[i].class === trace.class){
-	// 			for(var j = 0; j < neuronTraces[i].traces.length; j++){
-	// 				if(neuronTraces[i].traces[j].name.substring(
-	// 					neuronTraces[i].traces[j].name.indexOf('('), neuronTraces[i].traces[j].name.length-1) >
-	// 					trace.name.substring(trace.name.indexOf('('), trace.name.length-1)){
-	// 						neuronTraces[i].traces.splice(j, 0, trace);
-	// 					}
-	// 			}
-	// 		}
-	// 	}
-	// } else{
-	// 	var newClass = {
-	// 		class: trace.class,
-	// 		traces: [trace]
-	// 	};
-	// 	neuronTraces.push(newClass);
-	// }
+	if(neuronTraces.length > 0){
+		for(var i = 0; i < neuronTraces.length; i++){
+			if(neuronTraces[i].class > trace.class){
+				var newClass = {
+					class: trace.class,
+					traces: [trace]
+				};
+				neuronTraces.splice(i, 0, newClass);
+			}
+			else if(neuronTraces[i].class === trace.class){
+				for(var j = 0; j < neuronTraces[i].traces.length; j++){
+					if(neuronTraces[i].traces[j].name.substring(
+						neuronTraces[i].traces[j].name.indexOf('('), neuronTraces[i].traces[j].name.length-1) >
+						trace.name.substring(trace.name.indexOf('('), trace.name.length-1)){
+							neuronTraces[i].traces.splice(j, 0, trace);
+						}
+				}
+			}
+		}
+	} else{
+		var newClass = {
+			class: trace.class,
+			traces: [trace]
+		};
+		neuronTraces.push(newClass);
+		console.log("Added: " + newClass);
+	}
 
 	// var outputStr = "";
 

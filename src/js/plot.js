@@ -91,6 +91,9 @@ function addTracesToPlot(){
 
 function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label) {
     neuron_idx = Number(trace_id.substring(trace_id.indexOf('_')+1, trace_id.length));
+	var LR = neuropal_label[neuron_idx]["LR"]
+	var DV = neuropal_label[neuron_idx]["DV"]
+	var offset = LR == 'R' ? 1 + (DV == 'V' ? 2 : 0) : (DV == 'V' ? 2 : 0)
 	// console.log(data_label + ": " + neuropal_label[neuron_idx]);
 	// Create a new trace for the plot
 	var yaxis = 'y';
@@ -103,7 +106,8 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		class: neuropal_label[neuron_idx]['neuron_class'],
 		xaxis: 'x',
 		yaxis: yaxis,
-		trace_id: trace_id
+		trace_id: trace_id,
+		offset: offset
     };
 
 	console.log("Adding " + label);
@@ -158,7 +162,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	for(var i = 0; i < neuronTraces.length; i++){
 		for(var j = 0; j < neuronTraces[i].traces.length; j++){
-			outputStr += neuronTraces[i].traces[j].name + ": " + (2*i + j) + ", ";
+			outputStr += neuronTraces[i].traces[j].name + ": " + neuronTraces[i].traces[j].offset + ", ";
 		}
 	}
 

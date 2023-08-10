@@ -93,14 +93,14 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
     // neuron_idx = Number(trace_id.substring(trace_id.indexOf('_')+1, trace_id.length));
 	// console.log(data_label + ": " + neuropal_label[neuron_idx]);
 	// Create a new trace for the plot
-	var yaxis = 'y' + subplot;
+	var yaxis = 'y';
     var trace = {
         x: list_t,
         y: trace,
         type: 'line',
         mode: 'line',
 		name: label,
-		// class: neuropal_label != null ? neuropal_label[neuron_idx]['neuron_class'] : null,
+		class: neuropal_label != null ? neuropal_label[neuron_idx]['neuron_class'] : null,
 		xaxis: 'x',
 		yaxis: yaxis,
 		trace_id: trace_id

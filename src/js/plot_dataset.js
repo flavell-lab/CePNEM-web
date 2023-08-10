@@ -276,7 +276,6 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             let neuron_label = "Neuron " + get_neuron_label(idx_neuron, neuropal_label);
             let trace = trace_array[idx_neuron];
             plotNeuron(list_t, trace, plot_main, neuron_label, `neuron_${neuron}`, neuropal_label)
-            pushToPlot(plot_main);
         }
     }
 
@@ -290,6 +289,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         }
     }
 
+    pushToPlot(plot_main);
     // configure y axis
     resetYAxis(plot_main)
 
@@ -340,6 +340,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             Plotly.deleteTraces(plot_main, i);
         }
 
+        pushToPlot(plot_main);
         // update y
         resetYAxis(plot_main)
 
@@ -360,8 +361,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         update_data_export(data_export, trace_array, behaviors, selected_neuron,
             selected_behavior_str_short, neuropal_label)    
         button_csv_export.disabled = false;
-
-        // find_matches(neuropal_label)
+        
 
         // update the current URL
         let url = new URL(window.location.href);

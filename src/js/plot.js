@@ -107,7 +107,11 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		xaxis: 'x',
 		yaxis: yaxis,
 		trace_id: trace_id,
-		offset: offset
+		offset: offset,
+		line: {
+			color: null,
+			dash: 'solid'
+		}
     };
 
 	console.log("Adding " + label);
@@ -168,7 +172,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	console.log("Plotted Neurons: " + outputStr);
 
-    Plotly.addTraces(plot_element, [trace,]);
+    // Plotly.addTraces(plot_element, [trace,]);
 }
 
 function plotBehavior(list_t, behavior, plot_element, label, trace_id) {
@@ -183,7 +187,7 @@ function plotBehavior(list_t, behavior, plot_element, label, trace_id) {
 		trace_id: trace_id
     };
 
-	Plotly.addTraces(plot_element, [trace,]);
+	// Plotly.addTraces(plot_element, [trace,]);
 }
 
 function removeTrace(label, neuron_idx, neuropal_label){
@@ -202,8 +206,17 @@ function removeTrace(label, neuron_idx, neuropal_label){
 	}
 }
 
+const color_list = ['#636EFA', '#EF553B', '#00CC96', '#AB63FA', '#FFA15A', '#19D3F3', '#FF6692', '#B6E880', '#FF97FF', '#FECB52'];
+
 function pushToPlot(plot_element){
 
-	console.log(Plotly.express.colors.qualitative);
+	for(var i = 0; i < neuronTraces.length; i++){
+		for(var j = 0; j < neuronTraces[i].traces.length; j++){
+			neuronTraces[i].traces[j].line.color = color_list[2*i + (neuronTraces[i].traces[j].offset % 2 == 0 ? 0 : 1)];
+			neuronTraces[i].traces[j].line.dash = (neuronTraces[i].traces[j].offset > 1 ? 'dot' : 'solid')
+
+			Plotly.addTraces(plot_element, [neuronTraces[i].traces[j],]);
+		}
+	}
 
 }

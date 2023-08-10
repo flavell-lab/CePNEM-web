@@ -181,3 +181,19 @@ function plotBehavior(list_t, behavior, plot_element, label, trace_id) {
 
 	Plotly.addTraces(plot_element, [trace,]);
 }
+
+function removeTrace(label, neuron_idx, neuropal_label){
+	var neuron_class = neuropal_label[neuron_idx]['neuron_class']
+	for(var i = 0; i < neuronTraces.length; i++){
+		if(neuronTraces[i].class == neuron_class){
+			for(var j = 0; j < neuronTraces[i].traces.length; j++){
+				if(neuronTraces[i].traces[j].name == label){
+					neuronTraces[i].traces.splice(j, 1);
+				}
+			}
+			if(neuronTraces[i].traces.length == 0){
+				neuronTraces.splice(i, 1)
+			}
+		}
+	}
+}

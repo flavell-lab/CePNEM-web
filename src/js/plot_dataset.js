@@ -540,6 +540,7 @@ function find_matches(neuropal_label, data){
             for (let j = 0; j < selectedOptions.length; j++) {
                 let neuron_class = selectedOptions[j]
                 let neuron_list = data[neuron_class];
+                alert(neuron_list)
                 let list_match_uid = neuron_list.map(function (subarray) {
                     if (subarray[0] == curr_dataset_uid) {
                         list_idx_neuron.push(subarray[1])

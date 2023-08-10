@@ -108,7 +108,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	if(neuronTraces.length > 0){
 		for(var i = 0; i < neuronTraces.length; i++){
-			if(neuronTraces[i].class > trace.class){
+			if(neuronTraces[i].class > trace.class || i == neuronTraces.length - 1){
 				var newClass = {
 					class: trace.class,
 					traces: [trace]

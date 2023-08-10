@@ -100,11 +100,13 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
         type: 'line',
         mode: 'line',
 		name: label,
-		class: neuropal_label != null ? neuropal_label[neuron_idx]['neuron_class'] : null,
+		class: neuropal_label[neuron_idx]['neuron_class'],
 		xaxis: 'x',
 		yaxis: yaxis,
 		trace_id: trace_id
     };
+
+	console.log("Adding " + label);
 
 	if(neuronTraces.length > 0){
 		for(var i = 0; i < neuronTraces.length; i++){

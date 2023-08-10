@@ -119,6 +119,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 				};
 				console.log(neuronTraces[i].class + " goes after " + trace.class);
 				neuronTraces.splice(i, 0, newClass);
+				break;
 			}
 			else if(neuronTraces[i].class === trace.class){
 				for(var j = 0; j < neuronTraces[i].traces.length; j++){
@@ -131,6 +132,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 							neuronTraces[i].traces.splice(j, 0, trace);
 						}
 				}
+				break;
 			}
 		}
 	} else{

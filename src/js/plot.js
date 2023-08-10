@@ -131,7 +131,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			traces: [trace]
 		};
 		neuronTraces.push(newClass);
-		console.log("Added: " + newClass);
+		console.log("Added: " + newClass.class);
 	}
 
 	// var outputStr = "";

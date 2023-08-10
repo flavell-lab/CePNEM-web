@@ -204,11 +204,24 @@ function removeTrace(label, neuron_idx, neuropal_label){
 			}
 		}
 	}
+	var outputStr = "";
+
+	for(var i = 0; i < neuronTraces.length; i++){
+		for(var j = 0; j < neuronTraces[i].traces.length; j++){
+			outputStr += neuronTraces[i].traces[j].name + ": " + (4*i + neuronTraces[i].traces[j].offset) + ", ";
+		}
+	}
+
+	console.log("Plotted Neurons: " + outputStr);
 }
 
 const color_list = ['#636EFA', '#EF553B', '#00CC96', '#AB63FA', '#FFA15A', '#19D3F3', '#FF6692', '#B6E880', '#FF97FF', '#FECB52'];
 
 function pushToPlot(plot_element){
+
+	while(plot_element.data.length){
+		Plotly.deleteTraces(plot_elemnt, [0])
+	}
 
 	for(var i = 0; i < neuronTraces.length; i++){
 		for(var j = 0; j < neuronTraces[i].traces.length; j++){

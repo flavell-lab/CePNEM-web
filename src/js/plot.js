@@ -53,7 +53,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		}
     };
 
-	console.log("Adding " + label);
+	// console.log("Adding " + label);
 
 	if(neuronTraces.length > 0){
 		for(var i = 0; i < neuronTraces.length; i++){
@@ -103,15 +103,15 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		console.log("Added: " + newClass.class);
 	}
 
-	var outputStr = "";
+	// var outputStr = "";
 
-	for(var i = 0; i < neuronTraces.length; i++){
-		for(var j = 0; j < neuronTraces[i].traces.length; j++){
-			outputStr += neuronTraces[i].traces[j].name + ": " + (4*i + neuronTraces[i].traces[j].offset) + ", ";
-		}
-	}
+	// for(var i = 0; i < neuronTraces.length; i++){
+	// 	for(var j = 0; j < neuronTraces[i].traces.length; j++){
+	// 		outputStr += neuronTraces[i].traces[j].name + ": " + (4*i + neuronTraces[i].traces[j].offset) + ", ";
+	// 	}
+	// }
 
-	console.log("Plotted Neurons: " + outputStr);
+	// console.log("Plotted Neurons: " + outputStr);
 
     // Plotly.addTraces(plot_element, [trace,]);
 }
@@ -150,21 +150,22 @@ function removeTrace(label, neuron_idx, neuropal_label){
 			}
 		}
 	}
-	var outputStr = "";
+	// var outputStr = "";
 
-	for(var i = 0; i < neuronTraces.length; i++){
-		for(var j = 0; j < neuronTraces[i].traces.length; j++){
-			outputStr += neuronTraces[i].traces[j].name + ": " + (4*i + neuronTraces[i].traces[j].offset) + ", ";
-		}
-	}
+	// for(var i = 0; i < neuronTraces.length; i++){
+	// 	for(var j = 0; j < neuronTraces[i].traces.length; j++){
+	// 		outputStr += neuronTraces[i].traces[j].name + ": " + (4*i + neuronTraces[i].traces[j].offset) + ", ";
+	// 	}
+	// }
 
-	console.log("Plotted Neurons: " + outputStr);
+	// console.log("Plotted Neurons: " + outputStr);
 }
 
 function removeBehavior(label){
+	console.log("Removing: " + label)
 	for(var i = 0; i < behaviorTraces; i++){
 		if(label == behaviorTraces[i].name){
-			console.log("Removing: " + label)
+			// console.log("Removing: " + label)
 			behaviorTraces.splice(i, 1);
 			break;
 		}

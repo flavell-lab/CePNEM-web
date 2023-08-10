@@ -529,7 +529,9 @@ function find_matches(neuropal_label, data){
     for(let i = 0; i < neuron_indices.length; i++){
         let idx_neuron = Number(neuron_indices[i]) + 1;
         if(idx_neuron in neuropal_label){
-            selectedOptions.push(neuropal_label[idx_neuron]["neuron_class"])
+            selectedOptions.push({class: neuropal_label[idx_neuron]["neuron_class"], 
+                                LR: neuropal_label[idx_neuron]["LR"],
+                                DV: neuropal_label[idx_neuron]["DV"]})
         }
     }
 
@@ -543,8 +545,23 @@ function find_matches(neuropal_label, data){
             let match_all = true;
             let list_idx_neuron = [];
             for (let j = 0; j < selectedOptions.length; j++) {
-                let neuron_class = selectedOptions[j]
+                let neuron_class = selectedOptions[j].class;
+                let LR = selectedOptions[j].LR;
+                let DV = selectedOptions[j].DV;
                 let neuron_list = data[neuron_class];
+                if(neuron_list == undefined){
+                    neuron_list = data[neuron_class + LR];
+                }
+                if(neuron_list == undefined){
+                    neuron_list = data[neuron_class + DV];
+                }
+                if(neuron_list == undefined){
+                    neuron_list = data[neuron_class + LR + DV];
+                }
+                if(neuron_list == undefined){
+                    console.log("Unable to find Neuron in dataset")
+                    break;
+                }
                 let list_match_uid = neuron_list.map(function (subarray) {
                     if (subarray[0] == curr_dataset_uid) {
                         list_idx_neuron.push(subarray[1])

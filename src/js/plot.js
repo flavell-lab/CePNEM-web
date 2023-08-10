@@ -137,9 +137,11 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 					console.log("Comparing " + currentLabel + " and " + newLabel);
 					if(currentLabel > newLabel){
 						neuronTraces[i].traces.splice(j, 0, trace);
+						break;
 					}
 					else if(currentLabel < newLabel){
 						neuronTraces[i].traces.push(trace);
+						break;
 					}
 				}
 				break;

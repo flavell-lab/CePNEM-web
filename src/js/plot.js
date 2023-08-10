@@ -93,15 +93,16 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
     // neuron_idx = Number(trace_id.substring(trace_id.indexOf('_')+1, trace_id.length));
 	// console.log(data_label + ": " + neuropal_label[neuron_idx]);
 	// Create a new trace for the plot
+	var yaxis = 'y' + subplot;
     var trace = {
-        x: x,
-        y: y,
+        x: list_t,
+        y: trace,
         type: 'line',
         mode: 'line',
-		name: data_label,
-		class: neuropal_label[neuron_idx]['neuron_class'],
+		name: label,
+		// class: neuropal_label != null ? neuropal_label[neuron_idx]['neuron_class'] : null,
 		xaxis: 'x',
-		yaxis: 'y',
+		yaxis: yaxis,
 		trace_id: trace_id
     };
 
@@ -142,18 +143,16 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	console.log(outputStr)
 
-
     Plotly.addTraces(plot_element, [trace,]);
 }
 
 function plotBehavior(list_t, behavior, plot_element, label, trace_id) {
     var trace = {
-        x: x,
-        y: y,
+        x: list_t,
+        y: trace,
         type: 'line',
         mode: 'line',
-		name: data_label,
-		// class: neuropal_label != null ? neuropal_label[neuron_idx]['neuron_class'] : null,
+		name: label,
 		xaxis: 'x',
 		yaxis: 'y2',
 		trace_id: trace_id

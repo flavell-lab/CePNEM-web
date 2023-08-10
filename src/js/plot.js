@@ -161,7 +161,7 @@ function removeTrace(label, neuron_idx, neuropal_label){
 	console.log("Plotted Neurons: " + outputStr);
 }
 
-const color_list = ['#636EFA', '#EF553B', '#00CC96', '#AB63FA', '#FFA15A', '#19D3F3', '#FF6692', '#B6E880', '#FF97FF', '#FECB52'];
+const color_list = ['#FD3216', '#FF7F0E', '#2CA02C', '#990099', '#00FE35', '#19D3F3', '#FF6692', '#B6E880', '#FF97FF', '#FECB52'];
 const behaviors = ["v", "hc", "f", "av", "bc"];
 
 function pushToPlot(plot_element){

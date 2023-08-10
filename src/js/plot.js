@@ -123,14 +123,16 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			}
 			else if(neuronTraces[i].class === trace.class){
 				for(var j = 0; j < neuronTraces[i].traces.length; j++){
-					console.log("Comparing " + neuronTraces[i].traces[j].name.substring(
-						neuronTraces[i].traces[j].name.indexOf('(')+1, neuronTraces[i].traces[j].name.length-1) + " and " + 
-						trace.name.substring(trace.name.indexOf('(')+1, trace.name.length-1));
-					if(neuronTraces[i].traces[j].name.substring(
-						neuronTraces[i].traces[j].name.indexOf('(')+1, neuronTraces[i].traces[j].name.length-1) >
-						trace.name.substring(trace.name.indexOf('(')+1, trace.name.length-1)){
-							neuronTraces[i].traces.splice(j, 0, trace);
-						}
+					var currentLabel = neuronTraces[i].traces[j].name.substring(
+						neuronTraces[i].traces[j].name.indexOf('(')+1, neuronTraces[i].traces[j].name.length-1);
+					var newLabel = trace.name.substring(trace.name.indexOf('(')+1, trace.name.length-1);
+					console.log("Comparing " + currentLabel + " and " + newLabel);
+					if(currentLabel > newLabel){
+						neuronTraces[i].traces.splice(j, 0, trace);
+					}
+					else if(currentLabel < newLabel){
+						neuronTraces[i].traces.push(trace);
+					}
 				}
 				break;
 			}
@@ -139,7 +141,6 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 					class: trace.class,
 					traces: [trace]
 				};
-				// console.log(neuronTraces[i].class + " goes after " + trace.class);
 				neuronTraces.push(newClass);
 				break;
 			}

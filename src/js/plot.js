@@ -29,8 +29,8 @@ var neuronTraces = [];
 
 function plotData(x,y,plot_element,data_label,subplot,trace_id, neuropal_label) {
 
-	neuron_idx = Number(trace_id.substring(trace_id.indexOf('_')+1, trace_id.length));
-	console.log(data_label + ": " + neuropal_label[neuron_idx]);
+	// neuron_idx = Number(trace_id.substring(trace_id.indexOf('_')+1, trace_id.length));
+	// console.log(data_label + ": " + neuropal_label[neuron_idx]);
 	// Create a new trace for the plot
 	var yaxis = 'y' + subplot;
     var trace = {

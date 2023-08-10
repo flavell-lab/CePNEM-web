@@ -204,6 +204,6 @@ function removeTrace(label, neuron_idx, neuropal_label){
 
 function pushToPlot(plot_element){
 
-	console.log(Plotly.colors.qualitative);
+	console.log(Plotly.express.colors.qualitative);
 
 }

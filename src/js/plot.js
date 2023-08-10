@@ -111,6 +111,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	if(neuronTraces.length > 0){
 		for(var i = 0; i < neuronTraces.length; i++){
 			console.log("Comparing " + neuronTraces[i].class + " with " + trace.class);
+			console.log("Number of traces " + neuronTraces.length);
 			if(neuronTraces[i].class > trace.class || i == neuronTraces.length - 1){
 				var newClass = {
 					class: trace.class,

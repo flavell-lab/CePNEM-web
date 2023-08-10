@@ -400,6 +400,9 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             Plotly.deleteTraces(plot_main, i);
         }
 
+        pushToPlot(plot_main);
+        resetYAxis(plot_main)
+
         // update cor modal
         let selected_idx_neuron_str = $("#select_neuron").val();
         let selected_neuron_str = selected_idx_neuron_str.map(num => {

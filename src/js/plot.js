@@ -29,7 +29,8 @@ var neuronTraces = [];
 
 function plotData(x,y,plot_element,data_label,subplot,trace_id, neuropal_label) {
 
-	console.log(data_label + ", " + parseInt(data_label) + ": " + neuropal_label[parseInt(trace_id)])
+	console.log(parseInt("hello 28 goodbye"))
+	console.log(data_label + ", " + parseInt(data_label) + ": " + neuropal_label[parseInt(data_label)])
 	// Create a new trace for the plot
 	var yaxis = 'y' + subplot;
     var trace = {

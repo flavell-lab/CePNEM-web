@@ -396,7 +396,10 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         } else if (!isSelected && trace_idx == -1) {
             // remove but trace does not exist. do nothing
         } else {
+            
             // remove existing behavior if deselected
+            let label = `${list_behavior_str[idx_behavior]} (${behavior_units[idx_behavior]})`;
+            removeBehavior(label);
             Plotly.deleteTraces(plot_main, i);
         }
 

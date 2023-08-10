@@ -276,6 +276,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             let neuron_label = "Neuron " + get_neuron_label(idx_neuron, neuropal_label);
             let trace = trace_array[idx_neuron];
             plotNeuron(list_t, trace, plot_main, neuron_label, `neuron_${neuron}`, neuropal_label)
+            pushToPlot(plot_main);
         }
     }
 

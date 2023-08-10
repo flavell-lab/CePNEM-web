@@ -26,68 +26,7 @@ function initPlot(plot_element) {
 }
 
 var neuronTraces = [];
-
-function plotData(x,y,plot_element,data_label,subplot,trace_id, neuropal_label) {
-
-	// neuron_idx = Number(trace_id.substring(trace_id.indexOf('_')+1, trace_id.length));
-	// console.log(data_label + ": " + neuropal_label[neuron_idx]);
-	// Create a new trace for the plot
-	var yaxis = 'y' + subplot;
-    var trace = {
-        x: x,
-        y: y,
-        type: 'line',
-        mode: 'line',
-		name: data_label,
-		// class: neuropal_label != null ? neuropal_label[neuron_idx]['neuron_class'] : null,
-		xaxis: 'x',
-		yaxis: yaxis,
-		trace_id: trace_id
-    };
-
-	// if(neuronTraces.length > 0){
-	// 	for(var i = 0; i < neuronTraces.length; i++){
-	// 		if(neuronTraces[i].class > trace.class){
-	// 			var newClass = {
-	// 				class: trace.class,
-	// 				traces: [trace]
-	// 			};
-	// 			neuronTraces.splice(i, 0, newClass);
-	// 		}
-	// 		else if(neuronTraces[i].class === trace.class){
-	// 			for(var j = 0; j < neuronTraces[i].traces.length; j++){
-	// 				if(neuronTraces[i].traces[j].name.substring(
-	// 					neuronTraces[i].traces[j].name.indexOf('('), neuronTraces[i].traces[j].name.length-1) >
-	// 					trace.name.substring(trace.name.indexOf('('), trace.name.length-1)){
-	// 						neuronTraces[i].traces.splice(j, 0, trace);
-	// 					}
-	// 			}
-	// 		}
-	// 	}
-	// } else{
-	// 	var newClass = {
-	// 		class: trace.class,
-	// 		traces: [trace]
-	// 	};
-	// 	neuronTraces.push(newClass);
-	// }
-
-	// var outputStr = "";
-
-	// for(var i = 0; i < neuronTraces.length; i++){
-	// 	for(var j = 0; j < neuronTraces[i].traces.length; j++){
-	// 		outputStr += neuronTraces[i].traces[j].data_label + ", ";
-	// 	}
-	// }
-
-	// alert(outputStr)
-
-    Plotly.addTraces(plot_element, [trace,]);
-}
-
-function addTracesToPlot(){
-
-}
+var behaviorTraces = [];
 
 function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label) {
     neuron_idx = Number(trace_id.substring(trace_id.indexOf('_')+1, trace_id.length));
@@ -186,8 +125,13 @@ function plotBehavior(list_t, behavior, plot_element, label, trace_id) {
 		name: label,
 		xaxis: 'x',
 		yaxis: 'y2',
-		trace_id: trace_id
+		trace_id: trace_id,
+		line:{
+			color: null
+		}
     };
+
+	behaviorTraces.push(trace);
 
 	// Plotly.addTraces(plot_element, [trace,]);
 }
@@ -218,6 +162,7 @@ function removeTrace(label, neuron_idx, neuropal_label){
 }
 
 const color_list = ['#636EFA', '#EF553B', '#00CC96', '#AB63FA', '#FFA15A', '#19D3F3', '#FF6692', '#B6E880', '#FF97FF', '#FECB52'];
+const behaviors = ["v", "hc", "f", "av", "bc"];
 
 function pushToPlot(plot_element){
 
@@ -232,6 +177,11 @@ function pushToPlot(plot_element){
 
 			Plotly.addTraces(plot_element, [neuronTraces[i].traces[j],]);
 		}
+	}
+
+	for(var i = 0; i < behaviorTraces.length; i++){
+		behaviorTraces[i].line.color = color_list[behaviors.indexOf(behaviorTraces[i].trace_id.split('_')[1])];
+		Plotly.addTraces(plot_element, [behaviorTraces[i],]);
 	}
 
 }

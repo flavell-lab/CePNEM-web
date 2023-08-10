@@ -604,6 +604,9 @@ function clearSelect() {
     $("#select_neuron").selectpicker("deselectAll");
     $("#select_behavior").selectpicker("deselectAll");
 
+    neuronTraces = [];
+    behaviorTraces = []
+
     // clear plot
     while(plot_main.data.length>0)
     {

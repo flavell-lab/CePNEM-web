@@ -535,8 +535,6 @@ function find_matches(neuropal_label, data){
         }
     }
 
-    console.log(data);
-
     if (selectedOptions.length > 0) {
         for (var i = 1; i < list_uid.length; i++) {
             let curr_dataset_uid = list_uid[i];
@@ -556,10 +554,10 @@ function find_matches(neuropal_label, data){
                     neuron_list = data[neuron_class + DV];
                 }
                 if(neuron_list == undefined){
-                    neuron_list = data[neuron_class + LR + DV];
+                    neuron_list = data[neuron_class + DV + LR];
                 }
                 if(neuron_list == undefined){
-                    console.log("Unable to find Neuron in dataset")
+                    console.error("Unable to find Neuron in dataset")
                     break;
                 }
                 let list_match_uid = neuron_list.map(function (subarray) {

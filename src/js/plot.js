@@ -7,7 +7,6 @@ function initPlot(plot_element) {
 		yaxis: { title: "Neuron GCaMP (z-scored)", color: "#000000" , autorange: true},
 		yaxis2: { title: "Behavior (see legend for units)", color: "#000000" },
 		showlegend: true,
-		// width: 1350,
 		height: 800,	  
 		plot_bgcolor: "#FFF",
 		paper_bgcolor: "#FFF",
@@ -26,7 +25,9 @@ function initPlot(plot_element) {
 	Plotly.newPlot(plot_element, [], layout, config);
 }
 
-function plotData(x,y,plot_element,data_label,subplot,trace_id) {
+var neuronTraces = [];
+
+function plotData(x,y,plot_element,data_label,subplot,trace_id, neuropal_label) {
 	// Create a new trace for the plot
 	var yaxis = 'y' + subplot;
     var trace = {
@@ -35,18 +36,58 @@ function plotData(x,y,plot_element,data_label,subplot,trace_id) {
         type: 'line',
         mode: 'line',
 		name: data_label,
+		class: neuropal_label[parseInt(trace_id)]['neuron_class'],
 		xaxis: 'x',
 		yaxis: yaxis,
 		trace_id: trace_id
     };
 
+	if(neuronTraces.length > 0){
+		for(var i = 0; i < neuronTraces.length; i++){
+			if(neuronTraces[i].class > trace.class){
+				var newClass = {
+					class: trace.class,
+					traces: [trace]
+				};
+				neuronTraces.splice(i, 0, newClass);
+			}
+			else if(neuronTraces[i].class === trace.class){
+				for(var j = 0; j < neuronTraces[i].traces.length; j++){
+					if(neuronTraces[i].traces[j].name.substring(
+						neuronTraces[i].traces[j].name.indexOf('('), neuronTraces[i].traces[j].name.length-2) >
+						trace.name.substring(trace.name.indexOf('('), trace.name.length-2)){
+							neuronTraces[i].traces.splice(j, 0, trace);
+						}
+				}
+			}
+		}
+	} else{
+		var newClass = {
+			class: trace.class,
+			traces: [trace]
+		};
+		neuronTraces.push(newClass);
+	}
+
+	var outputStr = "";
+
+	for(var i = 0; i < neuronTraces.length; i++){
+		outputStr += neuronTraces[i].traces + ", ";
+	}
+
+	alert(outputStr)
+
     Plotly.addTraces(plot_element, [trace,]);
 }
 
-function plotNeuron(list_t, trace, plot_element, label, trace_id) {
-    plotData(list_t, trace, plot_element, label, '', trace_id)
+function addTracesToPlot(){
+
+}
+
+function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label) {
+    plotData(list_t, trace, plot_element, label, '', trace_id, neuropal_label)
 }
 
 function plotBehavior(list_t, behavior, plot_element, label, trace_id) {
-	plotData(list_t, behavior, plot_element, label, '2', trace_id)
+	plotData(list_t, behavior, plot_element, label, '2', trace_id, null)
 }

@@ -275,7 +275,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             let idx_neuron = neuron - 1;
             let neuron_label = "Neuron " + get_neuron_label(idx_neuron, neuropal_label);
             let trace = trace_array[idx_neuron];
-            plotNeuron(list_t, trace, plot_main, neuron_label, `neuron_${neuron}`)
+            plotNeuron(list_t, trace, plot_main, neuron_label, `neuron_${neuron}`, neuropal_label)
         }
     }
 
@@ -329,7 +329,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             // plot neuron if selected
             let neuron_label = "Neuron " + get_neuron_label(idx_neuron, neuropal_label);
             let trace = trace_array[idx_neuron];
-            plotNeuron(list_t, trace, plot_main, neuron_label, `neuron_${neuron}`)
+            plotNeuron(list_t, trace, plot_main, neuron_label, `neuron_${neuron}`, neuropal_label)
         } else if (!isSelected && trace_idx == -1) {
             // remove but trace does not exist. do nothing
         } else {

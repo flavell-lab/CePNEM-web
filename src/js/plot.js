@@ -29,7 +29,7 @@ var neuronTraces = [];
 
 function plotData(x,y,plot_element,data_label,subplot,trace_id, neuropal_label) {
 
-	console.log(trace_id.substring(trace_id.indexOf('_'), trace_id.length-1));
+	console.log(trace_id.substring(trace_id.indexOf('_')+1, trace_id.length));
 	console.log(data_label + ", " + parseInt(data_label) + ": " + neuropal_label[parseInt(data_label)]);
 	// Create a new trace for the plot
 	var yaxis = 'y' + subplot;
@@ -57,8 +57,8 @@ function plotData(x,y,plot_element,data_label,subplot,trace_id, neuropal_label) 
 			else if(neuronTraces[i].class === trace.class){
 				for(var j = 0; j < neuronTraces[i].traces.length; j++){
 					if(neuronTraces[i].traces[j].name.substring(
-						neuronTraces[i].traces[j].name.indexOf('('), neuronTraces[i].traces[j].name.length-2) >
-						trace.name.substring(trace.name.indexOf('('), trace.name.length-2)){
+						neuronTraces[i].traces[j].name.indexOf('('), neuronTraces[i].traces[j].name.length-1) >
+						trace.name.substring(trace.name.indexOf('('), trace.name.length-1)){
 							neuronTraces[i].traces.splice(j, 0, trace);
 						}
 				}

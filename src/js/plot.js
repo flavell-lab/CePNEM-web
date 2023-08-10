@@ -141,15 +141,15 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		console.log("Added: " + newClass.class);
 	}
 
-	// var outputStr = "";
+	var outputStr = "";
 
-	// for(var i = 0; i < neuronTraces.length; i++){
-	// 	for(var j = 0; j < neuronTraces[i].traces.length; j++){
-	// 		outputStr += neuronTraces[i].traces[j].data_label + ", ";
-	// 	}
-	// }
+	for(var i = 0; i < neuronTraces.length; i++){
+		for(var j = 0; j < neuronTraces[i].traces.length; j++){
+			outputStr += neuronTraces[i].traces[j].data_label + ", ";
+		}
+	}
 
-	// console.log(outputStr)
+	console.log("Plotted Neurons: " + outputStr);
 
     Plotly.addTraces(plot_element, [trace,]);
 }

@@ -220,7 +220,7 @@ const color_list = ['#636EFA', '#EF553B', '#00CC96', '#AB63FA', '#FFA15A', '#19D
 function pushToPlot(plot_element){
 
 	while(plot_element.data.length){
-		Plotly.deleteTraces(plot_elemnt, [0])
+		Plotly.deleteTraces(plot_element, [0])
 	}
 
 	for(var i = 0; i < neuronTraces.length; i++){

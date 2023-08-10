@@ -112,7 +112,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		for(var i = 0; i < neuronTraces.length; i++){
 			// console.log("Comparing " + neuronTraces[i].class + " with " + trace.class);
 			// console.log("Number of traces " + neuronTraces.length);
-			if(neuronTraces[i].class.localeCompare(trace.class) > 0 || i == neuronTraces.length-1){
+			if(neuronTraces[i].class.localeCompare(trace.class) > 0 || i == neuronTraces.length){
 				var newClass = {
 					class: trace.class,
 					traces: [trace]

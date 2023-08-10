@@ -164,6 +164,7 @@ function removeTrace(label, neuron_idx, neuropal_label){
 function removeBehavior(label){
 	for(var i = 0; i < behaviorTraces; i++){
 		if(label == behaviorTraces[i].label){
+			console.log("Removing: " + label)
 			behaviorTraces.splice(i, 1);
 			break;
 		}

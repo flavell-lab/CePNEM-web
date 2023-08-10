@@ -533,6 +533,8 @@ function find_matches(neuropal_label, data){
         }
     }
 
+    console.log(data);
+
     if (selectedOptions.length > 0) {
         for (var i = 1; i < list_uid.length; i++) {
             let curr_dataset_uid = list_uid[i];

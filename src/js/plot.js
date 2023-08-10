@@ -149,7 +149,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 function plotBehavior(list_t, behavior, plot_element, label, trace_id) {
     var trace = {
         x: list_t,
-        y: trace,
+        y: behavior,
         type: 'line',
         mode: 'line',
 		name: label,

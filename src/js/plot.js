@@ -162,7 +162,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	for(var i = 0; i < neuronTraces.length; i++){
 		for(var j = 0; j < neuronTraces[i].traces.length; j++){
-			outputStr += neuronTraces[i].traces[j].name + ": " + neuronTraces[i].traces[j].offset + ", ";
+			outputStr += neuronTraces[i].traces[j].name + ": " + (4*i + neuronTraces[i].traces[j].offset) + ", ";
 		}
 	}
 

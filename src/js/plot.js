@@ -110,17 +110,20 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	if(neuronTraces.length > 0){
 		for(var i = 0; i < neuronTraces.length; i++){
-			console.log("Comparing " + neuronTraces[i].class + " with " + trace.class);
-			console.log("Number of traces " + neuronTraces.length);
+			// console.log("Comparing " + neuronTraces[i].class + " with " + trace.class);
+			// console.log("Number of traces " + neuronTraces.length);
 			if(neuronTraces[i].class > trace.class || i == neuronTraces.length - 1){
 				var newClass = {
 					class: trace.class,
 					traces: [trace]
 				};
-				neuronTraces.splice(i, 0, newClass);
+				// neuronTraces.splice(i, 0, newClass);
 			}
 			else if(neuronTraces[i].class === trace.class){
 				for(var j = 0; j < neuronTraces[i].traces.length; j++){
+					console.log("Comparing " + neuronTraces[i].traces[j].name.substring(
+						neuronTraces[i].traces[j].name.indexOf('('), neuronTraces[i].traces[j].name.length-1) + " and " + 
+						trace.name.substring(trace.name.indexOf('('), trace.name.length-1));
 					if(neuronTraces[i].traces[j].name.substring(
 						neuronTraces[i].traces[j].name.indexOf('('), neuronTraces[i].traces[j].name.length-1) >
 						trace.name.substring(trace.name.indexOf('('), trace.name.length-1)){

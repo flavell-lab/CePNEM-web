@@ -29,7 +29,7 @@ var neuronTraces = [];
 
 function plotData(x,y,plot_element,data_label,subplot,trace_id, neuropal_label) {
 
-	alert(neuropal_label)
+	log(neuropal_label[parseInt(trace_id)])
 	// Create a new trace for the plot
 	var yaxis = 'y' + subplot;
     var trace = {

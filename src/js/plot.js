@@ -75,7 +75,9 @@ function plotData(x,y,plot_element,data_label,subplot,trace_id, neuropal_label) 
 	var outputStr = "";
 
 	for(var i = 0; i < neuronTraces.length; i++){
-		outputStr += neuronTraces[i].traces + ", ";
+		for(var j = 0; j < neuronTraces[i].traces.length; j++){
+			outputStr += neuronTraces[i].traces[j].data_label + ", ";
+		}
 	}
 
 	alert(outputStr)

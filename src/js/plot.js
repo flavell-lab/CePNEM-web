@@ -36,7 +36,7 @@ function plotData(x,y,plot_element,data_label,subplot,trace_id, neuropal_label) 
         type: 'line',
         mode: 'line',
 		name: data_label,
-		class: neuropal_label[parseInt(trace_id)]['neuron_class'],
+		class: neuropal_label != null ? neuropal_label[parseInt(trace_id)]['neuron_class'] : null,
 		xaxis: 'x',
 		yaxis: yaxis,
 		trace_id: trace_id

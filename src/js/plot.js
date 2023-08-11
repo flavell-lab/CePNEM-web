@@ -64,19 +64,19 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	// console.log("Adding " + label);
 
 	
-	console.log("Current Colors: [" + curr_colors + "]");
+	// console.log("Current Colors: [" + curr_colors + "]");
 
 	var used_colors = curr_colors.map(x => parseInt(x.split("_")[1]));
 	
 	if(isNaN(used_colors[0])){
-		console.log("Splicing")
+		// console.log("Splicing")
 		curr_colors.splice(0, 1);
 	}
 	
 	console.log("Used Colors: " + used_colors);
 	var next_available_color = 0;
 	for(var i = 0; i < used_colors.length; i++){
-		console.log("I: " + i + ", Used_Colors[i]: " + used_colors[i]);
+		// console.log("I: " + i + ", Used_Colors[i]: " + used_colors[i]);
 		if(used_colors[i] != i){
 			console.log(i + " != " + used_colors[i]);
 			next_available_color = i;
@@ -86,7 +86,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			break;
 		}
 	}
-	console.log("Next Available Color: " + next_available_color);
+	// console.log("Next Available Color: " + next_available_color);
 
 	if(neuronTraces.length > 0){
 		for(var i = 0; i < neuronTraces.length; i++){
@@ -135,7 +135,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		}
 	}
 
-	console.log("Colors: " + curr_colors);
+	// console.log("Colors: " + curr_colors);
 	console.log("Plotted Neurons: " + outputStr);
 
 

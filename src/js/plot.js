@@ -68,8 +68,8 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	for(var i = 0; i < used_colors.length; i++){
 		if(used_colors[i] != i){
 			next_available_color = i;
-		} else if(i = used_colors.length - 1){
-			next_available_color = i;
+		} else if(i == used_colors.length - 1){
+			next_available_color = i+1;
 		}
 	}
 
@@ -111,7 +111,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	for(var i = 0; i < neuronTraces.length; i++){
 		for(var j = 0; j < neuronTraces[i].traces.length; j++){
-			outputStr += neuronTraces[i].traces[j].name + ": " + (4*i + neuronTraces[i].traces[j].offset) + ", ";
+			outputStr += neuronTraces[i].traces[j].name + ": " + neuronTraces[i].color_idx + ", ";
 		}
 	}
 

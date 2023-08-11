@@ -66,6 +66,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	var next_available_color = 0;
 	for(var i = 0; i < used_colors.length; i++){
+		console.log("I: " + i + ", Used_Colors: " + used_colors);
 		if(used_colors[i] != i){
 			next_available_color = i;
 		} else if(i == used_colors.length - 1){
@@ -111,7 +112,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	for(var i = 0; i < neuronTraces.length; i++){
 		for(var j = 0; j < neuronTraces[i].traces.length; j++){
-			outputStr += neuronTraces[i].traces[j].name + ": " + neuronTraces[i].color_idx + ", ";
+			outputStr += neuronTraces[i].traces[j].name + ": " + (2*neuronTraces[i].color_idx + (neuronTraces[i].traces[j].offset % 2 == 0 ? 1 : 0))+ ", ";
 		}
 	}
 
@@ -191,7 +192,7 @@ function pushToPlot(plot_element){
 	for(var i = 0; i < neuronTraces.length; i++){
 		used_colors.push(neuronTraces[i].class + "_" + neuronTraces[i].color_idx)
 		for(var j = 0; j < neuronTraces[i].traces.length; j++){
-			neuronTraces[i].traces[j].line.color = color_list[neuronTraces[i].color_idx + (neuronTraces[i].traces[j].offset % 2 == 0 ? 1 : 0)];
+			neuronTraces[i].traces[j].line.color = color_list[2*neuronTraces[i].color_idx + (neuronTraces[i].traces[j].offset % 2 == 0 ? 1 : 0)];
 			neuronTraces[i].traces[j].line.dash = (neuronTraces[i].traces[j].offset > 1 ? 'dashdot' : 'solid')
 
 			Plotly.addTraces(plot_element, [neuronTraces[i].traces[j],]);

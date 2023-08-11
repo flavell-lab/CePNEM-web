@@ -64,7 +64,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	// console.log("Adding " + label);
 
 	
-	// console.log("Current Colors: [" + curr_colors + "]");
+	console.log("Current Colors: [" + curr_colors + "]");
 
 	var used_colors = curr_colors.map(x => parseInt(x.split("_")[1]));
 	
@@ -86,7 +86,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			break;
 		}
 	}
-	// console.log("Next Available Color: " + next_available_color);
+	console.log("Next Available Color: " + next_available_color);
 
 	if(neuronTraces.length > 0){
 		for(var i = 0; i < neuronTraces.length; i++){

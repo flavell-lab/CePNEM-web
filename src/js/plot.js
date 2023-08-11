@@ -80,8 +80,10 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		if(used_colors[i] != i){
 			console.log(i + " != " + used_colors[i]);
 			next_available_color = i;
+			break;
 		} else if(i == used_colors.length - 1){
 			next_available_color = i+1;
+			break;
 		}
 	}
 	console.log("Next Available Color: " + next_available_color);

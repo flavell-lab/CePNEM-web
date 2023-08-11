@@ -117,6 +117,7 @@ function toggleEvent(q) {
 }
 
 function resetYAxis(plot) {
+    console.log("Plot Data length: " + plot.data.length);
     if(plot.data.length == 0){
         return;
     }

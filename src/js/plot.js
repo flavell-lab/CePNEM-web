@@ -72,6 +72,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		// console.log("Splicing")
 		curr_colors.splice(0, 1);
 	}
+	used_colors.sort();
 	
 	console.log("Used Colors: " + used_colors);
 	var next_available_color = 0;

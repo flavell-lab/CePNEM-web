@@ -336,7 +336,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         } else {
             // remove existing neuron if deselected
             let neuron_label = "Neuron " + get_neuron_label(idx_neuron, neuropal_label);
-            removeTrace(neuron_label, neuron, neuropal_label);
+            removeTrace(`neuron_${neuron}`);
             Plotly.deleteTraces(plot_main, i);
         }
 

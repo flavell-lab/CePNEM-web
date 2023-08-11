@@ -29,10 +29,13 @@ var neuronTraces = [];
 var behaviorTraces = [];
 
 function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label) {
-    neuron_idx = Number(trace_id.substring(trace_id.indexOf('_')+1, trace_id.length));
-	var LR = neuropal_label[neuron_idx]["LR"]
-	var DV = neuropal_label[neuron_idx]["DV"]
-	var offset = LR == 'R' ? 1 + (DV == 'V' ? 2 : 0) : (DV == 'V' ? 2 : 0)
+	var offset = 0;
+	if(neuropal_label != undefined){
+		neuron_idx = Number(trace_id.substring(trace_id.indexOf('_')+1, trace_id.length));
+		var LR = neuropal_label[neuron_idx]["LR"]
+		var DV = neuropal_label[neuron_idx]["DV"]
+		offset = LR == 'R' ? 1 + (DV == 'V' ? 2 : 0) : (DV == 'V' ? 2 : 0)
+	}
 	// console.log(data_label + ": " + neuropal_label[neuron_idx]);
 	// Create a new trace for the plot
 	var yaxis = 'y';
@@ -42,7 +45,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
         type: 'line',
         mode: 'line',
 		name: label,
-		class: neuropal_label[neuron_idx]['neuron_class'],
+		class: neuropal_label != undefined ? neuropal_label[neuron_idx]['neuron_class'] : null,
 		xaxis: 'x',
 		yaxis: yaxis,
 		trace_id: trace_id,
@@ -59,7 +62,14 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		for(var i = 0; i < neuronTraces.length; i++){
 			// console.log("Comparing " + neuronTraces[i].class + " with " + trace.class);
 			// console.log("Number of traces " + neuronTraces.length);
-			if(neuronTraces[i].class.localeCompare(trace.class) > 0){
+			if(neuronTraces[i].class == null){
+				var newClass = {
+					class: trace.class,
+					traces: [trace]
+				};
+				neuronTraces.push(newClass);
+			}
+			else if(neuronTraces[i].class.localeCompare(trace.class) > 0){
 				var newClass = {
 					class: trace.class,
 					traces: [trace]
@@ -136,14 +146,11 @@ function plotBehavior(list_t, behavior, plot_element, label, trace_id) {
 	// Plotly.addTraces(plot_element, [trace,]);
 }
 
-function removeTrace(label, neuron_idx, neuropal_label){
-	var neuron_class = neuropal_label[neuron_idx]['neuron_class']
+function removeTrace(trace_id){
 	for(var i = 0; i < neuronTraces.length; i++){
-		if(neuronTraces[i].class == neuron_class){
-			for(var j = 0; j < neuronTraces[i].traces.length; j++){
-				if(neuronTraces[i].traces[j].name == label){
-					neuronTraces[i].traces.splice(j, 1);
-				}
+		for(var j = 0; j < neuronTraces[i].traces.length; j++){
+			if(neuronTraces[i].traces[j].trace_id == trace_id){
+				neuronTraces[i].traces.splice(j, 1);
 			}
 			if(neuronTraces[i].traces.length == 0){
 				neuronTraces.splice(i, 1)

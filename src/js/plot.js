@@ -78,8 +78,6 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	}
 	console.log("Next Available Color: " + next_available_color);
 
-	var new_colors = curr_colors;
-
 	if(neuronTraces.length > 0){
 		for(var i = 0; i < neuronTraces.length; i++){
 			// console.log("Comparing " + neuronTraces[i].class + " with " + trace.class);
@@ -94,7 +92,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 					traces: [trace],
 					color_idx: next_available_color
 				};
-				new_colors.push(trace.class + "_" + next_available_color);
+				curr_colors.push(trace.class + "_" + next_available_color);
 				neuronTraces.push(newClass);
 				
 				break;
@@ -106,7 +104,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			traces: [trace],
 			color_idx: next_available_color
 		};
-		new_colors.push(trace.class + "_" + next_available_color);
+		curr_colors.push(trace.class + "_" + next_available_color);
 		neuronTraces.push(newClass);
 		console.log("Added: " + newClass.class);
 	}
@@ -127,10 +125,9 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		}
 	}
 
-	console.log("Colors: " + new_colors);
+	console.log("Colors: " + curr_colors);
 	console.log("Plotted Neurons: " + outputStr);
 
-	curr_colors = new_colors;
 
     // Plotly.addTraces(plot_element, [trace,]);
 }
@@ -155,11 +152,16 @@ function plotBehavior(list_t, behavior, plot_element, label, trace_id) {
 	// Plotly.addTraces(plot_element, [trace,]);
 }
 
-function removeTrace(trace_id){
+function removeTrace(neuron_class){
 	for(var i = 0; i < neuronTraces.length; i++){
 		for(var j = 0; j < neuronTraces[i].traces.length; j++){
+			for(var k = 0; k < curr_colors.length; i++){
+				if(curr_colors[k].split("_")[0] == neuron_class){
+					curr_colors.splice(k, 1);
+				}
+			}
 			console.log(j);
-			if(neuronTraces[i].traces[j].trace_id == trace_id){
+			if(neuronTraces[i].traces[j].class == neuron_class){
 				neuronTraces[i].traces.splice(j, 1);
 			}
 			if(neuronTraces[i].traces.length == 0){

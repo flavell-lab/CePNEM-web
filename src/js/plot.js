@@ -64,7 +64,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	// console.log("Adding " + label);
 
 	
-	console.log("Current Colors: [" + curr_colors + "]");
+	// console.log("Current Colors: [" + curr_colors + "]");
 
 	var used_colors = curr_colors.map(x => parseInt(x.split("_")[1]));
 	
@@ -74,7 +74,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	}
 	used_colors.sort();
 	
-	console.log("Used Colors: " + used_colors);
+	// console.log("Used Colors: " + used_colors);
 	var next_available_color = 0;
 	for(var i = 0; i < used_colors.length; i++){
 		// console.log("I: " + i + ", Used_Colors[i]: " + used_colors[i]);
@@ -87,7 +87,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			break;
 		}
 	}
-	console.log("Next Available Color: " + next_available_color);
+	// console.log("Next Available Color: " + next_available_color);
 
 	if(neuronTraces.length > 0){
 		for(var i = 0; i < neuronTraces.length; i++){
@@ -228,7 +228,7 @@ function removeBehavior(label){
 	}
 }
 
-const color_list = ['#0000ff', '#5252ff', '#ff5900', '#ff8e52', '#149400', '#5fbf50', '#9e02f7', '#c766ff', '#00c9b5', '#74d6cc'];
+const color_list = ['#0000ff', '#8585ff', '#ff5900', '#ff8e52', '#149400', '#5fbf50', '#9e02f7', '#c766ff', '#00c9b5', '#74d6cc', '#fffb08', '#fcfb95', '#3cff00', '#9fff82', '#ff0000', '#ff8c8c', '#ff08d6', '#ff75e8'];
 const behavior_colors = ['#0000ff', '#ff5900', '#149400', '#9e02f7', '#00c9b5'];
 const behaviors = ["v", "hc", "f", "av", "bc"];
 
@@ -245,7 +245,7 @@ function pushToPlot(plot_element){
 	for(var i = 0; i < neuronTraces.length; i++){
 		used_colors.push(neuronTraces[i].class + "_" + neuronTraces[i].color_idx)
 		for(var j = 0; j < neuronTraces[i].traces.length; j++){
-			neuronTraces[i].traces[j].line.color = color_list[2*neuronTraces[i].color_idx + (neuronTraces[i].traces[j].offset % 2 == 0 ? 0 : 1)];
+			neuronTraces[i].traces[j].line.color = color_list[(2*neuronTraces[i].color_idx + (neuronTraces[i].traces[j].offset % 2 == 0 ? 0 : 1) % color_list.length)];
 			neuronTraces[i].traces[j].line.dash = (neuronTraces[i].traces[j].offset > 1 ? 'dashdot' : 'solid')
 
 			Plotly.addTraces(plot_element, [neuronTraces[i].traces[j],]);

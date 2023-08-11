@@ -236,13 +236,12 @@ function pushToPlot(plot_element){
 
 	var used_colors = [];
 
-	neuronTraces.sort(function (a, b) {a.class.localeCompare(b.class)})
+	neuronTraces.sort(function (a, b) {return a.class.localeCompare(b.class)})
 
 	while(plot_element.data.length){
 		Plotly.deleteTraces(plot_element, [0])
 	}
 
-	var class_idx = 0;
 	for(var i = 0; i < neuronTraces.length; i++){
 		used_colors.push(neuronTraces[i].class + "_" + neuronTraces[i].color_idx)
 		for(var j = 0; j < neuronTraces[i].traces.length; j++){

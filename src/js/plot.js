@@ -162,7 +162,7 @@ function plotBehavior(list_t, behavior, plot_element, label, trace_id) {
 function removeTrace(neuron_class){
 	for(var i = 0; i < neuronTraces.length; i++){
 		for(var j = 0; j < neuronTraces[i].traces.length; j++){
-			for(var k = 0; k < curr_colors.length; i++){
+			for(var k = 0; k < curr_colors.length; k++){
 				if(curr_colors[k].split("_")[0] == neuron_class){
 					curr_colors.splice(k, 1);
 					break;

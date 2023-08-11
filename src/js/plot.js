@@ -77,6 +77,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			next_available_color = i+1;
 		}
 	}
+	console.log("Next Available Color: " + next_available_color);
 
 	if(neuronTraces.length > 0){
 		for(var i = 0; i < neuronTraces.length; i++){

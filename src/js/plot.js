@@ -64,6 +64,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	// console.log("Adding " + label);
 
 	
+	console.log("Current Colors: " + curr_colors);
 
 	var used_colors = curr_colors.map(x => curr_colors.length > 0 ? parseInt(x.split("_")[1]) : []);
 	if(used_colors[0] == NaN){
@@ -72,7 +73,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	
 	var next_available_color = 0;
 	for(var i = 0; i < used_colors.length; i++){
-		console.log("I: " + i + ", Used_Colors: " + used_colors);
+		// console.log("I: " + i + ", Used_Colors: " + used_colors);
 		if(used_colors[i] != i){
 			next_available_color = i;
 		} else if(i == used_colors.length - 1){

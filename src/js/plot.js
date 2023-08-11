@@ -227,7 +227,8 @@ function removeBehavior(label){
 	}
 }
 
-const color_list = ['#3366CC', '#FF7F0E', '#2CA02C', '#990099', '#00FE35', '#19D3F3', '#FF6692', '#B6E880', '#FF97FF', '#FECB52'];
+const color_list = ['#0000ff', '#5252ff', '#ff5900', '#ff8e52', '#149400', '#5fbf50', '#9e02f7', '#c766ff', '#00c9b5', '#74d6cc'];
+const behavior_colors = ['#0000ff', '#ff5900', '#149400', '#9e02f7', '#00c9b5'];
 const behaviors = ["v", "hc", "f", "av", "bc"];
 
 function pushToPlot(plot_element){
@@ -250,7 +251,7 @@ function pushToPlot(plot_element){
 	}
 
 	for(var i = 0; i < behaviorTraces.length; i++){
-		behaviorTraces[i].line.color = color_list[behaviors.indexOf(behaviorTraces[i].trace_id.split('_')[1])];
+		behaviorTraces[i].line.color = behavior_colors[behaviors.indexOf(behaviorTraces[i].trace_id.split('_')[1])];
 		Plotly.addTraces(plot_element, [behaviorTraces[i],]);
 	}
 

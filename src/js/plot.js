@@ -62,11 +62,11 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	// console.log("Adding " + label);
 
-	current_url = new URL(window.location.href);
-	url_params = new URLSearchParams(current_url.search);
-	list_colors = url_params.get('list_colors').split(",");
+	get_current_url = new URL(window.location.href);
+	curr_url_params = new URLSearchParams(get_current_url.search);
+	curr_list_colors = url_params.get('list_colors').split(",");
 	
-	var used_colors = list_colors.map(x => parseInt(x.split("_")[1]));
+	var used_colors = curr_list_colors.map(x => parseInt(x.split("_")[1]));
 
 	var next_available_color = 0;
 	for(var i = 0; i < used_colors.length; i++){

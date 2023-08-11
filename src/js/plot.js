@@ -114,9 +114,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		console.log("Added: " + newClass.class);
 	}
 
-	let url = new URL(window.location.href);
-	url.searchParams.set("list_colors", used_colors);
-	window.history.pushState({}, "", url);
+	
 
 	// var new_colors_list = [];
 
@@ -133,6 +131,11 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	}
 
 	console.log("Plotted Neurons: " + outputStr);
+
+	let url = new URL(window.location.href);
+	url.searchParams.set("list_colors", used_colors);
+	window.location.href = url;
+	window.history.pushState({}, "", url);
 
     // Plotly.addTraces(plot_element, [trace,]);
 }

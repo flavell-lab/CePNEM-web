@@ -66,7 +66,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	
 	console.log("Current Colors: [" + curr_colors + "]");
 
-	var used_colors = curr_colors.map(x =>  parseInt(x.split("_")[1]));
+	var used_colors = curr_colors.map(x => parseInt(x.split("_")[1]));
 	
 	if(isNaN(used_colors[0])){
 		console.log("Splicing")
@@ -76,7 +76,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	console.log("Used Colors: " + used_colors);
 	var next_available_color = 0;
 	for(var i = 0; i < used_colors.length; i++){
-		console.log("I: " + i + ", Used_Colors[i]: " + used_colors[i]);
+		console.log("I: " + i + ", Used_Colors[i]: " + (typeof used_colors[i]));
 		if(used_colors[i] != i){
 			next_available_color = i;
 		} else if(i == used_colors.length - 1){

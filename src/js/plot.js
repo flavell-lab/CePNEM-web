@@ -68,38 +68,8 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		for(var i = 0; i < neuronTraces.length; i++){
 			// console.log("Comparing " + neuronTraces[i].class + " with " + trace.class);
 			// console.log("Number of traces " + neuronTraces.length);
-			if(neuronTraces[i].class == null){
-				var newClass = {
-					class: trace.class,
-					traces: [trace]
-				};
-				neuronTraces.push(newClass);
-			}
-			else if(neuronTraces[i].class.localeCompare(trace.class) > 0){
-				var newClass = {
-					class: trace.class,
-					traces: [trace]
-				};
-				console.log(neuronTraces[i].class + " goes after " + trace.class);
-				neuronTraces.splice(i, 0, newClass);
-
-				break;
-			}
-			else if(neuronTraces[i].class === trace.class){
-				for(var j = 0; j < neuronTraces[i].traces.length; j++){
-					var currentLabel = neuronTraces[i].traces[j].name.substring(
-						neuronTraces[i].traces[j].name.indexOf('(')+1, neuronTraces[i].traces[j].name.length-1);
-					var newLabel = trace.name.substring(trace.name.indexOf('(')+1, trace.name.length-1);
-					console.log("Comparing " + currentLabel + " and " + newLabel);
-					if(currentLabel > newLabel){
-						neuronTraces[i].traces.splice(j, 0, trace);
-						break;
-					}
-					else if(currentLabel < newLabel){
-						neuronTraces[i].traces.push(trace);
-						break;
-					}
-				}
+			if(neuronTraces[i].class === trace.class){
+				neuronTraces[i].traces.push(trace);
 				break;
 			}
 			else if(i == neuronTraces.length - 1){

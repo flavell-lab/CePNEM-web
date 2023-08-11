@@ -132,6 +132,7 @@ function plotBehavior(list_t, behavior, plot_element, label, trace_id) {
 function removeTrace(trace_id){
 	for(var i = 0; i < neuronTraces.length; i++){
 		for(var j = 0; j < neuronTraces[i].traces.length; j++){
+			console.log(j);
 			if(neuronTraces[i].traces[j].trace_id == trace_id){
 				neuronTraces[i].traces.splice(j, 1);
 			}

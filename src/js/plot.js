@@ -163,6 +163,7 @@ function plotBehavior(list_t, behavior, plot_element, label, trace_id) {
 }
 
 function removeTrace(neuron_class){
+	
 	for(var i = 0; i < neuronTraces.length; i++){
 		for(var j = 0; j < neuronTraces[i].traces.length; j++){
 			for(var k = 0; k < curr_colors.length; k++){
@@ -181,15 +182,18 @@ function removeTrace(neuron_class){
 			}
 		}
 	}
-	// var outputStr = "";
 
-	// for(var i = 0; i < neuronTraces.length; i++){
-	// 	for(var j = 0; j < neuronTraces[i].traces.length; j++){
-	// 		outputStr += neuronTraces[i].traces[j].name + ": " + (4*i + neuronTraces[i].traces[j].offset) + ", ";
-	// 	}
-	// }
+	console.log("Removed " + neuron_class);
+	
+	var outputStr = "";
 
-	// console.log("Plotted Neurons: " + outputStr);
+	for(var i = 0; i < neuronTraces.length; i++){
+		for(var j = 0; j < neuronTraces[i].traces.length; j++){
+			outputStr += neuronTraces[i].traces[j].name + ": " + (4*i + neuronTraces[i].traces[j].offset) + ", ";
+		}
+	}
+
+	console.log("Plotted Neurons: " + outputStr);
 }
 
 function removeBehavior(label){

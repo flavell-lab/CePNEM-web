@@ -236,7 +236,7 @@ function pushToPlot(plot_element){
 
 	var used_colors = [];
 
-	neuronTraces.sort(function (a, b) {return (typeof a == 'number' ? (typeof b == 'number' ? a - b : 1) : (typeof b == 'number' ? -1 : a.class.localeCompare(b.class)))})
+	neuronTraces.sort(function (a, b) {return (typeof a == 'number' ? (typeof b == 'number' ? a - b : 1) : (typeof b == 'number' ? -1 : a.class.toString().localeCompare(b.class.toString())))})
 
 	while(plot_element.data.length){
 		Plotly.deleteTraces(plot_element, [0])

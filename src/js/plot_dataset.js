@@ -117,6 +117,9 @@ function toggleEvent(q) {
 }
 
 function resetYAxis(plot) {
+    if(plot.data.length == 0){
+        return;
+    }
     let margin = 0.05
     let data_ = plot.data
     let y_max = -1000.

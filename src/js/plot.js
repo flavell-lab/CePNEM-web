@@ -193,7 +193,7 @@ function pushToPlot(plot_element){
 	for(var i = 0; i < neuronTraces.length; i++){
 		for(var j = 0; j < neuronTraces[i].traces.length; j++){
 			neuronTraces[i].traces[j].line.color = color_list[2*i + (neuronTraces[i].traces[j].offset % 2 == 0 ? 0 : 1)];
-			neuronTraces[i].traces[j].line.dash = (neuronTraces[i].traces[j].offset > 1 ? 'dot' : 'solid')
+			neuronTraces[i].traces[j].line.dash = (neuronTraces[i].traces[j].offset > 1 ? 'dash' : 'solid')
 
 			Plotly.addTraces(plot_element, [neuronTraces[i].traces[j],]);
 		}

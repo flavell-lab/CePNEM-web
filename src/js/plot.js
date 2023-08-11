@@ -106,7 +106,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 				var foundClass = false;
 				for(var k = 0; k < curr_colors.length; k++){
 					if(curr_colors[k].split("_")[0] == trace.class){
-						newClass.parseInt(curr_colors[k].split("_")[1]);
+						newClass.color_idx = parseInt(curr_colors[k].split("_")[1]);
 						foundClass = true;
 						break;
 					}
@@ -127,7 +127,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		var foundClass = false;
 		for(var k = 0; k < curr_colors.length; k++){
 			if(curr_colors[k].split("_")[0] == trace.class){
-				newClass.parseInt(curr_colors[k].split("_")[1]);
+				newClass.color_idx = parseInt(curr_colors[k].split("_")[1]);
 				foundClass = true;
 				break;
 			}

@@ -155,6 +155,7 @@ const dataset_uid = url_params.get('uid');
 const list_neuron_str = url_params.get('list_neuron').split(",");
 const list_url_neuron = [...new Set(list_neuron_str.map(x => parseInt(x)).sort(function(a, b) {return a - b;}))]
 const list_url_behavior = url_params.get('list_behavior').split(",").sort();
+const list_colors = url_params.get('list_colors').split(",");
 const list_behavior_str = ["Velocity", "Head Curve", "Pumping", "Angular Velocity", "Body Curvature"];
 const list_behavior_str_short = ["v", "hc", "f", "av", "bc"];
 const behavior_units = ["0.1 mm/s", "rad", "pumps/sec", "rad/s", "rad"];
@@ -579,12 +580,14 @@ function find_matches(neuropal_label, data){
             var curr_url = new URL(window.location.href);
             var url_param_list = new URLSearchParams(curr_url.search);
             var curr_list_url_behavior = url_param_list.get('list_behavior').split(",").sort();
+            var url_colors_list = url_param_list.get('list_colors').split(",");
 
             if (match_all == true) {
                 let url_plot = new URL("plot_dataset.html", document.location);
                 url_plot.searchParams.set("uid", curr_dataset_uid);
                 url_plot.searchParams.set("list_neuron", list_idx_neuron);
                 url_plot.searchParams.set("list_behavior", curr_list_url_behavior);
+                url_plot.searchParams.set("list_colors", url_colors_list)
                 $('#small_dataset_table').bootstrapTable('updateCellByUniqueId', {
                     id: curr_dataset_uid,
                     field: "url",
@@ -652,6 +655,7 @@ function clearSelect() {
     let url = new URL(window.location.href);
     url.searchParams.set("list_neuron", "");
     url.searchParams.set("list_behavior", "");
+    url.searchParams.set("list_colors", "");
     window.history.pushState({}, "", url);
 }
 

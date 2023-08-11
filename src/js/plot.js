@@ -51,6 +51,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		yaxis: yaxis,
 		trace_id: trace_id,
 		offset: offset,
+		index: 0,
 		line: {
 			color: null,
 			dash: 'solid'
@@ -59,27 +60,49 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	// console.log("Adding " + label);
 
+	var colors_list_class_idx = list_colors.map(x => parseInt(x.split("_")[0]));
+	var colors_list_color_idx = list_colors.map(x => parseInt(x.split("_")[1]));
+
+	var next_available_color = 0;
+	if(colors_list_color_idx.length > 0){
+		for(var i = 0; i < colors_list_color_idx.length; i++){
+			if(colors_list_color_idx != i){
+				next_available_color = i;
+				colors_list_color_idx.push(i);
+			}
+		}
+	}
+
 	if(neuronTraces.length > 0){
+		var class_idx = 1;
 		for(var i = 0; i < neuronTraces.length; i++){
 			// console.log("Comparing " + neuronTraces[i].class + " with " + trace.class);
 			// console.log("Number of traces " + neuronTraces.length);
 			if(neuronTraces[i].class == null){
 				var newClass = {
 					class: trace.class,
-					traces: [trace]
+					traces: [trace],
+					color: next_available_color
 				};
+				colors_list_class_idx.push("null");
 				neuronTraces.push(newClass);
 			}
 			else if(neuronTraces[i].class.localeCompare(trace.class) > 0){
 				var newClass = {
 					class: trace.class,
-					traces: [trace]
+					traces: [trace],
+					index: class_idx,
+					color: next_available_color
 				};
+				class_idx++;
 				console.log(neuronTraces[i].class + " goes after " + trace.class);
+				colors_list_class_idx.push(class_idx);
 				neuronTraces.splice(i, 0, newClass);
+
 				break;
 			}
 			else if(neuronTraces[i].class === trace.class){
+				colors_list_color_idx.pop();
 				for(var j = 0; j < neuronTraces[i].traces.length; j++){
 					var currentLabel = neuronTraces[i].traces[j].name.substring(
 						neuronTraces[i].traces[j].name.indexOf('(')+1, neuronTraces[i].traces[j].name.length-1);
@@ -99,8 +122,12 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			else if(i == neuronTraces.length - 1){
 				var newClass = {
 					class: trace.class,
-					traces: [trace]
+					traces: [trace],
+					index: class_idx,
+					color: next_available_color
 				};
+				class_idx++;
+				colors_list_class_idx.push(class_idx);
 				neuronTraces.push(newClass);
 				break;
 			}
@@ -108,11 +135,24 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	} else{
 		var newClass = {
 			class: trace.class,
-			traces: [trace]
+			traces: [trace],
+			index: 0,
+			color: next_available_color
 		};
+		colors_list_class_idx.push(0);
 		neuronTraces.push(newClass);
 		console.log("Added: " + newClass.class);
 	}
+
+	var new_colors_list = [];
+
+	for(var i = 0; i < colors_list_class_idx.length; i++){
+		new_colors_list.push(colors_list_class_idx[i] + "_" + colors_list_color_idx[i]);
+	}
+
+	let url = new URL(window.location.href);
+    url.searchParams.set("list_colors", new_colors_list);
+    window.history.pushState({}, "", url);
 
 	// var outputStr = "";
 
@@ -186,13 +226,16 @@ const behaviors = ["v", "hc", "f", "av", "bc"];
 
 function pushToPlot(plot_element){
 
+	
+
 	while(plot_element.data.length){
 		Plotly.deleteTraces(plot_element, [0])
 	}
 
+	var class_idx = 0;
 	for(var i = 0; i < neuronTraces.length; i++){
 		for(var j = 0; j < neuronTraces[i].traces.length; j++){
-			neuronTraces[i].traces[j].line.color = color_list[2*i + (neuronTraces[i].traces[j].offset % 2 == 0 ? 0 : 1)];
+			neuronTraces[i].traces[j].line.color = color_list[neuronTraces[i].color + (neuronTraces[i].traces[j].offset % 2 == 0 ? 1 : 0)];
 			neuronTraces[i].traces[j].line.dash = (neuronTraces[i].traces[j].offset > 1 ? 'dashdot' : 'solid')
 
 			Plotly.addTraces(plot_element, [neuronTraces[i].traces[j],]);

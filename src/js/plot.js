@@ -94,7 +94,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			// console.log("Number of traces " + neuronTraces.length);
 			if(neuronTraces[i].class === trace.class){
 				neuronTraces[i].traces.push(trace);
-				console.log("Added new trace to: " + newClass.class);
+				console.log("Added new trace to: " + trace.class);
 				break;
 			}
 			else if(i == neuronTraces.length - 1){

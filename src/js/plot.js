@@ -30,6 +30,7 @@ var behaviorTraces = [];
 
 function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label) {
 	var offset = 0;
+	console.log(neuropal_label + ", " + neuropal_label[neuron_idx]);
 	if(neuropal_label != undefined){
 		neuron_idx = Number(trace_id.substring(trace_id.indexOf('_')+1, trace_id.length));
 		var LR = neuropal_label[neuron_idx]["LR"]

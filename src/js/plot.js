@@ -103,7 +103,16 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 					traces: [trace],
 					color_idx: next_available_color
 				};
-				curr_colors.splice(next_available_color, 0, trace.class + "_" + next_available_color);
+				var foundClass = false;
+				for(var k = 0; k < curr_colors.length; k++){
+					if(curr_colors[k].split("_")[0] == trace.class){
+						newClass.parseInt(curr_colors[k].split("_")[1]);
+						foundClass = true;
+						break;
+					}
+				}
+				if(!foundClass)
+					curr_colors.splice(next_available_color, 0, trace.class + "_" + next_available_color);
 				neuronTraces.push(newClass);
 				console.log("Added: " + newClass.class);
 				break;
@@ -115,7 +124,16 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			traces: [trace],
 			color_idx: next_available_color
 		};
-		curr_colors.splice(next_available_color, 0, trace.class + "_" + next_available_color);
+		var foundClass = false;
+		for(var k = 0; k < curr_colors.length; k++){
+			if(curr_colors[k].split("_")[0] == trace.class){
+				newClass.parseInt(curr_colors[k].split("_")[1]);
+				foundClass = true;
+				break;
+			}
+		}
+		if(!foundClass)
+			curr_colors.splice(next_available_color, 0, trace.class + "_" + next_available_color);
 		neuronTraces.push(newClass);
 		console.log("Added: " + newClass.class);
 	}

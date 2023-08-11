@@ -46,7 +46,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
         type: 'line',
         mode: 'line',
 		name: label,
-		class: neuropal_label != undefined ? neuropal_label[neuron_idx]['neuron_class'] : null,
+		class: neuropal_label[neuron_idx] != undefined ? neuropal_label[neuron_idx]['neuron_class'] : null,
 		xaxis: 'x',
 		yaxis: yaxis,
 		trace_id: trace_id,

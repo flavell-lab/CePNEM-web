@@ -73,12 +73,12 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		curr_colors.splice(0, 1);
 	}
 	
-	console.log("Used Colors: " + used_colors);
+	// console.log("Used Colors: " + used_colors);
 	var next_available_color = 0;
 	for(var i = 0; i < used_colors.length; i++){
 		// console.log("I: " + i + ", Used_Colors[i]: " + used_colors[i]);
 		if(used_colors[i] != i){
-			console.log(i + " != " + used_colors[i]);
+			// console.log(i + " != " + used_colors[i]);
 			next_available_color = i;
 			break;
 		} else if(i == used_colors.length - 1){
@@ -94,6 +94,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			// console.log("Number of traces " + neuronTraces.length);
 			if(neuronTraces[i].class === trace.class){
 				neuronTraces[i].traces.push(trace);
+				console.log("Added new trace to: " + newClass.class);
 				break;
 			}
 			else if(i == neuronTraces.length - 1){
@@ -104,7 +105,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 				};
 				curr_colors.splice(next_available_color, 0, trace.class + "_" + next_available_color);
 				neuronTraces.push(newClass);
-				
+				console.log("Added: " + newClass.class);
 				break;
 			}
 		}
@@ -184,7 +185,7 @@ function removeTrace(neuron_class){
 	}
 
 	console.log("Removed " + neuron_class);
-	
+
 	var outputStr = "";
 
 	for(var i = 0; i < neuronTraces.length; i++){

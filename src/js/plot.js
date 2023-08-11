@@ -27,6 +27,7 @@ function initPlot(plot_element) {
 
 var neuronTraces = [];
 var behaviorTraces = [];
+var curr_colors = list_colors;
 
 function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label) {
 	var neuron_idx = Number(trace_id.substring(trace_id.indexOf('_')+1, trace_id.length));
@@ -62,14 +63,10 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	// console.log("Adding " + label);
 
-	get_current_url = new URL(window.location.href);
-	curr_url_params = new URLSearchParams(get_current_url.search);
-	curr_list_colors = url_params.get('list_colors').split(",");
-
-	console.log("From URL: " + curr_list_colors);
 	
-	var used_colors = curr_list_colors.map(x => parseInt(x.split("_")[1]));
 
+	var used_colors = curr_colors.map(x => curr_colors.length > 0 ? parseInt(x.split("_")[1]) : []);
+	
 	var next_available_color = 0;
 	for(var i = 0; i < used_colors.length; i++){
 		console.log("I: " + i + ", Used_Colors: " + used_colors);
@@ -132,10 +129,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	console.log("Plotted Neurons: " + outputStr);
 
-	let url = new URL(window.location.href);
-	url.searchParams.set("list_colors", used_colors);
-	window.location.href = url;
-	window.history.pushState({}, "", url);
+	curr_colors = new_colors;
 
     // Plotly.addTraces(plot_element, [trace,]);
 }

@@ -31,7 +31,6 @@ var behaviorTraces = [];
 function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label) {
 	var neuron_idx = Number(trace_id.substring(trace_id.indexOf('_')+1, trace_id.length));
 	var offset = 0;
-	console.log(neuropal_label + ", " + neuropal_label[neuron_idx]);
 	if(neuropal_label[neuron_idx] != undefined){
 		var LR = neuropal_label[neuron_idx]["LR"]
 		var DV = neuropal_label[neuron_idx]["DV"]
@@ -127,15 +126,15 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
     // url.searchParams.set("list_colors", new_colors_list);
     // window.history.pushState({}, "", url);
 
-	// var outputStr = "";
+	var outputStr = "";
 
-	// for(var i = 0; i < neuronTraces.length; i++){
-	// 	for(var j = 0; j < neuronTraces[i].traces.length; j++){
-	// 		outputStr += neuronTraces[i].traces[j].name + ": " + (4*i + neuronTraces[i].traces[j].offset) + ", ";
-	// 	}
-	// }
+	for(var i = 0; i < neuronTraces.length; i++){
+		for(var j = 0; j < neuronTraces[i].traces.length; j++){
+			outputStr += neuronTraces[i].traces[j].name + ": " + (4*i + neuronTraces[i].traces[j].offset) + ", ";
+		}
+	}
 
-	// console.log("Plotted Neurons: " + outputStr);
+	console.log("Plotted Neurons: " + outputStr);
 
     // Plotly.addTraces(plot_element, [trace,]);
 }

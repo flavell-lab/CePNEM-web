@@ -65,6 +65,8 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	get_current_url = new URL(window.location.href);
 	curr_url_params = new URLSearchParams(get_current_url.search);
 	curr_list_colors = url_params.get('list_colors').split(",");
+
+	console.log("From URL: " + curr_list_colors);
 	
 	var used_colors = curr_list_colors.map(x => parseInt(x.split("_")[1]));
 

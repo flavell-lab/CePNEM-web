@@ -163,22 +163,22 @@ function plotBehavior(list_t, behavior, plot_element, label, trace_id) {
 	// Plotly.addTraces(plot_element, [trace,]);
 }
 
-function removeTrace(neuron_class){
+function removeTrace(trace_id, neuron_class){
 	
 	for(var i = 0; i < neuronTraces.length; i++){
 		for(var j = 0; j < neuronTraces[i].traces.length; j++){
-			for(var k = 0; k < curr_colors.length; k++){
-				if(curr_colors[k].split("_")[0] == neuron_class){
-					curr_colors.splice(k, 1);
-					break;
-				}
-			}
 			console.log(j);
-			if(neuronTraces[i].traces[j].class == neuron_class){
+			if(neuronTraces[i].traces[j].trace_id == trace_id){
 				neuronTraces[i].traces.splice(j, 1);
 			}
 			if(neuronTraces[i].traces.length == 0){
 				neuronTraces.splice(i, 1);
+				for(var k = 0; k < curr_colors.length; k++){
+					if(curr_colors[k].split("_")[0] == neuron_class){
+						curr_colors.splice(k, 1);
+						break;
+					}
+				}
 				break;
 			}
 		}
@@ -190,7 +190,7 @@ function removeTrace(neuron_class){
 
 	for(var i = 0; i < neuronTraces.length; i++){
 		for(var j = 0; j < neuronTraces[i].traces.length; j++){
-			outputStr += neuronTraces[i].traces[j].name + ": " + (4*i + neuronTraces[i].traces[j].offset) + ", ";
+			outputStr += neuronTraces[i].traces[j].name + ": " + (2*neuronTraces[i].color_idx + (neuronTraces[i].traces[j].offset % 2 == 0 ? 0 : 1))+ ", ";
 		}
 	}
 

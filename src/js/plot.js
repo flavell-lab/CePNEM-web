@@ -127,6 +127,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		}
 	}
 
+	console.log("Colors: " + new_colors);
 	console.log("Plotted Neurons: " + outputStr);
 
 	curr_colors = new_colors;

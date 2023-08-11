@@ -117,8 +117,8 @@ function toggleEvent(q) {
 }
 
 function resetYAxis(plot) {
-    console.log("Plot Data length: " + plot.data.length);
-    if(plot.data.length == 0){
+    console.log("Plot Data length: " + data_export["neuron"].length);
+    if(data_export["neuron"].length == 0){
         return;
     }
     let margin = 0.05

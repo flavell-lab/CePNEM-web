@@ -32,7 +32,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	var neuron_idx = Number(trace_id.substring(trace_id.indexOf('_')+1, trace_id.length));
 	var offset = 0;
 	console.log(neuropal_label + ", " + neuropal_label[neuron_idx]);
-	if(neuropal_label != undefined){
+	if(neuropal_label[neuron_idx] != undefined){
 		var LR = neuropal_label[neuron_idx]["LR"]
 		var DV = neuropal_label[neuron_idx]["DV"]
 		offset = LR == 'R' ? 1 + (DV == 'V' ? 2 : 0) : (DV == 'V' ? 2 : 0)

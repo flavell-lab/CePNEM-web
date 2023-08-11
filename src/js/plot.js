@@ -99,7 +99,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 					traces: [trace],
 					color_idx: next_available_color
 				};
-				curr_colors.push(trace.class + "_" + next_available_color);
+				curr_colors.splice(next_available_color, 0, trace.class + "_" + next_available_color);
 				neuronTraces.push(newClass);
 				
 				break;
@@ -111,7 +111,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			traces: [trace],
 			color_idx: next_available_color
 		};
-		curr_colors.push(trace.class + "_" + next_available_color);
+		curr_colors.splice(next_available_color, 0, trace.class + "_" + next_available_color);
 		neuronTraces.push(newClass);
 		console.log("Added: " + newClass.class);
 	}

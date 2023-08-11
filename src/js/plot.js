@@ -66,7 +66,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	
 	console.log("Current Colors: " + curr_colors);
 
-	var used_colors = curr_colors.length > 1 ? curr_colors.map(x =>  parseInt(x.split("_")[1])) : [];
+	var used_colors = curr_colors[0] == "" ? curr_colors.map(x =>  parseInt(x.split("_")[1])) : [];
 	if(used_colors[0] == NaN){
 		curr_colors.splice(0, 1);
 	}

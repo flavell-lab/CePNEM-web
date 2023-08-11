@@ -632,6 +632,7 @@ function clearSelect() {
 
     neuronTraces = [];
     behaviorTraces = []
+    curr_colors = [];
 
     // clear plot
     while(plot_main.data.length>0)

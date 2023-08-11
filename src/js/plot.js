@@ -69,6 +69,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			if(colors_list_color_idx != i){
 				next_available_color = i;
 				colors_list_color_idx.push(i);
+				break;
 			}
 		}
 	}

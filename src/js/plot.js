@@ -62,7 +62,16 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	// console.log("Adding " + label);
 
+	var used_colors = list_colors.map(x => parseInt(x.split("_")[1]));
 
+	var next_available_color = 0;
+	for(var i = 0; i < used_colors.length; i++){
+		if(used_colors[i] != i){
+			next_available_color = i;
+		} else if(i = used_colors.length - 1){
+			next_available_color = i;
+		}
+	}
 
 	if(neuronTraces.length > 0){
 		for(var i = 0; i < neuronTraces.length; i++){
@@ -75,7 +84,8 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			else if(i == neuronTraces.length - 1){
 				var newClass = {
 					class: trace.class,
-					traces: [trace]
+					traces: [trace],
+					color_idx: next_available_color
 				};
 				neuronTraces.push(newClass);
 				break;
@@ -85,6 +95,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		var newClass = {
 			class: trace.class,
 			traces: [trace],
+			color_idx: next_available_color
 		};
 		neuronTraces.push(newClass);
 		console.log("Added: " + newClass.class);
@@ -170,7 +181,7 @@ const behaviors = ["v", "hc", "f", "av", "bc"];
 
 function pushToPlot(plot_element){
 
-	
+	var used_colors = [];
 
 	while(plot_element.data.length){
 		Plotly.deleteTraces(plot_element, [0])
@@ -178,8 +189,9 @@ function pushToPlot(plot_element){
 
 	var class_idx = 0;
 	for(var i = 0; i < neuronTraces.length; i++){
+		used_colors.push(neuronTraces[i].class + "_" + neuronTraces[i].color_idx)
 		for(var j = 0; j < neuronTraces[i].traces.length; j++){
-			neuronTraces[i].traces[j].line.color = color_list[neuronTraces[i].color + (neuronTraces[i].traces[j].offset % 2 == 0 ? 1 : 0)];
+			neuronTraces[i].traces[j].line.color = color_list[neuronTraces[i].color_idx + (neuronTraces[i].traces[j].offset % 2 == 0 ? 1 : 0)];
 			neuronTraces[i].traces[j].line.dash = (neuronTraces[i].traces[j].offset > 1 ? 'dashdot' : 'solid')
 
 			Plotly.addTraces(plot_element, [neuronTraces[i].traces[j],]);
@@ -190,5 +202,9 @@ function pushToPlot(plot_element){
 		behaviorTraces[i].line.color = color_list[behaviors.indexOf(behaviorTraces[i].trace_id.split('_')[1])];
 		Plotly.addTraces(plot_element, [behaviorTraces[i],]);
 	}
+
+	let url = new URL(window.location.href);
+	url.searchParams.set("list_colors", used_colors);
+	window.history.pushState({}, "", url);
 
 }

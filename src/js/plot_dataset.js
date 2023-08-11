@@ -345,9 +345,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             Plotly.deleteTraces(plot_main, i);
         }
 
-        pushToPlot(plot_main);
-        // update y
-        resetYAxis(plot_main)
+        
 
         let selected_idx_neuron_str = $(this).val();
         let selected_neuron_str = selected_idx_neuron_str.map(num => {
@@ -366,7 +364,10 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         update_data_export(data_export, trace_array, behaviors, selected_neuron,
             selected_behavior_str_short, neuropal_label)    
         button_csv_export.disabled = false;
-        
+
+        pushToPlot(plot_main);
+        // update y
+        resetYAxis(plot_main);
 
         // update the current URL
         let url = new URL(window.location.href);
@@ -408,9 +409,6 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             Plotly.deleteTraces(plot_main, i);
         }
 
-        pushToPlot(plot_main);
-        resetYAxis(plot_main)
-
         // update cor modal
         let selected_idx_neuron_str = $("#select_neuron").val();
         let selected_neuron_str = selected_idx_neuron_str.map(num => {
@@ -427,6 +425,9 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         update_data_export(data_export, trace_array, behaviors, selected_neuron,
             selected_behavior_str_short, neuropal_label)
         button_csv_export.disabled = false;
+
+        pushToPlot(plot_main);
+        resetYAxis(plot_main);
 
         // update the current URL
         let url = new URL(window.location.href);

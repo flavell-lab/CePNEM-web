@@ -137,7 +137,8 @@ function removeTrace(trace_id){
 				neuronTraces[i].traces.splice(j, 1);
 			}
 			if(neuronTraces[i].traces.length == 0){
-				neuronTraces.splice(i, 1)
+				neuronTraces.splice(i, 1);
+				break;
 			}
 		}
 	}

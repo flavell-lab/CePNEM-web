@@ -833,7 +833,7 @@ function toggleO(parent) {
 }
 
 function copyURL() {
-    const currentUrl = window.location.href;
+    var currentUrl = window.location.href;
     navigator.clipboard.writeText(currentUrl);
     alert("URL copied to clipboard");
 }

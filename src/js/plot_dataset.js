@@ -503,9 +503,8 @@ function rowStyle(row, index){
     return{};
 }
 
-var lastVisitedDataset;
-var previousDatasetURL;
-var nextDatasetURL;
+var previousDatasetURL = null;
+var nextDatasetURL = null;
 
 function init_find_matches(neuropal_label){
     // populate select/picker and implement neuron finder
@@ -601,14 +600,15 @@ function find_matches(neuropal_label, data){
 
                 $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: curr_dataset_uid});
                 
-                if(lastVisitedDataset === dataset_uid){
-                    nextDatasetURL = url_plot;
-                }
-                if(curr_dataset_uid === dataset_uid && lastVisitedDataset != null){
-                    previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', lastVisitedDataset).url;
+                if(curr_dataset_uid === dataset_uid){
+                    if(i == 0){
+                        previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[list_uid.length -1]).url;
+                    } else{
+                        previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[i - 1]).url;
+                    } 
+                    nextDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[(i + 1) % list_uid.length]).url;
                     $('#small_dataset_table').bootstrapTable('checkBy', {field: 'id', values: [curr_dataset_uid]} );
                 }
-                lastVisitedDataset = curr_dataset_uid;
             } else {
                 $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: curr_dataset_uid});
             }

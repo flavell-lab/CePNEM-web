@@ -35,7 +35,7 @@
 }
 .table-column {
     flex: 1;
-    flex-grow: 2;
+    flex-grow: 1;
     padding: 10px;
 }
 /* Clear floats after the columns */

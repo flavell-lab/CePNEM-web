@@ -640,7 +640,7 @@ function find_matches(neuropal_label, data){
                     }                    
                     $('#small_dataset_table').bootstrapTable('checkBy', {field: 'id', values: [curr_dataset_uid]} );
                 }
-                if(lastShownDataset = list_uid[curr_dataset_idx]){
+                if(lastShownDataset == list_uid[curr_dataset_idx]){
                     nextDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[i]).url;
                 }   
                 lastShownDataset = curr_dataset_uid;

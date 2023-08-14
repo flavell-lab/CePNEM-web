@@ -660,7 +660,7 @@ function find_matches(neuropal_label, data){
         console.log($rows);
         $rows.each(function() {
             var $row = $(this);
-            console.log($row);
+            console.log($row['dataset']);
             if ($row.find('dataset').uniqueId === dataset_uid) {
                 $row.addClass('table-active');
             }

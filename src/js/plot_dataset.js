@@ -380,12 +380,12 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         url.searchParams.set("list_neuron", selected_neuron_str);
         window.history.pushState({}, "", url);
 
-        // fetch("data/matches.json").
-        //     then(response => response.json()).
-        //     then(match_data => {
+        fetch("data/matches.json").
+            then(response => response.json()).
+            then(match_data => {
         
-        //         find_matches(neuropal_label, match_data);
-        // }).catch(error => console.error(error));
+                find_matches(neuropal_label, match_data);
+        }).catch(error => console.error(error));
     });
 
     // behavior selector update
@@ -447,11 +447,11 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         url.searchParams.set("list_behavior", selected_behavior_str_short);
         window.history.pushState({}, "", url);
 
-        // fetch("data/matches.json").
-        //     then(response => response.json()).
-        //     then(match_data => {
-        //         find_matches(neuropal_label, match_data);
-        // }).catch(error => console.error(error))
+        fetch("data/matches.json").
+            then(response => response.json()).
+            then(match_data => {
+                find_matches(neuropal_label, match_data);
+        }).catch(error => console.error(error))
     });
 
     

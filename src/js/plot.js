@@ -8,7 +8,6 @@ function initPlot(plot_element) {
 		yaxis2: { title: "Behavior (see legend for units)", color: "#000000" },
 		showlegend: true,
 		height: 800,	  
-		width:1350,
 		plot_bgcolor: "#FFF",
 		paper_bgcolor: "#FFF",
 		font: { color: "#000000" },

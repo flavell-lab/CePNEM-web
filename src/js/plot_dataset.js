@@ -216,7 +216,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
 
     // change dataset string
     const str_dataset = document.getElementById('str_dataset');
-    str_dataset.innerHTML = `Dataset - ${dataset_uid} <p>` + html_dtype + "</p>"; 
+    str_dataset.innerHTML = `Dataset - ${dataset_uid} ` + html_dtype; 
     
     // load neuron list to the picker
     const list_idx_neuron = Array.from({ length: n_neuron }, (_, i) => i);

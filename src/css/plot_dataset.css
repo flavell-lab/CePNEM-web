@@ -22,11 +22,11 @@
     box-sizing: border-box;
 }
 
-.plot-columns {
+/* .plot-columns {
     width:100%;
     display: flex;
     flex-direction: row;
-}
+} */
 .plot-column {
     flex: 2;
     flex-grow: 3;

@@ -163,7 +163,7 @@ function plotBehavior(list_t, behavior, plot_element, label, trace_id) {
 		yaxis: 'y2',
 		trace_id: trace_id,
 		line:{
-			color: null
+			color: behavior_colors[behaviors.indexOf(trace_id.split('_')[1])]
 		}
     };
 

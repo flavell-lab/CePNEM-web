@@ -199,7 +199,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     button_csv_export.disabled = true;
     button_cor.disabled = true;
     dataload = url_params.get('datasets');
-    let list_dtype = value.dataset_type;
+    let list_dtype = data.dataset_type;
 
     let html_dtype = "";
     for (let i = 0; i < list_dtype.length; i++) {

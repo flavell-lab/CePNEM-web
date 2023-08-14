@@ -170,7 +170,7 @@ const cor_txt_other_neuron = document.getElementById('cor_txt_other_neuron');
 
 var n_neuron = 0;
 var data_export = {"neuron": [], "behavior": []};
-var dataload = false;
+var dataload;
 
 function update_data_export(data_export, trace_array, behaviors, list_neuron, list_behavior, neuropal_label) {
     data_export["neuron"] = [];
@@ -199,6 +199,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     button_csv_export.disabled = true;
     button_cor.disabled = true;
     dataload = url_params.get('datasets');
+    console.log(dataload);
     let list_dtype = data.dataset_type;
 
     let html_dtype = "";

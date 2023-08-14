@@ -657,6 +657,7 @@ function find_matches(neuropal_label, data){
             nextDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[first_dataset_idx]).url;
         }
         var $rows = $('#small_dataset_table').find('tbody > tr');
+        console.log($rows);
         $rows.each(function() {
             var $row = $(this);
             if ($row.find('[data-field="id"]').text() === dataset_uid) {

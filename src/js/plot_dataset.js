@@ -638,7 +638,7 @@ function find_matches(neuropal_label, data){
                     if(lastShownDataset != null){
                         previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', lastShownDataset).url;
                     }      
-                    document.getElementById(curr_dataset_uid).classList.add('table-active');              
+                    // document.getElementById(curr_dataset_uid).classList.add('table-active');              
                     // $('#small_dataset_table').bootstrapTable('checkBy', {field: 'id', values: [curr_dataset_uid]} );
                     // $('#small_dataset_table').bootstrapTable('getRowByUniqueId', curr_dataset_uid).class ="table-active";
                 }
@@ -656,6 +656,14 @@ function find_matches(neuropal_label, data){
         if(nextDatasetURL == null){
             nextDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[first_dataset_idx]).url;
         }
+        var $rows = $('#small_dataset_table').find('tbody > tr');
+        $rows.each(function() {
+            var $row = $(this);
+            if ($row.find('[data-field="id"]').text() === dataset_uid) {
+                $row.addClass('table-active');
+            }
+        });
+
         console.log("Previous URL: " + previousDatasetURL);
         console.log("Next URL: " + nextDatasetURL);
     } else {// if (selectedOptions.length <= 0)

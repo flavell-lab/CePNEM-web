@@ -663,8 +663,8 @@ function find_matches(neuropal_label, data){
         if(nextDatasetURL == null){
             nextDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[first_dataset_idx]).url;
         }
-        if(highlighted_dataset_idx != -1){
-            var $rows = $('#small_dataset_table').find('tbody > tr');
+        var $rows = $('#small_dataset_table').find('tbody > tr');
+        if(highlighted_dataset_idx != -1 && highlighted_dataset_idx < $rows.length){
             $rows[highlighted_dataset_idx].classList.add('table-active');
         }
         

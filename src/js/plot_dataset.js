@@ -1001,10 +1001,10 @@ function toggleDataLoad(){
 
     // update the current URL
     let url = new URL(window.location.href);
-    url.searchParams.set("datasets", dataLoad);
+    url.searchParams.set("datasets", dataload);
     window.history.pushState({}, "", url);
 
-    console.log("Show Datasets: " + dataLoad);
+    console.log("Show Datasets: " + dataload);
 }
 
 function switchRev() {

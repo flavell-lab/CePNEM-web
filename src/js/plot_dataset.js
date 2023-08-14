@@ -654,6 +654,8 @@ function find_matches(neuropal_label, data){
         if(nextDatasetURL == null){
             nextDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[first_dataset_idx]).url;
         }
+        console.log("Previous URL: " + previousDatasetURL);
+        console.log("Next URL: " + nextDatasetURL);
     } else {// if (selectedOptions.length <= 0)
         for (let i = 1; i < list_uid.length; i++) {
             let curr_dataset_uid = list_uid[i];

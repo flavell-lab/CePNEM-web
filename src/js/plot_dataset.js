@@ -520,8 +520,7 @@ function rowStyle(row, index){
     return{};
 }
 
-var previousDatasetURL = null;
-var nextDatasetURL = null;
+
 
 function init_find_matches(neuropal_label){
     // populate select/picker and implement neuron finder
@@ -548,6 +547,10 @@ function init_find_matches(neuropal_label){
     }).catch(error => console.error(error))
 }
 
+var lastShownDataset = null;
+var previousDatasetURL = null;
+var nextDatasetURL = null;
+
 function find_matches(neuropal_label, data){
     let selectedOptions = [];
 
@@ -563,6 +566,11 @@ function find_matches(neuropal_label, data){
     }
 
     if (selectedOptions.length > 0) {
+        var curr_dataset_idx = 0;
+        var first_dataset_idx = list_uid.length;
+        var last_dataset_idx = 0;
+        var next_idx = 0;
+        var preb_idx = 0;
         for (var i = 1; i < list_uid.length; i++) {
             let curr_dataset_uid = list_uid[i];
             let row = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', curr_dataset_uid);
@@ -617,18 +625,34 @@ function find_matches(neuropal_label, data){
 
                 $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: curr_dataset_uid});
                 
+                if(i < first_dataset_idx){
+                    first_dataset_idx = i;
+                }
+                if(i > last_dataset_idx){
+                    last_dataset_idx = i;
+                }
+
                 if(curr_dataset_uid === dataset_uid){
-                    if(i == 0){
-                        previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[list_uid.length -1]).url;
-                    } else{
-                        previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[i - 1]).url;
-                    } 
-                    nextDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[(i + 1) % list_uid.length]).url;
+                    curr_dataset_idx = i;
+
+                    if(lastShownDataset != null){
+                        previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', lastShownDataset).url;
+                    }                    
                     $('#small_dataset_table').bootstrapTable('checkBy', {field: 'id', values: [curr_dataset_uid]} );
                 }
+                if(lastShownDataset = list_uid[curr_dataset_idx]){
+                    nextDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[i]).url;
+                }   
+                lastShownDataset = curr_dataset_uid;
             } else {
                 $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: curr_dataset_uid});
             }
+        }
+        if(previousDatasetURL == null){
+            previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[last_dataset_idx]).url;
+        }
+        if(nextDatasetURL == null){
+            nextDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[first_dataset_idx]).url;
         }
     } else {// if (selectedOptions.length <= 0)
         for (let i = 1; i < list_uid.length; i++) {

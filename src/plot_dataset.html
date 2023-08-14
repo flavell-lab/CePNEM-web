@@ -61,6 +61,11 @@
             <button id="button_csv_export" class="btn btn-light" onclick="exportCSV()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Download currently plotted neurons(s)/behavior(s) as a CSV file"><i class="bi bi-download"></i></button>
             <button class="btn btn-light" onclick="copyURL()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Copy a link to this plot to the clipboard"><i class="bi bi-link-45deg"></i></button>
           </div>
+          <button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTable"
+            aria-expanded="true" aria-controls="collapseTable">
+            <span data-bs-toggle="tooltip" data-bs-placement="top"
+              data-bs-title="Show Compare Table">Compare Neurons</span>
+          </button>
         </div>
         
         <!-- plot config collapse -->
@@ -133,7 +138,7 @@
 
       </div> <!-- END container -->
     </div> <!-- End column -->
-    <div class = "table-column">
+    <div class = "table-column collapse" id = "collapseTable">
       <div class="container px-4">
         <h2>Compare Datasets</h2>
         <h4>Datasets that share selected neurons</h4>

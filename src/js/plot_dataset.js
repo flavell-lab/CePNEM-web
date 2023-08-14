@@ -170,6 +170,7 @@ const cor_txt_other_neuron = document.getElementById('cor_txt_other_neuron');
 
 var n_neuron = 0;
 var data_export = {"neuron": [], "behavior": []};
+var dataload = false;
 
 function update_data_export(data_export, trace_array, behaviors, list_neuron, list_behavior, neuropal_label) {
     data_export["neuron"] = [];
@@ -197,6 +198,14 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     n_neuron = data["num_neurons"];
     button_csv_export.disabled = true;
     button_cor.disabled = true;
+    dataload = url_params.get('datasets');
+    let list_dtype = value.dataset_type;
+
+    let html_dtype = "";
+    for (let i = 0; i < list_dtype.length; i++) {
+        let dtype_ = list_dtype[i];
+        html_dtype += getDatasetTypePill(dtype_) + " "
+    }
 
     // check neuron url
     list_url_neuron.forEach(function(idx_neuron) {
@@ -207,7 +216,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
 
     // change dataset string
     const str_dataset = document.getElementById('str_dataset');
-    str_dataset.innerHTML = `Dataset - ${dataset_uid}`; 
+    str_dataset.innerHTML = `Dataset - ${dataset_uid}` + html_dtype; 
     
     // load neuron list to the picker
     const list_idx_neuron = Array.from({ length: n_neuron }, (_, i) => i);
@@ -477,7 +486,7 @@ function populate_side_table(){
     fetch("data/summary.json").then(response => response.json()).then(data => {
         for (const [key, value] of Object.entries(data)) {
             let list_dtype = value.dataset_type;
-            let url_neuron = "plot_dataset.html?uid=" + key + "&list_neuron=1&list_behavior=v&list_colors=";
+            let url_neuron = "plot_dataset.html?uid=" + key + "&list_neuron=1&list_behavior=v&list_colors=&datasets=";
             let url_json = `data/${key}.json`
 
             if (list_dtype.includes("neuropal")) {
@@ -598,7 +607,8 @@ function find_matches(neuropal_label, data){
                 url_plot.searchParams.set("uid", curr_dataset_uid);
                 url_plot.searchParams.set("list_neuron", list_idx_neuron);
                 url_plot.searchParams.set("list_behavior", curr_list_url_behavior);
-                url_plot.searchParams.set("list_colors", url_colors_list)
+                url_plot.searchParams.set("list_colors", url_colors_list);
+                url_plot.searchParams.set("datasets", true);
                 $('#small_dataset_table').bootstrapTable('updateCellByUniqueId', {
                     id: curr_dataset_uid,
                     field: "url",
@@ -697,6 +707,7 @@ function clearSelect() {
     url.searchParams.set("list_neuron", "");
     url.searchParams.set("list_behavior", "");
     url.searchParams.set("list_colors", "");
+    url.searchParams.set("datasets", dataload);
     window.history.pushState({}, "", url);
 }
 
@@ -977,8 +988,6 @@ function downloadJson(jsonUID) {
         })
         .catch(error => console.error('An error occurred:', error));
 }
-
-var dataload = false;
 
 function toggleDataLoad(){
     if(dataload){

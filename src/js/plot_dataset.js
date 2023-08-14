@@ -991,7 +991,8 @@ function downloadJson(jsonUID) {
 }
 
 function toggleDataLoad(){
-    if(dataload){
+    var isVisible = $('#collapseTable').is(":visible");
+    if(!isVisible){
         dataload = false;
     } else{
         dataload = true;
@@ -1000,10 +1001,10 @@ function toggleDataLoad(){
 
     // update the current URL
     let url = new URL(window.location.href);
-    url.searchParams.set("datasets", dataload);
+    url.searchParams.set("datasets", dataLoad);
     window.history.pushState({}, "", url);
 
-    console.log("Show Datasets: " + dataload);
+    console.log("Show Datasets: " + dataLoad);
 }
 
 function switchRev() {

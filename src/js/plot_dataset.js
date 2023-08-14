@@ -324,7 +324,6 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
 
     // neuron selector update
     $('#select_neuron').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-        // console.log(`Neuron ${clickedIndex} is ${isSelected ? 'selected' : 'deselected'} previous value: ${previousValue}`);
         let idx_neuron = clickedIndex;
         let neuron = idx_neuron + 1;
 

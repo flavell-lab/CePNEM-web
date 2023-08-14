@@ -81,8 +81,8 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		for(var i = 0; i < neuronTraces.length; i++){
 			if(neuronTraces[i].class === trace.class){
 				neuronTraces[i].traces.push(trace);
-				newClass.traces[newClass.traces.length-1].line.color = color_list[(2*newClass.color_idx + (newClass.traces[newClass.traces.length-1].offset % 2 == 0 ? 0 : 1) % color_list.length)];
-				newClass.traces[newClass.traces.length-1].line.dash = (newClass.traces[newClass.traces.length-1].offset > 1 ? 'dashdot' : 'solid')
+				neuronTraces[i].traces[neuronTraces[i].traces.length-1].line.color = color_list[(2*newClass.color_idx + (neuronTraces[i].traces[newClass.traces.length-1].offset % 2 == 0 ? 0 : 1) % color_list.length)];
+				neuronTraces[i].traces[neuronTraces[i].traces.length-1].line.dash = (neuronTraces[i].traces[newClass.traces.length-1].offset > 1 ? 'dashdot' : 'solid')
 				break;
 			}
 			else if(i == neuronTraces.length - 1){

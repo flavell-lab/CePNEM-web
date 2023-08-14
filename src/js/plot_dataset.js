@@ -992,6 +992,7 @@ function downloadJson(jsonUID) {
 
 function toggleDataLoad(){
     var isVisible = $('#collapseTable').is(":visible");
+    console.log("Collapsible Visible: " + isVisible);
     if(isVisible){
         dataload = false;
     } else{

@@ -314,7 +314,11 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
 
     // update list of datasets that fit selections
     populate_side_table();
-    // init_find_matches(neuropal_label)
+    fetch("data/matches.json").
+        then(response => response.json()).
+        then(match_data => {
+            find_matches(neuropal_label, match_data);
+    }).catch(error => console.error(error))
 
     // neuron selector update
     $('#select_neuron').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {

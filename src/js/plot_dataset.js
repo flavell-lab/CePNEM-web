@@ -638,7 +638,7 @@ function find_matches(neuropal_label, data){
                     if(lastShownDataset != null){
                         previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', lastShownDataset).url;
                     }      
-                    document.getElementsById(curr_dataset_uid).classList.add('table-active');              
+                    document.getElementById(curr_dataset_uid).classList.add('table-active');              
                     // $('#small_dataset_table').bootstrapTable('checkBy', {field: 'id', values: [curr_dataset_uid]} );
                     // $('#small_dataset_table').bootstrapTable('getRowByUniqueId', curr_dataset_uid).class ="table-active";
                 }

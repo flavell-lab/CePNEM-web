@@ -30,13 +30,13 @@
 }
 .plot-column {
     flex: 2;
-    flex-grow: 4;
+    flex-grow: 7;
     padding: 10px;
 }
 .table-column {
     flex: 1;
-    flex-grow: 1;
-    padding: 0px;
+    flex-grow: 2;
+    padding: 10px;
 }
 /* Clear floats after the columns */
 .row:after {

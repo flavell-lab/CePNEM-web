@@ -990,12 +990,17 @@ function downloadJson(jsonUID) {
 }
 
 function toggleDataLoad(){
+    
     if(dataload){
         dataload = false;
     } else{
         dataload = true;
         $('#select_behavior').trigger('changed.bs.select');
     }
+    // update the current URL
+    let url = new URL(window.location.href);
+    url.searchParams.set("datasets", dataload);
+    window.history.pushState({}, "", url);
 }
 
 function switchRev() {

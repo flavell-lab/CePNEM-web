@@ -246,8 +246,6 @@ const behaviors = ["v", "hc", "f", "av", "bc"];
 
 function pushToPlot(plot_element){
 
-	var used_colors = [];
-
 	neuronTraces.sort(function (a, b) {return (typeof a == 'number' ? (typeof b == 'number' ? a - b : 1) : (typeof b == 'number' ? -1 : a.class.toString().localeCompare(b.class.toString())))})
 
 	while(plot_element.data.length){
@@ -255,22 +253,9 @@ function pushToPlot(plot_element){
 	}
 
 	for(var i = 0; i < neuronTraces.length; i++){
-		used_colors.push(neuronTraces[i].class + "_" + neuronTraces[i].color_idx)
-		for(var j = 0; j < neuronTraces[i].traces.length; j++){
-			// neuronTraces[i].traces[j].line.color = color_list[(2*neuronTraces[i].color_idx + (neuronTraces[i].traces[j].offset % 2 == 0 ? 0 : 1) % color_list.length)];
-			// neuronTraces[i].traces[j].line.dash = (neuronTraces[i].traces[j].offset > 1 ? 'dashdot' : 'solid')
-
-			Plotly.addTraces(plot_element, [neuronTraces[i].traces[j],]);
-		}
+		Plotly.addTraces(plot_element, neuronTraces[i].traces);
 	}
 
-	for(var i = 0; i < behaviorTraces.length; i++){
-		behaviorTraces[i].line.color = behavior_colors[behaviors.indexOf(behaviorTraces[i].trace_id.split('_')[1])];
-		Plotly.addTraces(plot_element, [behaviorTraces[i],]);
-	}
-
-	let url = new URL(window.location.href);
-	url.searchParams.set("list_colors", used_colors);
-	window.history.pushState({}, "", url);
+	Plotly.addTraces(plot_element, behaviorTraces);
 
 }

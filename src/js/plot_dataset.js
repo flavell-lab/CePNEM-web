@@ -553,7 +553,7 @@ function init_find_matches(neuropal_label){
 var lastShownDataset = null;
 var previousDatasetURL = null;
 var nextDatasetURL = null;
-var highlighted_dataset_idx = 0;
+var highlighted_dataset_idx = -1;
 
 function find_matches(neuropal_label, data){
     let selectedOptions = [];
@@ -663,8 +663,11 @@ function find_matches(neuropal_label, data){
         if(nextDatasetURL == null){
             nextDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[first_dataset_idx]).url;
         }
-        var $rows = $('#small_dataset_table').find('tbody > tr');
-        $rows[highlighted_dataset_idx].classList.add('table-active');
+        if(highlighted_dataset_idx != -1){
+            var $rows = $('#small_dataset_table').find('tbody > tr');
+            $rows[highlighted_dataset_idx].classList.add('table-active');
+        }
+        
 
         console.log("Previous URL: " + previousDatasetURL);
         console.log("Next URL: " + nextDatasetURL);

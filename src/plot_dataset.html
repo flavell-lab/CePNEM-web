@@ -138,11 +138,12 @@
         <h2>Compare Datasets</h2>
         <h4>Datasets that share selected neurons</h4>
         <div class="form-group">
+          <button class="btn btn-light" onclick="downloadSelected()" style="float:right">Download Selected</button>
           <div class="btn-group" style="float:right">
             <button class="btn btn-light" onclick="previousDataset()">Previous</button>
             <button class="btn btn-light" onclick="nextDataset()">Next</button>
           </div>
-          <button class="btn btn-light" onclick="downloadSelected()" style="float:right">Download Selected</button>
+          
         </div>
         <table id="small_dataset_table" class="table-sm" data-unique-id="id" data-row-stype="rowStyle" data-pagination="true" data-height="800" data-page-size="25" style="cursor: pointer">
           <thead>

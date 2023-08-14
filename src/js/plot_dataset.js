@@ -314,11 +314,13 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
 
     // update list of datasets that fit selections
     populate_side_table();
-    fetch("data/matches.json").
-        then(response => response.json()).
-        then(match_data => {
-            find_matches(neuropal_label, match_data);
-    }).catch(error => console.error(error))
+    if(dataload){
+        fetch("data/matches.json").
+            then(response => response.json()).
+            then(match_data => {
+                find_matches(neuropal_label, match_data);
+        }).catch(error => console.error(error));
+    }   
 
     // neuron selector update
     $('#select_neuron').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
@@ -380,12 +382,13 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         url.searchParams.set("list_neuron", selected_neuron_str);
         window.history.pushState({}, "", url);
 
-        fetch("data/matches.json").
-            then(response => response.json()).
-            then(match_data => {
-        
-                find_matches(neuropal_label, match_data);
-        }).catch(error => console.error(error));
+        if(dataload){
+            fetch("data/matches.json").
+                then(response => response.json()).
+                then(match_data => {
+                    find_matches(neuropal_label, match_data);
+            }).catch(error => console.error(error));
+        }   
     });
 
     // behavior selector update
@@ -447,11 +450,14 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         url.searchParams.set("list_behavior", selected_behavior_str_short);
         window.history.pushState({}, "", url);
 
-        fetch("data/matches.json").
-            then(response => response.json()).
-            then(match_data => {
-                find_matches(neuropal_label, match_data);
-        }).catch(error => console.error(error))
+        if(dataload){
+            fetch("data/matches.json").
+                then(response => response.json()).
+                then(match_data => {
+                    find_matches(neuropal_label, match_data);
+            }).catch(error => console.error(error))
+        }   
+        
     });
 
     
@@ -971,6 +977,25 @@ function downloadJson(jsonUID) {
             document.body.removeChild(link);
         })
         .catch(error => console.error('An error occurred:', error));
+}
+
+var dataload = false;
+
+function toggleDataLoad(){
+    if(dataload){
+        dataload = false;
+    } else{
+        dataload = true;
+        fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data => {
+            
+            var neuropal_label = data["labeled"];
+            fetch("data/matches.json").
+                then(response => response.json()).
+                then(match_data => {
+                    find_matches(neuropal_label, match_data);
+            }).catch(error => console.error(error));
+        }).catch(error => console.error(error));
+    }
 }
 
 function switchRev() {

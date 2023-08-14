@@ -30,11 +30,13 @@
 .plot-column {
     flex: 2;
     flex-grow: 3;
+    flex-basis: auto;
     padding: 10px;
 }
 .table-column {
     flex: 1;
     flex-grow: 1;
+    flex-basis: auto;
     padding: 10px;
 }
 /* Clear floats after the columns */

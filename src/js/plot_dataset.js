@@ -567,10 +567,12 @@ function find_matches(neuropal_label, data){
 
     if (selectedOptions.length > 0) {
         var curr_dataset_idx = 0;
+        var highlighted_dataset_idx = 0;
         var first_dataset_idx = list_uid.length;
         var last_dataset_idx = 0;
         var next_idx = 0;
         var preb_idx = 0;
+        var shown_count = 0;
         for (var i = 1; i < list_uid.length; i++) {
             let curr_dataset_uid = list_uid[i];
             let row = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', curr_dataset_uid);
@@ -634,6 +636,7 @@ function find_matches(neuropal_label, data){
 
                 if(curr_dataset_uid === dataset_uid){
                     curr_dataset_idx = i;
+                    highlighted_dataset_idx = shown_count;
 
                     if(lastShownDataset != null){
                         previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', lastShownDataset).url;
@@ -646,6 +649,7 @@ function find_matches(neuropal_label, data){
                     nextDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[i]).url;
                 }   
                 lastShownDataset = curr_dataset_uid;
+                shown_count++;
             } else {
                 $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: curr_dataset_uid});
             }
@@ -657,14 +661,8 @@ function find_matches(neuropal_label, data){
             nextDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[first_dataset_idx]).url;
         }
         var $rows = $('#small_dataset_table').find('tbody > tr');
-        console.log($rows);
-        $rows.each(function() {
-            var $row = $(this);
-            console.log($row.dataset);
-            if ($row.find('dataset').uniqueId === dataset_uid) {
-                $row.addClass('table-active');
-            }
-        });
+        console.log($rows[highlighted_dataset_idx]);
+        $rows[highlighted_dataset_idx].addClass('table-active');
 
         console.log("Previous URL: " + previousDatasetURL);
         console.log("Next URL: " + nextDatasetURL);

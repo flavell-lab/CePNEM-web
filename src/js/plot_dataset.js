@@ -499,7 +499,10 @@ function populate_side_table(){
             onClickRow: function(row, element, field) {
                 window.location.href = row.url; // Navigates to the specified URL in the 'url' field of the clicked row
             },
-            
+            onPageChange: function(number, size){
+                var $rows = $('#small_dataset_table').find('tbody > tr');
+                $rows[highlighted_dataset_idx].classList.add('table-active');
+            }
         });
 
         for (var i = 1; i < list_uid.length; i++) {
@@ -550,6 +553,7 @@ function init_find_matches(neuropal_label){
 var lastShownDataset = null;
 var previousDatasetURL = null;
 var nextDatasetURL = null;
+var highlighted_dataset_idx = 0;
 
 function find_matches(neuropal_label, data){
     let selectedOptions = [];
@@ -567,7 +571,6 @@ function find_matches(neuropal_label, data){
 
     if (selectedOptions.length > 0) {
         var curr_dataset_idx = 0;
-        var highlighted_dataset_idx = 0;
         var first_dataset_idx = list_uid.length;
         var last_dataset_idx = 0;
         var next_idx = 0;
@@ -661,7 +664,6 @@ function find_matches(neuropal_label, data){
             nextDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[first_dataset_idx]).url;
         }
         var $rows = $('#small_dataset_table').find('tbody > tr');
-        console.log($rows[highlighted_dataset_idx]);
         $rows[highlighted_dataset_idx].classList.add('table-active');
 
         console.log("Previous URL: " + previousDatasetURL);

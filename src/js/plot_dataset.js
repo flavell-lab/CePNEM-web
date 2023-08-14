@@ -985,15 +985,7 @@ function toggleDataLoad(){
         dataload = false;
     } else{
         dataload = true;
-        fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data => {
-            
-            var neuropal_label = data["labeled"];
-            fetch("data/matches.json").
-                then(response => response.json()).
-                then(match_data => {
-                    find_matches(neuropal_label, match_data);
-            }).catch(error => console.error(error));
-        }).catch(error => console.error(error));
+        $('#select_behavior').trigger('changed.bs.select');
     }
 }
 

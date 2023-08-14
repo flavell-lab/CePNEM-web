@@ -7,7 +7,7 @@ var list_uid = [];
 fetch("data/summary.json").then(response => response.json()).then(data => {
     for (const [key, value] of Object.entries(data)) {
         let list_dtype = value.dataset_type;
-        let url_neuron = "plot_dataset.html?uid=" + key + "&list_neuron=1&list_behavior=v&list_colors=";
+        let url_neuron = "plot_dataset.html?uid=" + key + "&list_neuron=1&list_behavior=v&list_colors=&datasets=false";
         let url_json = `data/${key}.json`
 
         if (list_dtype.includes("neuropal")) {
@@ -88,6 +88,7 @@ fetch("data/matches.json").
                     url_plot.searchParams.set("list_neuron", list_idx_neuron);
                     url_plot.searchParams.set("list_behavior", "v");
                     url_plot.searchParams.set("list_colors", "");
+                    url_plot.searchParams.set("datasets", false);
                     let url_json = `data/${dataset_uid}.json`
                     let new_html = `<a id="button_plot" class="btn btn-outline-dark btn-sm py-0" href=${url_plot} role="button">Plot neurons</a>`
                     $('#dataset_table').bootstrapTable('updateCellByUniqueId', {

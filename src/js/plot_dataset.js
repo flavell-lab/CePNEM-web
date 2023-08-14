@@ -200,12 +200,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     button_cor.disabled = true;
     dataload = url_params.get('datasets');
     console.log("Init Dataload: " + dataload);
-    var content = document.getElementById("small_dataset_table");
-    if(dataload){
-        content.style.display = "block";
-    } else{
-        content.style.display = "none";
-    }
+
     let list_dtype = data.dataset_type;
 
     let html_dtype = "";
@@ -997,13 +992,11 @@ function downloadJson(jsonUID) {
 }
 
 function toggleDataLoad(){
-    var content = document.getElementById("small_dataset_table");
+    // var content = document.getElementById("small_dataset_table");
     if(dataload){
-        content.style.display = "none";
         dataload = false;
     } else{
         dataload = true;
-        content.style.display = "block";
         $('#select_behavior').trigger('changed.bs.select');
     }
 

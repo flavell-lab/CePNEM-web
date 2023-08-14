@@ -353,8 +353,6 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             Plotly.deleteTraces(plot_main, i);
         }
 
-        
-
         let selected_idx_neuron_str = $(this).val();
         let selected_neuron_str = selected_idx_neuron_str.map(num => {
             // Convert the string to a number, add 1, and then convert it back to a string
@@ -377,17 +375,17 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         // update y
         resetYAxis(plot_main);
 
+        // update the current URL
+        let url = new URL(window.location.href);
+        url.searchParams.set("list_neuron", selected_neuron_str);
+        window.history.pushState({}, "", url);
+
         fetch("data/matches.json").
             then(response => response.json()).
             then(match_data => {
         
                 find_matches(neuropal_label, match_data);
-        }).catch(error => console.error(error))
-
-        // update the current URL
-        let url = new URL(window.location.href);
-        url.searchParams.set("list_neuron", selected_neuron_str);
-        window.history.pushState({}, "", url);
+        }).catch(error => console.error(error));
     });
 
     // behavior selector update
@@ -444,16 +442,16 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         pushToPlot(plot_main);
         resetYAxis(plot_main);
 
+        // update the current URL
+        let url = new URL(window.location.href);
+        url.searchParams.set("list_behavior", selected_behavior_str_short);
+        window.history.pushState({}, "", url);
+
         fetch("data/matches.json").
             then(response => response.json()).
             then(match_data => {
                 find_matches(neuropal_label, match_data);
         }).catch(error => console.error(error))
-
-        // update the current URL
-        let url = new URL(window.location.href);
-        url.searchParams.set("list_behavior", selected_behavior_str_short);
-        window.history.pushState({}, "", url);
     });
 
     

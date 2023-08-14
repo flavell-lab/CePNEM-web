@@ -662,7 +662,7 @@ function find_matches(neuropal_label, data){
         }
         var $rows = $('#small_dataset_table').find('tbody > tr');
         console.log($rows[highlighted_dataset_idx]);
-        $rows[highlighted_dataset_idx].addClass('table-active');
+        $rows[highlighted_dataset_idx].classList.add('table-active');
 
         console.log("Previous URL: " + previousDatasetURL);
         console.log("Next URL: " + nextDatasetURL);

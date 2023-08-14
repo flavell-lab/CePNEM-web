@@ -527,8 +527,7 @@ function init_find_matches(neuropal_label){
             find_matches(neuropal_label, data);
         });
 
-        $("#select_neuron").trigger('change');
-        $("#select_behavior").trigger('change');
+        find_matches(neuropal_label, data);
 
     }).catch(error => console.error(error))
 }

@@ -312,6 +312,10 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         button_cor.disabled = false;
     }
 
+    // update list of datasets that fit selections
+    populate_side_table();
+    // init_find_matches(neuropal_label)
+
     // neuron selector update
     $('#select_neuron').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
         // console.log(`Neuron ${clickedIndex} is ${isSelected ? 'selected' : 'deselected'} previous value: ${previousValue}`);
@@ -368,6 +372,13 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         pushToPlot(plot_main);
         // update y
         resetYAxis(plot_main);
+
+        fetch("data/matches.json").
+            then(response => response.json()).
+            then(match_data => {
+        
+                find_matches(neuropal_label, match_data);
+        }).catch(error => console.error(error))
 
         // update the current URL
         let url = new URL(window.location.href);
@@ -429,15 +440,19 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         pushToPlot(plot_main);
         resetYAxis(plot_main);
 
+        fetch("data/matches.json").
+            then(response => response.json()).
+            then(match_data => {
+                find_matches(neuropal_label, match_data);
+        }).catch(error => console.error(error))
+
         // update the current URL
         let url = new URL(window.location.href);
         url.searchParams.set("list_behavior", selected_behavior_str_short);
         window.history.pushState({}, "", url);
     });
 
-    // update list of datasets that fit selections
-    populate_side_table();
-    init_find_matches(neuropal_label)
+    
     
     
     // table

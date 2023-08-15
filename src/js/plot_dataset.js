@@ -117,7 +117,7 @@ function toggleEvent(q) {
 }
 
 function resetYAxis(plot) {
-    console.log("Plot Data length: " + data_export["neuron"].length);
+    // console.log("Plot Data length: " + data_export["neuron"].length);
     if(data_export["neuron"].length == 0){
         return;
     }
@@ -199,7 +199,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     button_csv_export.disabled = true;
     button_cor.disabled = true;
     dataload = url_params.get('datasets');
-    console.log("Init Dataload: " + dataload);
+    // console.log("Init Dataload: " + dataload);
     if(dataload){
         document.getElementById('collapseTable').style.display = 'block';
     } else{
@@ -633,6 +633,8 @@ function find_matches(neuropal_label, data){
                     last_dataset_idx = i;
                 }
 
+                console.log(curr_dataset_idx);
+
                 if(curr_dataset_uid === dataset_uid){
                     curr_dataset_idx = i;
                     highlighted_dataset_idx = shown_count;
@@ -666,8 +668,8 @@ function find_matches(neuropal_label, data){
         }
         
 
-        console.log("Previous URL: " + previousDatasetURL);
-        console.log("Next URL: " + nextDatasetURL);
+        // console.log("Previous URL: " + previousDatasetURL);
+        // console.log("Next URL: " + nextDatasetURL);
     } else {// if (selectedOptions.length <= 0)
         for (let i = 1; i < list_uid.length; i++) {
             let curr_dataset_uid = list_uid[i];
@@ -1015,7 +1017,7 @@ function toggleDataLoad(){
     url.searchParams.set("datasets", dataload);
     window.history.pushState({}, "", url);
 
-    console.log("Show Datasets: " + dataload);
+    // console.log("Show Datasets: " + dataload);
 }
 
 function switchRev() {

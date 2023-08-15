@@ -148,16 +148,16 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
     url.searchParams.set("list_colors", new_colors_list);
     window.history.pushState({}, "", url);
 
-	var outputStr = "";
+	// var outputStr = "";
 
-	for(var i = 0; i < neuronTraces.length; i++){
-		for(var j = 0; j < neuronTraces[i].traces.length; j++){
-			outputStr += neuronTraces[i].traces[j].name + ": " + (2*neuronTraces[i].color_idx + (neuronTraces[i].traces[j].offset % 2 == 0 ? 0 : 1))+ ", ";
-		}
-	}
+	// for(var i = 0; i < neuronTraces.length; i++){
+	// 	for(var j = 0; j < neuronTraces[i].traces.length; j++){
+	// 		outputStr += neuronTraces[i].traces[j].name + ": " + (2*neuronTraces[i].color_idx + (neuronTraces[i].traces[j].offset % 2 == 0 ? 0 : 1))+ ", ";
+	// 	}
+	// }
 
 	// console.log("Colors: " + curr_colors);
-	console.log("Plotted Neurons: " + outputStr);
+	// console.log("Plotted Neurons: " + outputStr);
 
 
     // Plotly.addTraces(plot_element, [trace,]);
@@ -187,7 +187,7 @@ function removeTrace(trace_id, neuron_class){
 	
 	for(var i = 0; i < neuronTraces.length; i++){
 		for(var j = 0; j < neuronTraces[i].traces.length; j++){
-			console.log(j);
+			// console.log(j);
 			if(neuronTraces[i].traces[j].trace_id == trace_id){
 				neuronTraces[i].traces.splice(j, 1);
 			}
@@ -204,17 +204,17 @@ function removeTrace(trace_id, neuron_class){
 		}
 	}
 
-	console.log("Removed " + neuron_class);
+	// console.log("Removed " + neuron_class);
 
-	var outputStr = "";
+	// var outputStr = "";
 
-	for(var i = 0; i < neuronTraces.length; i++){
-		for(var j = 0; j < neuronTraces[i].traces.length; j++){
-			outputStr += neuronTraces[i].traces[j].name + ": " + (2*neuronTraces[i].color_idx + (neuronTraces[i].traces[j].offset % 2 == 0 ? 0 : 1))+ ", ";
-		}
-	}
+	// for(var i = 0; i < neuronTraces.length; i++){
+	// 	for(var j = 0; j < neuronTraces[i].traces.length; j++){
+	// 		outputStr += neuronTraces[i].traces[j].name + ": " + (2*neuronTraces[i].color_idx + (neuronTraces[i].traces[j].offset % 2 == 0 ? 0 : 1))+ ", ";
+	// 	}
+	// }
 
-	console.log("Plotted Neurons: " + outputStr);
+	// console.log("Plotted Neurons: " + outputStr);
 }
 
 function removeBehavior(label){

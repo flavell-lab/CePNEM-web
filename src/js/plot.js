@@ -100,28 +100,44 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			if(neuronTraces[i].class === trace.class){
 				var traces = neuronTraces[i].traces;
 				traces.push(trace);
-				traces[traces.length-1].line.color = color_list[(2*neuronTraces[i].color_idx + (traces[traces.length-1].offset % 2 == 0 ? 0 : 1) % color_list.length)];
-				traces[traces.length-1].line.dash = (traces[traces.length-1].offset > 1 ? 'dashdot' : 'solid')
+				neuronTraces[i].color_idx[traces[traces.length-1].offset / 2] = next_available_color;
+				for(var k = 0; k < curr_colors.length; k++){
+					if(curr_colors[k].split("_")[0] == trace.class){
+						var colors = curr_colors[k].split("_")[1].split(",");
+						for(var j = 0; j < colors.length; j++){
+							if(parseInt(colors[j]) != -1)
+								neuronTraces[i].color_idx[j] = parseInt(colors[j]);
+						}
+						foundClass = true;
+						break;
+					}
+				}
+				curr_colors.splice(i, 0, trace.class + "_" + neuronTraces[i].color_idx.toString());
+				traces[traces.length-1].line.color = color_list[(2*neuronTraces[i].color_idx[trace.offset / 2] + (traces[traces.length-1].offset % 2 == 0 ? 0 : 1) % color_list.length)];
 				break;
 			}
 			else if(i == neuronTraces.length - 1){
 				var newClass = {
 					class: trace.class,
 					traces: [trace],
-					color_idx: next_available_color
+					color_idx: [-1,-1,-1]
 				};
 				var foundClass = false;
+				newClass.color_idx[newClass.traces[0].offset / 2] = next_available_color;
 				for(var k = 0; k < curr_colors.length; k++){
 					if(curr_colors[k].split("_")[0] == trace.class){
-						newClass.color_idx = parseInt(curr_colors[k].split("_")[1]);
+						var colors = curr_colors[k].split("_")[1].split(",");
+						for(var j = 0; j < colors.length; j++){
+							if(parseInt(colors[j]) != -1)
+								newClass.color_idx[j] = parseInt(colors[j]);
+						}
 						foundClass = true;
 						break;
 					}
 				}
 				if(!foundClass)
-					curr_colors.splice(next_available_color, 0, trace.class + "_" + next_available_color);
-				newClass.traces[0].line.color = color_list[(2*newClass.color_idx + (newClass.traces[0].offset % 2 == 0 ? 0 : 1) % color_list.length)];
-				newClass.traces[0].line.dash = (newClass.traces[0].offset > 1 ? 'dashdot' : 'solid')
+					curr_colors.splice(neuronTraces.length, 0, trace.class + "_" + newClass.color_idx.toString());
+				newClass.traces[0].line.color = color_list[(2*newClass.color_idx[newClass.traces[0].offset / 2] + (newClass.traces[0].offset % 2 == 0 ? 0 : 1) % color_list.length)];
 				neuronTraces.push(newClass);
 				break;
 			}
@@ -130,29 +146,32 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		var newClass = {
 			class: trace.class,
 			traces: [trace],
-			color_idx: next_available_color
+			color_idx: [-1,-1,-1]
 		};
 		var foundClass = false;
+		newClass.color_idx[newClass.traces[0].offset / 2] = next_available_color;
 		for(var k = 0; k < curr_colors.length; k++){
 			if(curr_colors[k].split("_")[0] == trace.class){
-				newClass.color_idx = parseInt(curr_colors[k].split("_")[1]);
+				var colors = curr_colors[k].split("_")[1].split(",");
+				for(var j = 0; j < colors.length; j++){
+					if(parseInt(colors[j]) != -1)
+						newClass.color_idx[j] = parseInt(colors[j]);
+				}
 				foundClass = true;
 				break;
 			}
 		}
 		if(!foundClass)
-			curr_colors.splice(next_available_color, 0, trace.class + "_" + next_available_color);
-		newClass.traces[0].line.color = color_list[(2*newClass.color_idx + (newClass.traces[0].offset % 2 == 0 ? 0 : 1) % color_list.length)];
-		newClass.traces[0].line.dash = (newClass.traces[0].offset > 1 ? 'dashdot' : 'solid')
+			curr_colors.splice(neuronTraces.length, 0, trace.class + "_" + newClass.color_idx.toString());
+		newClass.traces[0].line.color = color_list[(2*newClass.color_idx[newClass.traces[0].offset / 2] + (newClass.traces[0].offset % 2 == 0 ? 0 : 1) % color_list.length)];
 		neuronTraces.push(newClass);
 	}
 
-	
 
 	var new_colors_list = [];
 
 	for(var i = 0; i < neuronTraces.length; i++){
-		new_colors_list.push(neuronTraces[i].class + "_" + neuronTraces[i].color_idx);
+		new_colors_list.push(neuronTraces[i].class + "_" + neuronTraces[i].color_idx.toString());
 	}
 
 	let url = new URL(window.location.href);

@@ -46,7 +46,7 @@
     clear: both;
 }
 
-.table-fixed tbody{
+.table-fixed {
     height: 800px;
-    overflow-y: auto;
+    overflow-y: scroll;
 }

@@ -633,12 +633,12 @@ function find_matches(neuropal_label, data){
                     last_dataset_idx = i;
                 }
 
-                console.log(curr_dataset_uid + ": " + shown_count);
+                // console.log(curr_dataset_uid + ": " + shown_count);
 
                 if(curr_dataset_uid === dataset_uid){
                     curr_dataset_idx = i;
                     highlighted_dataset_idx = shown_count;
-                    console.log("Hightlighted Dataset Idx: " + highlighted_dataset_idx);
+                    // console.log("Hightlighted Dataset Idx: " + highlighted_dataset_idx);
 
                     if(lastShownDataset != null){
                         previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', lastShownDataset).url;

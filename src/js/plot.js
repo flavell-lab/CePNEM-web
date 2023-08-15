@@ -66,6 +66,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	// Parse the index numbers of the colors that have been used.
 	var class_colors = curr_colors.map(x => parseInt(x.split("_")[1]));
+	console.log(class_colors);
 	var used_colors = [];
 
 	for(var i = 0; i < class_colors.length; i++){

@@ -47,6 +47,6 @@
 }
 
 .table-fixed tbody{
-    height: 800;
+    height: 800px;
     overflow-y: auto;
 }

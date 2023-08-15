@@ -18,6 +18,11 @@
     max-width: 140px;
 }
 
+.table-scroll {
+    height: 800px;
+    overflow-y: scroll!important;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -46,7 +51,3 @@
     clear: both;
 }
 
-.table-scroll tbody{
-    height: 800px;
-    overflow-y: scroll!important;
-}

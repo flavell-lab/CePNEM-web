@@ -636,6 +636,7 @@ function find_matches(neuropal_label, data){
                 if(curr_dataset_uid === dataset_uid){
                     curr_dataset_idx = i;
                     highlighted_dataset_idx = shown_count;
+                    console.log("Hightlighted Dataset Idx: " + highlighted_dataset_idx);
 
                     if(lastShownDataset != null){
                         previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', lastShownDataset).url;

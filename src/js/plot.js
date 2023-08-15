@@ -69,6 +69,8 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	// console.log(class_colors);
 	var used_colors = [];
 
+	console.log(class_colors)
+
 	for(var i = 0; i < class_colors.length; i++){
 		var colors = class_colors[i].split("-");
 		for(var j = 0; j < colors.length; j++){

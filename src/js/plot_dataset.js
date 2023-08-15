@@ -993,10 +993,9 @@ function downloadJson(jsonUID) {
 
 function toggleDataLoad(){
     // var content = document.getElementById("small_dataset_table");
+
+    dataload = $('#button_collapse_table').getAttribute('aria-extended');
     if(dataload){
-        dataload = false;
-    } else{
-        dataload = true;
         $('#select_behavior').trigger('changed.bs.select');
     }
 

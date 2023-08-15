@@ -20,7 +20,14 @@ function initPlot(plot_element) {
 		shapes: []
 	};
 
-	var config = {responsive: true};
+	var config = {responsive: true,
+		toImageButtonOptions: {
+			format: 'svg', // one of png, svg, jpeg, webp
+			filename: 'custom_image',
+			height: 800,
+			scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+		  }
+	};
 
 	Plotly.newPlot(plot_element, [], layout, config);
 }

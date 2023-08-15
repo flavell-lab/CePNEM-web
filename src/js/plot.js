@@ -131,11 +131,15 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	
 
-	// var new_colors_list = [];
+	var new_colors_list = [];
 
-	// let url = new URL(window.location.href);
-    // url.searchParams.set("list_colors", new_colors_list);
-    // window.history.pushState({}, "", url);
+	for(var i = 0; i < neuronTraces.length; i++){
+		new_colors_list.push(neuronTraces[i].class + "_" + neuronTraces[i].color_idx);
+	}
+
+	let url = new URL(window.location.href);
+    url.searchParams.set("list_colors", new_colors_list);
+    window.history.pushState({}, "", url);
 
 	var outputStr = "";
 

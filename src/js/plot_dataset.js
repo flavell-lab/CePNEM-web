@@ -200,7 +200,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     button_cor.disabled = true;
     dataload = url_params.get('datasets');
     console.log("Init Dataload: " + dataload);
-    document.getElementById('button_collapse_table').setAttribute('aria-expanded', dataload);
+    // document.getElementById('button_collapse_table').setAttribute('aria-expanded', dataload);
 
     let list_dtype = data.dataset_type;
 

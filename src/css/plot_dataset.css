@@ -19,8 +19,8 @@
 }
 
 .table-scroll {
-    height: 800px;
-    overflow-y: scroll!important;
+    height: 200px;
+    overflow-y: scroll;
 }
 
 * {

@@ -37,53 +37,54 @@
       </ul>
     </header>
   </div>
-  <div class="plot-columns">
-    <div class="plot-column">
-      <div class="container px-4">
-        <h3 id="str_dataset" class="fs-2">Plot dataset</h3>
-        <h4 class="fs-4">Plot - Neural trace & Behavior</h4>
+  
+    
+  <div class="container px-4">
+    <h3 id="str_dataset" class="fs-2">Plot dataset</h3>
+    <h4 class="fs-4">Plot - Neural trace & Behavior</h4>
 
-        <!-- plot control -->
-        <div class="form-group">
-          <select id="select_neuron" class="selectpicker" multiple data-live-search="true" title="Select neuron"
-            data-selected-text-format="count > 2">
-          </select>
-          <select id="select_behavior" class="selectpicker" multiple data-selected-text-format="count > 2"
-            title="Select behavior">
-          </select>
-          <div class="btn-group">
-            <!-- <a href="#" class="btn btn-success" role="button" data-toggle="tooltip" data-placement="top" title="Edit">E</a> -->
+    <!-- plot control -->
+    <div class="form-group">
+      <select id="select_neuron" class="selectpicker" multiple data-live-search="true" title="Select neuron"
+        data-selected-text-format="count > 2">
+      </select>
+      <select id="select_behavior" class="selectpicker" multiple data-selected-text-format="count > 2"
+        title="Select behavior">
+      </select>
+      <div class="btn-group">
+        <!-- <a href="#" class="btn btn-success" role="button" data-toggle="tooltip" data-placement="top" title="Edit">E</a> -->
 
-            <button class="btn btn-light" onclick="clearSelect()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Clear the selections">Clear</button>
-            <button class="btn btn-light" class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlotConfig" aria-expanded="false" aria-controls="collapsePlotConfig"><i class="bi bi-gear-wide-connected" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plot configurations"></i></button>
-            <button id="button_cor" class="btn btn-light" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modalCor"><i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compute Pearson cor among the neural trace(s) and behavior(s)" class="bi bi-calculator"></i></button>
-            <button class="btn btn-light" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modalInfo"><i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Additional information" class="bi bi-info-circle"></i></button>
-            <button id="button_csv_export" class="btn btn-light" onclick="exportCSV()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Download currently plotted neurons(s)/behavior(s) as a CSV file"><i class="bi bi-download"></i></button>
-            <button class="btn btn-light" onclick="copyURL()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Copy a link to this plot to the clipboard"><i class="bi bi-link-45deg"></i></button>
-            <button id="button_collapse_table" class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTable" aria-expanded="false" aria-controls="collapseTable" onclick="toggleDataLoad()">
-            <span data-bs-toggle="tooltip" data-bs-placement="top"
-              data-bs-title="Show Compare Table">Compare Neurons</span>
-            </button>
-          </div>
-          
+        <button class="btn btn-light" onclick="clearSelect()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Clear the selections">Clear</button>
+        <button class="btn btn-light" class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlotConfig" aria-expanded="false" aria-controls="collapsePlotConfig"><i class="bi bi-gear-wide-connected" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plot configurations"></i></button>
+        <button id="button_cor" class="btn btn-light" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modalCor"><i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compute Pearson cor among the neural trace(s) and behavior(s)" class="bi bi-calculator"></i></button>
+        <button class="btn btn-light" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modalInfo"><i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Additional information" class="bi bi-info-circle"></i></button>
+        <button id="button_csv_export" class="btn btn-light" onclick="exportCSV()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Download currently plotted neurons(s)/behavior(s) as a CSV file"><i class="bi bi-download"></i></button>
+        <button class="btn btn-light" onclick="copyURL()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Copy a link to this plot to the clipboard"><i class="bi bi-link-45deg"></i></button>
+        <button id="button_collapse_table" class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTable" aria-expanded="false" aria-controls="collapseTable" onclick="toggleDataLoad()">
+        <span data-bs-toggle="tooltip" data-bs-placement="top"
+          data-bs-title="Show Compare Table">Compare Neurons</span>
+        </button>
+      </div>
+      
+    </div>
+    
+    <!-- plot config collapse -->
+    <div class="collapse" id="collapsePlotConfig">
+      <br>
+      <div class="card card-body">
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" role="switch" id="switch_plot_rev" onchange="switchRev()" unchecked>
+          <label class="form-check-label" for="switch_plot_rev">Reversal</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" role="switch" id="switch_plot_event" onchange="switchEvent()" disabled>
+          <label class="form-check-label" for="switch_plot_event">Event (e.g. heat stim)</label>
         </div>
         
-        <!-- plot config collapse -->
-        <div class="collapse" id="collapsePlotConfig">
-          <br>
-          <div class="card card-body">
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="switch_plot_rev" onchange="switchRev()" unchecked>
-              <label class="form-check-label" for="switch_plot_rev">Reversal</label>
-            </div>
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="switch_plot_event" onchange="switchEvent()" disabled>
-              <label class="form-check-label" for="switch_plot_event">Event (e.g. heat stim)</label>
-            </div>
-            
-          </div>
-        </div>
-
+      </div>
+    </div>
+    <div class="plot-columns">
+      <div class="plot-column">
         <!-- plot -->
         <div id='plot_main'></div>
 
@@ -135,33 +136,34 @@
         </div>
         <!-- END modal -->
 
-
-      </div> <!-- END container -->
-    </div> <!-- End column -->
-    <div class = "table-column collapse" id = "collapseTable">
-      <div class="container px-4">
-        <h2>Compare Datasets</h2>
-        <h4>Datasets that share selected neurons</h4>
-        <div class="form-group">
-          <button class="btn btn-light" onclick="downloadSelected()" style="float:right">Download Selected</button>
-          <div class="btn-group" style="float:left">
-            <button class="btn btn-light" onclick="previousDataset()">Previous</button>
-            <button class="btn btn-light" onclick="nextDataset()">Next</button>
+      </div> <!-- End column -->
+      <div class = "table-column collapse" id = "collapseTable">
+        <div class="container px-4">
+          <h2>Compare Datasets</h2>
+          <h4>Datasets that share selected neurons</h4>
+          <div class="form-group">
+            <button class="btn btn-light" onclick="downloadSelected()" style="float:right">Download Selected</button>
+            <div class="btn-group" style="float:left">
+              <button class="btn btn-light" onclick="previousDataset()">Previous</button>
+              <button class="btn btn-light" onclick="nextDataset()">Next</button>
+            </div>
+            
           </div>
-          
-        </div>
-        <table id="small_dataset_table" class="table-sm" data-unique-id="id" data-row-stype="rowStyle" data-pagination="true" data-height="800" data-page-size="25" style="cursor: pointer">
-          <thead>
-            <tr>
-              <th data-field="id" data-sortable="true">Dataset</th>
-              <th data-field="type" data-sortable="true">Type</th>
-              <th data-field="selected" data-checkbox="true">Select</th>
-            </tr>
-          </thead>
-        </table>
-      </div> <!-- END container -->
-    </div> <!-- END column -->
-  </div> <!-- END Row -->
+          <table id="small_dataset_table" class="table-sm" data-unique-id="id" data-row-stype="rowStyle" data-pagination="true" data-height="800" data-page-size="25" style="cursor: pointer">
+            <thead>
+              <tr>
+                <th data-field="id" data-sortable="true">Dataset</th>
+                <th data-field="type" data-sortable="true">Type</th>
+                <th data-field="selected" data-checkbox="true">Select</th>
+              </tr>
+            </thead>
+          </table>
+        </div> <!-- END container -->
+      </div> <!-- END column -->
+    </div> <!-- END Row -->
+  </div> <!-- END container -->
+    
+    
 
   <div class="b-divider"></div>
 

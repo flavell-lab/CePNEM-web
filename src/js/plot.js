@@ -70,7 +70,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	var used_colors = [];
 
 	for(var i = 0; i < class_colors.length; i++){
-		var colors = class_colors[i].split(",");
+		var colors = class_colors[i].split("-");
 		for(var j = 0; j < colors.length; j++){
 			used_colors.push(parseInt(colors[j]));
 		}
@@ -95,6 +95,15 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		}
 	}
 
+
+	/*
+	TODO: Figure out allocating colors to the same class with different position modifiers
+	Non-designated D or V neurons should be given a different color from each D and V modified neurons
+	Left and Right neurons will continue to have slight offset in color
+	URL is currently splitting up the list that designates the color indices for each position modified neuron
+	*/
+
+
 	if(neuronTraces.length > 0){
 		for(var i = 0; i < neuronTraces.length; i++){
 			if(neuronTraces[i].class === trace.class){
@@ -103,7 +112,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 				neuronTraces[i].color_idx[traces[traces.length-1].offset / 2] = next_available_color;
 				for(var k = 0; k < curr_colors.length; k++){
 					if(curr_colors[k].split("_")[0] == trace.class){
-						var colors = curr_colors[k].split("_")[1].split(",");
+						var colors = curr_colors[k].split("_")[1].split("-");
 						for(var j = 0; j < colors.length; j++){
 							if(parseInt(colors[j]) != -1)
 								neuronTraces[i].color_idx[j] = parseInt(colors[j]);
@@ -126,7 +135,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 				newClass.color_idx[newClass.traces[0].offset / 2] = next_available_color;
 				for(var k = 0; k < curr_colors.length; k++){
 					if(curr_colors[k].split("_")[0] == trace.class){
-						var colors = curr_colors[k].split("_")[1].split(",");
+						var colors = curr_colors[k].split("_")[1].split("-");
 						for(var j = 0; j < colors.length; j++){
 							if(parseInt(colors[j]) != -1)
 								newClass.color_idx[j] = parseInt(colors[j]);
@@ -152,7 +161,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		newClass.color_idx[newClass.traces[0].offset / 2] = next_available_color;
 		for(var k = 0; k < curr_colors.length; k++){
 			if(curr_colors[k].split("_")[0] == trace.class){
-				var colors = curr_colors[k].split("_")[1].split(",");
+				var colors = curr_colors[k].split("_")[1].split("-");
 				for(var j = 0; j < colors.length; j++){
 					if(parseInt(colors[j]) != -1)
 						newClass.color_idx[j] = parseInt(colors[j]);
@@ -171,6 +180,12 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	var new_colors_list = [];
 
 	for(var i = 0; i < neuronTraces.length; i++){
+		var list_to_add = "";
+		for(var j = 0; j < neuronTraces[i].color_idx.length; j++){
+			list_to_add.concat(neuronTraces[i].color_idx[j]);
+			if(j < 2)
+				list_to_add.concat("-");
+		}
 		new_colors_list.push(neuronTraces[i].class + "_" + neuronTraces[i].color_idx.toString());
 	}
 

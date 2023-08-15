@@ -522,7 +522,8 @@ function populate_side_table(){
             },
             onPageChange: function(number, size){
                 var $rows = $('#small_dataset_table').find('tbody > tr');
-                $rows[highlighted_dataset_idx].classList.add('table-active');
+                if(highlighted_dataset_idx < $rows.length)
+                    $rows[highlighted_dataset_idx].classList.add('table-active');
             }
         });
 

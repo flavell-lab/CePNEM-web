@@ -633,7 +633,7 @@ function find_matches(neuropal_label, data){
                     last_dataset_idx = i;
                 }
 
-                console.log(curr_dataset_uid);
+                console.log(curr_dataset_uid + ": " + shown_count);
 
                 if(curr_dataset_uid === dataset_uid){
                     curr_dataset_idx = i;

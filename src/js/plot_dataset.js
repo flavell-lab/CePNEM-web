@@ -200,7 +200,6 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     button_cor.disabled = true;
     dataload = url_params.get('datasets');
     console.log("Init Dataload: " + dataload);
-    document.getElementById('button_collapse_table').setAttribute('aria-expanded', dataload);
     if(dataload){
         document.getElementById('collapseTable').style.display = 'block';
     } else{
@@ -999,9 +998,13 @@ function downloadJson(jsonUID) {
 
 function toggleDataLoad(){
     // var content = document.getElementById("small_dataset_table");
-
-    dataload = document.getElementById('button_collapse_table').getAttribute('aria-expanded');
     if(dataload){
+        dataload = false;
+        document.getElementById('collapseTable').style.display = 'none';
+        
+    } else{
+        dataload = true;
+        document.getElementById('collapseTable').style.display = 'block';
         $('#select_behavior').trigger('changed.bs.select');
     }
 

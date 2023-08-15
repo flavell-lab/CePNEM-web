@@ -42,7 +42,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	if(neuropal_label[neuron_idx] != undefined){
 		var LR = neuropal_label[neuron_idx]["LR"]
 		var DV = neuropal_label[neuron_idx]["DV"]
-		offset = LR == 'R' ? 1 + (DV == 'V' ? 2 : 0) : (DV == 'V' ? 2 : 0)
+		offset = LR == 'R' ? 1 + (DV == 'V' ? 4 : 2) : (DV == 'V' ? 4 : 2)
 	}
 
 	// Create a new trace for the plot
@@ -65,7 +65,15 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
     };
 
 	// Parse the index numbers of the colors that have been used.
-	var used_colors = curr_colors.map(x => parseInt(x.split("_")[1]));
+	var class_colors = curr_colors.map(x => parseInt(x.split("_")[1]));
+	var used_colors = [];
+
+	for(var i = 0; i < class_colors.length; i++){
+		var colors = class_colors[i].split(",");
+		for(var j = 0; j < colors.length; j++){
+			used_colors.push(colors[j]);
+		}
+	}
 	
 	if(isNaN(used_colors[0])){
 		curr_colors.splice(0, 1);

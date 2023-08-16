@@ -192,6 +192,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	for(var i = 0; i < neuronTraces.length; i++){
 		var list_to_add = "";
 		for(var j = 0; j < neuronTraces[i].color_idx.length; j++){
+			console.log("Adding " + neuronTraces[i].color_idx[j].toString() + " to list to add");
 			list_to_add.concat(neuronTraces[i].color_idx[j].toString());
 			if(j < 2)
 				list_to_add.concat("_");

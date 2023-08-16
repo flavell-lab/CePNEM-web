@@ -64,6 +64,8 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		}
     };
 
+	console.log("New Loop:");
+
 	console.log("Current colors: " + curr_colors[0]);
 
 	// Parse the index numbers of the colors that have been used.

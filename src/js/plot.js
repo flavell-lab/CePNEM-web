@@ -293,20 +293,20 @@ const color_list = ['#0000ff',
 					'#5faf50', 
 					'#9e02f7', 
 					'#c766ff', 
-					'#00c9b5', 
-					'#74d6cc', 
-					'#fffb08', 
+					'#fffb08',
 					'#fcfb95', 
+					'#00c9b5', 
+					'#74d6cc',
+					'#ff08d6', 
+					'#ff75e8',
 					'#3cee00', 
 					'#53ee82', 
 					'#ff0000', 
-					'#ff8c8c', 
-					'#ff08d6', 
-					'#ff75e8'];
-const behavior_colors = ['#303030', 
+					'#ff8c8c'];
+const behavior_colors = ['#505050', 
 						'#915d24', 
 						'#55801d', 
-						'#802d2d', 
+						'#6c3a9e', 
 						'#1d6980'];
 const behaviors = ["v", "hc", "f", "av", "bc"];
 

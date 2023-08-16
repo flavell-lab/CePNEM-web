@@ -144,10 +144,10 @@
     <div class = "table-column collapse hide" id = "collapseTable" style="display: none">
       <div class="container px-4">
         <div class="form-group">
-          <button class="btn btn-light" onclick="downloadSelected()" style="float:right">Download Selected</button>
+          <button class="btn btn-light" onclick="downloadSelected()" style="float:right" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Download full dataset as JSON">Download Selected</button>
           <div class="btn-group" style="float:left">
-            <button class="btn btn-light" onclick="previousDataset()">Previous</button>
-            <button class="btn btn-light" onclick="nextDataset()">Next</button>
+            <button class="btn btn-light" onclick="previousDataset()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View dataset preceding the current one">Previous</button>
+            <button class="btn btn-light" onclick="nextDataset()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View dataset following the current one">Next</button>
           </div>
           
         </div>

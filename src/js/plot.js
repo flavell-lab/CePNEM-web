@@ -64,12 +64,12 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		}
     };
 
+	console.log("Current colors: " + curr_colors);
+
 	// Parse the index numbers of the colors that have been used.
 	var class_colors = curr_colors.map(x => x.split("_")[1]);
 	// console.log(class_colors);
 	var used_colors = [];
-
-	console.log(class_colors)
 
 	for(var i = 0; i < class_colors.length; i++){
 		var colors = class_colors[i].split("-");
@@ -97,14 +97,14 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		}
 	}
 
-
 	/*
 	TODO: Figure out allocating colors to the same class with different position modifiers
-	Non-designated D or V neurons should be given a different color from each D and V modified neurons
+	Non-designated in D or V neurons should be given a different color from each D and V modified neurons
 	Left and Right neurons will continue to have slight offset in color
 	URL is currently splitting up the list that designates the color indices for each position modified neuron
+	To fix the above I tried delinating indices with dashes instead of commas. Things seem to be broken now.
+	Try print statements!
 	*/
-
 
 	if(neuronTraces.length > 0){
 		for(var i = 0; i < neuronTraces.length; i++){

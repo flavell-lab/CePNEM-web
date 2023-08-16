@@ -326,7 +326,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
 
     // update list of datasets that fit selections
     populate_side_table();
-    console.load("Current Dataload Status: " + dataload);
+    console.log("Current Dataload Status: " + dataload);
     if(dataload){
         fetch("data/matches.json").
             then(response => response.json()).

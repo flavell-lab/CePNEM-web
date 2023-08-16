@@ -196,7 +196,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			if(j < 2)
 				list_to_add.concat("_");
 		}
-		console.log("Pushing color list to URL: " + neuronTraces[i].color_idx);
+		console.log("Pushing color list to URL: " + list_to_add);
 		new_colors_list.push(neuronTraces[i].class + "_" + list_to_add);
 	}
 	curr_colors = new_colors_list;

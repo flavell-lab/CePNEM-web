@@ -72,7 +72,7 @@ function clearSelect() {
     $("#select_dtype").selectpicker('val', '');
     $('#dataset_table').bootstrapTable('filterBy', {id: "filter_dtype_reset"}, {
         'filterAlgorithm': (row, filters) => {
-            return false;
+            return true;
         }
     })
 };

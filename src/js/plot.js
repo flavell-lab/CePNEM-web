@@ -131,7 +131,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 					}
 				}
 				// curr_colors.splice(i, 0, trace.class + "_" + neuronTraces[i].color_idx.toString());
-				traces[traces.length-1].line.color = color_list[((2*newClass.color_idx[newClass.traces[0].offset / 2] + (newClass.traces[0].offset % 2)) % color_list.length)];
+				traces[traces.length-1].line.color = color_list[((2*neuronTraces[i].color_idx[trace.offset / 2] + (trace.offset % 2)) % color_list.length)];
 				break;
 			}
 			else if(i == neuronTraces.length - 1){

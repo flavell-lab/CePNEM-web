@@ -80,7 +80,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	for(var i = 0; i < curr_colors.length; i++){
 		var colors = [curr_colors[i].split("_")[1], curr_colors[i].split("_")[2], curr_colors[i].split("_")[3]];
 		for(var j = 0; j < colors.length; j++){
-			if(!isNaN(colors[j]))
+			if(!isNaN(colors[j]) && colors[j] != -1)
 				used_colors.push(parseInt(colors[j]));
 		}
 	}

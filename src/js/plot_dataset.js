@@ -328,6 +328,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     populate_side_table();
     console.log("Current Dataload Status: " + dataload);
     if(dataload){
+        console.log("Going ahead because dataload is " + dataload);
         fetch("data/matches.json").
             then(response => response.json()).
             then(match_data => {

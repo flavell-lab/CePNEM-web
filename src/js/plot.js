@@ -23,7 +23,7 @@ function initPlot(plot_element) {
 	var config = {responsive: true,
 		toImageButtonOptions: {
 			format: 'svg', // one of png, svg, jpeg, webp
-			filename: 'custom_image',
+			filename: 'data',
 			height: 800,
 			scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
 		  }

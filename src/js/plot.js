@@ -165,7 +165,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		};
 		var foundClass = false;
 		newClass.color_idx[newClass.traces[0].offset / 2] = next_available_color;
-		console.log("Making a new class with Color Indices: " + newClass.color_idx);
+		console.log("Making a new class with Color Indices: " + newClass.color_idx + " and id: " + trace.trace_id);
 		for(var k = 0; k < curr_colors.length; k++){
 			if(curr_colors[k].split("_")[0] == trace.class){
 				var colors = curr_colors[k].split("_")[1].split("+");

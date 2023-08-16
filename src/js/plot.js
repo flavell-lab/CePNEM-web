@@ -75,7 +75,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		curr_colors.splice(0, 1);
 	} else{
 		for(var i = 0; i < class_colors.length; i++){
-			var colors = class_colors[i].split("-");
+			var colors = class_colors[i].split("+");
 			for(var j = 0; j < colors.length; j++){
 				used_colors.push(parseInt(colors[j]));
 			}
@@ -118,7 +118,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 				neuronTraces[i].color_idx[traces[traces.length-1].offset / 2] = next_available_color;
 				for(var k = 0; k < curr_colors.length; k++){
 					if(curr_colors[k].split("_")[0] == trace.class){
-						var colors = curr_colors[k].split("_")[1].split("-");
+						var colors = curr_colors[k].split("_")[1].split("+");
 						for(var j = 0; j < colors.length; j++){
 							if(parseInt(colors[j]) != -1)
 								neuronTraces[i].color_idx[j] = parseInt(colors[j]);
@@ -141,7 +141,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 				newClass.color_idx[newClass.traces[0].offset / 2] = next_available_color;
 				for(var k = 0; k < curr_colors.length; k++){
 					if(curr_colors[k].split("_")[0] == trace.class){
-						var colors = curr_colors[k].split("_")[1].split("-");
+						var colors = curr_colors[k].split("_")[1].split("+");
 						for(var j = 0; j < colors.length; j++){
 							if(parseInt(colors[j]) != -1)
 								newClass.color_idx[j] = parseInt(colors[j]);
@@ -167,7 +167,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		newClass.color_idx[newClass.traces[0].offset / 2] = next_available_color;
 		for(var k = 0; k < curr_colors.length; k++){
 			if(curr_colors[k].split("_")[0] == trace.class){
-				var colors = curr_colors[k].split("_")[1].split("-");
+				var colors = curr_colors[k].split("_")[1].split("+");
 				for(var j = 0; j < colors.length; j++){
 					if(parseInt(colors[j]) != -1)
 						newClass.color_idx[j] = parseInt(colors[j]);
@@ -190,9 +190,9 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		for(var j = 0; j < neuronTraces[i].color_idx.length; j++){
 			list_to_add.concat(neuronTraces[i].color_idx[j]);
 			if(j < 2)
-				list_to_add.concat("-");
+				list_to_add.concat("+");
 		}
-		new_colors_list.push(neuronTraces[i].class + "_" + neuronTraces[i].color_idx.toString());
+		new_colors_list.push(neuronTraces[i].class + "_" + list_to_add);
 	}
 
 	let url = new URL(window.location.href);

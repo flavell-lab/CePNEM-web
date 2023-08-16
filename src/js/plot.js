@@ -71,18 +71,16 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	// console.log(class_colors);
 	var used_colors = [];
 
-	if(isNaN(class_colors[0])){
-		curr_colors.splice(0, 1);
-	} else{
-		for(var i = 0; i < class_colors.length; i++){
-			var colors = class_colors[i].split(",");
-			for(var j = 0; j < colors.length; j++){
-				used_colors.push(parseInt(colors[j]));
-			}
-		}
+	if(class_colors[0] == ""){
+		class_colors.splice(0, 1);
 	}
 
-	
+	for(var i = 0; i < class_colors.length; i++){
+		var colors = class_colors[i].split(",");
+		for(var j = 0; j < colors.length; j++){
+			used_colors.push(parseInt(colors[j]));
+		}
+	}
 
 	console.log("Used Colors: " + used_colors);
 	

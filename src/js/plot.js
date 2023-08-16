@@ -67,20 +67,21 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	console.log("Current colors: " + curr_colors[0]);
 
 	// Parse the index numbers of the colors that have been used.
-	var class_colors = curr_colors.map(x => x.split("_")[1]);
+	// var class_colors = curr_colors.map(x => x.split("_")[1]);
 	// console.log(class_colors);
 	var used_colors = [];
 
-	console.log("Class Colors: " + class_colors[0]);
+	// console.log("Class Colors: " + class_colors[0]);
 
-	if(class_colors[0] == ""){
-		class_colors.splice(0, 1);
-	}
+	// if(class_colors[0] == ""){
+	// 	class_colors.splice(0, 1);
+	// }
 
 	for(var i = 0; i < curr_colors.length; i++){
 		var colors = [curr_colors[i].split("_")[1], curr_colors[i].split("_")[2], curr_colors[i].split("_")[3]];
 		for(var j = 0; j < colors.length; j++){
-			used_colors.push(parseInt(colors[j]));
+			if(!isNaN(colors[j]))
+				used_colors.push(parseInt(colors[j]));
 		}
 	}
 

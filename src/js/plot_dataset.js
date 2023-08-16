@@ -160,7 +160,7 @@ const list_neuron_str = url_params.get('list_neuron').split(",");
 const list_url_neuron = [...new Set(list_neuron_str.map(x => parseInt(x)).sort(function(a, b) {return a - b;}))]
 const list_url_behavior = url_params.get('list_behavior').split(",").sort();
 const list_colors = url_params.get('list_colors').split(",");
-const list_behavior_str = ["Velocity", "Head Curve", "Pumping", "Angular Velocity", "Body Curvature"];
+const list_behavior_str = ["Velocity", "Head Curvature", "Pumping", "Angular Velocity", "Body Curvature"];
 const list_behavior_str_short = ["v", "hc", "f", "av", "bc"];
 const behavior_units = ["0.1 mm/s", "rad", "pumps/sec", "rad/s", "rad"];
 

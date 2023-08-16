@@ -104,7 +104,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	console.log("Used Colors: " + used_colors);
 	console.log("Next available color: " + next_available_color);
-	console.log("Adding neuron: " + label);
+	console.log("Adding neuron: " + label + " with offset: " + offset);
 
 	/*
 	TODO: Figure out allocating colors to the same class with different position modifiers

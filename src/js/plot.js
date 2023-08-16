@@ -128,10 +128,10 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 							if(parseInt(colors[j]) != -1)
 								neuronTraces[i].color_idx[j] = parseInt(colors[j]);
 						}
-						foundClass = true;
 						break;
 					}
 				}
+				console.log("Class found and allocating color: " + ((2*neuronTraces[i].color_idx[trace.offset / 2] + (trace.offset % 2)) % color_list.length) + " to neuron: " + label);
 				// curr_colors.splice(i, 0, trace.class + "_" + neuronTraces[i].color_idx.toString());
 				traces[traces.length-1].line.color = color_list[((2*neuronTraces[i].color_idx[trace.offset / 2] + (trace.offset % 2)) % color_list.length)];
 				break;
@@ -142,7 +142,6 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 					traces: [trace],
 					color_idx: [-1,-1,-1]
 				};
-				var foundClass = false;
 				newClass.color_idx[newClass.traces[0].offset / 2] = next_available_color;
 				for(var k = 0; k < curr_colors.length; k++){
 					if(curr_colors[k].split("_")[0] == trace.class){
@@ -151,7 +150,6 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 							if(parseInt(colors[j]) != -1)
 								newClass.color_idx[j] = parseInt(colors[j]);
 						}
-						foundClass = true;
 						break;
 					}
 				}
@@ -168,7 +166,6 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			traces: [trace],
 			color_idx: [-1,-1,-1]
 		};
-		var foundClass = false;
 		newClass.color_idx[newClass.traces[0].offset / 2] = next_available_color;
 		console.log("Making a new class " + trace.class + " with Color Indices: " + newClass.color_idx);
 		for(var k = 0; k < curr_colors.length; k++){
@@ -178,7 +175,6 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 					if(parseInt(colors[j]) != -1)
 						newClass.color_idx[j] = parseInt(colors[j]);
 				}
-				foundClass = true;
 				break;
 			}
 		}

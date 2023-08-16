@@ -71,18 +71,22 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	// console.log(class_colors);
 	var used_colors = [];
 
-	for(var i = 0; i < class_colors.length; i++){
-		var colors = class_colors[i].split("-");
-		for(var j = 0; j < colors.length; j++){
-			used_colors.push(parseInt(colors[j]));
+	if(isNaN(class_colors[0])){
+		curr_colors.splice(0, 1);
+	} else{
+		for(var i = 0; i < class_colors.length; i++){
+			var colors = class_colors[i].split("-");
+			for(var j = 0; j < colors.length; j++){
+				used_colors.push(parseInt(colors[j]));
+			}
 		}
 	}
 
+	
+
 	console.log(used_colors);
 	
-	if(isNaN(used_colors[0])){
-		curr_colors.splice(0, 1);
-	}
+	
 	used_colors.sort();
 	
 	// Determine the next color that is available to the new trace

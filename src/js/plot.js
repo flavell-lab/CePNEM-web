@@ -186,6 +186,8 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	var new_colors_list = [];
 
+	console.log("Current have " + neuronTraces.length + " neuron classes");
+
 	for(var i = 0; i < neuronTraces.length; i++){
 		var list_to_add = "";
 		for(var j = 0; j < neuronTraces[i].color_idx.length; j++){

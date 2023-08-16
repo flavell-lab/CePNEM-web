@@ -23,12 +23,13 @@
 }
 
 .plot-columns {
-    width:110%;
+    width:100%;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
 }
 .plot-column {
+    width:110%;
     flex: 2;
     flex-grow: 3;
     padding: 0px;

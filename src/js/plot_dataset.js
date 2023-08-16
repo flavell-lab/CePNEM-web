@@ -327,7 +327,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     // update list of datasets that fit selections
     populate_side_table();
     console.log("Current Dataload Status: " + dataload);
-    if(dataload){
+    if(dataload == true){
         console.log("Going ahead because dataload is " + dataload);
         fetch("data/matches.json").
             then(response => response.json()).
@@ -395,7 +395,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         url.searchParams.set("list_neuron", selected_neuron_str);
         window.history.pushState({}, "", url);
 
-        if(dataload){
+        if(dataload == true){
             fetch("data/matches.json").
                 then(response => response.json()).
                 then(match_data => {
@@ -463,7 +463,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         url.searchParams.set("list_behavior", selected_behavior_str_short);
         window.history.pushState({}, "", url);
 
-        if(dataload){
+        if(dataload == true){
             fetch("data/matches.json").
                 then(response => response.json()).
                 then(match_data => {
@@ -473,7 +473,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         
     });
 
-    if(dataload){
+    if(dataload == true){
         document.getElementById('collapseTable').style.display = 'block';
     } else{
         document.getElementById('collapseTable').style.display = 'none';

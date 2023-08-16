@@ -200,11 +200,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     button_cor.disabled = true;
     dataload = url_params.get('datasets');
     console.log("Init Dataload: " + dataload);
-    if(dataload){
-        document.getElementById('collapseTable').style.display = 'block';
-    } else{
-        document.getElementById('collapseTable').style.display = 'none';
-    }
+    
 
     let list_dtype = data.dataset_type;
 
@@ -474,6 +470,12 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         }   
         
     });
+
+    if(dataload){
+        document.getElementById('collapseTable').style.display = 'block';
+    } else{
+        document.getElementById('collapseTable').style.display = 'none';
+    }
 
     // table
     var table_encoding_data = getEncodingTable(data)

@@ -199,7 +199,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     button_csv_export.disabled = true;
     button_cor.disabled = true;
     dataload = url_params.get('datasets');
-    // console.log("Init Dataload: " + dataload);
+    console.log("Init Dataload: " + dataload);
     if(dataload){
         document.getElementById('collapseTable').style.display = 'block';
     } else{
@@ -475,9 +475,6 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         
     });
 
-    
-    
-    
     // table
     var table_encoding_data = getEncodingTable(data)
 

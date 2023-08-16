@@ -303,11 +303,11 @@ const color_list = ['#0000ff',
 					'#ff8c8c', 
 					'#ff08d6', 
 					'#ff75e8'];
-const behavior_colors = ['#0000ff', 
-						'#ff5900', 
-						'#148400', 
-						'#9e02f7', 
-						'#00c9b5'];
+const behavior_colors = ['#303030', 
+						'#915d24', 
+						'#55801d', 
+						'#801d1d', 
+						'#1d6980'];
 const behaviors = ["v", "hc", "f", "av", "bc"];
 
 function pushToPlot(plot_element){

@@ -28,7 +28,7 @@ then(data => {
                 let option = document.createElement("option");
                 option.value = dtype_;
                 option.text = getDatsetFullStr(dtype_);
-                option.selected = true;
+                option.selected = false;
                 select.add(option);
             }
             html_dtype += getDatasetTypePill(dtype_) + " "
@@ -60,10 +60,10 @@ $("#select_dtype").selectpicker({}).on('change', function () {
         'filterAlgorithm': (row, filters) => {
             let list_dtype = row.type;
             for (let i = 0; i < selected.length; i++) {
-                return row.type.includes(selected[i]);
-                break;
+                if(!list_dtype.includes(selected[i]))
+                    return false
             }
-            return false;
+            return true;
       }
     })
 });

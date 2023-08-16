@@ -206,7 +206,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	for(var i = 0; i < neuronTraces.length; i++){
 		for(var j = 0; j < neuronTraces[i].traces.length; j++){
-			outputStr += neuronTraces[i].traces[j].name + ": " + ((2*newClass.color_idx[newClass.traces[0].offset / 2] + (newClass.traces[0].offset % 2)) % color_list.length)+ ", ";
+			outputStr += neuronTraces[i].traces[j].name + ": " + ((2*neuronTraces[i].color_idx[trace.offset / 2] + (trace.offset % 2)) % color_list.length)+ ", ";
 		}
 	}
 

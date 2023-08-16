@@ -306,7 +306,7 @@ const color_list = ['#0000ff',
 const behavior_colors = ['#303030', 
 						'#915d24', 
 						'#55801d', 
-						'#801d1d', 
+						'#802d2d', 
 						'#1d6980'];
 const behaviors = ["v", "hc", "f", "av", "bc"];
 

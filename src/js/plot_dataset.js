@@ -199,6 +199,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     button_csv_export.disabled = true;
     button_cor.disabled = true;
     dataload = url_params.get('datasets');
+    dataload = dataload === 'true' ? true : false
     console.log("Init Dataload: " + dataload);
     
 
@@ -326,9 +327,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
 
     // update list of datasets that fit selections
     populate_side_table();
-    console.log("Current Dataload Status: " + dataload);
-    if(dataload == true){
-        console.log("Going ahead because dataload is " + dataload);
+    if(dataload){
         fetch("data/matches.json").
             then(response => response.json()).
             then(match_data => {
@@ -395,7 +394,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         url.searchParams.set("list_neuron", selected_neuron_str);
         window.history.pushState({}, "", url);
 
-        if(dataload == true){
+        if(dataload){
             fetch("data/matches.json").
                 then(response => response.json()).
                 then(match_data => {
@@ -463,7 +462,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         url.searchParams.set("list_behavior", selected_behavior_str_short);
         window.history.pushState({}, "", url);
 
-        if(dataload == true){
+        if(dataload){
             fetch("data/matches.json").
                 then(response => response.json()).
                 then(match_data => {
@@ -473,7 +472,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         
     });
 
-    if(dataload == true){
+    if(dataload){
         document.getElementById('collapseTable').style.display = 'block';
     } else{
         document.getElementById('collapseTable').style.display = 'none';

@@ -194,15 +194,13 @@ list_url_behavior.forEach(function(behavior) {
 });
 
 fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data => {
-    // console.log(data)
     n_neuron = data["num_neurons"];
     button_csv_export.disabled = true;
     button_cor.disabled = true;
     dataload = url_params.get('datasets');
     dataload = dataload === 'true' ? true : false
-    // console.log("Init Dataload: " + dataload);
     
-
+     // Get dataset dtype to include in title
     let list_dtype = data.dataset_type;
 
     let html_dtype = "";
@@ -307,6 +305,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         }
     }
 
+    // plot all traces
     pushToPlot(plot_main);
     // configure y axis
     resetYAxis(plot_main)
@@ -327,6 +326,8 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
 
     // update list of datasets that fit selections
     populate_side_table();
+
+    // find matching datasets and update the side table
     if(dataload){
         fetch("data/matches.json").
             then(response => response.json()).
@@ -385,6 +386,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             selected_behavior_str_short, neuropal_label)    
         button_csv_export.disabled = false;
 
+        // plot all traces
         pushToPlot(plot_main);
         // update y
         resetYAxis(plot_main);
@@ -394,6 +396,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         url.searchParams.set("list_neuron", selected_neuron_str);
         window.history.pushState({}, "", url);
 
+        // find matching datasets and update the side table
         if(dataload){
             fetch("data/matches.json").
                 then(response => response.json()).
@@ -462,6 +465,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         url.searchParams.set("list_behavior", selected_behavior_str_short);
         window.history.pushState({}, "", url);
 
+        // find matching datasets and update the side table
         if(dataload){
             fetch("data/matches.json").
                 then(response => response.json()).
@@ -472,6 +476,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         
     });
 
+    // Depending on URL state, choose to display side table
     if(dataload){
         document.getElementById('collapseTable').style.display = 'block';
     } else{
@@ -532,17 +537,6 @@ function populate_side_table(){
             $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
         }
     }).catch(error => console.error(error));
-}
-
-function rowStyle(row, index){
-    // alert(`${row.id}, ${dataset_uid}`)
-    if(row.id === dataset_uid){
-        // alert(`${row.id}, ${dataset_uid}`)
-        return{
-            css: { 'background-color': '#6c757d'}
-        };
-    }
-    return{};
 }
 
 var lastShownDataset = null;
@@ -633,19 +627,13 @@ function find_matches(neuropal_label, data){
                     last_dataset_idx = i;
                 }
 
-                // console.log(curr_dataset_uid + ": " + shown_count);
-
                 if(curr_dataset_uid === dataset_uid){
                     curr_dataset_idx = i;
                     highlighted_dataset_idx = shown_count;
-                    // console.log("Hightlighted Dataset Idx: " + highlighted_dataset_idx);
 
                     if(lastShownDataset != null){
                         previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', lastShownDataset).url;
-                    }      
-                    // document.getElementById(curr_dataset_uid).classList.add('table-active');              
-                    // $('#small_dataset_table').bootstrapTable('checkBy', {field: 'id', values: [curr_dataset_uid]} );
-                    // $('#small_dataset_table').bootstrapTable('getRowByUniqueId', curr_dataset_uid).class ="table-active";
+                    }  
                 }
                 if(lastShownDataset == list_uid[curr_dataset_idx]){
                     nextDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[i]).url;
@@ -667,9 +655,6 @@ function find_matches(neuropal_label, data){
             $rows[highlighted_dataset_idx].classList.add('table-active');
         }
         
-
-        // console.log("Previous URL: " + previousDatasetURL);
-        // console.log("Next URL: " + nextDatasetURL);
     } else {// if (selectedOptions.length <= 0)
         for (let i = 1; i < list_uid.length; i++) {
             let curr_dataset_uid = list_uid[i];

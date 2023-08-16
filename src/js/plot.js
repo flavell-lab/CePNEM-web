@@ -190,13 +190,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	console.log("Current have " + neuronTraces.length + " neuron classes");
 
 	for(var i = 0; i < neuronTraces.length; i++){
-		var list_to_add = "";
-		for(var j = 0; j < neuronTraces[i].color_idx.length; j++){
-			console.log("Adding " + neuronTraces[i].color_idx[j].toString() + " to list to add");
-			list_to_add.concat(neuronTraces[i].color_idx[j].toString());
-			if(j < 2)
-				list_to_add.concat("_");
-		}
+		var list_to_add = neuronTraces[i].color_idx[0].toString() + "_" + neuronTraces[i].color_idx[1].toString() + "_" + neuronTraces[i].color_idx[2].toString();
 		console.log("Pushing color list to URL: " + list_to_add);
 		new_colors_list.push(neuronTraces[i].class + "_" + list_to_add);
 	}

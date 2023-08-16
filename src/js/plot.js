@@ -71,7 +71,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	// console.log(class_colors);
 	var used_colors = [];
 
-	console.log("Class Colors: " + class_colors);
+	console.log("Class Colors: " + class_colors[0]);
 
 	if(class_colors[0] == ""){
 		class_colors.splice(0, 1);

@@ -24,6 +24,7 @@
 
 .plot-columns {
     width:75%;
+    margin: auto;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;

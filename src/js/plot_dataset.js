@@ -679,13 +679,13 @@ function find_matches(neuropal_label, data){
 }
 
 function nextDataset(){
-    console.log(nextDatasetURL);
-    window.location.href = nextDatasetURL;
+    if(nextDatasetURL != null)
+        window.location.href = nextDatasetURL;
 }
 
 function previousDataset(){
-    console.log(previousDatasetURL);
-    window.location.href = previousDatasetURL;
+    if(previousDatasetURL != null)
+        window.location.href = previousDatasetURL;
 }
 
 function clearSelect() {

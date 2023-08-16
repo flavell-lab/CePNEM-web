@@ -581,15 +581,15 @@ function find_matches(neuropal_label, data){
                 let neuron_class = selectedOptions[j].class;
                 let LR = selectedOptions[j].LR;
                 let DV = selectedOptions[j].DV;
-                let neuron_list = data[neuron_class];
-                if(neuron_list == undefined){
-                    neuron_list = data[neuron_class + LR];
-                }
+                let neuron_list = data[neuron_class + DV + LR];
                 if(neuron_list == undefined){
                     neuron_list = data[neuron_class + DV];
                 }
                 if(neuron_list == undefined){
-                    neuron_list = data[neuron_class + DV + LR];
+                    neuron_list = data[neuron_class + LR];
+                }
+                if(neuron_list == undefined){
+                    neuron_list = data[neuron_class];
                 }
                 if(neuron_list == undefined){
                     console.error("Unable to find Neuron in dataset")

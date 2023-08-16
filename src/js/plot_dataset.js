@@ -595,6 +595,7 @@ function find_matches(neuropal_label, data){
                     console.error("Unable to find Neuron in dataset")
                     break;
                 }
+                console.log(neuron_list);
                 let list_match_uid = neuron_list.map(function (subarray) {
                     if (subarray[0] == curr_dataset_uid) {
                         list_idx_neuron.push(subarray[1])

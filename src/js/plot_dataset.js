@@ -200,7 +200,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     button_cor.disabled = true;
     dataload = url_params.get('datasets');
     dataload = dataload === 'true' ? true : false
-    console.log("Init Dataload: " + dataload);
+    // console.log("Init Dataload: " + dataload);
     
 
     let list_dtype = data.dataset_type;

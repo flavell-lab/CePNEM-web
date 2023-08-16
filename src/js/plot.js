@@ -64,9 +64,9 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		}
     };
 
-	console.log("New Loop:");
+	// console.log("New Loop:");
 
-	console.log("Current colors: " + curr_colors[0]);
+	// console.log("Current colors: " + curr_colors[0]);
 
 	// Parse the index numbers of the colors that have been used.
 	// var class_colors = curr_colors.map(x => x.split("_")[1]);
@@ -102,9 +102,9 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		}
 	}
 
-	console.log("Used Colors: " + used_colors);
-	console.log("Next available color: " + next_available_color);
-	console.log("Adding neuron: " + label + " with offset: " + offset);
+	// console.log("Used Colors: " + used_colors);
+	// console.log("Next available color: " + next_available_color);
+	// console.log("Adding neuron: " + label + " with offset: " + offset);
 
 	var color_idx = Math.floor(trace.offset / 2);
 
@@ -133,9 +133,9 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 						break;
 					}
 				}
-				console.log("Found class has colors: " + neuronTraces[i].color_idx);
-				console.log("Choosing index " + (color_idx) + " from this list");
-				console.log("Class found and allocating color: " + ((2*neuronTraces[i].color_idx[color_idx] + (trace.offset % 2)) % color_list.length) + " to neuron: " + label);
+				// console.log("Found class has colors: " + neuronTraces[i].color_idx);
+				// console.log("Choosing index " + (color_idx) + " from this list");
+				// console.log("Class found and allocating color: " + ((2*neuronTraces[i].color_idx[color_idx] + (trace.offset % 2)) % color_list.length) + " to neuron: " + label);
 				// curr_colors.splice(i, 0, trace.class + "_" + neuronTraces[i].color_idx.toString());
 				traces[traces.length-1].line.color = color_list[((2*neuronTraces[i].color_idx[color_idx] + (trace.offset % 2)) % color_list.length)];
 				break;
@@ -171,7 +171,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			color_idx: [-1,-1,-1]
 		};
 		newClass.color_idx[color_idx] = next_available_color;
-		console.log("Making a new class " + trace.class + " with Color Indices: " + newClass.color_idx);
+		// console.log("Making a new class " + trace.class + " with Color Indices: " + newClass.color_idx);
 		for(var k = 0; k < curr_colors.length; k++){
 			if(curr_colors[k].split("_")[0] == trace.class){
 				var colors = [curr_colors[k].split("_")[1], curr_colors[k].split("_")[2], curr_colors[k].split("_")[3]];
@@ -212,8 +212,8 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		}
 	}
 
-	console.log("Colors: " + curr_colors);
-	console.log("Plotted Neurons: " + outputStr);
+	// console.log("Colors: " + curr_colors);
+	// console.log("Plotted Neurons: " + outputStr);
 
 
     // Plotly.addTraces(plot_element, [trace,]);

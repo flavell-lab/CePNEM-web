@@ -131,6 +131,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 						break;
 					}
 				}
+				console.log("Found class has colors: " + neuronTraces[i].color_idx);
 				console.log("Class found and allocating color: " + ((2*neuronTraces[i].color_idx[trace.offset / 2] + (trace.offset % 2)) % color_list.length) + " to neuron: " + label);
 				// curr_colors.splice(i, 0, trace.class + "_" + neuronTraces[i].color_idx.toString());
 				traces[traces.length-1].line.color = color_list[((2*neuronTraces[i].color_idx[trace.offset / 2] + (trace.offset % 2)) % color_list.length)];
@@ -187,11 +188,11 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	var new_colors_list = [];
 
-	console.log("Current have " + neuronTraces.length + " neuron classes");
+	// console.log("Current have " + neuronTraces.length + " neuron classes");
 
 	for(var i = 0; i < neuronTraces.length; i++){
 		var list_to_add = neuronTraces[i].color_idx[0].toString() + "_" + neuronTraces[i].color_idx[1].toString() + "_" + neuronTraces[i].color_idx[2].toString();
-		console.log("Pushing color list to URL: " + list_to_add);
+		// console.log("Pushing color list to URL: " + list_to_add);
 		new_colors_list.push(neuronTraces[i].class + "_" + list_to_add);
 	}
 	curr_colors = new_colors_list;

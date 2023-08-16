@@ -84,7 +84,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	
 
-	console.log(used_colors);
+	console.log("Used Colors: " + used_colors);
 	
 	
 	used_colors.sort();
@@ -193,6 +193,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			if(j < 2)
 				list_to_add.concat("+");
 		}
+		console.log("Pushing color list to URL: " + list_to_add);
 		new_colors_list.push(neuronTraces[i].class + "_" + list_to_add);
 	}
 	curr_colors = new_colors_list;

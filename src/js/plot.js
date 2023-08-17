@@ -125,7 +125,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 							if(parseInt(colors[j]) != -1){}
 								neuronTraces[i].color_idx[j] = parseInt(colors[j]);
 						}
-						console.log("Newly allocated colors: " + colors);
+						console.log("Newly allocated colors: " + neuronTraces[i].color_idx);
 						break;
 					}
 				}

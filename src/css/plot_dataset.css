@@ -30,7 +30,6 @@
     flex-wrap: nowrap;
 }
 .plot-column {
-    width:1350px;
     flex: 1;
     padding: 0px;
 }

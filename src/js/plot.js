@@ -181,7 +181,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		}
 	}
 
-	console.log("Stored Neuron Traces" + outputStr);
+	console.log("Stored Neuron Traces: " + outputStr);
 }
 
 function plotBehavior(list_t, behavior, plot_element, label, trace_id) {

@@ -30,7 +30,7 @@
     flex-wrap: nowrap;
 }
 .plot-column {
-    flex: 7;
+    flex-grow: 1;
     padding: 0px;
 }
 .table-column {

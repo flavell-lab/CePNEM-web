@@ -129,8 +129,9 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 						break;
 					}
 				}
-
 				traces[traces.length-1].line.color = color_list[((2*neuronTraces[i].color_idx[color_idx] + (trace.offset % 2)) % color_list.length)];
+				var list_to_add = neuronTraces[i].color_idx[0].toString() + "_" + neuronTraces[i].color_idx[1].toString() + "_" + neuronTraces[i].color_idx[2].toString();
+				curr_colors.splice(i, 1, neuronTraces[i].class + "_" + list_to_add);
 				break;
 			}
 			else if(i == neuronTraces.length - 1){ // add the neuron class and trace if the class has not been inserted yet

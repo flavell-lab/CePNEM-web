@@ -118,9 +118,9 @@ function toggleEvent(q) {
 
 function resetYAxis(plot) {
     // console.log("Plot Data length: " + data_export["neuron"].length);
-    // if(data_export["neuron"].length == 0){
-    //     return;
-    // }
+    if(data_export["neuron"].length == 0){
+        return;
+    }
     let margin = 0.05
     let data_ = plot.data
     let y_max = -1000.

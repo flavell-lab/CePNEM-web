@@ -565,9 +565,13 @@ function find_matches(neuropal_label, data){
         var next_idx = 0;
         var preb_idx = 0;
         var shown_count = 0;
+        var curr_url = new URL(window.location.href);
+        var url_param_list = new URLSearchParams(curr_url.search);
+        var curr_list_url_behavior = url_param_list.get('list_behavior').split(",").sort();
+        var url_colors_list = url_param_list.get('list_colors').split(",");
+        console.log(url_colors_list);
         for (var i = 1; i < list_uid.length; i++) {
             let curr_dataset_uid = list_uid[i];
-            let row = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', curr_dataset_uid);
             // iterate over neurons selected
             let match_all = true;
             let list_idx_neuron = [];
@@ -599,11 +603,7 @@ function find_matches(neuropal_label, data){
                 match_all = match_all && match_
             }
 
-            var curr_url = new URL(window.location.href);
-            var url_param_list = new URLSearchParams(curr_url.search);
-            var curr_list_url_behavior = url_param_list.get('list_behavior').split(",").sort();
-            var url_colors_list = url_param_list.get('list_colors').split(",");
-            console.log(url_colors_list);
+            
 
             if (match_all == true) {
                 let url_plot = new URL("plot_dataset.html", document.location);

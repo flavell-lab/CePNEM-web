@@ -270,7 +270,7 @@ function pushToPlot(plot_element){
 
 	// Push changes to the URL so the state is saved
 	let url = new URL(window.location.href);
-    url.searchParams.set("list_colors", new_colors_list);
+    url.searchParams.set("list_colors", curr_colors);
     window.history.pushState({}, "", url);
 
 	neuronTraces.sort(function (a, b) {return a.class.toString().localeCompare(b.class.toString())});//(typeof a.class == 'number' ? (typeof b.class == 'number' ? a.class - b.class : 1) : (typeof b == 'number' ? -1 : a.class.toString().localeCompare(b.class.toString())))})

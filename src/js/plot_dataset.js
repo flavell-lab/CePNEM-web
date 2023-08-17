@@ -1006,6 +1006,8 @@ function toggleDataLoad(){
         $('#select_behavior').trigger('changed.bs.select');
     }
 
+    document.getElementById('plot-column').style.display = 'inline-block';
+
     // update the current URL
     let url = new URL(window.location.href);
     url.searchParams.set("datasets", dataload);

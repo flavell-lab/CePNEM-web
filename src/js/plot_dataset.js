@@ -593,7 +593,7 @@ function find_matches(neuropal_label, data){
                 }
                 if(neuron_list == undefined){
                     console.error("Unable to find Neuron in dataset")
-                    break;
+                    continue;
                 }
                 let list_match_uid = neuron_list.map(function (subarray) {
                     if (subarray[0] == curr_dataset_uid) {

@@ -36,6 +36,7 @@
     padding: 10px;
 }
 .table-column {
+    max-width: 500px;
     flex: 1;
     padding: 10px;
 }

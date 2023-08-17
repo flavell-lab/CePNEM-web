@@ -142,7 +142,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 				newClass.traces[0].line.color = color_list[((2*newClass.color_idx[color_idx] + (newClass.traces[0].offset % 2)) % color_list.length)];
 				neuronTraces.push(newClass);
 				var list_to_add = newClass.color_idx[0].toString() + "_" + newClass.color_idx[1].toString() + "_" + newClass.color_idx[2].toString();
-				curr_colors.push(neuronTraces[i].class + "_" + list_to_add);
+				curr_colors.push(newClass.class + "_" + list_to_add);
 				break;
 			}
 		}
@@ -166,7 +166,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		newClass.traces[0].line.color = color_list[((2*newClass.color_idx[color_idx] + (newClass.traces[0].offset % 2)) % color_list.length)];
 		neuronTraces.push(newClass);
 		var list_to_add = newClass.color_idx[0].toString() + "_" + newClass.color_idx[1].toString() + "_" + newClass.color_idx[2].toString();
-		curr_colors.push(neuronTraces[i].class + "_" + list_to_add);
+		curr_colors.push(newClass.class + "_" + list_to_add);
 	}
 
 

@@ -114,12 +114,15 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 				traces.push(trace);
 				neuronTraces[i].color_idx[color_idx] = next_available_color;
 				for(var k = 0; k < curr_colors.length; k++){
-					if(curr_colors[k].split("_")[0] == trace.class){
-						var colors = [curr_colors[k].split("_")[1], curr_colors[k].split("_")[2], curr_colors[k].split("_")[3]];
+					var split = curr_colors[k].split("_")
+					if(split[0] == trace.class){
+						var colors = [split[1], split[2], split[3]];
+						console.log("Currently allocated colors: " + colors);
 						for(var j = 0; j < colors.length; j++){
-							if(parseInt(colors[j]) != -1)
+							if(parseInt(colors[j]) != -1){}
 								neuronTraces[i].color_idx[j] = parseInt(colors[j]);
 						}
+						console.log("Newly allocated colors: " + colors);
 						break;
 					}
 				}
@@ -136,8 +139,9 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 				};
 				newClass.color_idx[color_idx] = next_available_color;
 				for(var k = 0; k < curr_colors.length; k++){
-					if(curr_colors[k].split("_")[0] == trace.class){
-						var colors = [curr_colors[k].split("_")[1], curr_colors[k].split("_")[2], curr_colors[k].split("_")[3]];
+					var split = curr_colors[k].split("_");
+					if(split[0] == trace.class){
+						var colors = [split[1], split[2], split[3]];
 						for(var j = 0; j < colors.length; j++){
 							if(parseInt(colors[j]) != -1)
 								newClass.color_idx[j] = parseInt(colors[j]);
@@ -160,8 +164,9 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		};
 		newClass.color_idx[color_idx] = next_available_color;
 		for(var k = 0; k < curr_colors.length; k++){
-			if(curr_colors[k].split("_")[0] == trace.class){
-				var colors = [curr_colors[k].split("_")[1], curr_colors[k].split("_")[2], curr_colors[k].split("_")[3]];
+			var split = curr_colors[k].split("_");
+			if(split[0] == trace.class){
+				var colors = [split[1], split[2], split[3]];
 				for(var j = 0; j < colors.length; j++){
 					if(parseInt(colors[j]) != -1)
 						newClass.color_idx[j] = parseInt(colors[j]);

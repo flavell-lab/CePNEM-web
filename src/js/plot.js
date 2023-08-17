@@ -101,6 +101,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	// color_idx specifies which index refers to the specific neuron 
 	var color_idx = Math.floor(trace.offset / 2);
 
+	console.log("Adding: " + label);
 	console.log("Current Colors:" + curr_colors);
 	console.log("Used colors: " + used_colors);
 

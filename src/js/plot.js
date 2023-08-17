@@ -99,7 +99,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	// Colors in the URL are encoded as "<class>_<undefined>_<dorsal>_<ventral> eg RME_0_1_2, where RMER/L have color 0, RMEDR/L have color 1, and REMVR/L have color 2"
 	// color_idx specifies which index refers to the specific neuron 
-	var color_idx = Math.floor(trace.offset / 2);
+	var color_idx = Math.trunc(trace.offset / 2);
 
 	console.log("Adding: " + label);
 	console.log("Current Colors:" + curr_colors);
@@ -120,7 +120,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 					var split = curr_colors[k].split("_")
 					if(split[0] == trace.class){
 						var colors = [split[1], split[2], split[3]];
-						console.log("Currently allocated colors: " + colors);
+						console.log("Currently allocated colors: " + neuronTraces[i].color_idx);
 						for(var j = 0; j < colors.length; j++){
 							if(parseInt(colors[j]) != -1){}
 								neuronTraces[i].color_idx[j] = parseInt(colors[j]);

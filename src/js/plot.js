@@ -118,7 +118,8 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 				var traces = neuronTraces[i].traces;
 				traces.push(trace);
 				neuronTraces[i].color_idx[color_idx] = next_available_color;
-				for(var k = 0; k < curr_colors.length; k++){
+				var k = 0;
+				for(k = 0; k < curr_colors.length; k++){
 					var split = curr_colors[k].split("_")
 					if(split[0] == trace.class){
 						var colors = [split[1], split[2], split[3]];
@@ -133,7 +134,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 				}
 				traces[traces.length-1].line.color = color_list[((2*neuronTraces[i].color_idx[color_idx] + (trace.offset % 2)) % color_list.length)];
 				var list_to_add = neuronTraces[i].color_idx[0].toString() + "_" + neuronTraces[i].color_idx[1].toString() + "_" + neuronTraces[i].color_idx[2].toString();
-				curr_colors.splice(i, 1, neuronTraces[i].class + "_" + list_to_add);
+				curr_colors.splice(k, 1, neuronTraces[i].class + "_" + list_to_add);
 				break;
 			}
 			else if(i == neuronTraces.length - 1){ // add the neuron class and trace if the class has not been inserted yet

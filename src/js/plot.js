@@ -105,6 +105,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		// If the neuron class exists this new trace potentially inherits a predefined color
 		for(var i = 0; i < neuronTraces.length; i++){
 			if(neuronTraces[i].class === trace.class){
+				console.log("Found class: " + trace.class);
 				var traces = neuronTraces[i].traces;
 				traces.push(trace);
 				neuronTraces[i].color_idx[color_idx] = next_available_color;

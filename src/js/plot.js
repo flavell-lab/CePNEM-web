@@ -120,7 +120,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 				traces[traces.length-1].line.color = color_list[((2*neuronTraces[i].color_idx[color_idx] + (trace.offset % 2)) % color_list.length)];
 				break;
 			}
-			else if(i == neuronTraces.length - 1){ // Simply add the neuron class and trace if the class has not been inserted yet
+			else if(i == neuronTraces.length - 1){ // add the neuron class and trace if the class has not been inserted yet
 				var newClass = {
 					class: trace.class,
 					traces: [trace],

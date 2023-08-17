@@ -141,6 +141,8 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 				}
 				newClass.traces[0].line.color = color_list[((2*newClass.color_idx[color_idx] + (newClass.traces[0].offset % 2)) % color_list.length)];
 				neuronTraces.push(newClass);
+				var list_to_add = newClass.color_idx[0].toString() + "_" + newClass.color_idx[1].toString() + "_" + newClass.color_idx[2].toString();
+				curr_colors.push(neuronTraces[i].class + "_" + list_to_add);
 				break;
 			}
 		}
@@ -163,22 +165,9 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		}
 		newClass.traces[0].line.color = color_list[((2*newClass.color_idx[color_idx] + (newClass.traces[0].offset % 2)) % color_list.length)];
 		neuronTraces.push(newClass);
+		var list_to_add = newClass.color_idx[0].toString() + "_" + newClass.color_idx[1].toString() + "_" + newClass.color_idx[2].toString();
+		curr_colors.push(neuronTraces[i].class + "_" + list_to_add);
 	}
-
-
-	var new_colors_list = [];
-
-	// Write back in the currently used colors
-	for(var i = 0; i < neuronTraces.length; i++){
-		var list_to_add = neuronTraces[i].color_idx[0].toString() + "_" + neuronTraces[i].color_idx[1].toString() + "_" + neuronTraces[i].color_idx[2].toString();
-		new_colors_list.push(neuronTraces[i].class + "_" + list_to_add);
-	}
-	curr_colors = new_colors_list;
-
-	// Push changes to the URL so the state is saved
-	let url = new URL(window.location.href);
-    url.searchParams.set("list_colors", new_colors_list);
-    window.history.pushState({}, "", url);
 
 
 	// For debugging, prints out currently plotted neurons and what colors they are assigned
@@ -190,6 +179,8 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 			outputStr += neuronTraces[i].traces[j].name + ": " + ((2*neuronTraces[i].color_idx[color_idx] + (neuronTraces[i].traces[j].offset % 2)) % color_list.length)+ ", ";
 		}
 	}
+
+	console.log("Stored Neuron Traces" + outputStr);
 }
 
 function plotBehavior(list_t, behavior, plot_element, label, trace_id) {
@@ -276,6 +267,11 @@ const behaviors = ["v", "hc", "f", "av", "bc"];
 
 // Push all traces to the plot in order so the display remains consistant across instances
 function pushToPlot(plot_element){
+
+	// Push changes to the URL so the state is saved
+	let url = new URL(window.location.href);
+    url.searchParams.set("list_colors", new_colors_list);
+    window.history.pushState({}, "", url);
 
 	neuronTraces.sort(function (a, b) {return a.class.toString().localeCompare(b.class.toString())});//(typeof a.class == 'number' ? (typeof b.class == 'number' ? a.class - b.class : 1) : (typeof b == 'number' ? -1 : a.class.toString().localeCompare(b.class.toString())))})
 

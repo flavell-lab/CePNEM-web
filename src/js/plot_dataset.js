@@ -152,7 +152,6 @@ var button_cor = document.getElementById("button_cor");
 var switch_rev = document.getElementById('switch_plot_rev');
 var switch_event = document.getElementById('switch_plot_event');
 var list_uid = []
-var loadLock = false;
 
 const current_url = new URL(window.location.href);
 const url_params = new URLSearchParams(current_url.search);
@@ -339,7 +338,6 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
 
     // neuron selector update
     $('#select_neuron').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-        loadLock = true;
         let idx_neuron = clickedIndex;
         let neuron = idx_neuron + 1;
 
@@ -411,7 +409,6 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     // behavior selector update
     $('#select_behavior').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
         // console.log(`Behavior ${clickedIndex} is ${isSelected ? 'selected' : 'deselected'} previous value: ${previousValue}`);
-        loadLock = true;
         let idx_behavior = clickedIndex;
         let behavior = list_behavior_str_short[idx_behavior];
 
@@ -526,8 +523,7 @@ function populate_side_table(){
         $('#small_dataset_table').bootstrapTable({
             data: table_data,
             onClickRow: function(row, element, field) {
-                if(!lockLock)
-                    window.location.href = row.url; // Navigates to the specified URL in the 'url' field of the clicked row
+                window.location.href = row.url; // Navigates to the specified URL in the 'url' field of the clicked row
             },
             onPageChange: function(number, size){
                 var $rows = $('#small_dataset_table').find('tbody > tr');
@@ -658,7 +654,6 @@ function find_matches(neuropal_label, data){
         if(highlighted_dataset_idx != -1 && highlighted_dataset_idx < $rows.length){
             $rows[highlighted_dataset_idx].classList.add('table-active');
         }
-        loadLock = false;
         
     } else {// if (selectedOptions.length <= 0)
         for (let i = 1; i < list_uid.length; i++) {

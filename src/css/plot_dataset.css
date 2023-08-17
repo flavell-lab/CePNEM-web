@@ -23,7 +23,7 @@
 }
 
 .plot-columns {
-    max-width: 1950;
+    max-width: 1950px;
     width:100%;
     margin: auto;
     display: flex;

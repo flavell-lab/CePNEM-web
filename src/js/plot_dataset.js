@@ -305,10 +305,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         }
     }
 
-    // plot all traces
-    pushToPlot(plot_main);
-    // configure y axis
-    resetYAxis(plot_main)
+    
 
     if (q_plot_neuron && q_plot_behavior) {
         // update correlation modal
@@ -323,6 +320,11 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         button_csv_export.disabled = false;
         button_cor.disabled = false;
     }
+
+    // plot all traces
+    pushToPlot(plot_main);
+    // configure y axis
+    resetYAxis(plot_main)
 
     // update list of datasets that fit selections
     populate_side_table();

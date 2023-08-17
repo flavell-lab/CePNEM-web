@@ -97,6 +97,8 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	// color_idx specifies which index refers to the specific neuron 
 	var color_idx = Math.floor(trace.offset / 2);
 
+	console.log(curr_colors);
+
 
 	if(neuronTraces.length > 0){
 		// Loop through existing neuronTraces to find if the class of the inserted neuron already exists

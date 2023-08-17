@@ -66,6 +66,10 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 		}
     };
 
+	if(curr_colors[0] == ""){
+		curr_colors.splice(0,1);
+	}
+
 	// List to keep track of colors that have been used by existing neurons
 	var used_colors = [];
 
@@ -99,7 +103,6 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	console.log("Current Colors:" + curr_colors);
 	console.log("Used colors: " + used_colors);
-	console.log(typeof curr_colors[0]);
 
 	if(neuronTraces.length > 0){
 		// Loop through existing neuronTraces to find if the class of the inserted neuron already exists

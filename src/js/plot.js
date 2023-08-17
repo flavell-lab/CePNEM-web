@@ -44,7 +44,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	if(neuropal_label[neuron_idx] != undefined){
 		var LR = neuropal_label[neuron_idx]["LR"]
 		var DV = neuropal_label[neuron_idx]["DV"]
-		offset = LR == 'R' ? 1 + (DV == 'undefined' ? 0 : (DV == 'V' ? 4 : 2)) : (DV == 'undefined' ? 0 : (DV == 'V' ? 4 : 2))
+		offset = LR == 'R' ? 1 + (DV == 'D' ? 2 : (DV == 'V' ? 4 : 0)) : (DV == 'D' ? 2 : (DV == 'V' ? 4 : 0))
 	}
 
 	// Create a new trace for the plot

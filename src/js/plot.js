@@ -123,6 +123,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 				break;
 			}
 			else if(i == neuronTraces.length - 1){ // add the neuron class and trace if the class has not been inserted yet
+				console.log("Didn't find class: " + trace.class);
 				var newClass = {
 					class: trace.class,
 					traces: [trace],

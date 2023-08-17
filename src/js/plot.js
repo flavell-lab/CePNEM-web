@@ -101,20 +101,18 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 	// color_idx specifies which index refers to the specific neuron 
 	var color_idx = Math.trunc(trace.offset / 2);
 
-	console.log("Adding: " + label);
-	console.log("Current Colors:" + curr_colors);
-	console.log("Used colors: " + used_colors);
-	console.log("Next available color: " + next_available_color);
-	console.log("Placing color at idx: " + color_idx);
-
-
+	// console.log("Adding: " + label);
+	// console.log("Current Colors:" + curr_colors);
+	// console.log("Used colors: " + used_colors);
+	// console.log("Next available color: " + next_available_color);
+	// console.log("Placing color at idx: " + color_idx);
 
 	if(neuronTraces.length > 0){
 		// Loop through existing neuronTraces to find if the class of the inserted neuron already exists
 		// If the neuron class exists this new trace potentially inherits a predefined color
 		for(var i = 0; i < neuronTraces.length; i++){
 			if(neuronTraces[i].class === trace.class){
-				console.log("Found class: " + trace.class);
+				// console.log("Found class: " + trace.class);
 				var traces = neuronTraces[i].traces;
 				traces.push(trace);
 				neuronTraces[i].color_idx[color_idx] = next_available_color;
@@ -123,12 +121,12 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 					var split = curr_colors[k].split("_")
 					if(split[0] == trace.class){
 						var colors = [split[1], split[2], split[3]];
-						console.log("Currently allocated colors: " + neuronTraces[i].color_idx);
+						// console.log("Currently allocated colors: " + neuronTraces[i].color_idx);
 						for(var j = 0; j < colors.length; j++){
 							if(parseInt(colors[j]) != -1)
 								neuronTraces[i].color_idx[j] = parseInt(colors[j]);
 						}
-						console.log("Newly allocated colors: " + neuronTraces[i].color_idx);
+						// console.log("Newly allocated colors: " + neuronTraces[i].color_idx);
 						break;
 					}
 				}
@@ -138,7 +136,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 				break;
 			}
 			else if(i == neuronTraces.length - 1){ // add the neuron class and trace if the class has not been inserted yet
-				console.log("Didn't find class: " + trace.class);
+				// console.log("Didn't find class: " + trace.class);
 				var newClass = {
 					class: trace.class,
 					traces: [trace],
@@ -199,15 +197,15 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 
 	// For debugging, prints out currently plotted neurons and what colors they are assigned
 
-	var outputStr = "";
+	// var outputStr = "";
 
-	for(var i = 0; i < neuronTraces.length; i++){
-		for(var j = 0; j < neuronTraces[i].traces.length; j++){
-			outputStr += neuronTraces[i].traces[j].name + ": " + ((2*neuronTraces[i].color_idx[Math.trunc(neuronTraces[i].traces[j].offset / 2)] + (neuronTraces[i].traces[j].offset % 2)) % color_list.length)+ ", ";
-		}
-	}
+	// for(var i = 0; i < neuronTraces.length; i++){
+	// 	for(var j = 0; j < neuronTraces[i].traces.length; j++){
+	// 		outputStr += neuronTraces[i].traces[j].name + ": " + ((2*neuronTraces[i].color_idx[Math.trunc(neuronTraces[i].traces[j].offset / 2)] + (neuronTraces[i].traces[j].offset % 2)) % color_list.length)+ ", ";
+	// 	}
+	// }
 
-	console.log("Stored Neuron Traces: " + outputStr);
+	// console.log("Stored Neuron Traces: " + outputStr);
 }
 
 function plotBehavior(list_t, behavior, plot_element, label, trace_id) {

@@ -569,7 +569,7 @@ function find_matches(neuropal_label, data){
         var url_param_list = new URLSearchParams(curr_url.search);
         var curr_list_url_behavior = url_param_list.get('list_behavior').split(",").sort();
         var url_colors_list = url_param_list.get('list_colors').split(",");
-        console.log(url_colors_list);
+        // console.log(url_colors_list);
         for (var i = 1; i < list_uid.length; i++) {
             let curr_dataset_uid = list_uid[i];
             // iterate over neurons selected

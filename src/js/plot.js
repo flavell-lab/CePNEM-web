@@ -122,7 +122,7 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
 						var colors = [split[1], split[2], split[3]];
 						console.log("Currently allocated colors: " + neuronTraces[i].color_idx);
 						for(var j = 0; j < colors.length; j++){
-							if(parseInt(colors[j]) != -1){}
+							if(parseInt(colors[j]) != -1)
 								neuronTraces[i].color_idx[j] = parseInt(colors[j]);
 						}
 						console.log("Newly allocated colors: " + neuronTraces[i].color_idx);

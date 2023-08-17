@@ -299,7 +299,7 @@ function pushToPlot(plot_element){
     url.searchParams.set("list_colors", curr_colors);
     window.history.pushState({}, "", url);
 
-	neuronTraces.sort(function (a, b) {return a.class.toString().localeCompare(b.class.toString())});//(typeof a.class == 'number' ? (typeof b.class == 'number' ? a.class - b.class : 1) : (typeof b == 'number' ? -1 : a.class.toString().localeCompare(b.class.toString())))})
+	neuronTraces.sort(function (a, b) {return (typeof a.class == 'number' ? (typeof b.class == 'number' ? a.class - b.class : 1) : (typeof b == 'number' ? -1 : a.label.toString().split("(")[1].split(")")[0].localeCompare(b.label.toString().split("(")[1].split(")")[0])))})
 
 	while(plot_element.data.length){
 		Plotly.deleteTraces(plot_element, [0])

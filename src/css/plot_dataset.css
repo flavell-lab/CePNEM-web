@@ -31,10 +31,11 @@
     justify-content: space-evenly;
 }
 .plot-column {
-    flex: 1;
+    flex: 3;
     padding: 0px;
 }
 .table-column {
+    flex: 1;
     width: 600px;
     padding: 10px;
 }

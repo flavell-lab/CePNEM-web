@@ -178,15 +178,16 @@ function plotNeuron(list_t, trace, plot_element, label, trace_id, neuropal_label
     url.searchParams.set("list_colors", new_colors_list);
     window.history.pushState({}, "", url);
 
+
 	// For debugging, prints out currently plotted neurons and what colors they are assigned
 
-	// var outputStr = "";
+	var outputStr = "";
 
-	// for(var i = 0; i < neuronTraces.length; i++){
-	// 	for(var j = 0; j < neuronTraces[i].traces.length; j++){
-	// 		outputStr += neuronTraces[i].traces[j].name + ": " + ((2*neuronTraces[i].color_idx[color_idx] + (neuronTraces[i].traces[j].offset % 2)) % color_list.length)+ ", ";
-	// 	}
-	// }
+	for(var i = 0; i < neuronTraces.length; i++){
+		for(var j = 0; j < neuronTraces[i].traces.length; j++){
+			outputStr += neuronTraces[i].traces[j].name + ": " + ((2*neuronTraces[i].color_idx[color_idx] + (neuronTraces[i].traces[j].offset % 2)) % color_list.length)+ ", ";
+		}
+	}
 }
 
 function plotBehavior(list_t, behavior, plot_element, label, trace_id) {
@@ -274,7 +275,7 @@ const behaviors = ["v", "hc", "f", "av", "bc"];
 // Push all traces to the plot in order so the display remains consistant across instances
 function pushToPlot(plot_element){
 
-	neuronTraces.sort(function (a, b) {return (typeof a == 'number' ? (typeof b == 'number' ? a - b : 1) : (typeof b == 'number' ? -1 : a.class.toString().localeCompare(b.class.toString())))})
+	neuronTraces.sort(function (a, b) {return a.class.toString().localeCompare(b.class.toString())});//(typeof a.class == 'number' ? (typeof b.class == 'number' ? a.class - b.class : 1) : (typeof b == 'number' ? -1 : a.class.toString().localeCompare(b.class.toString())))})
 
 	while(plot_element.data.length){
 		Plotly.deleteTraces(plot_element, [0])

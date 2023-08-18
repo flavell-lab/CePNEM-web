@@ -23,18 +23,21 @@
 }
 
 .plot-columns {
+    max-width: 1950px;
     width:100%;
     margin: auto;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    justify-content: space-evenly;
 }
 .plot-column {
-    flex: 7;
-    padding: 0px;
+    flex: 3;
+    padding: 10px;
 }
 .table-column {
-    flex: 2;
+    max-width: 500px;
+    flex: 1;
     padding: 10px;
 }
 /* Clear floats after the columns */

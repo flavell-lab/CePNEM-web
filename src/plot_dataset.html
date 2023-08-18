@@ -56,7 +56,7 @@
         <!-- <a href="#" class="btn btn-success" role="button" data-toggle="tooltip" data-placement="top" title="Edit">E</a> -->
 
         <button class="btn btn-light" onclick="clearSelect()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Clear the selections">Clear</button>
-        <button class="btn btn-light" class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlotConfig" aria-expanded="false" aria-controls="collapsePlotConfig"><i class="bi bi-gear-wide-connected" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plot configurations"></i></button>
+        <button class="btn btn-light" class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlotConfig" aria-expanded="false" aria-controls="collapsePlotConfig"><i class="bi bi-gear-wide-connected" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Display additional data (eg: reversals)"></i></button>
         <button id="button_cor" class="btn btn-light" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modalCor"><i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compute Pearson cor among the neural trace(s) and behavior(s)" class="bi bi-calculator"></i></button>
         <button class="btn btn-light" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modalInfo"><i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Additional information" class="bi bi-info-circle"></i></button>
         <button id="button_csv_export" class="btn btn-light" onclick="exportCSV()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Download currently plotted neurons(s)/behavior(s) as a CSV file"><i class="bi bi-download"></i></button>
@@ -86,15 +86,7 @@
     </div>
   </div>
 
-  <div class="plot-columns">
-    <div class="container px-4">
-      <div class="plot-column">
-        <!-- plot -->
-        <div id='plot_main'></div>
-
-        
-
-        <!-- modal correlation -->
+   <!-- modal correlation -->
         <div class="modal fade" id="modalCor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
           aria-labelledby="modalCorLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-scrollable">
@@ -140,8 +132,14 @@
         </div>
         <!-- END modal -->
 
-      </div> <!-- End column -->
-    </div> <!-- END container -->
+        
+
+  <div class="plot-columns">
+    <div class="plot-column container px-4">
+      <!-- plot -->
+      <div id='plot_main'></div>  
+
+    </div> <!-- End column -->
     <div class = "table-column collapse hide" id = "collapseTable" style="display: none">
       <div class="container px-4">
         <div class="form-group">

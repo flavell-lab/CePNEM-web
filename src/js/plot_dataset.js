@@ -591,6 +591,9 @@ function find_matches(neuropal_label, data){
                 if(neuron_list == undefined){
                     neuron_list = data[neuron_class];
                 }
+                if(neuron_list == undefined && DV == "missing"){
+                    neuron_list = data[neuron_class + "D"].concat(data[neuron_class + "V"])
+                }
                 if(neuron_list == undefined){
                     console.error("Unable to find Neuron in dataset")
                     continue;

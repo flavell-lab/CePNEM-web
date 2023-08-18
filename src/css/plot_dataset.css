@@ -17,3 +17,33 @@
     min-width: 140px;
     max-width: 140px;
 }
+
+* {
+    box-sizing: border-box;
+}
+
+.plot-columns {
+    max-width: 1950px;
+    width:100%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+}
+.plot-column {
+    flex: 3;
+    padding: 10px;
+}
+.table-column {
+    max-width: 500px;
+    flex: 1;
+    padding: 10px;
+}
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+

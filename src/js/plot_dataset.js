@@ -117,6 +117,10 @@ function toggleEvent(q) {
 }
 
 function resetYAxis(plot) {
+    // console.log("Plot Data length: " + data_export["neuron"].length);
+    if(data_export["neuron"].length == 0){
+        return;
+    }
     let margin = 0.05
     let data_ = plot.data
     let y_max = -1000.
@@ -147,6 +151,7 @@ var button_csv_export = document.getElementById("button_csv_export");
 var button_cor = document.getElementById("button_cor");
 var switch_rev = document.getElementById('switch_plot_rev');
 var switch_event = document.getElementById('switch_plot_event');
+var list_uid = []
 
 const current_url = new URL(window.location.href);
 const url_params = new URLSearchParams(current_url.search);
@@ -154,7 +159,8 @@ const dataset_uid = url_params.get('uid');
 const list_neuron_str = url_params.get('list_neuron').split(",");
 const list_url_neuron = [...new Set(list_neuron_str.map(x => parseInt(x)).sort(function(a, b) {return a - b;}))]
 const list_url_behavior = url_params.get('list_behavior').split(",").sort();
-const list_behavior_str = ["Velocity", "Head Curve", "Pumping", "Angular Velocity", "Body Curvature"];
+const list_colors = url_params.get('list_colors').split(",");
+const list_behavior_str = ["Velocity", "Head Curvature", "Pumping", "Angular Velocity", "Body Curvature"];
 const list_behavior_str_short = ["v", "hc", "f", "av", "bc"];
 const behavior_units = ["0.1 mm/s", "rad", "pumps/sec", "rad/s", "rad"];
 
@@ -164,6 +170,7 @@ const cor_txt_other_neuron = document.getElementById('cor_txt_other_neuron');
 
 var n_neuron = 0;
 var data_export = {"neuron": [], "behavior": []};
+var dataload;
 
 function update_data_export(data_export, trace_array, behaviors, list_neuron, list_behavior, neuropal_label) {
     data_export["neuron"] = [];
@@ -187,10 +194,20 @@ list_url_behavior.forEach(function(behavior) {
 });
 
 fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data => {
-    // console.log(data)
     n_neuron = data["num_neurons"];
     button_csv_export.disabled = true;
     button_cor.disabled = true;
+    dataload = url_params.get('datasets');
+    dataload = dataload === 'true' ? true : false
+    
+     // Get dataset dtype to include in title
+    let list_dtype = data.dataset_type;
+
+    let html_dtype = "";
+    for (let i = 0; i < list_dtype.length; i++) {
+        let dtype_ = list_dtype[i];
+        html_dtype += getDatasetTypePill(dtype_) + " "
+    }
 
     // check neuron url
     list_url_neuron.forEach(function(idx_neuron) {
@@ -201,7 +218,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
 
     // change dataset string
     const str_dataset = document.getElementById('str_dataset');
-    str_dataset.innerHTML = `Dataset - ${dataset_uid}`; 
+    str_dataset.innerHTML = `Dataset - ${dataset_uid} ` + html_dtype; 
     
     // load neuron list to the picker
     const list_idx_neuron = Array.from({ length: n_neuron }, (_, i) => i);
@@ -274,7 +291,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             let idx_neuron = neuron - 1;
             let neuron_label = "Neuron " + get_neuron_label(idx_neuron, neuropal_label);
             let trace = trace_array[idx_neuron];
-            plotNeuron(list_t, trace, plot_main, neuron_label, `neuron_${neuron}`)
+            plotNeuron(list_t, trace, plot_main, neuron_label, `neuron_${neuron}`, neuropal_label)
         }
     }
 
@@ -288,8 +305,7 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         }
     }
 
-    // configure y axis
-    resetYAxis(plot_main)
+    
 
     if (q_plot_neuron && q_plot_behavior) {
         // update correlation modal
@@ -305,9 +321,25 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         button_cor.disabled = false;
     }
 
+    // plot all traces
+    pushToPlot(plot_main);
+    // configure y axis
+    resetYAxis(plot_main)
+
+    // update list of datasets that fit selections
+    populate_side_table();
+
+    // find matching datasets and update the side table
+    if(dataload){
+        fetch("data/matches.json").
+            then(response => response.json()).
+            then(match_data => {
+                find_matches(neuropal_label, match_data);
+        }).catch(error => console.error(error));
+    }   
+
     // neuron selector update
     $('#select_neuron').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-        // console.log(`Neuron ${clickedIndex} is ${isSelected ? 'selected' : 'deselected'} previous value: ${previousValue}`);
         let idx_neuron = clickedIndex;
         let neuron = idx_neuron + 1;
 
@@ -328,16 +360,15 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             // plot neuron if selected
             let neuron_label = "Neuron " + get_neuron_label(idx_neuron, neuropal_label);
             let trace = trace_array[idx_neuron];
-            plotNeuron(list_t, trace, plot_main, neuron_label, `neuron_${neuron}`)
+            plotNeuron(list_t, trace, plot_main, neuron_label, `neuron_${neuron}`, neuropal_label)
         } else if (!isSelected && trace_idx == -1) {
             // remove but trace does not exist. do nothing
         } else {
             // remove existing neuron if deselected
+            let neuron_label = "Neuron " + get_neuron_label(idx_neuron, neuropal_label);
+            removeTrace(`neuron_${neuron}`, neuropal_label[neuron] != undefined ? neuropal_label[neuron]['neuron_class'] : neuron);
             Plotly.deleteTraces(plot_main, i);
         }
-
-        // update y
-        resetYAxis(plot_main)
 
         let selected_idx_neuron_str = $(this).val();
         let selected_neuron_str = selected_idx_neuron_str.map(num => {
@@ -357,13 +388,27 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             selected_behavior_str_short, neuropal_label)    
         button_csv_export.disabled = false;
 
+        // plot all traces
+        pushToPlot(plot_main);
+        // update y
+        resetYAxis(plot_main);
+
         // update the current URL
         let url = new URL(window.location.href);
         url.searchParams.set("list_neuron", selected_neuron_str);
         window.history.pushState({}, "", url);
+
+        // find matching datasets and update the side table
+        if(dataload){
+            fetch("data/matches.json").
+                then(response => response.json()).
+                then(match_data => {
+                    find_matches(neuropal_label, match_data);
+            }).catch(error => console.error(error));
+        }   
     });
 
-    // neuron selector update
+    // behavior selector update
     $('#select_behavior').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
         // console.log(`Behavior ${clickedIndex} is ${isSelected ? 'selected' : 'deselected'} previous value: ${previousValue}`);
         let idx_behavior = clickedIndex;
@@ -390,7 +435,10 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
         } else if (!isSelected && trace_idx == -1) {
             // remove but trace does not exist. do nothing
         } else {
+            
             // remove existing behavior if deselected
+            let label = `${list_behavior_str[idx_behavior]} (${behavior_units[idx_behavior]})`;
+            removeBehavior(label);
             Plotly.deleteTraces(plot_main, i);
         }
 
@@ -411,12 +459,32 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             selected_behavior_str_short, neuropal_label)
         button_csv_export.disabled = false;
 
+        pushToPlot(plot_main);
+        resetYAxis(plot_main);
+
         // update the current URL
         let url = new URL(window.location.href);
         url.searchParams.set("list_behavior", selected_behavior_str_short);
         window.history.pushState({}, "", url);
+
+        // find matching datasets and update the side table
+        if(dataload){
+            fetch("data/matches.json").
+                then(response => response.json()).
+                then(match_data => {
+                    find_matches(neuropal_label, match_data);
+            }).catch(error => console.error(error))
+        }   
+        
     });
-    
+
+    // Depending on URL state, choose to display side table
+    if(dataload){
+        document.getElementById('collapseTable').style.display = 'block';
+    } else{
+        document.getElementById('collapseTable').style.display = 'none';
+    }
+
     // table
     var table_encoding_data = getEncodingTable(data)
 
@@ -425,10 +493,200 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     });    
 }).catch(error => { console.error(error) });
 
+function populate_side_table(){
+    // populate table
+    var table_data = [];
+    list_uid = [];
+    fetch("data/summary.json").then(response => response.json()).then(data => {
+        for (const [key, value] of Object.entries(data)) {
+            let list_dtype = value.dataset_type;
+            let url_neuron = "plot_dataset.html?uid=" + key + "&list_neuron=1&list_behavior=v&list_colors=&datasets=";
+            let url_json = `data/${key}.json`
+
+            if (list_dtype.includes("neuropal")) {
+                let html_dtype = "";
+                for (let i = 0; i < list_dtype.length; i++) {
+                    let dtype_ = list_dtype[i];
+                    html_dtype += getDatasetTypePill(dtype_) + " "
+                }
+                table_data.push({
+                    id: key,
+                    type: html_dtype,
+                    url: url_neuron
+                })
+            }
+            list_uid.push(key)
+        }
+
+        curr_url = new URL(window.location.href);
+        url_param_list = new URLSearchParams(curr_url.search);
+        dataset_uid = url_param_list.get('uid');
+
+        $('#small_dataset_table').bootstrapTable({
+            data: table_data,
+            onClickRow: function(row, element, field) {
+                window.location.href = row.url; // Navigates to the specified URL in the 'url' field of the clicked row
+            },
+            onPageChange: function(number, size){
+                var $rows = $('#small_dataset_table').find('tbody > tr');
+                if(highlighted_dataset_idx < $rows.length)
+                    $rows[highlighted_dataset_idx].classList.add('table-active');
+            }
+        });
+
+        for (var i = 1; i < list_uid.length; i++) {
+            var dataset_uid = list_uid[i];
+            $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: dataset_uid});
+        }
+    }).catch(error => console.error(error));
+}
+
+var lastShownDataset = null;
+var previousDatasetURL = null;
+var nextDatasetURL = null;
+var highlighted_dataset_idx = -1;
+
+function find_matches(neuropal_label, data){
+    let selectedOptions = [];
+
+    let neuron_indices = $("#select_neuron").val()
+    
+    for(let i = 0; i < neuron_indices.length; i++){
+        let idx_neuron = Number(neuron_indices[i]) + 1;
+        if(idx_neuron in neuropal_label){
+            selectedOptions.push({class: neuropal_label[idx_neuron]["neuron_class"], 
+                                LR: neuropal_label[idx_neuron]["LR"],
+                                DV: neuropal_label[idx_neuron]["DV"]})
+        }
+    }
+
+    if (selectedOptions.length > 0) {
+        var curr_dataset_idx = 0;
+        var first_dataset_idx = list_uid.length;
+        var last_dataset_idx = 0;
+        var next_idx = 0;
+        var preb_idx = 0;
+        var shown_count = 0;
+        var curr_url = new URL(window.location.href);
+        var url_param_list = new URLSearchParams(curr_url.search);
+        var curr_list_url_behavior = url_param_list.get('list_behavior').split(",").sort();
+        var url_colors_list = url_param_list.get('list_colors').split(",");
+        // console.log(url_colors_list);
+        for (var i = 1; i < list_uid.length; i++) {
+            let curr_dataset_uid = list_uid[i];
+            // iterate over neurons selected
+            let match_all = true;
+            let list_idx_neuron = [];
+            for (let j = 0; j < selectedOptions.length; j++) {
+                let neuron_class = selectedOptions[j].class;
+                let LR = selectedOptions[j].LR;
+                let DV = selectedOptions[j].DV;
+                let neuron_list = data[neuron_class + DV + LR];
+                if(neuron_list == undefined){
+                    neuron_list = data[neuron_class + DV];
+                }
+                if(neuron_list == undefined){
+                    neuron_list = data[neuron_class + LR];
+                }
+                if(neuron_list == undefined){
+                    neuron_list = data[neuron_class];
+                }
+                if(neuron_list == undefined && DV == "missing"){
+                    neuron_list = data[neuron_class + "D"].concat(data[neuron_class + "V"])
+                }
+                if(neuron_list == undefined){
+                    console.error("Unable to find Neuron in dataset")
+                    continue;
+                }
+                let list_match_uid = neuron_list.map(function (subarray) {
+                    if (subarray[0] == curr_dataset_uid) {
+                        list_idx_neuron.push(subarray[1])
+                    }
+                    return subarray[0];
+                });
+                let match_ = list_match_uid.includes(curr_dataset_uid)
+                match_all = match_all && match_
+            }
+
+            
+
+            if (match_all == true) {
+                let url_plot = new URL("plot_dataset.html", document.location);
+                url_plot.searchParams.set("uid", curr_dataset_uid);
+                url_plot.searchParams.set("list_neuron", list_idx_neuron);
+                url_plot.searchParams.set("list_behavior", curr_list_url_behavior);
+                url_plot.searchParams.set("list_colors", url_colors_list);
+                url_plot.searchParams.set("datasets", true);
+                $('#small_dataset_table').bootstrapTable('updateCellByUniqueId', {
+                    id: curr_dataset_uid,
+                    field: "url",
+                    value: url_plot,
+                    reinit: true
+                });
+
+                $('#small_dataset_table').bootstrapTable('showRow', {uniqueId: curr_dataset_uid});
+                
+                if(i < first_dataset_idx){
+                    first_dataset_idx = i;
+                }
+                if(i > last_dataset_idx){
+                    last_dataset_idx = i;
+                }
+
+                if(curr_dataset_uid === dataset_uid){
+                    curr_dataset_idx = i;
+                    highlighted_dataset_idx = shown_count;
+
+                    if(lastShownDataset != null){
+                        previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', lastShownDataset).url;
+                    }  
+                }
+                if(lastShownDataset == list_uid[curr_dataset_idx]){
+                    nextDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[i]).url;
+                }   
+                lastShownDataset = curr_dataset_uid;
+                shown_count++;
+            } else {
+                $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: curr_dataset_uid});
+            }
+        }
+        if(previousDatasetURL == null){
+            previousDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[last_dataset_idx]).url;
+        }
+        if(nextDatasetURL == null){
+            nextDatasetURL = $('#small_dataset_table').bootstrapTable('getRowByUniqueId', list_uid[first_dataset_idx]).url;
+        }
+        var $rows = $('#small_dataset_table').find('tbody > tr');
+        if(highlighted_dataset_idx != -1 && highlighted_dataset_idx < $rows.length){
+            $rows[highlighted_dataset_idx].classList.add('table-active');
+        }
+        
+    } else {// if (selectedOptions.length <= 0)
+        for (let i = 1; i < list_uid.length; i++) {
+            let curr_dataset_uid = list_uid[i];
+            $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: curr_dataset_uid});
+        }
+    }
+}
+
+function nextDataset(){
+    if(nextDatasetURL != null)
+        window.location.href = nextDatasetURL;
+}
+
+function previousDataset(){
+    if(previousDatasetURL != null)
+        window.location.href = previousDatasetURL;
+}
+
 function clearSelect() {
     // clear picker
     $("#select_neuron").selectpicker("deselectAll");
     $("#select_behavior").selectpicker("deselectAll");
+
+    neuronTraces = [];
+    behaviorTraces = []
+    curr_colors = [];
 
     // clear plot
     while(plot_main.data.length>0)
@@ -448,10 +706,16 @@ function clearSelect() {
     data_export["neuron"] = [];
     data_export["behavior"] = [];
 
+    // disable next and previous buttons
+    nextDatasetURL = null;
+    previousDatasetURL = null;
+
     // update the current URL
     let url = new URL(window.location.href);
     url.searchParams.set("list_neuron", "");
     url.searchParams.set("list_behavior", "");
+    url.searchParams.set("list_colors", "");
+    url.searchParams.set("datasets", dataload);
     window.history.pushState({}, "", url);
 }
 
@@ -577,7 +841,7 @@ function toggleO(parent) {
 }
 
 function copyURL() {
-    const currentUrl = window.location.href;
+    var currentUrl = window.location.href;
     navigator.clipboard.writeText(currentUrl);
     alert("URL copied to clipboard");
 }
@@ -664,7 +928,7 @@ function updateCorrelationModel(trace_array, behaviors, list_neuron, list_behavi
 
 // CSV export
 function exportCSV() {
-    if (data_export["neuron"].length > 0 || data_export["behavior"].length > 0) {
+    if (data_export["neuron"].length > 0 && data_export["behavior"].length > 0) {
         var csvString = data_export["neuron"].map(row => row.join(",")).join("\n");
         csvString += "\n" + data_export["behavior"].map(row => row.join(",")).join("\n");
 
@@ -688,6 +952,73 @@ function exportCSV() {
     } else {
         alert("Need at least 1 neuron and 1 behavior selected to export data.")
     }
+}
+
+function downloadSelected(){
+    // Get a list of the selected rows
+    var idsToDownload = $("#small_dataset_table").bootstrapTable("getSelections")
+
+    // Loop through selections and download each using the IDs
+    for(let i = 0; i < idsToDownload.length; i++){
+        downloadJson(JSON.parse(JSON.stringify(idsToDownload[i])).id)
+    }
+
+}
+
+function downloadJson(jsonUID) {
+    const jsonUrl = `data/${jsonUID}.json`; // JSON file URL
+
+    // Fetch JSON data
+    fetch(jsonUrl)
+        .then(response => response.json())
+        .then(data => {
+
+            //alert(data)
+            // Create a blob from the JSON data
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+
+            // Create an object URL for the blob
+            const url = URL.createObjectURL(blob);
+
+            // Create a link element
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `${jsonUID}.json`; // specify downloaded file name
+
+            // Append the link element to the body
+            document.body.appendChild(link);
+
+            // Simulate a click on the link
+            link.click();
+
+            // Cleanup - remove the link element from the body
+            document.body.removeChild(link);
+        })
+        .catch(error => console.error('An error occurred:', error));
+}
+
+function toggleDataLoad(){
+    // var content = document.getElementById("small_dataset_table");
+    if(dataload){
+        dataload = false;
+        document.getElementById('collapseTable').style.display = 'none';
+        
+    } else{
+        dataload = true;
+        document.getElementById('collapseTable').style.display = 'block';
+        $('#select_behavior').trigger('changed.bs.select');
+    }
+
+    var plot = document.getElementById('plot-columns')
+    plot.style.display = 'none'
+    plot.offsetWidth;
+    plot.style.display = 'flex'
+    // update the current URL
+    let url = new URL(window.location.href);
+    url.searchParams.set("datasets", dataload);
+    window.history.pushState({}, "", url);
+
+    // console.log("Show Datasets: " + dataload);
 }
 
 function switchRev() {

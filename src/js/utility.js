@@ -32,6 +32,7 @@ function get_neuron_label(idx_neuron, neuropal_label) {
     }
 }
 
+
 function getDatsetFullStr(datasettype) {
     switch (datasettype) {
         case "baseline":

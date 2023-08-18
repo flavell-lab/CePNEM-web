@@ -19,8 +19,9 @@
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
                 <!-- <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg> -->
-                <span class="fs-4">WormWideWeb</span>
-            </a>
+                <!-- <span class="fs-4">WormWideWeb</span> -->
+                <img src="img/Worm-Wide-Web_logo.jpg" alt="WormWideWeb-Logo" width="307" height="50">
+            </a>  
 
             <ul class="nav nav-pills">
                 <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
@@ -38,7 +39,7 @@
         <p>Explore/plot and download</p>
 
         <h3 class="fs-3">JSON file information</h3>
-        JSON is a standard data format, which can be imported in virtually any languages.<br>
+        JSON is a standard data format, which can be imported in virtually any language.<br>
         For information about the data structure, please check out the information file below.<br>
         <br>
         <div class="btn-group">
@@ -89,7 +90,9 @@
                 data-selected-text-format="count > 3">
             </select>
             <button class="btn btn-light" onclick="clearSelect()">Clear</button>
+            <button class="btn btn-light" onclick="downloadSelected()" style="float: right">Download Selected</button>
         </div>
+
         <br>
 
         <table id="dataset_table" class="table-sm" data-pagination="true" data-height="800" data-page-size="25">
@@ -102,6 +105,7 @@
                     <!-- <th data-field="num_encoding_changes" data-sortable="true">Encoding<br>changes</th> -->
                     <th data-field="type" data-sortable="true">Type</th>
                     <th data-field="action" data-sortable="false">Action</th>
+                    <th data-field="selected" data-checkbox="true">Select</th>
                 </tr>
             </thead>
         </table>

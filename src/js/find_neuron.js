@@ -7,7 +7,7 @@ var list_uid = [];
 fetch("data/summary.json").then(response => response.json()).then(data => {
     for (const [key, value] of Object.entries(data)) {
         let list_dtype = value.dataset_type;
-        let url_neuron = "plot_dataset.html?uid=" + key + "&list_neuron=1&list_behavior=v&list_colors=&datasets=false";
+        let url_neuron = "plot_dataset.html?uid=" + key + "&list_neuron=1&list_behavior=v&list_colors=&datasets=true";
         let url_json = `data/${key}.json`
 
         if (list_dtype.includes("neuropal")) {

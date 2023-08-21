@@ -667,6 +667,10 @@ function find_matches(neuropal_label, data){
             $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: curr_dataset_uid});
         }
     }
+    var plot = document.getElementById('plot-columns')
+    plot.style.display = 'none'
+    plot.offsetWidth;
+    plot.style.display = 'flex'
 }
 
 function nextDataset(){

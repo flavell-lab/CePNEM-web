@@ -200,6 +200,13 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     dataload = url_params.get('datasets');
     dataload = dataload === 'true' ? true : false
     
+    if(dataload){
+        document.getElementById('collapseTable').style.display = 'block';
+        
+    } else{
+        document.getElementById('collapseTable').style.display = 'none';
+    }
+
      // Get dataset dtype to include in title
     let list_dtype = data.dataset_type;
 
@@ -667,6 +674,7 @@ function find_matches(neuropal_label, data){
             $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: curr_dataset_uid});
         }
     }
+    
 }
 
 function nextDataset(){
@@ -1009,16 +1017,10 @@ function toggleDataLoad(){
         $('#select_behavior').trigger('changed.bs.select');
     }
 
-    var plot = document.getElementById('plot-columns')
-    plot.style.display = 'none'
-    plot.offsetWidth;
-    plot.style.display = 'flex'
     // update the current URL
     let url = new URL(window.location.href);
     url.searchParams.set("datasets", dataload);
     window.history.pushState({}, "", url);
-
-    // console.log("Show Datasets: " + dataload);
 }
 
 function switchRev() {

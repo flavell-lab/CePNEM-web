@@ -200,6 +200,13 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
     dataload = url_params.get('datasets');
     dataload = dataload === 'true' ? true : false
     
+    if(dataload){
+        document.getElementById('collapseTable').style.display = 'block';
+        
+    } else{
+        document.getElementById('collapseTable').style.display = 'none';
+    }
+
      // Get dataset dtype to include in title
     let list_dtype = data.dataset_type;
 

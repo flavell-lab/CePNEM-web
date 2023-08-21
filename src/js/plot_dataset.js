@@ -1017,10 +1017,10 @@ function toggleDataLoad(){
         $('#select_behavior').trigger('changed.bs.select');
     }
 
-    var plot = document.getElementById('plot-columns')
-    plot.style.display = 'none'
-    plot.offsetWidth;
-    plot.style.display = 'flex'
+    // var plot = document.getElementById('plot-columns')
+    // plot.style.display = 'none'
+    // plot.offsetWidth;
+    // plot.style.display = 'flex'
     // update the current URL
     let url = new URL(window.location.href);
     url.searchParams.set("datasets", dataload);

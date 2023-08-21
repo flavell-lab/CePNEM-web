@@ -336,6 +336,10 @@ fetch(`data/${dataset_uid}.json`).then(response => response.json()).then(data =>
             then(match_data => {
                 find_matches(neuropal_label, match_data);
         }).catch(error => console.error(error));
+        var plot = document.getElementById('plot-columns')
+        plot.style.display = 'none'
+        plot.offsetWidth;
+        plot.style.display = 'flex'
     }   
 
     // neuron selector update
@@ -667,10 +671,7 @@ function find_matches(neuropal_label, data){
             $('#small_dataset_table').bootstrapTable("hideRow", {uniqueId: curr_dataset_uid});
         }
     }
-    var plot = document.getElementById('plot-columns')
-    plot.style.display = 'none'
-    plot.offsetWidth;
-    plot.style.display = 'flex'
+    
 }
 
 function nextDataset(){
